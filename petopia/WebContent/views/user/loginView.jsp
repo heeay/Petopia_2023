@@ -13,7 +13,7 @@
         section{
             width: 800px;
             margin: auto;
-            margin-top: 80px;
+            margin-top: 100px;
             overflow: auto;
         }
         #login-form-wrap{
