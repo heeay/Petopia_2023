@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.member.controller;
+package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class JoinMemberController
  */
 @WebServlet("/join.mb")
-public class JoinMemberController extends HttpServlet {
+public class InsertUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public JoinMemberController() {
+    public InsertUserController() {
         // TODO Auto-generated constructor stub
     }
 

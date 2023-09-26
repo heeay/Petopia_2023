@@ -33,12 +33,12 @@ String contextPath = request.getContextPath();
     <style>
         header{
             width: 100%;
-            height: 350px;
+            height: 80px;
             background-color: rgb(255, 248, 240);
         }
         #header-wrap{
             width: 1100px;
-            height: 80px;
+            height: 100%;
             margin: auto;
         }
         .header-logo{
@@ -73,9 +73,6 @@ String contextPath = request.getContextPath();
             font-weight: bold;
             text-align: center;
             line-height: 75px;
-        }
-        .header-navi a:hover{
-            color: dodgerblue;
         }
         .user-navi{
             float: right;
@@ -126,7 +123,7 @@ String contextPath = request.getContextPath();
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="./login.html">로그인</a></li>
+                    <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
@@ -148,7 +145,6 @@ String contextPath = request.getContextPath();
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
             </ul>
         </div>
-        <img class="banner-img" src="<%=contextPath %>/resources/images/img1.jpg">
     </header>
     <script>
         $(document).ready(function(){
