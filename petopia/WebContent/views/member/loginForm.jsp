@@ -143,6 +143,9 @@
             margin-bottom: 250px;
         }
     </style>
+</head>
+<body ondragstart="return false;">
+	<%@include file="../common/header-min.jsp" %>
     <script>
         $(document).ready(function(){
             $("#email-auth").click(function(){
@@ -183,14 +186,11 @@
             }
         }
     </script>
-</head>
-<body ondragstart="return false;">
-	<%@include file="../common/header-min.jsp" %>
     <section>
         <div class="margin-bottom margin-top">
             <div class="auth-wrap">
                 <div id="email-auth" class="auth-btn">
-                    이메일로 로그인
+                	이메일로 로그인
                 </div>
             </div>
             <div id="login-form-wrap" style="display: none;">
@@ -217,12 +217,12 @@
                     </div>
                     <div class="login-error-wrap" id="err-empty-email" style="display: none;">
                         <div class="error-message">
-                            	이메일을 작성해 주세요.
+                           	이메일을 작성해 주세요.
                         </div>
                     </div>
                     <div class="login-error-wrap" id="err-empty-pw" style="display: none;">
                         <div class="error-message">
-                            비밀번호를 작성해 주세요.
+                           	 비밀번호를 작성해 주세요.
                         </div>
                     </div>
                     <div class="submit-wrap">
@@ -234,19 +234,19 @@
         <div class="auth-wrap margin-bottom">
             <div id="naver-auth" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/naver_login_icon.svg">
-                네이버 로그인
+                	네이버 로그인
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
             <div id="kakao-auth" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/kakao_login_icon.svg">
-                카카오 로그인
+                	카카오 로그인
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
             <div id="google-auth" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
-                구글 로그인
+               	 구글 로그인
             </div>
         </div>
         <div class="find-wrap">
