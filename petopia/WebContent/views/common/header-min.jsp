@@ -123,7 +123,7 @@ String contextPath = request.getContextPath();
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="./login.html">로그인</a></li>
+                    <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
