@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펫토피아에 오신 것을 환영합니다</title>
 </head>
 <body>
-	<h1>����</h1>
+	<h1>하이</h1>
 </body>
 </html>
