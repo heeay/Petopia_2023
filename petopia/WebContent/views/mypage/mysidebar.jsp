@@ -11,12 +11,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        .navi-area{
+        .side-area{
             border: 1px solid black;
-            background-color: rgb(230, 204, 184);
+            background-color: rgb(244, 217, 174);
             display : table-cell;
         }
-        .navi-area a {
+        .side-area a {
             text-decoration : none;
             width : 100%;
             height : 100%;
@@ -24,31 +24,30 @@
             line-height : 50px;
             color : white;
             font-weight : bold;
-            font-size : 20px;
         }
-        .menu{
-         display : table-cell;
-         height : 50px;
-         width : 500px;
+        .side{
+         	height :50px;
+         	width : 300px;
+         	text-align: center;
+            font-size: 20px;
         }
       
-        .menu a{
+        .side a{
          text-decoration : none;
          width : 100%;
          height : 100%;
-         display : block;
          line-height : 50px;
          color : white;
          font-weight : bold;
-         font-size : 20px;
         }
 
-        .menu a:hover{background: linear-gradient(to left, #dae2f8, #d6a4a4);}
+        .side a:hover{background-color: rgb(228, 156, 92);}
 
         .btn-border-none{
             border: 0;
             background-color: rgb(230, 204, 184);
         }
+        
     </style>
 
 </head>
@@ -58,20 +57,18 @@
         <br clear="both">
 
         <div class="navi-area" align="center">
-            <div class="menu"><a href="#">커뮤니티</a></div>
-            <div class="menu"><a href="#">정보</a></div>
-            <div class="menu"><a href="#">행사</a></div>
-            <div class="menu"><a href="#">매칭</a></div>
             
-            <div class="menu"><a href="#">마이페이지</a></div>
-        
-            <div class="menu"><button type="submit" class="btn-border-none">🔍</button></div>
-            <div class="menu"><button type="menu" class="btn-border-none">≡</button></div>
         </div>
 
 
         <div class="side-area">
-
+        	<div></div>
+        	<div class="side"><a href="#">내 등급 및 점수</a></div>
+        	<div class="side"><a href="#">내정보 변경</a></div>
+        	<div class="side"><a href="#">펫 다이어리 작성</a></div>
+        	<div class="side"><a href="#">내 애완동물 프로필</a></div>
+        	<div class="side"><a href="#">건의사항/고객센터</a></div>
+        	
         </div>
     </div>
 </body>
