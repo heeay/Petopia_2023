@@ -7,6 +7,6 @@
 <title>펫토피아에 오신 것을 환영합니다</title>
 </head>
 <body>
-	<h1>하이</h1>
+	<%@include file="views/common/header.jsp" %>
 </body>
 </html>
