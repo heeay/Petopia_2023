@@ -8,5 +8,7 @@
 </head>
 <body>
 	<%@include file="views/common/header.jsp" %>
+	내용
+	<%@include file="views/common/footer.jsp" %>
 </body>
 </html>

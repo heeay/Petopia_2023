@@ -150,10 +150,10 @@
         $(document).ready(function(){
             $("#email-auth").click(function(){
                 if($("#login-form-wrap").css("display")=="none"){
-                    $("#login-form-wrap").css("display","block");
+                    $("#login-form-wrap").slideDown(100);
                 }
                 else{
-                    $("#login-form-wrap").css("display","none");
+                    $("#login-form-wrap").slideUp(100);
                 }
             });
             $("#login-submit").click(function(){
@@ -254,5 +254,6 @@
             <a href="./register.html">회원가입</a>
         </div>
     </section>
+    <%@include file="../common/footer.jsp" %>
 </body>
 </html>
