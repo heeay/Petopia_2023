@@ -51,6 +51,13 @@
         width : 10px;
         height : 10px;
     }
+    #pasing-area{
+        display : flex;
+        justify-content: center;
+    }
+    #pasing-area button{
+        margin : 5px;
+    }
 
 
 </style>
@@ -112,7 +119,15 @@
                     <span>조회수[]</span>
                 </div>
             </div>
-            <div>페이징</div>
+            <div id="pasing-area">
+                <button type="button" class="btn btn-dark"><</button>
+                <button type="button" class="btn btn-dark">1</button>
+                <button type="button" class="btn btn-dark">2</button>
+                <button type="button" class="btn btn-dark">3</button>
+                <button type="button" class="btn btn-dark">4</button>
+                <button type="button" class="btn btn-dark">5</button>
+                <button type="button" class="btn btn-dark">></button>
+            </div>
         </div>
         
         <div id="menu-area">
