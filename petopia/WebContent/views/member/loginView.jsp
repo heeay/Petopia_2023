@@ -251,7 +251,7 @@
         </div>
         <div class="find-wrap">
             <a href="./search_password.html">비밀번호 찾기</a> /
-            <a href="./register.html">회원가입</a>
+            <a href="<%=contextPath %>/register">회원가입</a>
         </div>
     </section>
     <%@include file="../common/footer.jsp" %>

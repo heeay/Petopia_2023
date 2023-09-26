@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.member.controller;
+package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginFormController
+ * Servlet implementation class RegisterFormController
  */
-@WebServlet("/login")
-public class LoginFormController extends HttpServlet {
+@WebServlet("/register")
+public class RegisterFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginFormController() {
+    public RegisterFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class LoginFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/member/loginView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/registerView.jsp").forward(request, response);
 	}
 
 	/**
