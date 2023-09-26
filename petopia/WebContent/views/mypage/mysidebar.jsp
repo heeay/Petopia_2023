@@ -70,18 +70,98 @@
             text-align: center; 
         }
         
+        .header{
+
+        }
 
     </style>
+
+<style>
+    a{
+        text-decoration: none;
+    }
+    ul,ol{
+        list-style: none;
+    }
+
+</style>
+<style>
+    header{
+        width: 100%;
+        height: 350px;
+        background-color: rgb(255, 248, 240);
+    }
+
+    .header-navi{
+        height: 100%;
+        float: left;
+        padding-left: 400px;
+    }
+    .header-navi-item{
+        width: 120px;
+        height: 100%;
+        float: left;
+    }
+    .header-navi a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 75px;
+    }
+    .header-navi a:hover{
+        color: dodgerblue;
+    }
+    .user-navi{
+        float: right;
+    }
+    .user-navi-item{
+        width: 80px;
+        height: 100%;
+        float: left;
+    }
+    .user-navi-icon-btn{
+        width: 50px;
+        height: 100%;
+        float: left;
+    }
+    #header-bar{
+        width: 100%;
+        height: 80px;
+        position: fixed;
+        z-index: 1;
+        top: 0px;
+        left: 0px;
+        background-color: rgb(247, 222, 205);
+    }
+
+</style>
 
 </head>
 <body>
 	<div>
-        
-        <br clear="both">
 
-        <div class="navi-area" align="center">
-            
-        </div>
+        <header>
+            <div id="header-bar">
+                <div id="header-bar-wrap">
+                    
+                    <ul class="header-navi">
+                        <li class="header-navi-item"><a href="#">커뮤니티</a></li>
+                        <li class="header-navi-item"><a href="#">정보</a></li>
+                        <li class="header-navi-item"><a href="#">행사</a></li>
+                        <li class="header-navi-item"><a href="#">매칭</a></li>
+                    </ul>
+                    <ul class="header-navi user-navi">
+                        <li class="user-navi-item"><a href="">마이페이지</a></li>
+                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
+                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
 
 
         <div class="side-area">
@@ -103,9 +183,10 @@
                 <div class="side"><a href="#">내 애완동물 프로필</a></div>
                 <div class="side"><a href="#">건의사항/고객센터</a></div>
             </div>
-        	
-        	
+
         </div>
+
+
     </div>
 </body>
 </html>
