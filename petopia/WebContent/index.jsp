@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>하이</h1>
+	<h1>바이</h1>
 </body>
 </html>
