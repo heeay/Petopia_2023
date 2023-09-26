@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -114,7 +117,7 @@
         <div id="header-bar" style="display: none;">
             <div id="header-bar-wrap">
                 <div class="header-logo">
-                    <a href="./main.html"><img class="logo" src="./resources/image/logo.png" alt=""></a>
+                    <a href="./main.html"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                 </div>
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="#">커뮤니티</a></li>
@@ -131,7 +134,7 @@
         </div>
         <div id="header-wrap">
             <div class="header-logo">
-                <a href="./main.html"><img class="logo" src="./resources/image/logo.png" alt=""></a>
+                <a href="./main.html"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
             </div>
             <ul class="header-navi">
                 <li class="header-navi-item"><a href="#">커뮤니티</a></li>
@@ -145,7 +148,7 @@
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
             </ul>
         </div>
-        <img class="banner-img" src="./resources/image/Download Kitty cat vector design illustration isolated on white background for free1.jpg">
+        <img class="banner-img" src="<%=contextPath %>/resources/images/img1.jpg">
     </header>
     <script>
         $(document).ready(function(){
