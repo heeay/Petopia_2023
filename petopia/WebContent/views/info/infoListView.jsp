@@ -8,5 +8,9 @@
 </head>
 <body>
 
+	<%@include file="../common/header-min.jsp" %>
+	
+	
+
 </body>
 </html>
