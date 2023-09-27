@@ -16,16 +16,17 @@
 
     <style>
         #sidemenu{
-            margin-top: 50px;
+            margin-top: 120px;
             margin-bottom: 50px;
         }
         .side-area{
             background-color: rgb(244, 217, 174);
             display : table-cell;
             padding-top: 15px;
-            position: relative;
+            position: absolute;
             z-index: 1;
-            height : 100%;
+            height : 930px;
+            top: 0px;
         }
         .side-area a {
             text-decoration : none;
@@ -43,12 +44,12 @@
             font-size: 16px;
         }
         .side a{
-         text-decoration : none;
-         width : 100%;
-         height : 100%;
-         line-height : 50px;
-         color : black;
-         font-weight : bold;
+            text-decoration : none;
+            width : 100%;
+            height : 100%;
+            line-height : 50px;
+            color : black;
+            font-weight : bold;
         }
         .side a:hover{background-color: rgb(228, 156, 92);}
 
@@ -66,17 +67,13 @@
         }
 
         .profil-bar{
-            margin-top: 100px;
+            margin-top: 150px;
         }
         .profil img {
             width: 200px;
         }
         #profil-name{
             text-align: center; 
-        }
-        
-        .header{
-
         }
 
     </style>
@@ -93,8 +90,7 @@
         ul,ol{
             list-style: none;
         }
-        header,section,footer,div,li{
-            /*border: 1px solid seagreen;*/
+        section,footer,div,li{
             box-sizing: border-box;
         }
     </style>
@@ -105,11 +101,6 @@
             color: dodgerblue;
         }
         
-        header{
-            width: 100%;
-            height: 80px;
-            background-color: rgb(255, 248, 240);
-        }
         #header-wrap{
             width: 1100px;
             height: 100%;
@@ -151,7 +142,6 @@
         #header-bar{
             width: 100%;
             height: 80px;
-            position: fixed;
             z-index: 1;
             top: 0px;
             left: 0px;
@@ -166,28 +156,26 @@
         }
     </style>
 
+
 </head>
 <body>
 	<div>
-
-        <header>
-            <div id="header-bar">
-                <div id="header-bar-wrap">
+        <div id="header-bar">
+            <div id="header-bar-wrap">
                     
-                    <ul class="header-navi">
-                        <li class="header-navi-item"><a href="#">커뮤니티</a></li>
-                        <li class="header-navi-item"><a href="#">정보</a></li>
-                        <li class="header-navi-item"><a href="#">행사</a></li>
-                        <li class="header-navi-item"><a href="#">매칭</a></li>
-                    </ul>
-                    <ul class="header-navi user-navi">
-                        <li class="user-navi-item"><a href="">마이페이지</a></li>
-                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
-                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
-                    </ul>
-                </div>
+                <ul class="header-navi">
+                    <li class="header-navi-item"><a href="#">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="#">정보</a></li>
+                    <li class="header-navi-item"><a href="#">행사</a></li>
+                    <li class="header-navi-item"><a href="#">매칭</a></li>
+                </ul>
+                <ul class="header-navi user-navi">
+                    <li class="user-navi-item"><a href="">마이페이지</a></li>
+                    <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
+                    <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                </ul>
             </div>
-
+        </div>
 
         <div class="side-area">
 
@@ -210,8 +198,6 @@
             </div>
 
         </div>
-
-	<%@ include file="../common/footer.jsp" %>
 
     </div>
 </body>
