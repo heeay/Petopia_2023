@@ -81,69 +81,90 @@
 
     </style>
 
-<style>
-    a{
-        text-decoration: none;
-    }
-    ul,ol{
-        list-style: none;
-    }
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        header,section,footer,div,li{
+            /*border: 1px solid seagreen;*/
+            box-sizing: border-box;
+        }
+    </style>
+    
+	<style>
 
-</style>
-<style>
-    header{
-        width: 100%;
-        background-color: rgb(255, 248, 240);
-    }
-
-    .header-navi{
-        height: 100%;
-        float: left;
-        padding-left: 400px;
-    }
-    .header-navi-item{
-        width: 120px;
-        height: 100%;
-        float: left;
-    }
-    .header-navi a{
-        display: block;
-        width: 100%;
-        height: 100%;
-        color: black;
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 75px;
-    }
-    .header-navi a:hover{
-        color: dodgerblue;
-    }
-    .user-navi{
-        float: right;
-        padding-right:100px;
-    }
-    .user-navi-item{
-        width: 150px;
-        height: 100%;
-        float: left;
-    }
-    .user-navi-icon-btn{
-        width: 50px;
-        height: 100%;
-        float: left;
-    }
-    #header-bar{
-        width: 100%;
-        height: 80px;
-        position: fixed;
-        z-index: 1;
-        top: 0px;
-        left: 0px;
-        background-color: rgb(247, 222, 205);
-    }
-
-</style>
+		.header-navi a:hover{
+            color: dodgerblue;
+        }
+        
+        header{
+            width: 100%;
+            height: 80px;
+            background-color: rgb(255, 248, 240);
+        }
+        #header-wrap{
+            width: 1100px;
+            height: 100%;
+            margin: auto;
+        }
+        .header-navi{
+            height: 100%;
+            float: left;
+        }
+        .header-navi-item{
+            width: 120px;
+            height: 100%;
+            float: left;
+        }
+        .header-navi a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 75px;
+        }
+        .user-navi{
+            float: right;
+        }
+        .user-navi-item{
+            width: 100px;
+            height: 100%;
+            float: left;
+            margin-right: 50px;
+        }
+        .user-navi-icon-btn{
+            width: 50px;
+            height: 100%;
+            float: left;
+        }
+        #header-bar{
+            width: 100%;
+            height: 80px;
+            position: fixed;
+            z-index: 1;
+            top: 0px;
+            left: 0px;
+            background-color: rgb(247, 222, 205);
+        }
+        #header-bar-wrap{
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            padding-left: 400px;
+            padding-right: 80px;
+        }
+    </style>
 
 </head>
 <body>
