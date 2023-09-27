@@ -125,7 +125,7 @@
         display: flex;
     }
     
-    #chating {
+    #chatting {
     	margin-left : 400px
     }
     
@@ -219,7 +219,7 @@
                 </button>
             </div>
 
-            <div id="chating">
+            <div id="chatting">
                 <button class="w-btn-outline w-btn-gray-outline" type="button">
                     1:1 채팅하기
                 </button>
