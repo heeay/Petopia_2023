@@ -20,10 +20,9 @@
             margin-bottom: 50px;
         }
         .side-area{
-            border: 1px solid black;
             background-color: rgb(244, 217, 174);
             display : table-cell;
-            padding-top: 50px;
+            padding-top: 15px;
             position: relative;
             z-index: 1;
             height : 100%;
@@ -191,6 +190,7 @@
 
         </div>
 
+	<%@ include file="../common/footer.jsp" %>
 
     </div>
 </body>
