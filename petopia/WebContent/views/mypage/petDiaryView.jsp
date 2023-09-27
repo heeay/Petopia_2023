@@ -21,6 +21,9 @@
             height: 80%;
             width: 80%;
         }
+     </style>  
+     
+     <style> 
         .content-title{
             background-color: rgb(244, 217, 174);
             text-align: left;
