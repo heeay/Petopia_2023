@@ -56,6 +56,16 @@
     #edit-option a:hover{
         color:gray;
     }
+
+    #photo-content > img{
+        width: 100%;
+        height: 95%;
+    }
+
+    #next-btn {
+        float: right;
+    }
+
 </style>
 </head>
 <body>
@@ -79,7 +89,9 @@
            <div id="content">
                 
                 <div id="photo-content">
-                    이미지
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="">
+                    <button class="btn btn-sm btn-secondary"> < </button>
+                    <button id="next-btn" class="btn btn-sm btn-secondary"> > </button>
                 </div>
                 <div id="text-content">
                     <table border="1">

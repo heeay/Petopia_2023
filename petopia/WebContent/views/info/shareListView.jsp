@@ -49,6 +49,20 @@
             <tr>
                 <td>맛있었다.</td>
             </tr>
+            <tr>
+                <td rowspan="2" width="400px" height="150">사진</td>
+                <td width="600px">맛있는 음식점 방문</td>
+            </tr>
+            <tr>
+                <td>맛있었다.</td>
+            </tr>
+            <tr>
+                <td rowspan="2" width="400px" height="150">사진</td>
+                <td width="600px">맛있는 음식점 방문</td>
+            </tr>
+            <tr>
+                <td>맛있었다.</td>
+            </tr>
 
         </table>
 

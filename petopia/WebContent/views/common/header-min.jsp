@@ -120,7 +120,7 @@ String contextPath = request.getContextPath();
                 </div>
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="#">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="#">정보</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
@@ -137,7 +137,7 @@ String contextPath = request.getContextPath();
             </div>
             <ul class="header-navi">
                 <li class="header-navi-item"><a href="#">커뮤니티</a></li>
-                <li class="header-navi-item"><a href="#">정보</a></li>
+                <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                 <li class="header-navi-item"><a href="#">행사</a></li>
                 <li class="header-navi-item"><a href="#">매칭</a></li>
             </ul>
