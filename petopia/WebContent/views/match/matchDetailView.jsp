@@ -21,19 +21,19 @@
     }
 
     #location {
-    margin-top: 28px; /* 원하는 만큼 음수값으로 조정 */
+    margin-top: 28px; 
     margin-left : 100px;
     font-size: 16pt;
     }
 
     #time {
-    margin-top: 28px; /* 원하는 만큼 음수값으로 조정 */
+    margin-top: 28px;
     margin-left : 100px;
     font-size: 16pt;
     }
 
     #user-name {
-    margin-top: 20px; /* 원하는 만큼 음수값으로 조정 */
+    margin-top: 20px; 
     margin-left : 20px;
     font-size: 20pt;
     }
@@ -173,7 +173,7 @@
         </div>
     </div>
 
-    <div>
+    
         <section id="info">
                 <div class="image-container">
                     <img src="https://www.ikbc.co.kr/data/kbc/image/2023/03/23/kbc202303230044.800x.0.png" class="Img" width="130" height="170">
@@ -214,15 +214,11 @@
 
         <section id="request">
             <div id="like">
-                <button class="w-btn-outline w-btn-gray-outline" type="button">
-                    귀여워요
-                </button>
+                <button class="w-btn-outline w-btn-gray-outline" type="button">귀여워요</button>
             </div>
 
             <div id="chatting">
-                <button class="w-btn-outline w-btn-gray-outline" type="button">
-                    1:1 채팅하기
-                </button>
+                <button class="w-btn-outline w-btn-gray-outline" type="button">1:1 채팅하기</button>
             </div>
         </section>
 
