@@ -11,11 +11,17 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-    #outer{
-        display : flex;
-        justify-content: center;
-        align-items: center;
+    #wrapper{
+
+        width: 1100px;
+        height: 800px;
+        margin: auto;
+        margin-top : 10px;
+        border : 1px solid black;
+        
     }
+</style>
+<style>
     #menu-list{
         list-style : none;
     }
@@ -25,7 +31,7 @@
 
     }
     #search-bar{
-        margin : 0 0 0 40px;
+        
         display : flex;
         justify-content: space-between;
     }
@@ -35,15 +41,18 @@
     }
     #content-area{
         margin : 50px;
+        
     }
     .content-box{
         display : flex;
+       
     }
     .content{
         margin : 50px;
         width : 300px;
         height : 300px;
         border : 1px solid black;
+         
     }
     #img-thumbnail{
         width : 90%;
@@ -63,12 +72,14 @@
 
 
 </style>
+
 </head>
 <body>
 
 <%@ include file="../common/header-min.jsp" %>
+  <%@ include file="../common/sideBar.jsp" %>
 	
-	<div id="outer">
+	<div id="wrapper">
 		<div id="content-area">
         	<div id="search-bar">
                 <div id="search-form">검색바<i class="fas fa-search"></i>
@@ -84,6 +95,7 @@
                 </div>
             </div>
 
+
             <div class="content-box">
                 <div class="content">
                     <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
@@ -124,6 +136,9 @@
                     <span>조회수[]</span>
                 </div>
             </div>
+            
+
+
             <div id="pasing-area">
                 <button type="button" class="btn btn-dark"><</button>
                 <button type="button" class="btn btn-dark">1</button>
@@ -134,19 +149,11 @@
                 <button type="button" class="btn btn-dark">></button>
             </div>
         </div>
-        
-        <div id="menu-area">
-            <ul id="menu-list">
-                <li class="list-group-item">베스트</li>
-                <li class="list-group-item">공지사항</li>
-                <li class="list-group-item">동물종류별</li>
-                <li class="list-group-item">실종동물찾기</li>
-                <li class="list-group-item">신고하기</li>
-            </ul>
-        </div>
-        
     </div>
-    
+        
+       
+
+
 <%@ include file="../common/footer.jsp" %>
 
 </body>
