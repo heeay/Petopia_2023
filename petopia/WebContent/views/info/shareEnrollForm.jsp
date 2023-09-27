@@ -42,10 +42,6 @@
         width: 600px;
     }
 
-    #enroll-form input[type="checkbox"]{
-        display: inline-block;
-    }
-
     .rating {
     width: 180px;
     }
