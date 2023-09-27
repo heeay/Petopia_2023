@@ -13,7 +13,7 @@
 
 	<style>
         .content-area{
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -63,7 +63,7 @@
         }
         .stars{
             float: right;
-            margin-right: 130px;
+            margin-right: 170px;
         }
         .text-small{
             margin-top: 10px;
@@ -92,8 +92,7 @@
         .zt-skill-bar div {
             background-color: #ffc600;
             position: relative;
-            padding-left: 25px;
-            width: 0;
+            padding-left: 15px;
         }
     
         .zt-skill-bar span {
@@ -106,20 +105,6 @@
             background-color: #1a1a1a;
         }
 
-    </style>
-
-    <style>
-        .rate{
-            background: url(https://aldo814.github.io/jobcloud/html/images/user/star_bg02.png) no-repeat;
-            width: 121px;
-            height: 20px;
-            position: relative;
-        }
-        .rate span{position: absolute;
-            background: url(https://aldo814.github.io/jobcloud/html/images/user/star02.png);
-            width: auto;
-            height: 20px;
-        }
     </style>
      
 </head>
@@ -138,9 +123,9 @@
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
-                    <div class="text-stand">다음등급까지</div>
+                    <div class="text-stand">내 등급은?</div>
                     <div class="zt-skill-bar">
-                        <div data-width="88">등급명
+                        <div data-width="88">다음 등급까지
                             <span>88%</span>
                         </div>
                     </div>
@@ -173,18 +158,14 @@
                     <div class="text-null2"></div>
 
                     <div class="text-stand">평균 점수 : 
-                        <div class="rate stars">
-                            <span style="width: 80%"></span>
-                        </div>
+                        <div class="stars">⭐(4.6)</div>
+
                     </div>
 
                     <div class="text-null2"></div>
 
-                    <div class="text-stand">최근 점수 : 
-                        <div class="rate stars">
-                            <span style="width: 90%"></span>
-                        </div>
-
+                    <div class="text-stand">최근 점수 :
+                        <div class="stars">⭐(4.2)</div>
                         <p class="text-small">* 최근 10건의 평균 점수 입니다.</p>
 
                     </div>
