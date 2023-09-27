@@ -13,6 +13,8 @@
 <style>
     #outer{
         display : flex;
+        justify-content: center;
+        align-items: center;
     }
     #menu-list{
         list-style : none;
@@ -63,6 +65,9 @@
 </style>
 </head>
 <body>
+
+<%@ include file="../common/header-min.jsp" %>
+	
 	<div id="outer">
 		<div id="content-area">
         	<div id="search-bar">
@@ -141,7 +146,8 @@
         </div>
         
     </div>
-
+    
+<%@ include file="../common/footer.jsp" %>
 
 </body>
 </html>
