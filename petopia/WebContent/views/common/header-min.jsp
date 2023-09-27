@@ -58,6 +58,7 @@ String contextPath = request.getContextPath();
         .header-navi{
             height: 100%;
             float: left;
+            
         }
         .header-navi-item{
             width: 120px;
@@ -76,6 +77,7 @@ String contextPath = request.getContextPath();
         }
         .user-navi{
             float: right;
+
         }
         .user-navi-item{
             width: 80px;
