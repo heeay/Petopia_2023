@@ -100,6 +100,11 @@
     </style>
     
 	<style>
+
+		.header-navi a:hover{
+            color: dodgerblue;
+        }
+        
         header{
             width: 100%;
             height: 80px;
@@ -136,12 +141,12 @@
             width: 100px;
             height: 100%;
             float: left;
+            margin-right: 50px;
         }
         .user-navi-icon-btn{
             width: 50px;
             height: 100%;
             float: left;
-            padding-left: 50px;
         }
         #header-bar{
             width: 100%;
@@ -153,11 +158,12 @@
             background-color: rgb(247, 222, 205);
         }
         #header-bar-wrap{
-            width: 1100px;
+            width: 100%;
             height: 100%;
             margin: auto;
+            padding-left: 400px;
+            padding-right: 80px;
         }
-
     </style>
 
 </head>
