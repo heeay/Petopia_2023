@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.board;
+package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
