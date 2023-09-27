@@ -13,7 +13,7 @@
 
 	<style>
         .content-area{
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -34,11 +34,11 @@
         }
         .hos-content{
             float: left;
-            margin-left: 220px;
+            margin-left: 210px;
         }
         .walk-content{
             float: right;
-            margin-right: 220px;
+            margin-right: 210px;
         }
         .content{
             background-color: rgb(244, 217, 174);
@@ -60,9 +60,10 @@
             padding-right: 10px;
             padding-top: 5px;
             padding-bottom: 5px;
+            border-radius: 10px;
         }
         .walk-box{
-            height: 100px;
+            height: 105px;
             width: 435px;
             padding-left: 10px;
             padding-right: 10px;
@@ -78,13 +79,25 @@
         .btn-right{
             padding-left: 420px;
         }
-        .content-content{
+        .content-inblock{
             /*border: 1px solid black;*/
             display: inline-block;
         }
         .hos-text{
             padding-left: 25px;
         }
+
+        .text-hidden {
+            /*border: 1px solid black;*/
+            height: 35px;
+            width: 440px;
+            overflow: hidden;
+        }
+        .text-auto{
+            /*border: 1px solid black;*/
+            overflow: auto;
+        }
+
     </style>
 
 </head>
@@ -97,26 +110,28 @@
             <div class="hos">
 
                 <div  class="hos-content">
-
+                    
                     <div class="content-title">병원기록</div>
 
                     <div  class="content">
                         <form action="">
 
                             <div>
-                                <ul class="hos-text">
-                                    <li class="content-top">이름 : </li>
-                                    <li>일자 : </li>
-
-                                    <li class="content-top">예방접종 종류 :</li>
-                                    <li>질병 여부 : </li>
-                                    <li>약 복용기록 : </li>
-
-                                    <li class="content-top">기타사항</li>
-                                    <div class="content-content hos-box">
+                                <div class="hos-text">
+                                    <div class="content-top"></div>
+                                    <div class="content-top"></div>
+                                    <div class="text-hidden">이름 : </div>
+                                    <div>일자 : </div>
+                                    <div class="content-top"></div>
+                                    <div class="text-hidden">예방접종 종류 :</div>
+                                    <div class="text-hidden">질병 여부 : </div>
+                                    <div class="text-hidden">약 복용기록 : </div>
+                                    <div class="content-top"></div>
+                                    <div>기타사항</div>
+                                    <div class="content-inblock hos-box text-auto">
                                         <p>기타사항내용</p>
                                     </div>
-                                </ul>
+                                </div>
                             </div>
 
                         </form>
@@ -139,18 +154,22 @@
                     <div class="content">
                         <form action="">
                             
-                            <ul align="center">
+                            <div align="center">
 
                                 <div class="content-top">
-                                    <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="250">
+                                    <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="350" height="250">
                                 </div>
-                                <div class="content-top walk-top">
+
+                                <div class="content-top"></div>
+                                <div class="text-hidden">
                                     <b>제목내용</b>
                                 </div>
-                                <div class="content-content walk-box">
+
+                                <div class="content-top"></div>
+                                <div class="content-inblock walk-box text-auto">
                                     <p>컨텐트 내용</p>
                                 </div>
-                            </ul>
+                            </div>
 
                         </form>
 
