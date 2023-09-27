@@ -68,13 +68,14 @@
 
         <div class="info-paging">
 
-            
+			
 
         </div>
 
     </div>
     
     </section>
+    
 
 </body>
 </html>

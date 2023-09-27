@@ -48,7 +48,7 @@
         cursor: pointer;
     }
 
-    #edit-option a{
+    #edit-option a, #text-content a{
         color: black;
         text-decoration: none;
     }
@@ -113,7 +113,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="center">❤ 30</td>
+                            <td align="center"><a href="#">❤</a>3</td>
                         </tr>
                     </table>
                 </div>
