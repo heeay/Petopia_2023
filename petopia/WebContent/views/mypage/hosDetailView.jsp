@@ -12,8 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<style>
+        /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
+            border: 1px solid black;
             position: absolute;
             top: 130px;
             left: 340px;
@@ -24,15 +25,16 @@
         .hos-title{
             font-size: 30px;
             font-weight: bold;
-            margin-left: 210px;
-            margin-top: 40px;
-        }
-        .inner{
-            float: left;
         }
         .btn-right{
-            margin-left: 900px;
-            margin-top: 40px;
+            float: right;
+            margin-top: 20px;
+        }
+        .margin-none{margin: 0; padding: 0;}
+        .page-btn{
+            position:absolute;
+            top: 90%;
+            left: 40%;
         }
     </style>
     
@@ -42,12 +44,20 @@
 	
 	<div class="content-area">
 
-        <div class="inner">
-            <p class="hos-title">병원기록</p>
-        </div>
+        <div class="container margin-none">
+            <table class="table">
+                
+                <tr>
+                    <th><p class="hos-title">병원기록</p></th>
 
-        <div >
-            <a href="" class="btn btn-secondary btn-right">글작성</a>
+                    <td class="btn-right" style="border-top:none;">
+                    <input type="date" name="startday"> ~ <input type="date" name="lastday">
+                    </td>
+
+                    <td><a href="" class="btn btn-secondary btn-right">글작성</a></td>
+                </tr>
+                
+            </table>
         </div>
 
         <div class="container">
@@ -68,12 +78,16 @@
                     <td>1.</td>
                     <td>2023-09-27</td>
                     <td>제리</td>
+                    <td style="width: 20px; border-top:none;"><a href="" class="btn btn-secondary">—</a></td>
                 </tbody>
 
             </table>
-            <a href="" class="btn btn-secondary">—</a>
+            
         </div>
 
+        <div class="page-btn">
+            페이지 버튼 위치
+        </div>
 
 	</div>
 

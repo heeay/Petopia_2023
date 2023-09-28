@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<style>
+        /*div{border: 1px solid black;}*/
         .content-area{
             /*border: 1px solid black;*/
             position: absolute;
@@ -37,11 +38,11 @@
         }
         .hos-content{
             float: left;
-            margin-left: 210px;
+            margin-left: 150px;
         }
         .walk-content{
             float: right;
-            margin-right: 210px;
+            margin-right: 150px;
         }
         .content{
             background-color: rgb(244, 217, 174);

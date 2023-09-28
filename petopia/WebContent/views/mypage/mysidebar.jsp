@@ -25,7 +25,7 @@
             padding-top: 15px;
             position: absolute;
             z-index: 1;
-            height : 930px;
+            height : 100%;
             top: 0px;
         }
         .side-area a {

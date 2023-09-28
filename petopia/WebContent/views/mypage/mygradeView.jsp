@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<style>
+       /*div{border: 1px solid black;}*/
         .content-area{
             /*border: 1px solid black;*/
             position: absolute;
