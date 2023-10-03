@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -35,7 +36,7 @@ public class loginUserController extends HttpServlet {
 		User u = new User();
 		u.setUserEmail(email);
 		u.setUserPass(pw);
-		User usernew UserService().loginUser(u);
+		User user = new UserService().loginUser(u);
 	}
 
 	/**
