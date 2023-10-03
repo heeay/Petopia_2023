@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.vo.User;
+
 /**
  * Servlet implementation class loginUserController
  */
@@ -26,8 +28,14 @@ public class loginUserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		String email = request.getParameter("email");
+		String pw = request.getParameter("pw");
+		
+		User u = new User();
+		u.setUserEmail(email);
+		u.setUserPass(pw);
+		User usernew UserService().loginUser(u);
 	}
 
 	/**
