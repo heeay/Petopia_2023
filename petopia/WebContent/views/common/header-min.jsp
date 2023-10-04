@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
 <%
 String contextPath = request.getContextPath();
+User userInfo = (User)session.getAttribute("userInfo");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -125,7 +127,11 @@ String contextPath = request.getContextPath();
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                	<%if(userInfo == null){ %>
+                    	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                    <%} else { %>
+                    	<li class="user-navi-item"><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %> 님</a></li>
+                    <%} %>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
@@ -142,7 +148,11 @@ String contextPath = request.getContextPath();
                 <li class="header-navi-item"><a href="#">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
-                <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                <%if(userInfo == null){ %>
+                	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                <%} else { %>
+                	<li class="user-navi-item"><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %> 님</a></li>
+                <%} %>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
             </ul>

@@ -34,7 +34,7 @@
         .input-icon{
             position: absolute;
             left: 4px;
-	        top: 8px;
+	        top: 12px;
 	        color: #aaaaaa;
         }
         .icon-size{
@@ -126,6 +126,12 @@
             <form id="register-form" action="test.do" method="get">
                 <div class="input-wrap">
                     <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
+                    <div class="input-icon">
+                        <span class="material-symbols-outlined icon-size">person</span>
+                    </div>
+                </div>
+                <div class="input-wrap">
+                    <input id="nickname" type="text" name="nickname" placeholder=" 닉네임" autocomplete="off">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">person</span>
                     </div>

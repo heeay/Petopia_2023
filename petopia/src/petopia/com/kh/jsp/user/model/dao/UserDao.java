@@ -59,4 +59,27 @@ public class UserDao {
 		
 		return user;
 	}
+	
+	public int insertUser(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserEmail());
+			pstmt.setString(2, user.getUserPass());
+			pstmt.setString(3, user.getUserNickname());
+			pstmt.setString(4, user.getUserPhone());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 }

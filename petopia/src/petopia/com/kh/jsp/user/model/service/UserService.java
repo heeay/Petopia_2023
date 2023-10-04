@@ -15,4 +15,18 @@ public class UserService {
 		
 		return user;
 	}
+	public int insertUser(User user) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new UserDao().insertUser(conn, user);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

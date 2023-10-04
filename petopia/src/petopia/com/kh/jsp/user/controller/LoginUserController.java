@@ -13,14 +13,14 @@ import petopia.com.kh.jsp.user.model.vo.User;
 /**
  * Servlet implementation class loginUserController
  */
-@WebServlet("/login.login")
-public class loginUserController extends HttpServlet {
+@WebServlet("/login.prossess")
+public class LoginUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginUserController() {
+    public LoginUserController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,7 @@ public class loginUserController extends HttpServlet {
 		
 		if(user == null) {
 			request.setAttribute("fail", "fail");
-			response.sendRedirect(request.getContextPath()+"/login");
+			request.getRequestDispatcher("views/user/loginView.jsp").forward(request, response);
 		} else {
 			request.getSession().setAttribute("userInfo", user);
 			response.sendRedirect(request.getContextPath());
