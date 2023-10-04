@@ -33,10 +33,10 @@ public class RegisterUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String email = request.getParameter("email");
-		String nickname = request.getParameter("nickname");
-		String pw = request.getParameter("pw");
-		String phone = request.getParameter("phone");
+		String email = request.getParameter("email").trim();
+		String nickname = request.getParameter("nickname").trim();
+		String pw = request.getParameter("pw").trim();
+		String phone = request.getParameter("phone").trim();
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -45,11 +45,9 @@ public class RegisterUserController extends HttpServlet {
 			byte[] bytes = md.digest();
 			StringBuilder builder = new StringBuilder();
 			for(int i=0;i<bytes.length;i++) {
-				builder.append(String.format("%02x", bytes[i]));
+				builder.append(String.format("%02X", bytes[i]));
 			}
-			//System.out.println(bytes);
-			//System.out.println(builder.toString().toUpperCase());
-			pw = builder.toString().toUpperCase();
+			pw = builder.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
