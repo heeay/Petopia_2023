@@ -100,7 +100,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             width: 100%;
             height: 80px;
             position: fixed;
-            z-index: 1;
+            z-index: 10;
             top: 0px;
             left: 0px;
             background-color: rgb(247, 222, 205);
