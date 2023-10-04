@@ -4,5 +4,18 @@
 
 	<comment>정보제공 관련 SQL문</comment>
 
+	<entry key="selectInfoCategory">
+		SELECT
+			   CTG_NO,
+			   CTG_NAME
+		  FROM 
+		  	   TB_CATEGORY
+		 WHERE 
+		 	   CTG_NO > 100
+		 ORDER 
+		 	BY 
+		 	   CTG_NO ASC
+	</entry>
+	
 
 </properties>

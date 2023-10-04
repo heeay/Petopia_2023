@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.InfoCategory" %>
+<%
+	ArrayList<InfoCategory> list = (ArrayList<InfoCategory>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,7 @@
 <style>
 	section{
 		width: 1000px;
-        height: 800px;
+        height: 1000px;
         margin: auto;
         position: relative;
 	}
@@ -60,10 +64,10 @@
         
         <div id="wrap">
         
-           <h4>게시글 작성</h4>
+           <h4 align="center">게시글 작성</h4>
             <br>
 
-            <form enctype="multipart/form-data" id="enroll-form" method="post">
+            <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" id="enroll-form" method="post">
 
                 <table align="center">
 
@@ -75,8 +79,11 @@
                         <th>카테고리</th>
                         <td>
                             <select name="category">
-                                <option value="병원">병원</option>
-                                <option value="애견동반">애견동반</option>
+                                <% for(InfoCategory ic : list) { %>
+                                	<option value="<%= ic.getCategoryNo() %>">
+                                		<%= ic.getCategoryName() %>
+                                	</option>
+                                <% } %>
                             </select>
                         </td>
                     </tr>
@@ -94,13 +101,16 @@
                         <th>내용</th>
                         <td><textarea name="content"rows="20" style="resize: none;" placeholder="내용을 입력해주세요."></textarea></td>
                     </tr>
-                    <tr>
-                        <th>첨부파일</th>
-                        <td><input type="file" name="upfile"></td>
-                    </tr>
-
                 </table>
-
+                
+                <div id="file-area">
+                	<input type="file" name="file1" id="file1">
+                    <input type="file" name="file2" id="file2">
+                    <input type="file" name="file3" id="file3">
+                    <input type="file" name="file4" id="file4">
+                    <input type="file" name="file5" id="file5">
+                </div>
+                 
                 <div align="right">
                     <button type="submit" class="btn btn-sm btn-warning">등록</button>
                     <button type="reset" class="btn btn-sm btn-secondary">취소</button>
