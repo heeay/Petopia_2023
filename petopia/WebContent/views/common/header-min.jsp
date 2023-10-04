@@ -72,7 +72,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             width: 100%;
             height: 100%;
             color: black;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center;
             line-height: 75px;
@@ -82,9 +82,14 @@ User userInfo = (User)session.getAttribute("userInfo");
 
         }
         .user-navi-item{
-            width: 80px;
+            width: 90px;
             height: 100%;
             float: left;
+        }
+        .user-navi-item > span{
+            display: inline-block;
+            width: 65px;
+            height: 100%;
         }
         .user-navi-icon-btn{
             width: 50px;
@@ -130,7 +135,8 @@ User userInfo = (User)session.getAttribute("userInfo");
                 	<%if(userInfo == null){ %>
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
-                    	<li class="user-navi-item"><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %> 님</a></li>
+                    	<li class="user-navi-item"><span><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %></a></span>님</li>
+                    	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                     <%} %>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
@@ -151,7 +157,8 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <%if(userInfo == null){ %>
                 	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                	<li class="user-navi-item"><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %> 님</a></li>
+                	<li class="user-navi-item"><span><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %></a></span>님</li>
+                	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                 <%} %>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
