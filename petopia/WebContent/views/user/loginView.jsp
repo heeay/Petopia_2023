@@ -129,7 +129,7 @@ if(cookies!=null){
             border-color: #c7ca93;
             box-sizing: border-box;
         }
-        #naver-auth{
+        #naverIdLogin_loginButton{
             cursor: pointer;
             background-color: #03C75A;
             color: #ffffff;
@@ -262,13 +262,13 @@ if(cookies!=null){
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
-            <div id="naver-auth" class="auth-btn">
+            <div id="naverIdLogin_loginButton" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/naver_login_icon.svg">
                 	네이버 로그인
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
-            <div id="kakao-auth" class="auth-btn">
+            <div id="kakao-auth" class="auth-btn" onclick="kakaoLogin();">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/kakao_login_icon.svg">
                 	카카오 로그인
             </div>
@@ -276,7 +276,7 @@ if(cookies!=null){
         <div class="auth-wrap margin-bottom">
             <div id="google-auth" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
-               	 구글 로그인
+               	    구글 로그인
             </div>
         </div>
         <div class="find-wrap">
@@ -284,6 +284,92 @@ if(cookies!=null){
             <a href="<%=contextPath %>/register">회원가입</a>
         </div>
     </section>
+
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <script>
+        //네이버 로그인
+        var naverLogin = new naver.LoginWithNaverId({
+			clientId: "8ZYnqypIAIHZc2Ycz4px", //내 애플리케이션 정보에 cliendId
+			callbackUrl: "http://localhost:8001/naverLogin", // 내 애플리케이션 API설정의 Callback URL
+			isPopup: true,
+			callbackHandle: true
+		});	
+
+        naverLogin.init();
+
+        window.addEventListener('load', function () {
+        	naverLogin.getLoginStatus(function (status) {
+        		if (status) {
+        			//let nickname = naverLogin.user.getNickname(); // 필수설정
+        			//let phone = naverLogin.user.getPhone(); // 필수설정
+                
+        			console.log(naverLogin.user); 
+                
+                    /*if( nickname == undefined || nickname == null) {
+        				alert("닉네임은 필수정보입니다. 정보제공을 동의해주세요.");
+                        naverLogin.reprompt();
+        				return;
+        			}*/
+                    naverLogin.reprompt();
+        		} else {
+        			console.log("callback 처리에 실패하였습니다.");
+        		}
+        	});
+        });
+
+        var testPopUp;
+        function openPopUp() {
+            testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
+        }
+        function closePopUp(){
+            testPopUp.close();
+        }
+        function naverLogout() {
+        	openPopUp();
+        	setTimeout(function() {
+        		closePopUp();
+        		}, 1000);
+        }
+    </script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        //카카오로그인
+        Kakao.init('8890a67c089173194979845f9389950d'); //발급받은 키 중 javascript키를 사용해준다.
+        console.log(Kakao.isInitialized()); // sdk초기화여부판단
+        function kakaoLogin() {
+            Kakao.Auth.login({
+              success: function (response) {
+                Kakao.API.request({
+                  url: '/v2/user/me',
+                  success: function (response) {
+                      console.log(response)
+                  },
+                  fail: function (error) {
+                    console.log(error)
+                  },
+                })
+              },
+              fail: function (error) {
+                console.log(error)
+              },
+            })
+          }
+        //카카오로그아웃  
+        function kakaoLogout() {
+            if (Kakao.Auth.getAccessToken()) {
+              Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function (response) {
+                    console.log(response)
+                },
+                fail: function (error) {
+                  console.log(error)
+                },
+              })
+              Kakao.Auth.setAccessToken(undefined)
+            }
+          }  
+    </script>
     <%@include file="../common/footer.jsp" %>
 </body>
 </html>
