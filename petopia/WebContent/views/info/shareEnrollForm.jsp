@@ -114,6 +114,7 @@
 
     <script>
 
+    	// 별점 관련 function
     	$(function(){
     		$('.star').click(function(){
     			const stars = document.getElementsByClassName('star');
@@ -122,16 +123,19 @@
     			// console.log(stars[index]);
     			for(let i = 0; i <= index; i++){
     				// console.log(stars[i]);
-    				$(stars[i]).css('color', 'red');
+    				$(stars[i]).text('⭐');
     			};
     			
-    			if($(this).css('color', 'red')){
+    			if($(this).text('⭐')){
     				for(let i = stars.length; i > index; i--){
-    					$(stars[i]).css('color', 'black');
+    					$(stars[i]).text('☆');
     				};
     			};
     			
-    		});	
+    			// DB로 넘길 별점 개수 (0 ~ 4)
+    			console.log($(this).text('⭐').last().index());
+    			
+    		});
     	});
 
     </script>
