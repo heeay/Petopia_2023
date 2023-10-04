@@ -23,7 +23,7 @@
         margin: auto;
         margin-top : 10px;
         border : 1px solid black;
-        
+        background-color: rgb(255, 248, 240);
     }
 </style>
 <style>
