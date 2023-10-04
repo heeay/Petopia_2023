@@ -38,7 +38,7 @@
 	<div id="wrap">
 	
         <div align="right">
-		    <a href="#" class="btn btn-sm btn-warning">글 쓰기</a>
+		    <a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글 쓰기</a>
         </div>
 
         <table class="info-list">

@@ -19,18 +19,26 @@
 <style>
     #wrapper{
         width: 1100px;
-        height: 1500px;
+        height: 800px;
         margin: auto;
-        margin-top : 10px;
-        border : 1px solid black;
+        
+        /* border : 1px solid black; */
+        box-sizing: border-box;
+        background-color: rgb(255, 248, 240);
     }
 
     #search-area{
-        width: 1000px;
-        height: 45px;
-        border: 1px solid black;
-        margin: 50px;
+        width: 100%;
+        height: 5%;
+        /* border: 1px solid black; */
+        
     }
+
+
+
+</style>
+
+<style>
 
     #search-bar {
         position: relative;
@@ -38,12 +46,12 @@
         float: left;
         width: 30%;
         box-sizing: border-box;
-        border: 1px solid red;
+        /* border: 1px solid red; */
     }
 
-    #search2 {
+    #search {
         width: 100%;
-        border: 1px solid #bbb;
+        /* border: 1px solid #bbb; */
         border-radius: 8px;
         padding: 10px 12px;
         font-size: 14px;
@@ -58,14 +66,14 @@
     }
 
     #search-radio{
-        border: 1px solid green;
+        /* border: 1px solid green; */
         float: left;
         margin-top: 9px;
         box-sizing: border-box;
     }
 
     #search-select{
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
         float: right;
         box-sizing: border-box;
         margin-top: 9px;
@@ -86,18 +94,23 @@
 </head>
 <body>
 	<%@ include file="../common/header-min.jsp" %>
+
 	<%@ include file="../common/sideBar.jsp" %>
 
 	<div id="wrapper">
+
         <div id="search-area">
+
             <div id="search-bar">
-                <input type="text" id="search2" placeholder="검색어 입력">
+                <input type="text" id="search" placeholder="검색어 입력">
                 <img id="search-img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
             </div>
+
             <div id="search-radio">
                 <input type="radio">제목
                 <input type="radio">작성자
             </div>
+
             <div id="search-select">
                 <select name="" id="">
                     <option value="">게시글 4개씩 보기</option>
@@ -151,7 +164,7 @@
 
 
 
-	<br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
 	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>
