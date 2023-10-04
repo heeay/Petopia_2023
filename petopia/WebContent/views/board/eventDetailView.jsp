@@ -42,7 +42,7 @@
         height : 80%;
         /* border : 1px solid black; */
         box-sizing: border-box;
-        font-size : 40px;
+        font-size : 30px;
         
     }
 
@@ -50,71 +50,91 @@
 
 <!-- title -->
 <style>
-    #title-area {
-        border-bottom: 1px solid rgb(247, 189, 96);
-        display : flex;
-        justify-content: space-between;
-        text-align : center;
+    #title-info {
+        margin : 10% 0 0 1%;
+    }
+   #title-info span{
+    display : flex;
+    align-items: center;
+   }
+   #title-img{
+
+   }
+   #title-img img{
+    width : 200px;
+    height : 200px;
+    border-radius: 10px;
     }
 
-    #title-area img{
-        width : 150px;
-        height : 150px;
-    }
-
-    .title-event-info {
-       
-    }
-
-    #title-event-name {
-        padding-top : 50px;
-    }
-    .title-event-info span{
-        display : block;
-        
-    }
-  
     
 </style>
 
-
 <!-- join-info -->
 <style>
-    #join-or-not{
+    #join-check{
+        border-top : 1px solid rgb(247, 189, 96);
+        margin : 20px 0px;
+        font-size : 50px;
         display : flex;
-        /* justify-content: space-between; */
+        justify-content: space-between;
         align-items: center;
-        margin-right : 50px;
+    }
+    #join-info{
+        margin : 20px 0px;
+    }
+    #time-info{
+        margin : 20px 0px;
+        border-top : 1px solid rgb(247, 189, 96);
+        
+    }
+
+    #place-info{
+        
+    }
+    #participant-info{
+        margin : 20px 0px;
+        
+       
+    }
+    #check{
+      
+    }
+</style>
+
+<!-- participant-count -->
+<style>
+    #participant-count{
+        
+        border-top : 1px solid rgb(247, 189, 96);
         
     }
 
 
-    .join-info-detail{
-        margin : 20px 0 20px 0;
+    #participants{
+        margin : 20px 0px;
+        display : flex;
+        font-size: 30px;
     }
 
-    #participant{
-        margin-bottom: 50px;
+
+    .participant img{
+        width : 100px;
+        height : 100px;
+        border-radius : 50%;
+    }
+    #participant-count span{
+       font-size : 25px;
+       
+    }
+    .participant{
+        text-align: center;
+        font-size: 20px;
+
     }
 
-    #participant-detail{
-        border-top: 1px solid rgb(247, 189, 96);
-        padding-top : 50px;
-    }
-    .participant-img{
-        display : inline-block;
-    }
-    .participant-img img{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-    .participant-img span{
-        display : block;
-        font-size : 20px;
-    }
+   
+
 </style>
-
 
 </head>
 <body>
@@ -126,88 +146,102 @@
     
         <div id="title-area">
 
-            <div class="title-event-info">
-            <img src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt="">
+            <div id="title-img">
+                <img src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt="">
+            </div>
+            
+            <div id="title-info">
+                <span>국제친칠라의 날</span>
+                <span><a href="#">서울종로구</a><i class="fas fa-map-marker-alt"></i></span>
             </div>
 
-            <div class="title-event-info"  id="title-event-name">
-            <span>국제토끼의 날</span>
-            <span><a href="#">서울종로구</a><i class="fas fa-map-marker-alt"></i></span>
-            </div>
+            
 
-            <div id="join-or-not">
-                
-                <span>참석합니까 ? </span>
-                <i class="far fa-check-square fa-lg"></i>
-            </div>
+            
         </div>
     
+
         
 
         <div id="content-area">
 
-         
+         <div id="join-check">    
+
+                <span>참석합니까 ?&nbsp;&nbsp;&nbsp;</span>
+                <input type="checkbox" id="check" name="">
+                <!-- <i class="far fa-check-square fa-lg"></i> -->
+        </div>
+
+            <script>
+                $(function(){
+                    $(':checkbox').css({width:'50px', height:'50px'}).attr('checked', false);
+                })
+            </script>
+
+
 
             <div id="join-info">
 
-                <div id="date-and-time" class="join-info-detail">
+                <div id="time-info" class="">
                     <i class="far fa-clock"></i>
                     <span>2023.10.10</span>
                 </div>
 
-                <div id="place-and-location" class="join-info-detail">
+                <div id="place-info" class="">
                     <i class="fas fa-map-signs"></i>
                     <span>서울 종로구 팔달동 용마산대로1341</span>
                 </div>
 
-                <div id="participant" class="join-info-detail">
+                <div id="participant-info" class="">
                     <i class="far fa-user"></i>
                     <span>34명</span>
                 </div>
 
-                
+            </div>
 
-                <div id="participant-detail" class="join-info-detail">
-                    <div class="participant-img">
+            <div id="participant-count">
+                <span>참가인원</span>
+                <div id="participants" class="">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
-                    <div class="participant-img">
+                    <div class="participant">
                         <img src="https://blog.kakaocdn.net/dn/pweD5/btq4qAY40mY/NMW7YLxEF9xCS1VI8kzMYk/img.png" alt="">
-                        <span>칠라칠라</span>
+                        <span>칠라스</span>
                     </div>
                    
-                    
+                </div>    
 
-                </div>
+                
             </div>
 
         </div>
@@ -217,6 +251,7 @@
       
         
     </div>
+
 
 
 

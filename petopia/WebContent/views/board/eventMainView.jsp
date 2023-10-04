@@ -28,6 +28,7 @@
 
 </script>
 
+<!-- overal -->
 <style>
     #wrapper{
         width: 1100px;
@@ -41,14 +42,18 @@
     #title-area{
         box-sizing: border-box;
         width : 100%;
-        height : 10%;
-        border : 1px solid black;
+        height : 5%;
+        /*flex로 띄운 뒤 가운데정렬하기 */
+        display : flex;
+        justify-content: center;
+        font-size: 25px;
+      
     }
     #content-area{
        
         width : 100%;
         height : 90%;
-        /* border : 1px solid black; */
+    
         box-sizing: border-box;
         
     }
@@ -57,10 +62,7 @@
 
 <!-- title -->
 <style>
-    #title-area{
-        text-align: left;
-        font-size: 25px;
-    }
+
 </style>
 
 <!-- calendar -->
@@ -87,12 +89,12 @@
     
         <div id="title-area">
             
-            <h4>이달의 행사</h4>
+            <h4>펫토피아 🐶🐹🐰 이달의 행사</h4>
         </div>
 
         <div id="content-area">
 
-            <div id='calendar'></div>
+            <div id="calendar"></div>
            
         </div>
     
