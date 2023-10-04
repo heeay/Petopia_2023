@@ -42,14 +42,12 @@
         width: 600px;
     }
 
-    .rating {
-    width: 180px;
+	#star{
+    	text-decoration: none;
+    	color : black;
     }
-
-    .rating__star {
-    cursor: pointer;
-    color: orange;
-    }
+    
+    #star:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -85,11 +83,11 @@
                     <tr>
                         <th>별점</th>
                         <td>
-                            <i class="rating__star far fa-star"></i>
-                            <i class="rating__star far fa-star"></i>
-                            <i class="rating__star far fa-star"></i>
-                            <i class="rating__star far fa-star"></i>
-                            <i class="rating__star far fa-star"></i>
+                            <a class="star" id="star">☆</a>
+                        	<a class="star" id="star">☆</a>
+                        	<a class="star" id="star">☆</a>
+                        	<a class="star" id="star">☆</a>
+                        	<a class="star" id="star">☆</a>
                         </td>
                     </tr>
                     <tr>
@@ -116,28 +114,29 @@
 
     <script>
 
-    const ratingStars = [...document.getElementsByClassName("rating__star")];
-
-    function executeRating(stars) {
-        const starClassActive = "rating__star fas fa-star";
-        const starClassInactive = "rating__star far fa-star";
-        const starsLength = stars.length;
-        let i;
-
-        stars.map((star) => {
-            star.onclick = () => {
-            i = stars.indexOf(star);
-
-            if (star.className == starClassInactive) {
-                for (i; i >= 0; --i) stars[i].className = starClassActive;
-            } else {
-                for (i; i < starsLength; ++i) stars[i].className = starClassInactive;
-            }
-            };
-        });
-    }
-
-    executeRating(ratingStars);
+	// 별점 관련 function
+	$(function(){
+		$('.star').click(function(){
+			const stars = document.getElementsByClassName('star');
+			const index = $(this).index();
+			// console.log(index);
+			// console.log(stars[index]);
+			for(let i = 0; i <= index; i++){
+				// console.log(stars[i]);
+				$(stars[i]).text('⭐');
+			};
+			
+			if($(this).text('⭐')){
+				for(let i = stars.length; i > index; i--){
+					$(stars[i]).text('☆');
+				};
+			};
+			
+			// DB로 넘길 별점 개수 (1 ~ 5)
+			console.log(($(this).text('⭐').last().index()) + 1);
+			
+		});
+	});
 
     </script>
 

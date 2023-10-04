@@ -132,8 +132,8 @@
     				};
     			};
     			
-    			// DB로 넘길 별점 개수 (0 ~ 4)
-    			console.log($(this).text('⭐').last().index());
+    			// DB로 넘길 별점 개수 (1 ~ 5)
+    			console.log(($(this).text('⭐').last().index()) + 1);
     			
     		});
     	});
