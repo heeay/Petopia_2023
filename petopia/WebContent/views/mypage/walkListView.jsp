@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>산랙기록 리스트</title>
     <style>
         div{/*border: 1px solid black;*/}
         .content-area{
@@ -200,6 +200,7 @@
             </div>
 
         </div>
+        
 	</div>
 
 
