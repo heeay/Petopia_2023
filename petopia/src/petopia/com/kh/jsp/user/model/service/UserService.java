@@ -37,4 +37,12 @@ public class UserService {
 		
 		return isThere;
 	}
+	public boolean checkUserNickname(String nickname) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean isThere = new UserDao().checkUserNickname(conn, nickname);
+		JDBCTemplate.close(conn);
+		
+		return isThere;
+	}
 }

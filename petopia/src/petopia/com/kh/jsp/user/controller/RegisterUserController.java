@@ -1,6 +1,9 @@
 package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +37,22 @@ public class RegisterUserController extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		String pw = request.getParameter("pw");
 		String phone = request.getParameter("phone");
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(pw.getBytes());
+			
+			byte[] bytes = md.digest();
+			StringBuilder builder = new StringBuilder();
+			for(int i=0;i<bytes.length;i++) {
+				builder.append(String.format("%02x", bytes[i]));
+			}
+			//System.out.println(bytes);
+			//System.out.println(builder.toString().toUpperCase());
+			pw = builder.toString().toUpperCase();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		
 		User user = new User();
 		user.setUserEmail(email);

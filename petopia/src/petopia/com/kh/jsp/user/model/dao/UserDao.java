@@ -102,4 +102,23 @@ public class UserDao {
 		}
 		return isThere;
 	}
+	public boolean checkUserNickname(Connection conn, String nickname) {
+		Boolean isThere = true;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkUserNickname");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return isThere;
+	}
 }

@@ -67,95 +67,10 @@
             font-weight: bold;
             font-size: 12px;
         }
+        .err-input{
+            border-color: #f53636;
+        }
     </style>
-    <script>
-        /*$(document).ready(function(){
-            $("#register-submit").click(function(){
-                const email = document.getElementById("email");
-                const nickname = document.getElementById("nickname");
-                const pw = document.getElementById("pw");
-                const pwCheck = document.getElementById("pw-check");
-                const phone = document.getElementById("phone");
-
-                const regExpEmail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-                const regExpPw = /^[a-zA-Z0-9]+$/;
-                const regExpPhone = /^\d{10,11}$/;
-
-                document.getElementById("err-empty-email").style.display="none";
-                document.getElementById("err-reg-email").style.display="none";
-                document.getElementById("err-empty-nickname").style.display="none";
-                document.getElementById("err-empty-pw").style.display="none";
-                document.getElementById("err-reg-pw").style.display="none";
-                document.getElementById("err-empty-pw-check").style.display="none";
-                document.getElementById("err-pw-missmatch").style.display="none";
-                document.getElementById("err-empty-phone").style.display="none";
-                document.getElementById("err-reg-phone").style.display="none";
-                
-                let flag = true;
-                if(phone.value==""){
-                    phone.focus();
-                    document.getElementById("err-empty-phone").style.display="block";
-                    flag = false;
-                }
-                else if(!regExpPhone.test(phone.value)){
-                    phone.focus();
-                    document.getElementById("err-reg-phone").style.display="block";
-                    flag = false;
-                }
-
-                if(pw.value==""){
-                    pw.focus();
-                    document.getElementById("err-empty-pw").style.display="block";
-                    flag = false;
-                }
-                else if(!regExpPw.test(pw.value)){
-                    pw.focus();
-                    document.getElementById("err-reg-pw").style.display="block";
-                    flag = false;
-                }
-                else if(pwCheck.value==""){
-                    pwCheck.focus();
-                    document.getElementById("err-empty-pw-check").style.display="block";
-                    flag = false;
-                }
-                else if(pwCheck.value!=pw.value){
-                    pwCheck.focus();
-                    document.getElementById("err-pw-missmatch").style.display="block";
-                    flag = false;
-                }
-
-                if(nickname.value==""){
-                    nickname.focus();
-                    document.getElementById("err-empty-nickname").style.display="block";
-                    flag = false;
-                }
-
-                if(email.value==""){
-                    email.focus();
-                    document.getElementById("err-empty-email").style.display="block";
-                    flag = false;
-                }
-                else if(!regExpEmail.test(email.value)){
-                    email.focus();
-                    document.getElementById("err-reg-email").style.display="block";
-                    flag = false;
-                }
-
-                if(flag){
-                    $("#register-form").submit();
-                }
-            });
-        });
-        function checkCaps(event){
-            console.log(event);
-            if(event.getModifierState("CapsLock")){
-                document.getElementById("err-capslock").style.display="block";
-            }
-            else{
-                document.getElementById("err-capslock").style.display="none";
-            }
-        }*/
-    </script>
 </head>
 <body>
     <%@include file="../common/header-min.jsp" %>
@@ -163,16 +78,22 @@
         <div id="register-form-wrap">
             <form id="register-form" action="<%=contextPath %>/register.prossess" method="post">
                 <div class="input-wrap">
-                    <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
+                    <input id="email" class="err-input" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">person</span>
                     </div>
+                </div>
+                <div class="register-error-wrap" id="err-email" style="display: none;">
+                    <!--이메일을 입력해 주세요.-->
                 </div>
                 <div class="input-wrap">
                     <input id="nickname" type="text" name="nickname" placeholder=" 닉네임" autocomplete="off">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">person</span>
                     </div>
+                </div>
+                <div class="register-error-wrap" id="err-nickname" style="display: none;">
+                    <!--닉네임을 입력해 주세요.-->
                 </div>
                 <div class="input-wrap">
                     <input id="pw" type="text" name="pw" placeholder=" 비밀번호" onkeyup="checkCaps(event);">
@@ -186,23 +107,17 @@
                         <span class="material-symbols-outlined icon-size">lock</span>
                     </div>
                 </div>
+                <div class="register-error-wrap" id="err-capslock" style="display: none;">
+                    <!--CapsLock이 켜져 있습니다.-->
+                </div>
+                <div class="register-error-wrap" id="err-pw" style="display: none;">
+                    <!--비밀번호를 입력해 주세요.-->
+                </div>
                 <div class="input-wrap">
                     <input id="phone" type="text" name="phone" placeholder=" 전화번호">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">deskphone</span>
                     </div>
-                </div>
-                <div class="register-error-wrap" id="err-capslock" style="display: none;">
-                    <!--CapsLock이 켜져 있습니다.-->
-                </div>
-                <div class="register-error-wrap" id="err-email" style="display: none;">
-                    <!--이메일을 입력해 주세요.-->
-                </div>
-                <div class="register-error-wrap" id="err-nickname" style="display: none;">
-                    <!--닉네임을 입력해 주세요.-->
-                </div>
-                <div class="register-error-wrap" id="err-pw" style="display: none;">
-                    <!--비밀번호를 입력해 주세요.-->
                 </div>
                 <div class="register-error-wrap" id="err-phone" style="display: none;">
                     <!--전화번호를 입력해 주세요.-->
@@ -253,11 +168,13 @@
             if(email.value==""){
                 errEmail.style.display="block";
                 errEmail.innerText = "이메일을 입력해 주세요.";
+                email.style.borderColor = "#f53636";
                 emailFlag = false;
             }
             else if(!regExpEmail.test(email.value)){
                 errEmail.style.display="block";
                 errEmail.innerText = "올바른 이메일이 아닙니다. 이메일을 확인해 주세요.";
+                email.style.borderColor = "#f53636";
                 emailFlag = false;
             }
             else{
@@ -270,11 +187,13 @@
 				        if(result == "N"){
                             errEmail.style.display="block";
                             errEmail.innerText = "사용할 수 없는 이메일입니다. 다른 이메일을 입력해 주세요.";
+                            email.style.borderColor = "#f53636";
                             emailFlag = false;
 				        }
 				        else{
-                            errEmail.style.display="none";
+                            errEmail.style = "";
                             errEmail.innerText = "";
+                            email.style = "";
                             emailFlag = true;
 				        }
 			        },
@@ -290,12 +209,33 @@
             if(nickname.value==""){
                 errNickname.style.display="block";
                 errNickname.innerText = "닉네임을 입력해 주세요.";
+                nickname.style.borderColor = "#f53636";
                 nicknameFlag = false;
             }
             else{
-                errNickname.style.display="none";
-                errNickname.innerText = "";
-                nicknameFlag = true;
+                $.ajax({
+                    url : "nicknameCheck",
+			        type : "get",
+			        data : {nickname : nickname.value},
+			        success : function(result){
+                        console.log(result);
+				        if(result == "N"){
+                            errNickname.style.display="block";
+                            errNickname.innerText = "사용할 수 없는 닉네임입니다. 다른 닉네임을 입력해 주세요.";
+                            nickname.style.borderColor = "#f53636";
+                            nicknameFlag = false;
+				        }
+				        else{
+                            errNickname.style = "";
+                            errNickname.innerText = "";
+                            nickname.style = "";
+                            nicknameFlag = true;
+				        }
+			        },
+			        error : function(e){
+				        console.log(e);
+			        }
+		        });
             }
         }
         function checkPw(){
@@ -306,26 +246,36 @@
             if(pw.value==""){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호를 입력해 주세요.";
+                pw.style.borderColor = "#f53636";
+                pwCheck.style = "";
                 pwFlag = false;
             }
             else if(!regExpPw.test(pw.value)){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호는 영어와 숫자만 가능합니다.";
+                pw.style.borderColor = "#f53636";
+                pwCheck.style = "";
                 pwFlag = false;
             }
             else if(pwCheck.value==""){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호 확인을 입력해 주세요.";
+                pw.style = "";
+                pwCheck.style.borderColor = "#f53636";
                 pwFlag = false;
             }
             else if(pwCheck.value!=pw.value){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호 확인이 일치하지 않습니다.";
+                pw.style = "";
+                pwCheck.style.borderColor = "#f53636";
                 pwFlag = false;
             }
             else{
-                errPw.style.display="none";
+                errPw.style = "";
                 errPw.innerText = "";
+                pw.style = "";
+                pwCheck.style = "";
                 pwFlag = true;
             }
         }
@@ -336,16 +286,19 @@
             if(phone.value==""){
                 errPhone.style.display="block";
                 errPhone.innerText = "전화번호를 입력해 주세요.";
+                phone.style.borderColor = "#f53636";
                 phoneFlag = false;
             }
             else if(!regExpPhone.test(phone.value)){
                 errPhone.style.display="block";
                 errPhone.innerText = "올바른 전화번호가 아닙니다. 전화번호를 확인해 주세요.";
+                phone.style.borderColor = "#f53636";
                 phoneFlag = false;
             }
             else{
-                errPhone.style.display="none";
+                errPhone.style = "";
                 errPhone.innerText = "";
+                phone.style = "";
                 phoneFlag = true;
             }
         }
@@ -356,7 +309,7 @@
                 errCapslock.innerText = "CapsLock이 켜져 있습니다.";
             }
             else{
-                errCapslock.style.display="none";
+                errCapslock.style = "";
                 errCapslock.innerText = "";
             }
         }
