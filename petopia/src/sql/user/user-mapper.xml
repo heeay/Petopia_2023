@@ -56,4 +56,23 @@ FROM
 WHERE
 	USER_NICKNAME = ?
 </entry>
+<entry key="updateUserInfo">
+UPDATE
+	TB_USER
+SET
+	USER_NICKNAME = ?,
+	USER_PHONE = ?,
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="updateUserPass">
+UPDATE
+	TB_USER
+SET
+	USER_PASS = ?,
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
 </properties>

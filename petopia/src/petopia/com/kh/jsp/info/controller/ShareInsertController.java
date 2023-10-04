@@ -1,11 +1,21 @@
 package petopia.com.kh.jsp.info.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import petopia.com.kh.jsp.common.MyFileRenamePolicy;
+import petopia.com.kh.jsp.info.model.vo.Info;
+import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
 /**
  * Servlet implementation class ShareInsertController
@@ -27,7 +37,32 @@ public class ShareInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
 		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			int maxSize = 1024 * 1024 * 100;
+			
+			String savePath = request.getServletContext().getRealPath("/resources/info_upfiles/");
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			String title = multiRequest.getParameter("title");
+			String category = multiRequest.getParameter("category");
+			String content = multiRequest.getParameter("content");
+			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
+			
+			Info i = new Info();
+			i.setInfoTitle(title);
+			i.setCategory(category);
+			i.setInfoContent(content);
+			i.setUserNo(userNo);
+			
+			ArrayList<InfoFile> list = new ArrayList();
+			
+			
+			
+		}
 		
 	}
 

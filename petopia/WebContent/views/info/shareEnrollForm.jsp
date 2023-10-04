@@ -68,6 +68,8 @@
             <br>
 
             <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" id="enroll-form" method="post">
+			
+				<input type="hidden" name="userNo">
 
                 <table align="center">
 
@@ -90,21 +92,21 @@
                     <tr>
                         <th>별점</th>
                         <td>
-                        	<a class="star" id="star">☆</a>
-                        	<a class="star" id="star">☆</a>
-                        	<a class="star" id="star">☆</a>
-                        	<a class="star" id="star">☆</a>
-                        	<a class="star" id="star">☆</a>
+                        	<a class="star" id="star1">☆</a>
+                        	<a class="star" id="star2">☆</a>
+                        	<a class="star" id="star3">☆</a>
+                        	<a class="star" id="star4">☆</a>
+                        	<a class="star" id="star5">☆</a>
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><textarea name="content"rows="20" style="resize: none;" placeholder="내용을 입력해주세요."></textarea></td>
+                        <td><textarea name="content" rows="20" style="resize: none;" placeholder="내용을 입력해주세요."></textarea></td>
                     </tr>
                 </table>
                 
                 <div id="file-area">
-                	<input type="file" name="file1" id="file1">
+                	<input type="file" name="file1" id="file1" required>
                     <input type="file" name="file2" id="file2">
                     <input type="file" name="file3" id="file3">
                     <input type="file" name="file4" id="file4">
@@ -117,7 +119,7 @@
                 </div>
 
             </form>
-    
+            
         </div>
         
     </section>
@@ -142,9 +144,8 @@
     				};
     			};
     			
-    			// DB로 넘길 별점 개수 (1 ~ 5)
-    			console.log(($(this).text('⭐').last().index()) + 1);
-    			
+    			// DB로 넘길 별점 개수 (1 ~ 5) => 위에 hidden을 만들어서 value에 담기
+    			const starNum = ($(this).text('⭐').last().index()) + 1;
     		});
     	});
 
