@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로필</title>
+<title>내 애완동물 프로필</title>
     <style>
         div{/*border: 1px solid black;*/}
         .content-area{
