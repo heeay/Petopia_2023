@@ -120,7 +120,7 @@
 		</section>      
    
             <div id="write-button">
-                <button class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기</button>            
+                <button class="w-btn-outline w-btn-gray-outline" type="submit">수정하기</button>            
             </div>
  
 
