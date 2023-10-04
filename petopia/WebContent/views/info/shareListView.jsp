@@ -66,7 +66,7 @@
 
         </table>
 
-        <div class="info-paging">
+        <div class="share-paging" align="center">
 
 			
 
