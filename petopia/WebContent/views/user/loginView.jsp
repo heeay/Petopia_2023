@@ -290,7 +290,7 @@ if(cookies!=null){
         //네이버 로그인
         var naverLogin = new naver.LoginWithNaverId({
 			clientId: "8ZYnqypIAIHZc2Ycz4px", //내 애플리케이션 정보에 cliendId
-			callbackUrl: "http://localhost:8001/naverLogin", // 내 애플리케이션 API설정의 Callback URL
+			callbackUrl: "http://localhost:8001/petopia/naverLogin", // 내 애플리케이션 API설정의 Callback URL
 			isPopup: true,
 			callbackHandle: true
 		});	
@@ -300,17 +300,23 @@ if(cookies!=null){
         window.addEventListener('load', function () {
         	naverLogin.getLoginStatus(function (status) {
         		if (status) {
-        			//let nickname = naverLogin.user.getNickname(); // 필수설정
-        			//let phone = naverLogin.user.getPhone(); // 필수설정
-                
+        			let nickname = naverLogin.user.getNickname(); // 필수설정
+        			let phone = naverLogin.user.getMobile(); // 필수설정
+
+                    alert(nickname);
+                    alert(phone);
         			console.log(naverLogin.user); 
                 
-                    /*if( nickname == undefined || nickname == null) {
+                    if( nickname == undefined || nickname == null) {
         				alert("닉네임은 필수정보입니다. 정보제공을 동의해주세요.");
                         naverLogin.reprompt();
         				return;
-        			}*/
-                    naverLogin.reprompt();
+        			}
+                    if( phone == undefined || phone == null) {
+        				alert("전화번호는 필수정보입니다. 정보제공을 동의해주세요.");
+                        naverLogin.reprompt();
+        				return;
+        			}
         		} else {
         			console.log("callback 처리에 실패하였습니다.");
         		}
@@ -328,13 +334,13 @@ if(cookies!=null){
         	openPopUp();
         	setTimeout(function() {
         		closePopUp();
-        		}, 1000);
+        	}, 1000);
         }
     </script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //카카오로그인
-        Kakao.init('8890a67c089173194979845f9389950d'); //발급받은 키 중 javascript키를 사용해준다.
+        Kakao.init('f9947b6fb5f9eb6975bcffce3ad32133'); //발급받은 키
         console.log(Kakao.isInitialized()); // sdk초기화여부판단
         function kakaoLogin() {
             Kakao.Auth.login({
