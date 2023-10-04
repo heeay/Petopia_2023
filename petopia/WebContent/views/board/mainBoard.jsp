@@ -114,7 +114,7 @@
         justify-content: center;
     }
     #pasing-area button{
-        margin : 5px;
+        margin : 0px 5px;
     }
 
 
@@ -138,8 +138,8 @@
                 </div>
 
                 <div id="search-radio">
-                    <input type="radio">제목
-                    <input type="radio">작성자
+                    <input type="radio" name="">제목
+                    <input type="radio" name="">작성자
                 </div>
 
             </div>
