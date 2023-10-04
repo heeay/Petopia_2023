@@ -43,6 +43,7 @@
         color: dodgerblue;
     }
     #category li:not(#category li:last-child){ margin-bottom: 10px; }
+
     #wrapper{
 
     width: 800px;
@@ -50,6 +51,7 @@
     margin: auto;
     margin-top : 10px;
     border : 1px solid black;
+    
 
     }
     </style>
@@ -77,6 +79,7 @@
     }
     .content-box{
     display : flex;
+    position: relative;
 
     }
     .content{
@@ -108,25 +111,24 @@
         margin-top : 10px;
     }
 
-    #writer-info {
-        font-size: 10pt;
-        text-align: right;
-        margin-right : 5px;
 
-    }
 
     #content-info {
         font-size: 10pt;
         text-align: right;
         margin-right : 5px;
+    }
+
+
+    .fa-heart{
+        margin-left: -205px;
+        margin-top : 2px;
+        position: absolute;
 
     }
     
-    #user-detail {
-    }
-
-    .fa-heart{
-        margin-right:10px;
+    .info {
+    	margin : 5px;
     }
 
 </style>
@@ -172,30 +174,34 @@
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
 
-                    <div id="writer-info">
-                        <span id="pet-detail">13살 푸들 남자</span>
-                        <span id="user-detail">30대 남성</span>
-                    </div>
                     <div id="content-info">
-						<i class="far fa-heart fa-3x"></i>
+                        <i class="far fa-heart fa-3x"></i>
+                        <div class="info">
+                        <span id="pet-detail">13살 푸들 남자 |</span>
+                        <span id="user-detail">30대 남성</span>
+                        </div>
+                        <div class="info">
                         <span id="review">조회수:3</span>
                         <span id="like">관심:30</span>
                         <span id="chatting">채팅:30</span>
+                        </div>
                     </div>
                     </div>
-                    <div class="content">
+                   <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
 
-                    <div id="writer-info">
-                        <span id="pet-detail">13살 푸들 남자</span>
-                        <span id="user-detail">30대 남성</span>
-                    </div>
                     <div id="content-info">
                         <i class="far fa-heart fa-3x"></i>
+                        <div class="info">
+                        <span id="pet-detail">13살 푸들 남자 |</span>
+                        <span id="user-detail">30대 남성</span>
+                        </div>
+                        <div class="info">
                         <span id="review">조회수:3</span>
                         <span id="like">관심:30</span>
                         <span id="chatting">채팅:30</span>
+                        </div>
                     </div>
                     </div>
                 </div>
@@ -204,34 +210,37 @@
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
 
-                    <div id="writer-info">
-                        <span id="pet-detail">13살 푸들 남자</span>
-                        <span id="user-detail">30대 남성</span>
-                    </div>
                     <div id="content-info">
                         <i class="far fa-heart fa-3x"></i>
+                        <div class="info">
+                        <span id="pet-detail">13살 푸들 남자 |</span>
+                        <span id="user-detail">30대 남성</span>
+                        </div>
+                        <div class="info">
                         <span id="review">조회수:3</span>
                         <span id="like">관심:30</span>
                         <span id="chatting">채팅:30</span>
+                        </div>
                     </div>
                     </div>
-                    <div class="content">
+                   <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
 
-                    <div id="writer-info">
-                        <span id="pet-detail">13살 푸들 남자</span>
-                        <span id="user-detail">30대 남성</span>
-                    </div>
                     <div id="content-info">
                         <i class="far fa-heart fa-3x"></i>
+                        <div class="info">
+                        <span id="pet-detail">13살 푸들 남자 |</span>
+                        <span id="user-detail">30대 남성</span>
+                        </div>
+                        <div class="info">
                         <span id="review">조회수:3</span>
                         <span id="like">관심:30</span>
                         <span id="chatting">채팅:30</span>
+                        </div>
                     </div>
                     </div>
-                </div>
-                
+                </div>                
     
     
                 <div id="pasing-area">

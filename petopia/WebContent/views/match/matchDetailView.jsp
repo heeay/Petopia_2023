@@ -39,7 +39,7 @@
     }
 
     #user-detail {
-    margin-left: 20px;
+
     margin-left : 40px;
     font-size: 12pt;
     }
