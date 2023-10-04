@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,7 @@ public class LoginUserController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email").trim();
 		String pw = request.getParameter("pw").trim();
+		String remember = request.getParameter("remember")!=null ? request.getParameter("remember") : "off";
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -43,11 +45,9 @@ public class LoginUserController extends HttpServlet {
 			byte[] bytes = md.digest();
 			StringBuilder builder = new StringBuilder();
 			for(int i=0;i<bytes.length;i++) {
-				builder.append(String.format("%02x", bytes[i]));
+				builder.append(String.format("%02X", bytes[i]));
 			}
-			//System.out.println(bytes);
-			//System.out.println(builder.toString());
-			pw = builder.toString().toUpperCase();
+			pw = builder.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -61,6 +61,21 @@ public class LoginUserController extends HttpServlet {
 			request.setAttribute("fail", "fail");
 			request.getRequestDispatcher("views/user/loginView.jsp").forward(request, response);
 		} else {
+			if(remember.equals("on")) {
+				Cookie cookie = new Cookie("rememberEmail", email);
+				cookie.setMaxAge(86400);
+				response.addCookie(cookie);
+			} else {
+				Cookie[] cookies = request.getCookies();
+				if(cookies != null) {
+					for(int i=0;i<cookies.length;i++) {
+						if(cookies[i].getName().equals("rememberEmail")) {
+							cookies[i].setMaxAge(0);
+							response.addCookie(cookies[i]);
+						}
+					}
+				}
+			}
 			request.getSession().setAttribute("userInfo", user);
 			response.sendRedirect(request.getContextPath());
 		}

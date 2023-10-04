@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 <%
 String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute("fail") : "";
-
+String cookieEmail = "";
+Cookie[] cookies = request.getCookies();
+if(cookies!=null){
+	for(int i=0;i<cookies.length;i++){
+		if(cookies[i].getName().equals("rememberEmail")){
+			cookieEmail = cookies[i].getValue();
+		}
+	}
+}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -162,32 +170,50 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
                 }
             });
             $("#login-submit").click(function(){
+                let emailFlag = false;
+                let pwFlag = false;
                 const email = document.getElementById("email");
+                const errEmail = document.getElementById("err-email");
                 const pw = document.getElementById("pw");
+                const errPw = document.getElementById("err-pw");
 
-                document.getElementById("err-empty-email").style.display="none";
-                document.getElementById("err-empty-pw").style.display="none";
-                
-                if(email.value==""){
-                    email.focus();
-                    document.getElementById("err-empty-email").style.display="block";
-                    return;
-                }
                 if(pw.value==""){
                     pw.focus();
-                    document.getElementById("err-empty-pw").style.display="block";
-                    return;
+                    errPw.style.display = "block";
+                    errPw.innerText = "비밀번호를 작성해 주세요.";
+                    pwFlag = false;
+                }
+                else{
+                    errPw.style = "";
+                    errPw.innerText = "";
+                    pwFlag = true;
+                }
+                if(email.value==""){
+                    email.focus();
+                    errEmail.style.display = "block";
+                    errEmail.innerText = "이메일을 작성해 주세요.";
+                    emailFlag = false;
+                }
+                else{
+                    errEmail.style = "";
+                    errEmail.innerText = "";
+                    emailFlag = true;
                 }
 
-                $("#login-form").submit();
+                if(emailFlag && pwFlag){
+                    $("#login-form").submit();
+                }
             });
         });
         function checkCaps(event){
+            const errCapslock = document.getElementById("err-capslock");
             if(event.getModifierState("CapsLock")){
-                document.getElementById("err-capslock").style.display="block";
+                errCapslock.style.display="block";
+                errCapslock.innerText = "CapsLock이 켜져 있습니다.";
             }
             else{
-                document.getElementById("err-capslock").style.display="none";
+                errCapslock.style = "";
+                errCapslock.innerText = "";
             }
         }
     </script>
@@ -206,7 +232,7 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
                     </div>
                     <%} %>
                     <div class="input-wrap">
-                        <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
+                        <input id="email" type="text" name="email" placeholder=" 이메일" value=<%=cookieEmail %>>
                         <div class="input-icon">
                             <span class="material-symbols-outlined icon-size">person</span>
                         </div>
@@ -218,16 +244,16 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
                         </div>
                     </div>
                     <div class="checkbox-wrap">
-                        <input id="remember" type="checkbox" name="remember"><label for="remember">Remember Me</label>
+                        <input id="remember" type="checkbox" name="remember" <%if(!cookieEmail.equals("")){ %>checked<%} %>><label for="remember">Remember Me</label>
                     </div>
                     <div class="login-error-wrap" id="err-capslock" style="display: none;">
-                        CapsLock이 켜져 있습니다.
+                        <!--CapsLock이 켜져 있습니다.-->
                     </div>
-                    <div class="login-error-wrap" id="err-empty-email" style="display: none;">
-                        이메일을 작성해 주세요.
+                    <div class="login-error-wrap" id="err-email" style="display: none;">
+                        <!--이메일을 작성해 주세요.-->
                     </div>
-                    <div class="login-error-wrap" id="err-empty-pw" style="display: none;">
-                        비밀번호를 작성해 주세요.
+                    <div class="login-error-wrap" id="err-pw" style="display: none;">
+                        <!--비밀번호를 작성해 주세요.-->
                     </div>
                     <div class="submit-wrap">
                         <button id="login-submit" type="button">로그인</button>
