@@ -194,7 +194,7 @@
                 </div>
             </div>
             <div id="login-form-wrap" style="display: none;">
-                <form id="login-form" action="test.do" method="get">
+                <form id="login-form" action="<%=contextPath%>/login.login" method="post">
                     <div class="input-wrap">
                         <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                         <div class="input-icon">

@@ -1,1 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>유저 관련 SQL문</comment>
+<entry key="loginUser">
+SELECT
+	USER_NO,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+WHERE
+	USER_EMAIL = ?
+AND
+	USER_PASS = ?
+AND
+	USER_ENABLE_STATE = 'Y'
+</entry>
+<entry key="insertUser">
+INSERT INTO
+TB_USER(
+	USER_NO,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE
+)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?
+)
+</entry>
+</properties>

@@ -7,7 +7,7 @@
 <title>병원 기록 작성</title>
 
 	<style>
-        div{border: 1px solid black;}
+        div{/*border: 1px solid black;*/}
         .content-area{
             border: 1px solid black;
             position: absolute;
@@ -17,18 +17,21 @@
             height: 80%;
             width: 78%;  
         }
+        input{border: none;}
+        textarea{border: none;}
      </style>
      <style>
         .hos-table-title{
             width: 150px;
         }
         .input-width{
-            width: 600px;
+            width: 700px;
         }
         .hos-table-content{
             width: 500px;
         }
         .btn-right{float: right;}
+        table{background-color: rgba(221, 216, 216, 0.76);}
      </style>
 </head>
 <body>
@@ -39,9 +42,10 @@
         <div class="container">
 
             <table class="table table-hover">
-
+                
                 <thead>
-                    <h3 style="border-bottom:none;">병원기록</h3>
+                    <h2 style="border-bottom:none;">병원기록</h2>
+                    <br>
                 </thead>
 
                 <tbody>
@@ -71,24 +75,19 @@
                     </tr>
 
                     <tr>
-                        <th>기타사항</th>
-                        <td></td>
+                        <th colspan="2">기타사항</th>
                     </tr>
                     <tr>
                         <th colspan="2"><textarea name="" id="" cols="120" rows="10" resize: none></textarea></th>
                     </tr>
                     
                 </tbody>
-                <tfoot>
-                    <a href="" class="btn btn-right btn-secondary">글작성</a>
-                </tfoot>
-                
 
             </table>
             
+            <button type="submit" class="btn btn-right btn-secondary">글작성</button>
+            
         </div>
-
-
 
 	</div>
 	
