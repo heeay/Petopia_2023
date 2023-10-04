@@ -15,4 +15,26 @@ public class UserService {
 		
 		return user;
 	}
+	public int insertUser(User user) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new UserDao().insertUser(conn, user);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	public boolean checkUserEmail(String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean isThere = new UserDao().checkUserEmail(conn, email);
+		JDBCTemplate.close(conn);
+		
+		return isThere;
+	}
 }

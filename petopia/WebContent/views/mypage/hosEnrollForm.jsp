@@ -9,7 +9,7 @@
 	<style>
         div{/*border: 1px solid black;*/}
         .content-area{
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -31,7 +31,7 @@
             width: 500px;
         }
         .btn-right{float: right;}
-        table{background-color: rgba(221, 216, 216, 0.76);}
+        table{background-color: rgb(247, 222, 205);}
      </style>
 </head>
 <body>
@@ -75,18 +75,16 @@
                     </tr>
 
                     <tr>
-                        <th colspan="2">기타사항</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2"><textarea name="" id="" cols="120" rows="10" resize: none></textarea></th>
+                        <th>기타사항</th>
+                        <th><textarea name="" id="" cols="93" rows="10" resize: none></textarea></th>
                     </tr>
                     
                 </tbody>
 
             </table>
-            
+
             <button type="submit" class="btn btn-right btn-secondary">글작성</button>
-            
+
         </div>
 
 	</div>

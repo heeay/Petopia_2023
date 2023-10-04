@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
-import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class loginUserController
+ * Servlet implementation class AjaxCheckEmailController
  */
-@WebServlet("/login.login")
-public class loginUserController extends HttpServlet {
+@WebServlet("/emailCheck")
+public class AjaxCheckEmailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public loginUserController() {
+    public AjaxCheckEmailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +29,16 @@ public class loginUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		String email = request.getParameter("email");
-		String pw = request.getParameter("pw");
 		
-		User u = new User();
-		u.setUserEmail(email);
-		u.setUserPass(pw);
-		User user = new UserService().loginUser(u);
+		boolean isThere = new UserService().checkUserEmail(email);
 		
-		if(user == null) {
-			request.setAttribute("fail", "fail");
-			response.sendRedirect(request.getContextPath()+"/login");
+		response.setContentType("text/html; charset=UTF-8");
+		if(isThere) {
+			response.getWriter().print("N");
 		} else {
-			request.getSession().setAttribute("userInfo", user);
-			response.sendRedirect(request.getContextPath());
+			response.getWriter().print("Y");
 		}
 	}
 

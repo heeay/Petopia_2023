@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute("fail") : "";
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,7 +21,7 @@
             overflow: auto;
         }
         #login-form-wrap{
-            width: 300px;
+            width: 350px;
             border-radius: 0 0 12px 12px;
             padding: 12px;
             box-sizing: border-box;
@@ -25,7 +29,7 @@
             margin: auto;
         }
         .input-wrap{
-            width: 200px;
+            width: 240px;
             height: 34px;
             margin: auto;
             margin-bottom: 5px;
@@ -56,7 +60,7 @@
             color: #6b6e2e;
         }
         .checkbox-wrap{
-            margin: 0px 40px;
+            margin: 0px 50px;
             margin-bottom: 10px;
             font-size: 12px;
         }
@@ -64,7 +68,7 @@
             cursor: pointer;
         }
         .submit-wrap{
-            width: 200px;
+            width: 240px;
             height: 34px;
             margin: auto;
             margin-top: 10px;
@@ -79,20 +83,21 @@
             cursor: pointer;
         }
         .login-error-wrap{
-            width: 180px;
+            width: 230px;
             margin: auto;
             margin-bottom: 5px;
-        }
-        .error-message{
             color:#f53636;
             font-size: 13px;
             font-weight: bold;
+        }
+        #err-fail{
+        	width: 260px;
         }
         .auth-wrap{
             height: 44px;
         }
         .auth-btn{
-            width: 350px;
+            width: 400px;
             height: 100%;
             margin: auto;
             border: 1px solid;
@@ -193,8 +198,13 @@
                 	이메일로 로그인
                 </div>
             </div>
-            <div id="login-form-wrap" style="display: none;">
-                <form id="login-form" action="<%=contextPath%>/login.login" method="post">
+            <div id="login-form-wrap" <%if(fail.isEmpty()){ %>style="display: none;"<%} %>>
+                <form id="login-form" action="<%=contextPath%>/login.prossess" method="post">
+                	<%if(!fail.isEmpty()){ %>
+                    <div class="login-error-wrap" id="err-fail">
+                        이메일 또는 비밀번호를 잘못 입력했습니다.
+                    </div>
+                    <%} %>
                     <div class="input-wrap">
                         <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                         <div class="input-icon">
@@ -211,19 +221,13 @@
                         <input id="remember" type="checkbox" name="remember"><label for="remember">Remember Me</label>
                     </div>
                     <div class="login-error-wrap" id="err-capslock" style="display: none;">
-                        <div class="error-message">
-                            CapsLock이 켜져 있습니다.
-                        </div>
+                        CapsLock이 켜져 있습니다.
                     </div>
                     <div class="login-error-wrap" id="err-empty-email" style="display: none;">
-                        <div class="error-message">
-                           	이메일을 작성해 주세요.
-                        </div>
+                        이메일을 작성해 주세요.
                     </div>
                     <div class="login-error-wrap" id="err-empty-pw" style="display: none;">
-                        <div class="error-message">
-                           	 비밀번호를 작성해 주세요.
-                        </div>
+                        비밀번호를 작성해 주세요.
                     </div>
                     <div class="submit-wrap">
                         <button id="login-submit" type="button">로그인</button>
