@@ -29,4 +29,12 @@ public class UserService {
 		
 		return result;
 	}
+	public boolean checkUserEmail(String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean isThere = new UserDao().checkUserEmail(conn, email);
+		JDBCTemplate.close(conn);
+		
+		return isThere;
+	}
 }

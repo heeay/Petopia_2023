@@ -29,6 +29,7 @@ public class RegisterUserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String email = request.getParameter("email");
 		String nickname = request.getParameter("nickname");
 		String pw = request.getParameter("pw");

@@ -40,12 +40,20 @@ VALUES(
 	?
 )
 </entry>
-<entry key="selectUserFromEmail">
+<entry key="checkUserEmail">
 SELECT
 	USER_NO
 FROM
 	TB_USER
 WHERE
 	USER_EMAIL = ?
+</entry>
+<entry key="checkUserNickname">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_NICKNAME = ?
 </entry>
 </properties>

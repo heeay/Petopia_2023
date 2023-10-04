@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
+
 /**
  * Servlet implementation class AjaxCheckEmailController
  */
@@ -26,8 +28,18 @@ public class AjaxCheckEmailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		
+		String email = request.getParameter("email");
+		
+		boolean isThere = new UserService().checkUserEmail(email);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		if(isThere) {
+			response.getWriter().print("N");
+		} else {
+			response.getWriter().print("Y");
+		}
 	}
 
 	/**

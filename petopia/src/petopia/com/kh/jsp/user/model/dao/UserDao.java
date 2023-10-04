@@ -82,4 +82,24 @@ public class UserDao {
 		
 		return result;
 	}
+	
+	public boolean checkUserEmail(Connection conn, String email) {
+		Boolean isThere = true;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkUserEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return isThere;
+	}
 }

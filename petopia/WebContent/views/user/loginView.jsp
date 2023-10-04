@@ -86,14 +86,12 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
             width: 230px;
             margin: auto;
             margin-bottom: 5px;
-        }
-        #err-fail{
-        	width: 260px;
-        }
-        .error-message{
             color:#f53636;
             font-size: 13px;
             font-weight: bold;
+        }
+        #err-fail{
+        	width: 260px;
         }
         .auth-wrap{
             height: 44px;
@@ -204,9 +202,7 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
                 <form id="login-form" action="<%=contextPath%>/login.prossess" method="post">
                 	<%if(!fail.isEmpty()){ %>
                     <div class="login-error-wrap" id="err-fail">
-                        <div class="error-message">
-                           	 이메일 또는 비밀번호를 잘못 입력했습니다.
-                        </div>
+                        이메일 또는 비밀번호를 잘못 입력했습니다.
                     </div>
                     <%} %>
                     <div class="input-wrap">
@@ -225,19 +221,13 @@ String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute(
                         <input id="remember" type="checkbox" name="remember"><label for="remember">Remember Me</label>
                     </div>
                     <div class="login-error-wrap" id="err-capslock" style="display: none;">
-                        <div class="error-message">
-                            CapsLock이 켜져 있습니다.
-                        </div>
+                        CapsLock이 켜져 있습니다.
                     </div>
                     <div class="login-error-wrap" id="err-empty-email" style="display: none;">
-                        <div class="error-message">
-                           	이메일을 작성해 주세요.
-                        </div>
+                        이메일을 작성해 주세요.
                     </div>
                     <div class="login-error-wrap" id="err-empty-pw" style="display: none;">
-                        <div class="error-message">
-                           	 비밀번호를 작성해 주세요.
-                        </div>
+                        비밀번호를 작성해 주세요.
                     </div>
                     <div class="submit-wrap">
                         <button id="login-submit" type="button">로그인</button>

@@ -62,8 +62,6 @@
             width: 450px;
             margin: auto;
             margin-bottom: 5px;
-        }
-        .error-message{
             color:#f53636;
             font-size: 13px;
             font-weight: bold;
@@ -71,7 +69,7 @@
         }
     </style>
     <script>
-        $(document).ready(function(){
+        /*$(document).ready(function(){
             $("#register-submit").click(function(){
                 const email = document.getElementById("email");
                 const nickname = document.getElementById("nickname");
@@ -149,13 +147,14 @@
             });
         });
         function checkCaps(event){
+            console.log(event);
             if(event.getModifierState("CapsLock")){
                 document.getElementById("err-capslock").style.display="block";
             }
             else{
                 document.getElementById("err-capslock").style.display="none";
             }
-        }
+        }*/
     </script>
 </head>
 <body>
@@ -194,80 +193,174 @@
                     </div>
                 </div>
                 <div class="register-error-wrap" id="err-capslock" style="display: none;">
-                    <div class="error-message">
-                        CapsLock이 켜져 있습니다.
-                    </div>
+                    <!--CapsLock이 켜져 있습니다.-->
                 </div>
-                <div class="register-error-wrap" id="err-empty-email" style="display: none;">
-                    <div class="error-message">
-                        이메일을 입력해 주세요.
-                    </div>
+                <div class="register-error-wrap" id="err-email" style="display: none;">
+                    <!--이메일을 입력해 주세요.-->
                 </div>
-                <div class="register-error-wrap" id="err-reg-email" style="display: none;">
-                    <div class="error-message">
-                        올바른 이메일이 아닙니다. 이메일을 확인해 주세요.
-                    </div>
+                <div class="register-error-wrap" id="err-nickname" style="display: none;">
+                    <!--닉네임을 입력해 주세요.-->
                 </div>
-                <div class="register-error-wrap" id="err-empty-nickname" style="display: none;">
-                    <div class="error-message">
-                        닉네임을 입력해 주세요.
-                    </div>
+                <div class="register-error-wrap" id="err-pw" style="display: none;">
+                    <!--비밀번호를 입력해 주세요.-->
                 </div>
-                <div class="register-error-wrap" id="err-empty-pw" style="display: none;">
-                    <div class="error-message">
-                      	비밀번호를 입력해 주세요.
-                    </div>
-                </div>
-                <div class="register-error-wrap" id="err-reg-pw" style="display: none;">
-                    <div class="error-message">
-                      	비밀번호는 영어와 숫자만 가능합니다.
-                    </div>
-                </div>
-                <div class="register-error-wrap" id="err-empty-pw-check" style="display: none;">
-                    <div class="error-message">
-                      	비밀번호 확인을 입력해 주세요.
-                    </div>
-                </div>
-                <div class="register-error-wrap" id="err-pw-missmatch" style="display: none;">
-                    <div class="error-message">
-                       	비밀번호 확인이 일치하지 않습니다.
-                    </div>
-                </div>
-                <div class="register-error-wrap" id="err-empty-phone" style="display: none;">
-                    <div class="error-message">
-                        전화번호를 입력해 주세요.
-                    </div>
-                </div>
-                <div class="register-error-wrap" id="err-reg-phone" style="display: none;">
-                    <div class="error-message">
-                        올바른 전화번호가 아닙니다. 전화번호를 확인해 주세요.
-                    </div>
+                <div class="register-error-wrap" id="err-phone" style="display: none;">
+                    <!--전화번호를 입력해 주세요.-->
                 </div>
                 <div class="submit-wrap">
                     <button id="register-submit" type="button">회원가입</button>
                 </div>
             </form>
         </div>
-        <script>
-            $(document).ready(function(){
-                $("#email").keyup(function(){
-                    $.ajax({
-				        url : "emailCheckAjax",
-				        type : "get",
-				        data : {checkId : $("#email").val()},
-				        success : function(result){
-					        console.log("통신성공");
-					        console.log(result);
-					        $("#output").text(result);
-				        },
-				        error : function(e){
-					        console.log(e);
-					        alert("통신실패");
-				        }
-			        })
-                })
+    <script>
+        let emailFlag = false;
+        let nicknameFlag = false;
+        let pwFlag = false;
+        let phoneFlag = false;
+        $(document).ready(function(){
+            $("#register-submit").click(function(){
+                checkPhone();
+                checkPw();
+                checkNickname();
+                checkEmail();
+
+                console.log(emailFlag+","+nicknameFlag+","+pwFlag+","+phoneFlag);
+                if(emailFlag && nicknameFlag && pwFlag && phoneFlag){
+                    $("#register-form").submit();
+                }
             })
-        </script>
+            $("#email").focusout(function(){
+                checkEmail();
+            });
+            $("#nickname").focusout(function(){
+                checkNickname();
+            });
+            $("#pw").focusout(function(){
+                checkPw();
+            });
+            $("#pw-check").focusout(function(){
+                checkPw();
+            });
+            $("#phone").focusout(function(){
+                checkPhone();
+            });
+        })
+
+        function checkEmail(){
+            const email = document.getElementById("email");
+            const errEmail = document.getElementById("err-email");
+            const regExpEmail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+            if(email.value==""){
+                errEmail.style.display="block";
+                errEmail.innerText = "이메일을 입력해 주세요.";
+                emailFlag = false;
+            }
+            else if(!regExpEmail.test(email.value)){
+                errEmail.style.display="block";
+                errEmail.innerText = "올바른 이메일이 아닙니다. 이메일을 확인해 주세요.";
+                emailFlag = false;
+            }
+            else{
+                $.ajax({
+                    url : "emailCheck",
+			        type : "get",
+			        data : {email : email.value},
+			        success : function(result){
+                        console.log(result);
+				        if(result == "N"){
+                            errEmail.style.display="block";
+                            errEmail.innerText = "사용할 수 없는 이메일입니다. 다른 이메일을 입력해 주세요.";
+                            emailFlag = false;
+				        }
+				        else{
+                            errEmail.style.display="none";
+                            errEmail.innerText = "";
+                            emailFlag = true;
+				        }
+			        },
+			        error : function(e){
+				        console.log(e);
+			        }
+		        });
+            }
+        }
+        function checkNickname(){
+            const nickname = document.getElementById("nickname");
+            const errNickname = document.getElementById("err-nickname");
+            if(nickname.value==""){
+                errNickname.style.display="block";
+                errNickname.innerText = "닉네임을 입력해 주세요.";
+                nicknameFlag = false;
+            }
+            else{
+                errNickname.style.display="none";
+                errNickname.innerText = "";
+                nicknameFlag = true;
+            }
+        }
+        function checkPw(){
+            const pw = document.getElementById("pw");
+            const pwCheck = document.getElementById("pw-check");
+            const errPw = document.getElementById("err-pw");
+            const regExpPw = /^[a-zA-Z0-9]+$/;
+            if(pw.value==""){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호를 입력해 주세요.";
+                pwFlag = false;
+            }
+            else if(!regExpPw.test(pw.value)){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호는 영어와 숫자만 가능합니다.";
+                pwFlag = false;
+            }
+            else if(pwCheck.value==""){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호 확인을 입력해 주세요.";
+                pwFlag = false;
+            }
+            else if(pwCheck.value!=pw.value){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호 확인이 일치하지 않습니다.";
+                pwFlag = false;
+            }
+            else{
+                errPw.style.display="none";
+                errPw.innerText = "";
+                pwFlag = true;
+            }
+        }
+        function checkPhone(){
+            const phone = document.getElementById("phone");
+            const errPhone = document.getElementById("err-phone");
+            const regExpPhone = /^\d{10,11}$/;
+            if(phone.value==""){
+                errPhone.style.display="block";
+                errPhone.innerText = "전화번호를 입력해 주세요.";
+                phoneFlag = false;
+            }
+            else if(!regExpPhone.test(phone.value)){
+                errPhone.style.display="block";
+                errPhone.innerText = "올바른 전화번호가 아닙니다. 전화번호를 확인해 주세요.";
+                phoneFlag = false;
+            }
+            else{
+                errPhone.style.display="none";
+                errPhone.innerText = "";
+                phoneFlag = true;
+            }
+        }
+        function checkCaps(event){
+            const errCapslock = document.getElementById("err-capslock");
+            if(event.getModifierState("CapsLock")){
+                errCapslock.style.display="block";
+                errCapslock.innerText = "CapsLock이 켜져 있습니다.";
+            }
+            else{
+                errCapslock.style.display="none";
+                errCapslock.innerText = "";
+            }
+        }
+    </script>
     </section>
 </body>
 </html>
