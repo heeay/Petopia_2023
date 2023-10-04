@@ -117,7 +117,7 @@ String contextPath = request.getContextPath();
         <div id="header-bar" style="display: none;">
             <div id="header-bar-wrap">
                 <div class="header-logo">
-                    <a href="./main.html"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                    <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                 </div>
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="#">커뮤니티</a></li>
@@ -126,7 +126,7 @@ String contextPath = request.getContextPath();
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="./login.html">로그인</a></li>
+                    <li class="user-navi-item"><a href="<%= contextPath %>/login">로그인</a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
@@ -134,7 +134,7 @@ String contextPath = request.getContextPath();
         </div>
         <div id="header-wrap">
             <div class="header-logo">
-                <a href="./main.html"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
             </div>
             <ul class="header-navi">
                 <li class="header-navi-item"><a href="#">커뮤니티</a></li>

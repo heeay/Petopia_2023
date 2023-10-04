@@ -13,7 +13,7 @@ import petopia.com.kh.jsp.user.model.vo.User;
 /**
  * Servlet implementation class loginUserController
  */
-@WebServlet("/loginUserController")
+@WebServlet("/login.login")
 public class loginUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,6 +37,14 @@ public class loginUserController extends HttpServlet {
 		u.setUserEmail(email);
 		u.setUserPass(pw);
 		User user = new UserService().loginUser(u);
+		
+		if(user == null) {
+			request.setAttribute("fail", "fail");
+			response.sendRedirect(request.getContextPath()+"/login");
+		} else {
+			request.getSession().setAttribute("userInfo", user);
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
