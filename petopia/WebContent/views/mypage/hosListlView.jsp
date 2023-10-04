@@ -78,7 +78,9 @@
                     <td>1.</td>
                     <td>2023-09-27</td>
                     <td>제리</td>
-                    <td style="width: 20px; border-top:none;"><a href="" class="btn btn-secondary">—</a></td>
+                    <td style="width: 20px; border-top:none;">
+                        <button type="button" class="btn btn-sm btn-secondary">—</button>
+                    </td>
                 </tbody>
 
             </table>
