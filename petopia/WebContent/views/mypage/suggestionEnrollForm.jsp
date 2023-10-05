@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>건의사항 작성하기</title>
 	<style>
-        div{border: 1px solid black;}
+        /*div{border: 1px solid black;}*/
         .content-area{
             position: absolute;
             top: 130px;
@@ -18,29 +18,36 @@
     </style> 
     <style>
         #sug-content{
+            padding-top: 15px;
             width: 1000px;
             height: 600px;
             margin: auto;
-           display: block;
+            display: block;
         }
         #sub-content-back{
             background-color: rgb(247, 222, 205);
             padding-top: 20px;
             padding-bottom: 20px;
-            padding-left: 80px;
+            padding-left: 40px;
+            border-radius: 10px 0px 10px 10px;
+            font-size: 17px;
+            font-weight: bold;
         }
         #delete{
-            margin-top: 10px;
+            font-size: 20px;
+            margin-top: 25px;
             float: right;
             height: 40px;
-            width: 30px;
+            width: 35px;
             background-color: rgb(247, 222, 205);
             text-align: center;
             border-radius: 10px 10px 0px 0px;
         }
         #suggestion{
+            padding-left: 5px;
             font-size: 30px;
             font-weight: bold;
+            padding-bottom: 10px;
         }
         .input-width{
             width: 700px;
@@ -61,7 +68,10 @@
         .contentSize{height: 60px;}
         .contentSize2{height: 250px;}
         .contentSize3{height: 45px;}
-        .btn-right{float: right;}
+        .btn-right{
+            float: right;
+            padding-right: 20px;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +87,7 @@
                         <div id="delete">⨉</div>
                         <div id="suggestion">건의사항 작성</div>
                     </div>
+                    
 
                     <div id="sub-content-back">
                         <div class="contentSize">
@@ -86,10 +97,9 @@
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="93" rows="10" resize: none></textarea></div>
+                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" resize: none></textarea></div>
                         </div>
-
-                        <br>
+                        <br><br>
                         <div class="contentSize3">
                             <div class="float-left">첨부파일 1</div>
                             <div><input type="file" name="fil1" id="file1"></div>
@@ -106,7 +116,7 @@
                         <div class="btn-right">
                             <button type="submit" class="btn btn-sm btn-secondary">제출</button>
                         </div>
-                        
+                        <br>
                     </div>
                 </div>
 
