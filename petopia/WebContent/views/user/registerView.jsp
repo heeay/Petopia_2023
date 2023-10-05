@@ -27,6 +27,21 @@
             box-sizing: border-box;
             font-size: 18px;
         }
+        .input-wrap>#email{
+            width: 80%;
+        }
+        #email-auth-btn{
+            width: 18%;
+            height: 100%;
+            border: 5px solid #C7CA93;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 18px;
+            font-weight: bold;
+            color: #515242;
+            background-color: #DBDfA9;
+            cursor: pointer;
+        }
         .input-wrap>input:focus{
             outline: none;
             border-color: #6b6e2e;
@@ -56,6 +71,9 @@
             border-radius: 12px;
             box-sizing: border-box;
             background-color: #DBDfA9;
+            font-size: 18px;
+            font-weight: bold;
+            color: #515242;
             cursor: pointer;
         }
         .register-error-wrap{
@@ -67,9 +85,6 @@
             font-weight: bold;
             font-size: 12px;
         }
-        .err-input{
-            border-color: #f53636;
-        }
     </style>
 </head>
 <body>
@@ -78,10 +93,11 @@
         <div id="register-form-wrap">
             <form id="register-form" action="<%=contextPath %>/register.prossess" method="post">
                 <div class="input-wrap">
-                    <input id="email" class="err-input" type="text" name="email" placeholder=" 이메일" autocomplete="off">
+                    <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">person</span>
                     </div>
+                    <button type="button" id="email-auth-btn">인증</button>
                 </div>
                 <div class="register-error-wrap" id="err-email" style="display: none;">
                     <!--이메일을 입력해 주세요.-->
@@ -311,6 +327,19 @@
             else{
                 errCapslock.style = "";
                 errCapslock.innerText = "";
+            }
+        }
+    </script>
+    <script>
+        $("#email-auth-btn").click(function(){
+            requestAuthEmail();
+        })
+        function requestAuthEmail(){
+            checkEmail();
+            console.log("실행");
+            if(emailFlag){
+                let url = "<%=contextPath %>/requestAuthEmail?email="+document.getElementById("email").value;
+                open(url, "authEmailSend","toolbar=no,location=no,menubar=no,scrollbars=no,resizable=no,width=300,height=200");
             }
         }
     </script>
