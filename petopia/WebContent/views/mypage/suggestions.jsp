@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
 	
   <style>
-    div{/*border: 1px solid black;*/}
+    /*div{border: 1px solid black;}*/
     .content-area{
       position: absolute;
       top: 130px;
@@ -63,9 +63,7 @@
     }
     .left-box{
       float: left;
-      margin-left: 100px;
     }
-    .right-box{margin-right: 100px;}
     </style>
     <style>
       .QnA-content{
@@ -79,11 +77,10 @@
         width: 900px;
         margin: auto;
       }
-      #tbody{
+      .tbody{
         margin: auto;
-        padding-top: 300px;
         width: 1200px;
-        height: 680px;
+        height: 300px;
      }
       .tbody-FAQ{
         height: 40px;
@@ -138,10 +135,10 @@
 	<%@ include file = "mysidebar.jsp" %>
 	<div class="content-area">
 	
-        <div>
+        <div class="tbody">
             <div class="left-box">
                 <div class="sug-background">
-                    <a href="#" class="color-black">
+                    <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">건의사항이 있을 시 클릭해주세요</p>
@@ -149,7 +146,7 @@
                 </div>
                 
                 <div class="sug-background sub-blank">
-                    <a href="#" class="color-black">
+                    <a href="<%=contextPath %>/views/board/noticeListView.jsp" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;공지사항 바로가기</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">공지사항을 확인해주세요</p>
@@ -172,7 +169,7 @@
             </div>
         </div>
 
-        <div id="tbody">
+        <div class="tbody">
           <div class="QnA-content">
             
             <div class="QnA-blank">

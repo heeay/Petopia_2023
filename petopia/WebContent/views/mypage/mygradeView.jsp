@@ -14,7 +14,6 @@
 	<style>
        /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -120,7 +119,7 @@
                 <div class="cricle">
 
                     <div class="text-null"></div>
-                    <div class="text-bold">중급</div>
+                    <div class="text-bold"><%=userInfo.getRoleId() %></div>
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>

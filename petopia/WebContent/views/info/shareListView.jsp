@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
+<%
+	ArrayList<Info> list = (ArrayList<Info>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +29,12 @@
     .info-list *{
         border : 1px solid black;
     }
+    
+    img{
+    	width: 90%;
+    	height: 100%;
+    	margin-left: 15px;
+    }
 
 </style>
 </head>
@@ -45,28 +56,37 @@
         </div>
 
         <table class="info-list">
-            <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
-                <td width="600px">맛있는 음식점 방문</td>
-            </tr>
-            <tr>
-                <td>맛있었다.</td>
-            </tr>
-            <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
-                <td width="600px">맛있는 음식점 방문</td>
-            </tr>
-            <tr>
-                <td>맛있었다.</td>
-            </tr>
-            <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
-                <td width="600px">맛있는 음식점 방문</td>
-            </tr>
-            <tr>
-                <td>맛있었다.</td>
-            </tr>
 
+            <% if(list.isEmpty()) { %>
+            <tr>
+                <td colspan="2" align="center">조회된 게시글이 없습니다.</td>
+            </tr>
+            <% } else { %>
+
+                <% for(Info in : list) { %>
+                    <tr>
+                        <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
+                        <td width="600px"><%= in.getInfoTitle() %></td>
+                    </tr>
+                    <tr>
+                        <td><%= in.getInfoContent() %></td>
+                    </tr>
+                    <tr height="10px"></tr>
+                <% } %>
+                
+            <% } %>
+
+            <!--
+            <tr>
+                <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
+                <td width="600px">맛있는 음식점 방문</td>
+            </tr>
+            <tr>
+                <td>한 페이지에 12개 들어가면 딱 맞음</td>
+            </tr>
+            <tr height="10px"></tr>
+            -->
+             
         </table>
 
         <div class="share-paging" align="center">

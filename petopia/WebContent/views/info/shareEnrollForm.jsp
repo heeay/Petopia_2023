@@ -69,7 +69,7 @@
 
             <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
 			
-				<input type="text" name="userNo" value="<%= userInfo.getUserNo() %>">
+				<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
 				<input type="hidden" name="star" value="">
 
                 <table align="center">
