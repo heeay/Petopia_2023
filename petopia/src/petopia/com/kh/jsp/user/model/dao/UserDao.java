@@ -169,11 +169,8 @@ public class UserDao {
 			pstmt.setString(1, email);
 			pstmt.setString(2, authCode);
 			
-			System.out.println(authCode);
-			System.out.println("1"+isThere);
 			rset = pstmt.executeQuery();
 			isThere = rset.next();
-			System.out.println("2"+isThere);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
