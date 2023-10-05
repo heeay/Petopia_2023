@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보제공 리스트</title>
+<title>정보제공 리스트_카드뉴스</title>
 <style>
 	section{
 		width: 1000px;
@@ -55,6 +55,7 @@
 	<div id="wrap">
 	
         <div align="right">
+        <!-- 관리자만 보이게 할 것 -->
 		    <a href="#" class="btn btn-sm btn-warning">글 쓰기</a>
         </div>
 		
@@ -63,25 +64,25 @@
             <div class="info-list-content">
                 <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="이미지">
                 <p>
-                    제목
+                    	제목
                 </p>
             </div>
             <div class="info-list-content">
                 <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="이미지">
                 <p>
-                    제목
+                    	제목
                 </p>
             </div>
             <div class="info-list-content">
                 <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="이미지">
                 <p>
-                    제목
+                   	 제목
                 </p>
             </div>
             <div class="info-list-content">
                 <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="이미지">
                 <p>
-                    제목
+                    	제목
                 </p>
             </div>
 

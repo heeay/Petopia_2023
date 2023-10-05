@@ -24,6 +24,12 @@
     .info-list *{
         border : 1px solid black;
     }
+    
+    img{
+    	width: 90%;
+    	height: 100%;
+    	margin-left: 15px;
+    }
 
 </style>
 </head>
@@ -46,26 +52,29 @@
 
         <table class="info-list">
             <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
+                <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
                 <td>맛있었다.</td>
             </tr>
+            <tr height="10px"></tr>
             <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
+                <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
                 <td>맛있었다.</td>
             </tr>
+            <tr height="10px"></tr>
             <tr>
-                <td rowspan="2" width="400px" height="150px">사진</td>
+                <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
                 <td>맛있었다.</td>
             </tr>
+            <tr height="10px"></tr>
 
         </table>
 

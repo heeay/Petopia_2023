@@ -66,7 +66,7 @@ public class InfoDao {
 			pstmt.setString(1, in.getInfoTitle());
 			pstmt.setString(2, in.getInfoContent());
 			pstmt.setInt(3, in.getUserNo());
-			pstmt.setInt(4, in.getCategoryNo());
+			pstmt.setInt(4, Integer.parseInt(in.getCategory()));
 			
 			result = pstmt.executeUpdate();
 			
