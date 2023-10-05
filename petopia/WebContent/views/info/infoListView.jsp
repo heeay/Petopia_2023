@@ -46,8 +46,6 @@
 </head>
 <body>
 
-	<%@ include file="../common/header-min.jsp" %>
-	
 	<section>
 	
 	<%@ include file="infoSidebar.jsp" %>
