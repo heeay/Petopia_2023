@@ -46,12 +46,12 @@
         width: 600px;
     }
 
-    #star{
+    #stars > a{
     	text-decoration: none;
     	color : black;
     }
     
-    #star:hover{cursor:pointer;}
+    #stars > a:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -67,9 +67,10 @@
            <h4 align="center">게시글 작성</h4>
             <br>
 
-            <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" id="enroll-form" method="post">
+            <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
 			
-				<input type="hidden" name="userNo">
+				<input type="text" name="userNo">
+				<input type="hidden" name="star" value="">
 
                 <table align="center">
 
@@ -91,7 +92,7 @@
                     </tr>
                     <tr>
                         <th>별점</th>
-                        <td>
+                        <td id="stars">
                         	<a class="star" id="star1">☆</a>
                         	<a class="star" id="star2">☆</a>
                         	<a class="star" id="star3">☆</a>
@@ -145,7 +146,8 @@
     			};
     			
     			// DB로 넘길 별점 개수 (1 ~ 5) => 위에 hidden을 만들어서 value에 담기
-    			const starNum = ($(this).text('⭐').last().index()) + 1;
+    			let starNum = ($(this).text('⭐').last().index()) + 1;
+    			document.enroll.star.value = starNum;
     		});
     	});
 

@@ -16,6 +16,7 @@ import com.oreilly.servlet.MultipartRequest;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
+import petopia.com.kh.jsp.info.model.vo.Star;
 
 /**
  * Servlet implementation class ShareInsertController
@@ -51,13 +52,20 @@ public class ShareInsertController extends HttpServlet {
 			String category = multiRequest.getParameter("category");
 			String content = multiRequest.getParameter("content");
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
+			int star = Integer.parseInt(multiRequest.getParameter("star"));
 			
+			// 인포 가공
 			Info i = new Info();
 			i.setInfoTitle(title);
 			i.setCategory(category);
 			i.setInfoContent(content);
 			i.setUserNo(userNo);
 			
+			// 별점 가공
+			Star s = new Star();
+			s.setStarScore(star);
+			
+			// 첨부파일
 			ArrayList<InfoFile> list = new ArrayList();
 			
 			
