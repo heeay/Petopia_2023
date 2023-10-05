@@ -3,17 +3,15 @@ package petopia.com.kh.jsp.info.model.vo;
 public class Star {
 
 	private int boardNo;
-	private int userNo;
 	private int starScore;
 	
 	public Star() {
 		super();
 	}
 
-	public Star(int boardNo, int userNo, int starScore) {
+	public Star(int boardNo, int starScore) {
 		super();
 		this.boardNo = boardNo;
-		this.userNo = userNo;
 		this.starScore = starScore;
 	}
 
@@ -23,14 +21,6 @@ public class Star {
 
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
-	}
-
-	public int getUserNo() {
-		return userNo;
-	}
-
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
 	}
 
 	public int getStarScore() {
@@ -43,7 +33,7 @@ public class Star {
 
 	@Override
 	public String toString() {
-		return "Star [boardNo=" + boardNo + ", userNo=" + userNo + ", starScore=" + starScore + "]";
+		return "Star [boardNo=" + boardNo + ", starScore=" + starScore + "]";
 	}
 	
 }
