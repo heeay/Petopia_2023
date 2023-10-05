@@ -172,7 +172,7 @@
                     <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp"">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">마이페이지</a></li>
+                    <li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
@@ -192,7 +192,7 @@
             </div>
 
             <div id="sidemenu">
-                <div class="side"><a href=""<%=contextPath %>/views/mypage/mygradeView.jsp"">내 등급 및 점수</a></div>
+                <div class="side"><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">내 등급 및 점수</a></div>
                 <div class="side"><a href="#">내 정보변경</a></div>
                 <div class="side"><a href="<%=contextPath %>/views/mypage/petDiaryView.jsp">펫 다이어리 작성</a></div>
                 <div class="side"><a href="<%=contextPath %>/views/mypage/petProfil.jsp">내 애완동물 프로필</a></div>

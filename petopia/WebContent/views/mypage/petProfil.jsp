@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.Pet, petopia.com.kh.jsp.mypage.model.vo.PageInfo"%>
+<%
+	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 애완동물 프로필</title>
     <style>
-        div{/*border: 1px solid black;*/}
+        /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -78,7 +81,11 @@
         }
         .profil-name2{
             width: 400px;
-            height: 300px;
+            height: 210px;
+        }
+        .profil-name3{
+            width: 425px;
+            height: 70px;
         }
         .profil-align-left{float: left;}
         .profil-align-right{float: right;}
@@ -115,7 +122,6 @@
     </style>
 </head>
 <body>
-
     <%@ include file = "mysidebar.jsp" %>
 
 	<div class="content-area">
@@ -133,7 +139,7 @@
 
 
             <div class="petProfil-list">
-                
+ 
                 <div>
 
                     <table class="table table-hover">
@@ -142,29 +148,43 @@
                             <tr>
                                 <th style="width: 200px;">No.</th>
                                 <th style="width: 400px;">Name</th>
-                                <th style="width: 300px;">Date</th>
+                                <th style="width: 300px;">Species</th>
                             </tr>
                         </thead>
         
                         <tbody>
-
+                        
+                        <% if(list.isEmpty()) { %>
+                        	<tr>
+                        		<td>등록된 프로필이 없습니다.</td>
+                        	</tr>
+                        <% }else { %>
+                        	<% for(Pet p : list){ %>
+                        	<tr>
+                        		<td><%=p.getPetNo() %></td>
+                        		<td><%=p.getPetName() %></td>
+                        		<td><%=p.getPetSpecies() %></td>
+                        	</tr>
+                        	<% } %>
+                        <% } %>
+							<!--				
                             <tr>
                                 <td>1.</td>
                                 <td>제리</td>
-                                <td>2023-10-04</td>
+                                <td>강아지</td>
                                 <td style="width: 20px; border-top:none;">
                                     <btn class="btn btn-sm btn-secondary">—</btn>
                                 </td>
                             </tr>
-                            <tr class>
+                            <tr>
                                 <td>2.</td>
                                 <td>톰</td>
-                                <td>2023-10-04</td>
+                                <td>고양이</td>
                                 <td style="width: 20px; border-top:none;">
                                     <btn class="btn btn-sm btn-secondary">—</btn>
                                 </td>
                             </tr>
-
+						    -->	
                         </tbody>
         
                     </table>
@@ -241,7 +261,13 @@
                                 <div class="profil-name2">
                                     기타사항
                                     <div class="profil-align-right">
-                                        <textarea name="" id="" cols="35" rows="10" style="resize:none;"></textarea>
+                                        <textarea name="" id="" cols="35" rows="7" style="resize:none;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="profil-name3">
+                                    사진등록
+                                    <div class="profil-align-right">
+                                        <input type="file">
                                     </div>
                                 </div>
                             </div>
@@ -276,8 +302,8 @@
             
         </div>
 
-        <div class="page-btn">
-            페이지 버튼 위치
+        <div class="page-btn" align="center">
+           	
         </div>
 
     </div>
