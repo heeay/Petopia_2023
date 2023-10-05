@@ -133,7 +133,7 @@
                 <input type="file" id="petProfil" name="petProfil">
 
                 <span id="petEnroll">
-                    <button id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</button>
+                    <a href="<%=contextPath %>/" id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</a>
                 </span>
             </div>
 
