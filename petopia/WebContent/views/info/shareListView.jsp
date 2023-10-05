@@ -56,7 +56,7 @@
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
-                <td>맛있었다.</td>
+                <td>한 페이지에 12개 들어가면 딱 맞음</td>
             </tr>
             <tr height="10px"></tr>
             <tr>
