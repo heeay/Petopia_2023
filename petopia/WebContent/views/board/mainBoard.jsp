@@ -74,10 +74,13 @@
     #search-radio{
         /* border: 1px solid green; */
         
-       
+        margin-left : 10px;
         box-sizing: border-box;
     }
 
+    #search-btn{
+        display : none;
+    }
   
 
    
@@ -105,9 +108,10 @@
         width : 95%;
         height : 90%;
     }
-    #img-writer{
-        width : 10px;
-        height : 10px;
+    #writer-img{
+        width : 15px;
+        height : 15px;
+        
     }
     #pasing-area{
         display : flex;
@@ -133,9 +137,20 @@
 
             <div id="search-help">
                 <div id="search-bar">
-                    <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
-                    <i id="search-icon" class="fas fa-search"></i>
+                    <form action="main.mp" method="get" id="search-form">
+                        <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
+                        <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
+                    </form>
                 </div>
+
+        <script>
+            $(function(){
+                $('#search-icon').click(function(){
+                    // ???
+                    $('#search-btn').submit();
+                })
+            });
+        </script>
 
                 <div id="search-radio">
                     <input type="radio" name="">제목
@@ -162,42 +177,62 @@
                 <div class="content">
                     <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                     <span>강아지 목욕 꿀팁!</span>
-                    <span>댓글[]</span><br>
-                    <img id="img-writer"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
+                    <span class="content-reply">댓글[]</span><br>
+                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
                     <span>나는야집사</span>
                     <span>2023.09.09</span>
-                    <span>조회수[]</span>
+                    <span class="content-view">조회수[]</span>
                 </div>
                 <div class="content">
                     <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                     <span>강아지 목욕 꿀팁!</span>
-                    <span>댓글[]</span><br>
-                    <img id="img-writer"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
+                    <span class="content-reply">댓글[]</span><br>
+                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
                     <span>나는야집사</span>
                     <span>2023.09.09</span>
-                    <span>조회수[]</span>
+                    <span class="content-view">조회수[]</span>
                 </div>
             </div>
             <div class="content-area">
                 <div class="content">
                     <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                     <span>강아지 목욕 꿀팁!</span>
-                    <span>댓글[]</span><br>
-                    <img id="img-writer"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
+                    <span class="content-reply">댓글[]</span><br>
+                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
                     <span>나는야집사</span>
                     <span>2023.09.09</span>
-                    <span>조회수[]</span>
+                    <span class="content-view">조회수[]</span>
                 </div>
                 <div class="content">
                     <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                     <span>강아지 목욕 꿀팁!</span>
-                    <span>댓글[]</span><br>
-                    <img id="img-writer"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
+                    <span class="content-reply">댓글[]</span><br>
+                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
                     <span>나는야집사</span>
                     <span>2023.09.09</span>
-                    <span>조회수[]</span>
+                    <span class="content-view">조회수[]</span>
                 </div>
             </div>
+
+
+        <script>
+
+            
+
+            $(function(){
+                $('.content-reply').html('댓글[' + ']');
+
+                $('.content-view').html('조회수[' + ']');
+
+                $('.content').click(function(){
+                    
+                });
+
+
+
+            });
+
+        </script>
             
 
 

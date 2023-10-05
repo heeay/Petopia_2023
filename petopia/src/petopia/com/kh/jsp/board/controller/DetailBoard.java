@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainEvent
+ * Servlet implementation class DetailBoard
  */
-@WebServlet("/main.mp")
-public class MainEvent extends HttpServlet {
+@WebServlet("/detail.bo")
+public class DetailBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainEvent() {
+    public DetailBoard() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class MainEvent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-		request.getRequestDispatcher("views/board/eventMainView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 	}
 
 	/**
