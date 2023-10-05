@@ -195,7 +195,7 @@
                 <div class="side"><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">내 등급 및 점수</a></div>
                 <div class="side"><a href="#">내 정보변경</a></div>
                 <div class="side"><a href="<%=contextPath %>/views/mypage/petDiaryView.jsp">펫 다이어리 작성</a></div>
-                <div class="side"><a href="<%=contextPath %>/views/mypage/petProfil.jsp">내 애완동물 프로필</a></div>
+                <div class="side"><a href="<%=contextPath %>/pet.my">내 애완동물 프로필</a></div>
                 <div class="side"><a href="<%=contextPath %>/views/mypage/suggestions.jsp">건의사항/고객센터</a></div>
             </div>
 

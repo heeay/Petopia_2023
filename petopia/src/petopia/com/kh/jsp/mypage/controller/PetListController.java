@@ -34,7 +34,7 @@ public class PetListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		User loginUser = ((User)session.getAttribute("loginUser"));
+		User loginUser = ((User)session.getAttribute("userInfo"));
 		
 		ArrayList<Pet> list = new PetService().selectPetList(loginUser);
 		request.setAttribute("list", list);

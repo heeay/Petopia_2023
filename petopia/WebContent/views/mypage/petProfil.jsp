@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.Pet, petopia.com.kh.jsp.mypage.model.vo.PageInfo"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.Pet"%>
 <%
 	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
 %>
@@ -284,7 +284,6 @@
                 <button id="modalCloseButton" class="btn btn-sm btn-danger">닫기</button>
             </div>
             </div>
-
             <script>
                 const modalOpenButton = document.getElementById('modalOpenButton');
                 const modalCloseButton = document.getElementById('modalCloseButton');
@@ -298,6 +297,7 @@
                 modal.classList.add('hidden');
                 });
             </script>
+
             
             
         </div>

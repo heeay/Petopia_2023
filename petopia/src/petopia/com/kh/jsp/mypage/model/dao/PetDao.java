@@ -27,7 +27,7 @@ public class PetDao {
 		}
 	}
 	public ArrayList<Pet> selectPetList(Connection conn, User loginUser) {
-		ArrayList<Pet> list = null;
+		ArrayList<Pet> list = new ArrayList<Pet>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
