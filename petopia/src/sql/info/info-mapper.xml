@@ -17,5 +17,67 @@
 		 	   CTG_NO ASC
 	</entry>
 	
+	<entry key="insertShareInfo">
+		INSERT
+		  INTO
+		  	   TB_BOARD
+		  	   (
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   BOARD_CONTENT,
+		  	   BOARD_CREATE_DATE,
+		  	   USER_NO,
+		  	   CTG_NO
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.NEXTVAL,
+			   ?,
+			   ?,
+			   SYSDATE,
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	<entry key="insertStar">
+		INSERT
+		  INTO
+		  	   TB_STAR
+		  	   (
+		  	   BOARD_NO,
+		  	   STAR_SCORE
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.CURRVAL,
+			   ?
+			   )
+	</entry>
+	
+	<entry key="insertFileList">
+		INSERT
+		  INTO
+		  	   TB_FILE
+		  	   	(
+		  	   	FILE_NO,
+		  	   	REF_BNO,
+		  	   	ORIGINAL_NAME,
+		  	   	UPLOAD_NAME,
+		  	   	FILE_PATH,
+		  	   	FILE_LEVEL
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    SEQ_BOARD_NO.CURRVAL,
+		 	    ?,
+		 	    ?,
+		 	    ?,
+		 	    ?
+		 	    )
+	</entry>
+	
+	
 
 </properties>

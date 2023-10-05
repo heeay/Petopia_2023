@@ -14,9 +14,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
+import petopia.com.kh.jsp.info.model.service.InfoService;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
-import petopia.com.kh.jsp.info.model.vo.Star;
 
 /**
  * Servlet implementation class ShareInsertController
@@ -55,20 +55,41 @@ public class ShareInsertController extends HttpServlet {
 			int star = Integer.parseInt(multiRequest.getParameter("star"));
 			
 			// 인포 가공
-			Info i = new Info();
-			i.setInfoTitle(title);
-			i.setCategory(category);
-			i.setInfoContent(content);
-			i.setUserNo(userNo);
-			
-			// 별점 가공
-			Star s = new Star();
-			s.setStarScore(star);
+			Info in = new Info();
+			in.setInfoTitle(title);
+			in.setCategory(category);
+			in.setInfoContent(content);
+			in.setUserNo(userNo);
 			
 			// 첨부파일
 			ArrayList<InfoFile> list = new ArrayList();
 			
+			for (int i = 1; i <= 5; i++) {
+				String key = "file" + i;
+				
+				if(multiRequest.getOriginalFileName(key) != null) {
+					InfoFile iFile = new InfoFile();
+					iFile.setOriginalName(multiRequest.getOriginalFileName(key));
+					iFile.setUploadName(multiRequest.getFilesystemName(key));
+					iFile.setFilePath("resources/info_upfiles");
+					
+					if(i == 1) {
+						iFile.setFileLevel(1);
+					} else {
+						iFile.setFileLevel(2);
+					}
+					list.add(iFile);
+				}
+			}
 			
+			int result = new InfoService().insertShareInfo(in, star, list);
+			
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "인포 게시글 작성 성공");
+				response.sendRedirect(request.getContextPath() + "/share.in");
+			} else {
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 			
 		}
 		
