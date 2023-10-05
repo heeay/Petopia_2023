@@ -42,12 +42,16 @@
             top: 95%;
             left: 40%;
         }
+        input{border: none;}
+        textarea{border: none;}
+        select{border: none;}
     </style>
     <style>
         .profil-content{
             width: 900px;
             height: 450px;
             background-color:  rgb(244, 217, 174);
+            border-radius: 0px 10px 10px 10px;
             display:flex;
         }
         .profil-content-name{

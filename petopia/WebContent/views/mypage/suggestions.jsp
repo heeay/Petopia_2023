@@ -22,7 +22,6 @@
         }
         a {
             text-decoration: none;
-            text-decoration-color: black;
         }
         .sug-background{
             display: flex;
@@ -33,6 +32,7 @@
             padding-top: 17px;
             font-size: 18px;
             font: bold;
+            border-radius: 10px;
         }
         p{float: left;}
         .sub-blank{margin-top: 60px;}
@@ -42,6 +42,7 @@
             height: 220px;
             padding-left: 10px;
             float: right;
+            border-radius: 10px;
         }
         .sub-sug-head{
             padding-top: 10px;
@@ -73,6 +74,7 @@
             padding-top: 20px;
             padding-bottom: 20px;
             height: 100%;
+            border-radius: 10px;
         }
         .QnA-background{
             background-color: white;
@@ -97,11 +99,13 @@
     </style>
 
     <style>
+      .color-black{color: black;}
         .faq-box {
         border:2px solid black;
         background-color:#fff;
         color:inherit;
         padding:10px;
+        border-radius: 10px;
         }
 
         .faq-box__question {
@@ -138,7 +142,7 @@
         <div>
             <div class="left-box">
                 <div class="sug-background">
-                    <a href="#">
+                    <a href="#" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">건의사항이 있을 시 클릭해주세요</p>
@@ -146,7 +150,7 @@
                 </div>
                 
                 <div class="sug-background sub-blank">
-                    <a href="#">
+                    <a href="#" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;자주묻는 질문</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">궁금한 점을 검색해보세요</p>

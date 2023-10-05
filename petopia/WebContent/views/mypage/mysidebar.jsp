@@ -165,7 +165,7 @@
                     
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="#">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="#">정보</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="#">매칭</a></li>
                 </ul>
@@ -180,7 +180,7 @@
         <div class="side-area">
 
             <div class="logo">
-                <a href=""><img src="<%=contextPath%>\resources\images\logo.png" alt="로고"></a>
+                <a href="<%=contextPath %>"><img src="<%=contextPath%>\resources\images\logo.png" alt="로고"></a>
             </div>
 
 

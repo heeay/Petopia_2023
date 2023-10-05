@@ -7,9 +7,8 @@
 <title>병원 기록 작성</title>
 
 	<style>
-        div{/*border: 1px solid black;*/}
+        /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -21,69 +20,116 @@
         textarea{border: none;}
      </style>
      <style>
-        .hos-table-title{
-            width: 150px;
+        #sug-content{
+            padding-top: 15px;
+            width: 1000px;
+            height: 600px;
+            margin: auto;
+            display: block;
+        }
+        #sub-content-back{
+            background-color: rgb(247, 222, 205);
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 40px;
+            border-radius: 10px 10px 10px 10px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        #suggestion{
+            padding-left: 5px;
+            font-size: 30px;
+            font-weight: bold;
+            padding-bottom: 10px;
         }
         .input-width{
             width: 700px;
         }
-        .hos-table-content{
-            width: 500px;
+        .float-left{
+            float: left;
+            width: 110px;
+            height: 40px;
         }
-        .btn-right{float: right;}
-        table{background-color: rgb(247, 222, 205);}
-     </style>
+        .float-right{
+            float: right;
+            width: 800px;
+        }
+        .float-right2{
+            float: right;
+            width: 800px;
+        }
+        .contentSize{height: 45px;}
+        .contentSize2{height: 250px;}
+        .btn-right{
+            float: right;
+            padding-right: 20px;
+        }
+    </style>
 </head>
 <body>
 
 	<%@ include file = "mysidebar.jsp" %>
 	<div class="content-area">
 
-        <div class="container">
+        <form action="">
+        
+            <div id="sug-content">
 
-            <table class="table table-hover">
-                
-                <thead>
-                    <h2 style="border-bottom:none;">병원기록</h2>
-                    <br>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <th class="hos-table-title">이름</th>
-                        <td class="hos-table-content"><input type="text" class="input-width"></td>
-                    </tr>
-
-                    <tr>
-                        <th>일자</th>
-                        <td><input type="date" name="sysdate"></td>
-                    </tr>
-
-                    <tr>
-                        <th>예방접종 종류</th>
-                        <td><input type="text" class="input-width"></td>
-                    </tr>
-
-                    <tr>
-                        <th>질병여부</th>
-                        <td><input type="text" class="input-width"></td>
-                    </tr>
-
-                    <tr>
-                        <th>약 복용 기록</th>
-                        <td><input type="text" class="input-width"></td>
-                    </tr>
-
-                    <tr>
-                        <th>기타사항</th>
-                        <th><textarea name="" id="" cols="93" rows="10" resize: none></textarea></th>
-                    </tr>
+                <div>
                     
-                </tbody>
+                    <div>
+                        <div id="suggestion">병원기록</div>
+                    </div>
+                    
 
-            </table>
+                    <div id="sub-content-back">
+                        <div class="contentSize">
+                            <div class="float-left">이름</div>
+                            <div class="float-right"><input type="text" class="input-width"></div>
+                        </div>
 
-            <button type="submit" class="btn btn-right btn-secondary">글작성</button>
+                        <div class="contentSize">
+                            <div class="float-left">일자</div>
+                            <div class="float-right"><input type="date" name="" class="input-width"></div>
+                        </div>
+
+                        <div class="contentSize">
+                            <div class="float-left">예방접종 종류</div>
+                            <div class="float-right"><input type="text" class="input-width"></div>
+                        </div>
+
+                        <div class="contentSize">
+                            <div class="float-left">질병 여부</div>
+                            <div class="float-right"><input type="text" class="input-width"></div>
+                        </div>
+
+                        <div class="contentSize">
+                            <div class="float-left">약 복용 기록</div>
+                            <div class="float-right"><input type="text" class="input-width"></div>
+                        </div>
+                        <br>
+
+                        <div class="contentSize2">
+                            <div class="float-left">내용</div>
+                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" resize: none></textarea></div>
+                        </div>
+
+
+                        
+                        <div class="btn-right">
+                            <button type="submit" class="btn btn-sm btn-secondary">제출</button>
+                        </div>
+                        <br>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+
+
+
 
         </div>
 

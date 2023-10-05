@@ -17,6 +17,9 @@
         }
     </style> 
     <style>
+        a {text-decoration: none;}
+        input{border: none;}
+        textarea{border: none;}
         #sug-content{
             padding-top: 15px;
             width: 1000px;
@@ -84,7 +87,9 @@
                 <div>
                     
                     <div>
-                        <div id="delete">⨉</div>
+                        <div id="delete">
+                            <button type="reset" style="border: none; background-color: rgba(247, 222, 205, 0);">⨉</button>
+                        </div>
                         <div id="suggestion">건의사항 작성</div>
                     </div>
                     

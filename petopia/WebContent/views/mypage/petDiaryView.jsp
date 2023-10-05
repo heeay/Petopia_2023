@@ -14,7 +14,6 @@
 	<style>
         /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -50,6 +49,7 @@
             width: 500px;
             height: 520px; 
             font-size: 18px;
+            border-radius: 0px 10px 10px 10px;
         }
 
         .hos-content, .walk-content{
@@ -59,7 +59,7 @@
         .hos-box{
             height: 150px;
             width: 445px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.815);
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 5px;
