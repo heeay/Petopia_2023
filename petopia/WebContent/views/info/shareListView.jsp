@@ -52,7 +52,7 @@
 	
         <div id="content-area">
         	<% if(userInfo != null) { %>
-		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글 쓰기</a>
+		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
         	<% } %>
         </div>
 

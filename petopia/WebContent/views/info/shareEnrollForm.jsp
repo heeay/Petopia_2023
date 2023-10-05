@@ -115,8 +115,8 @@
                 </div>
                  
                 <div align="right">
-                    <button type="submit" class="btn btn-sm btn-warning">등록</button>
-                    <button type="reset" class="btn btn-sm btn-secondary">취소</button>
+                    <button type="submit" class="btn btn-sm btn-warning">작성</button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">취소</button>
                 </div>
 
             </form>
