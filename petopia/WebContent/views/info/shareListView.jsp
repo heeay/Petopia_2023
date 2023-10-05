@@ -21,7 +21,7 @@
         margin-top : 20px;
     }
 
-    .info-list{
+    .info-list *{
         border : 1px solid black;
     }
 
@@ -38,26 +38,29 @@
 	<div id="wrap">
 	
         <div align="right">
-		    <a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글 쓰기</a>
+        	
+        	<% if(userInfo != null) { %>
+		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글 쓰기</a>
+        	<% } %>
         </div>
 
         <table class="info-list">
             <tr>
-                <td rowspan="2" width="400px" height="150">사진</td>
+                <td rowspan="2" width="400px" height="150px">사진</td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
                 <td>맛있었다.</td>
             </tr>
             <tr>
-                <td rowspan="2" width="400px" height="150">사진</td>
+                <td rowspan="2" width="400px" height="150px">사진</td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
                 <td>맛있었다.</td>
             </tr>
             <tr>
-                <td rowspan="2" width="400px" height="150">사진</td>
+                <td rowspan="2" width="400px" height="150px">사진</td>
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>

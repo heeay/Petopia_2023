@@ -98,6 +98,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             width: 50px;
             height: 100%;
             float: left;
+            position: relative;
         }
         #header-bar{
             width: 100%;
@@ -113,11 +114,49 @@ User userInfo = (User)session.getAttribute("userInfo");
             height: 100%;
             margin: auto;
         }
-
-        .banner-img{
-            width: 500px;
-            margin: auto;
-            display: block;
+        .header-tool{
+            width: 100%;
+            height: 100%;
+            border: none;
+            line-height: 75px;
+            background-color: unset;
+        }
+        .header-tool:hover{
+            color: dodgerblue;
+        }
+        .header-search-bar-wrap{
+            width: 360px;
+            height: 35px;
+            position: absolute;
+            top: 20px;
+            right: 10px;
+        }
+        .header-search-bar{
+            width: 85%;
+            height: 100%;
+            border: 2px solid rgb(80, 49, 8);
+            border-radius: 10px 0 0 10px;
+            padding: 0 10px;
+            margin: 0;
+            box-sizing: border-box;
+            float: left;
+        }
+        .header-search-bar:focus{
+            outline: none;
+        }
+        .header-search-btn{
+            width: 15%;
+            height: 100%;
+            color: rgb(80, 49, 8);
+            background-color: rgb(255, 193, 99);
+            border-style: solid;
+            border-color: rgb(80, 49, 8);
+            border-width: 2px 2px 2px 0;
+            border-radius: 0 10px 10px 0;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            float: left;
         }
     </style>
 </head>
@@ -141,7 +180,13 @@ User userInfo = (User)session.getAttribute("userInfo");
                     	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
                     	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                     <%} %>
-                    <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
+                    <li class="user-navi-icon-btn">
+                        <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
+                        <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
+                            <input class="header-search-bar" type="text" name="query">
+                            <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
+                        </form>
+                    </li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
             </div>
@@ -163,7 +208,13 @@ User userInfo = (User)session.getAttribute("userInfo");
                 	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
                 	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                 <%} %>
-                <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
+                <li class="user-navi-icon-btn">
+                    <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
+                    <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
+                        <input class="header-search-bar" type="text" name="query">
+                        <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
+                    </form>
+                </li>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
             </ul>
         </div>
@@ -178,6 +229,19 @@ User userInfo = (User)session.getAttribute("userInfo");
                 else{
                     headerBar.style.display="none";
                 }
+            });
+
+            $(".header-search-tool").click(function(){
+                if($(this).siblings(".header-search-bar-wrap").css("display")=="none"){
+                    $(this).siblings(".header-search-bar-wrap").css("display","block");
+                    $(this).siblings(".header-search-bar-wrap").children().select();
+                }
+                else{
+                    $(this).siblings(".header-search-bar-wrap").css("display","none");
+                }
+            });
+            $(".header-search-bar").focusout(function(){
+                $(this).parent().css("display","none");
             });
         })
     </script>

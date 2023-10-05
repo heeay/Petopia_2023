@@ -164,10 +164,10 @@
             <div id="header-bar-wrap">
                     
                 <ul class="header-navi">
-                    <li class="header-navi-item"><a href="#">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="#">정보</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp"">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="#">매칭</a></li>
+                    <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp"">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
                     <li class="user-navi-item"><a href="">마이페이지</a></li>
@@ -180,7 +180,7 @@
         <div class="side-area">
 
             <div class="logo">
-                <a href=""><img src="<%=contextPath%>\resources\images\logo.png" alt="로고"></a>
+                <a href="<%=contextPath %>"><img src="<%=contextPath%>\resources\images\logo.png" alt="로고"></a>
             </div>
 
 
@@ -191,7 +191,7 @@
 
             <div id="sidemenu">
                 <div class="side"><a href="#">내 등급 및 점수</a></div>
-                <div class="side"><a href="#">내정보 변경</a></div>
+                <div class="side"><a href="#">내 정보변경</a></div>
                 <div class="side"><a href="#">펫 다이어리 작성</a></div>
                 <div class="side"><a href="#">내 애완동물 프로필</a></div>
                 <div class="side"><a href="#">건의사항/고객센터</a></div>

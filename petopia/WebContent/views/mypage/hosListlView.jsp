@@ -14,7 +14,6 @@
 	<style>
         /*div{border: 1px solid black;}*/
         .content-area{
-            border: 1px solid black;
             position: absolute;
             top: 130px;
             left: 340px;
@@ -25,16 +24,24 @@
         .hos-title{
             font-size: 30px;
             font-weight: bold;
+            float: left;
         }
         .btn-right{
             float: right;
             margin-top: 20px;
+            padding-right: 55px;
+            height: 60px;
         }
         .margin-none{margin: 0; padding: 0;}
         .page-btn{
             position:absolute;
             top: 90%;
             left: 40%;
+        }
+        .pad-top{padding-top: 5px;}
+        .mg-t-b{
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
     </style>
     
@@ -45,19 +52,18 @@
 	<div class="content-area">
 
         <div class="container margin-none">
-            <table class="table">
-                
-                <tr>
-                    <th><p class="hos-title">병원기록</p></th>
+            
+            <div class="mg-t-b">
+                <div class="hos-title">병원기록</div>
 
-                    <td class="btn-right" style="border-top:none;">
+                <div class="btn-right"><a href="" class="btn btn-secondary">글작성</a></div>
+                
+                <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startday"> ~ <input type="date" name="lastday">
-                    </td>
+                </div>
 
-                    <td><a href="" class="btn btn-secondary btn-right">글작성</a></td>
-                </tr>
-                
-            </table>
+            </div>
+            
         </div>
 
         <div class="container">
