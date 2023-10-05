@@ -78,7 +78,7 @@ VALUES(
 </entry>
 <entry key="selectEmailAuth">
 SELECT
-	COUNT(*)
+	EMAIL_AUTH_DATE
 FROM
 	TB_EMAIL_AUTH
 WHERE

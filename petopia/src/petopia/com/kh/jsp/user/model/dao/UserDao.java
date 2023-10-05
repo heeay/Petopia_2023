@@ -159,7 +159,7 @@ public class UserDao {
 	}
 	
 	public boolean selectEmailAuth(Connection conn, String email, String authCode) {
-		boolean isThere = true;
+		boolean isThere = false;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectEmailAuth");
@@ -169,7 +169,6 @@ public class UserDao {
 			pstmt.setString(1, email);
 			pstmt.setString(2, authCode);
 			
-			System.out.println(authCode);
 			rset = pstmt.executeQuery();
 			isThere = rset.next();
 			

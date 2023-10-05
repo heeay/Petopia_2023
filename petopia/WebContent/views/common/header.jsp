@@ -142,6 +142,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
+            box-shadow: 0 4px 4px -4px black;
         }
         .header-search-bar:focus{
             outline: none;
@@ -159,6 +160,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
+            box-shadow: 0 4px 4px -4px black;
         }
     </style>
     <style>
@@ -296,11 +298,11 @@ User userInfo = (User)session.getAttribute("userInfo");
 
             $(".header-search-tool").click(function(){
                 if($(this).siblings(".header-search-bar-wrap").css("display")=="none"){
-                    $(this).siblings(".header-search-bar-wrap").css("display","block");
+                    $(this).siblings(".header-search-bar-wrap").show(100);
                     $(this).siblings(".header-search-bar-wrap").children().select();
                 }
                 else{
-                    $(this).siblings(".header-search-bar-wrap").css("display","none");
+                    $(this).siblings(".header-search-bar-wrap").hide(100);
                 }
             });
             $(".header-search-bar").focusout(function(){

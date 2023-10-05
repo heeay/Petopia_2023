@@ -280,7 +280,7 @@ if(cookies!=null){
             </div>
         </div>
         <div class="find-wrap">
-            <a href="./search_password.html">비밀번호 찾기</a> /
+            <a href="<%=contextPath %>/findPassword">비밀번호 찾기</a> /
             <a href="<%=contextPath %>/register">회원가입</a>
         </div>
     </section>
@@ -291,7 +291,7 @@ if(cookies!=null){
         var naverLogin = new naver.LoginWithNaverId({
 			clientId: "8ZYnqypIAIHZc2Ycz4px", //내 애플리케이션 정보에 cliendId
 			callbackUrl: "http://localhost:8001/petopia/naverLogin", // 내 애플리케이션 API설정의 Callback URL
-			isPopup: true,
+			isPopup: false,
 			callbackHandle: true
 		});	
 

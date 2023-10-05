@@ -128,7 +128,7 @@
                     <button type="button" id="auth-code-btn">인증</button>
                 </div>
                 <div id="email-auth-success" style="display: none;">
-                    인증을 완료했습니다!
+                    이메일 인증을 완료했습니다!
                 </div>
                 <div class="register-error-wrap" id="err-email-auth" style="display: none;">
                     <!--이메일인증을 진행해 주세요.-->
