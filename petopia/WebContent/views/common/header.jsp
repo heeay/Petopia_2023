@@ -149,16 +149,16 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                 </div>
                 <ul class="header-navi">
-                    <li class="header-navi-item"><a href="#">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="#">매칭</a></li>
+                    <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
                     <%if(userInfo == null){ %>
                 		<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 	<%} else { %>
-                		<li class="user-navi-item"><span><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %></a></span>님</li>
+                		<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
                 		<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                 	<%} %>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
@@ -171,16 +171,16 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
             </div>
             <ul class="header-navi">
-                <li class="header-navi-item"><a href="#">커뮤니티</a></li>
+                <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp">커뮤니티</a></li>
                 <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                 <li class="header-navi-item"><a href="#">행사</a></li>
-                <li class="header-navi-item"><a href="#">매칭</a></li>
+                <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
                 <%if(userInfo == null){ %>
                 	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                	<li class="user-navi-item"><span><a href="<%=contextPath %>/mypage"><%=userInfo.getUserNickname() %></a></span>님</li>
+                	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
                 	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                 <%} %>
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
