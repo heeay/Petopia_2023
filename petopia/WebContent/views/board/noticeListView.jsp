@@ -38,7 +38,7 @@
     #content-area{
         width : 100%;
         height : 85%;
-       
+      
     }
 </style>
 
@@ -87,8 +87,10 @@
 <!-- content -->
 <style>
     .content-area{
+        width : 100%;
         display : flex;
         justify-content: center;
+       
         
     }
     .content{
@@ -96,12 +98,13 @@
         width : 100%;
         height : 20%;
         display : flex;
+       
         /* border : 1px solid black; */
          
     }
     .content img{
-        width : 150px;
-        height : 150px;
+        width : 100px;
+        height : 100px;
     }
     
     .discription{
