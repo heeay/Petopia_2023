@@ -100,7 +100,7 @@
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" resize: none></textarea></div>
+                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" style="resize:none;"></textarea></div>
                         </div>
                         <br><br>
                         <div class="contentSize3">

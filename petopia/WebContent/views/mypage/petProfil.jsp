@@ -195,18 +195,19 @@
                                     <label for="">종</label>
                                     <div class="profil-align-right">
                                         <select name="" id="" style="width: 205px;">
-                                            <option value="1">강아지</option>
+                                            <option value="dog">강아지</option>
+                                            <option value="cat">고양이</option>
+                                            <option value="rodent">설치류</option>
+                                            <option value="reptile">파충류</option>
+                                            <option value="birds">조류</option>
+                                            <option value="pisces">어류</option>
                                         </select>
                                     </div>
                                 </div>
-    
+                                
                                 <div class="profil-name">
-                                    <label for="">세부종</label>
-                                    <div class="profil-align-right">
-                                        <select name="" id="" style="width: 205px;">
-                                            <option value="1">푸들</option>
-                                        </select>
-                                    </div>
+                                    세부종
+                                    <div class="profil-align-right"><input type="text"></div>
                                 </div>
                                 
                                 <div class="profil-name">
@@ -240,7 +241,7 @@
                                 <div class="profil-name2">
                                     기타사항
                                     <div class="profil-align-right">
-                                        <textarea name="" id="" cols="35" rows="10" resize:none;></textarea>
+                                        <textarea name="" id="" cols="35" rows="10" style="resize:none;"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -141,7 +141,7 @@
                         </form>
 
                         <div class="btn-right">
-                            <a href="" class="btn btn-sm btn-secondary">more</a>
+                            <a href="<%=contextPath %>/views/mypage/hosListlView.jsp" class="btn btn-sm btn-secondary">more</a>
                         </div>
 
                     </div>
@@ -178,7 +178,7 @@
                         </form>
 
                         <div class="btn-right">
-                            <a href="" class="btn btn-sm btn-secondary">more</a>
+                            <a href="<%=contextPath %>/views/mypage/walkListView.jsp" class="btn btn-sm btn-secondary">more</a>
                         </div>
 
                     </div>
