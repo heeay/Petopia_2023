@@ -164,10 +164,10 @@
             <div id="header-bar-wrap">
                     
                 <ul class="header-navi">
-                    <li class="header-navi-item"><a href="#">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp"">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="#">매칭</a></li>
+                    <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp"">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
                     <li class="user-navi-item"><a href="">마이페이지</a></li>
