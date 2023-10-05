@@ -184,7 +184,7 @@ if(cookies!=null){
                     pwFlag = false;
                 }
                 else{
-                    errPw.style = "";
+                    errPw.style.display="none";
                     errPw.innerText = "";
                     pwFlag = true;
                 }
@@ -195,7 +195,7 @@ if(cookies!=null){
                     emailFlag = false;
                 }
                 else{
-                    errEmail.style = "";
+                    errEmail.style.display="none";
                     errEmail.innerText = "";
                     emailFlag = true;
                 }
@@ -212,7 +212,7 @@ if(cookies!=null){
                 errCapslock.innerText = "CapsLock이 켜져 있습니다.";
             }
             else{
-                errCapslock.style = "";
+                errCapslock.style.display="none";
                 errCapslock.innerText = "";
             }
         }

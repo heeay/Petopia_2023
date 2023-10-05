@@ -84,7 +84,7 @@ public class UserDao {
 	}
 	
 	public boolean checkUserEmail(Connection conn, String email) {
-		Boolean isThere = true;
+		boolean isThere = true;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("checkUserEmail");
@@ -103,7 +103,7 @@ public class UserDao {
 		return isThere;
 	}
 	public boolean checkUserNickname(Connection conn, String nickname) {
-		Boolean isThere = true;
+		boolean isThere = true;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("checkUserNickname");
@@ -119,6 +119,66 @@ public class UserDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		return isThere;
+	}
+	public int updateEmailAuth(Connection conn, String toEmail, String cNumber){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEmailAuth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cNumber);
+			pstmt.setString(2, toEmail);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertEmailAuth(Connection conn, String toEmail, String cNumber){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertEmailAuth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, toEmail);
+			pstmt.setString(2, cNumber);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public boolean selectEmailAuth(Connection conn, String email, String authCode) {
+		boolean isThere = true;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEmailAuth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, authCode);
+			
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
 		return isThere;
 	}
 }

@@ -45,9 +45,9 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String toEmail = request.getParameter("email");
 		String subject = "[Petopia] 회원 가입 이메일 인증번호";
-		String fromEmail = "dlaudwns521@gmail.com";
-		String password = "";
-		String fromUsername = "관리자";
+		String fromEmail = "leemj9987@gmail.com";
+		String password = "ekbc gagq amwi gquu";
+		String fromUsername = "펫토피아";
 		
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
@@ -86,7 +86,7 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 				}
 			}
 			StringBuffer sb = new StringBuffer();
-			sb.append("<h3>[Community 프로젝트] 회원 가입 인증 번호입니다.</h3>\n");
+			sb.append("<h3>[Petopia] 회원 가입 인증 번호입니다.</h3>\n");
 			sb.append("<h3>인증 번호 : <span style='color:red'>"+ cNumber +"</span></h3>\n");
 			String mailContent = sb.toString();
 			mTextPart.setText(mailContent,"UTF-8","html");

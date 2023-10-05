@@ -45,4 +45,33 @@ public class UserService {
 		
 		return isThere;
 	}
+	public int insertEmailAuth(String toEmail, String cNumber) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result=new UserDao().updateEmailAuth(conn, toEmail, cNumber);
+		
+		if(result==0) {
+			result=new UserDao().insertEmailAuth(conn, toEmail, cNumber);
+		}
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public boolean selectEmailAuth(String email, String authCode) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean result = new UserDao().selectEmailAuth(conn, email, authCode);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }
