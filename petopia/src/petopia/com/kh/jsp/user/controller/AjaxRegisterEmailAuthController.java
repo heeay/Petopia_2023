@@ -94,11 +94,13 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			message.setContent(mParts);
 			Transport t =session.getTransport("smtp");
 			t.connect(fromEmail, password);
+			System.out.println("인증메일전송");
 			t.sendMessage(message, message.getAllRecipients());
 			t.close();
 			
 			int result = new UserService().insertEmailAuth(toEmail,cNumber);
 			
+			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().print(result);
 			
 		} catch (UnsupportedEncodingException | MessagingException e) {

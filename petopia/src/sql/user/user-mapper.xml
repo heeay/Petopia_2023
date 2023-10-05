@@ -86,6 +86,12 @@ WHERE
 AND
 	EMAIL_AUTH_CODE = ?
 </entry>
+<entry key="deleteEmailAuth">
+DELETE FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+</entry>
 <entry key="updateUserInfo">
 UPDATE
 	TB_USER

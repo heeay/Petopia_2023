@@ -33,6 +33,8 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		
 		boolean result = new UserService().selectEmailAuth(email, authCode);
 		
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 	/**

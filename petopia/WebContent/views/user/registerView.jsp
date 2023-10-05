@@ -385,6 +385,8 @@
                 checkEmail();
                 if(emailFlag){
                     const email = document.getElementById("email");
+                    $("#email-auth-btn-wrap").css("display","none");
+                    $("#auth-code-wrap").css("display","block");
                     $.ajax({
                         url : "requestAuthEmail",
                         type : "get",
@@ -392,12 +394,13 @@
                         success : function(result){
                             console.log(result);
                             if(result == "1"){
-                                $("#email-auth-btn-wrap").css("display","none");
-                                $("#auth-code-wrap").css("display","block");
                                 $("#err-email-auth").css("display","none");
                                 $("#err-email-auth").text("");
                             }
                             else{
+                                
+                                $("#email-auth-btn-wrap").css("display","block");
+                                $("#auth-code-wrap").css("display","none");
                                 $("#err-email-auth").css("display","block");
                                 $("#err-email-auth").text("코드 전송이 실패했습니다.");
                             }
@@ -420,7 +423,7 @@
                     },
                     success : function(result){
                         console.log(result);
-                        if(result == "1"){
+                        if(result == "true"){
                             $("#auth-code-wrap").css("display","none");
                             $("#email-auth-success").css("display","block");
                             emailAuthFlag = true;

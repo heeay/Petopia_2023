@@ -169,6 +169,7 @@ public class UserDao {
 			pstmt.setString(1, email);
 			pstmt.setString(2, authCode);
 			
+			System.out.println(authCode);
 			rset = pstmt.executeQuery();
 			isThere = rset.next();
 			
@@ -180,5 +181,25 @@ public class UserDao {
 		}
 		
 		return isThere;
+	}
+	
+	public int deleteEmailAuth(Connection conn, String email) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteEmailAuth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
 	}
 }

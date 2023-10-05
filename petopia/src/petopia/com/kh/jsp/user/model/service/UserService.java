@@ -69,6 +69,13 @@ public class UserService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		boolean result = new UserDao().selectEmailAuth(conn, email, authCode);
+		if(result) {
+			if(new UserDao().deleteEmailAuth(conn, email)>0){
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		}
 		
 		JDBCTemplate.close(conn);
 		
