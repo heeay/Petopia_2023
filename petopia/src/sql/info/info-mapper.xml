@@ -78,6 +78,14 @@
 		 	    )
 	</entry>
 	
+	<entry key="selectListCount">
+		SELECT
+			   COUNT(BOARD_NO) "BOARD_COUNT"
+		  FROM 
+		  	   TB_BOARD
+		 WHERE 
+		 	   CTG_NO = 13
+	</entry>
 	
 
 </properties>
