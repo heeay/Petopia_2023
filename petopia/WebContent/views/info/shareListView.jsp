@@ -25,6 +25,8 @@
         height: 100%;
         margin-top : 20px;
     }
+    
+    #content-area{text-align: right;}
 
     .info-list *{
         border : 1px solid black;
@@ -48,8 +50,7 @@
 	
 	<div id="wrap">
 	
-        <div align="right">
-        	
+        <div id="content-area">
         	<% if(userInfo != null) { %>
 		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글 쓰기</a>
         	<% } %>
@@ -57,26 +58,7 @@
 
         <table class="info-list">
 
-            <% if(list.isEmpty()) { %>
-            <tr>
-                <td colspan="2" align="center">조회된 게시글이 없습니다.</td>
-            </tr>
-            <% } else { %>
-
-                <% for(Info in : list) { %>
-                    <tr>
-                        <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
-                        <td width="600px"><%= in.getInfoTitle() %></td>
-                    </tr>
-                    <tr>
-                        <td><%= in.getInfoContent() %></td>
-                    </tr>
-                    <tr height="10px"></tr>
-                <% } %>
-                
-            <% } %>
-
-            <!--
+			
             <tr>
                 <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
                 <td width="600px">맛있는 음식점 방문</td>
@@ -85,11 +67,11 @@
                 <td>한 페이지에 12개 들어가면 딱 맞음</td>
             </tr>
             <tr height="10px"></tr>
-            -->
+            
              
         </table>
 
-        <div class="share-paging" align="center">
+        <div class="pagin-area" align="center">
 
 			
 
