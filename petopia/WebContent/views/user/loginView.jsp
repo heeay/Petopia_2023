@@ -314,6 +314,10 @@ if(cookies!=null){
                   url: '/v2/user/me',
                   success: function (response) {
                       console.log(response)
+                      console.log(response["id"]);
+                      console.log(response["kakao_account"]["email"]);
+                      location.href="<%= contextPath %>/kakaoLogin?email="+response["kakao_account"]["email"]+"&id="+response["id"];
+                      
                   },
                   fail: function (error) {
                     console.log(error)
@@ -339,7 +343,7 @@ if(cookies!=null){
               })
               Kakao.Auth.setAccessToken(undefined)
             }
-          }  
+          }
     </script>
     <%@include file="../common/footer.jsp" %>
 </body>

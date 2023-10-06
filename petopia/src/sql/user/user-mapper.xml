@@ -126,4 +126,21 @@ AND
 AND
 	USER_ENABLE_STATE = 'Y'
 </entry>
+<entry key="insertKakaoUser">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?||SEQ_USER_NO.CURRVAL
+)
+</entry>
 </properties>

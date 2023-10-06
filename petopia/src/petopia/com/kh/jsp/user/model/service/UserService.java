@@ -99,4 +99,21 @@ public class UserService {
 		
 		return user;
 	}
+	public User simpleKakaoAuth(User u) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		User user = new UserDao().loginSimpleAuth(conn, u);
+		if(user == null) {
+			if(new UserDao().insertKakaoUser(conn, u)>0) {
+				JDBCTemplate.commit(conn);
+				user = new UserDao().loginSimpleAuth(conn, u);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return user;
+	}
 }

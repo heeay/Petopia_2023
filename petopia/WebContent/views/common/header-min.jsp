@@ -86,14 +86,23 @@ User userInfo = (User)session.getAttribute("userInfo");
 
         }
         .user-navi-item{
-            width: 90px;
+            width: 80px;
             height: 100%;
             float: left;
         }
-        .user-navi-item > span{
+        .user-nickname{
+            width: 160px;
+            text-align: right;
+            padding: 0 5px;
+        }
+        .user-nickname > span{
             display: inline-block;
-            width: 65px;
+            width: 130px;
             height: 100%;
+            padding: 0 5px;
+        }
+        .user-nickname a{
+            text-align: right;
         }
         .user-navi-icon-btn{
             width: 50px;
@@ -162,20 +171,40 @@ User userInfo = (User)session.getAttribute("userInfo");
             box-shadow: -4px 5px 5px -4px black;
         }
     </style>
-    
-    <script>
-        var testPopUp;
-        function openPopUp() {
-            testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+    //네이버 로그아웃
+    var testPopUp;
+    function openPopUp() {
+        testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
+    }
+    function closePopUp(){
+        testPopUp.close();
+    }
+    function naverLogout() {
+        openPopUp();
+        closePopUp();
+    }
+    //카카오 로그아웃
+    Kakao.init('f9947b6fb5f9eb6975bcffce3ad32133');
+    function kakaoLogout() {
+        if (Kakao.Auth.getAccessToken()) {
+          Kakao.API.request({
+            url: '/v1/user/unlink',
+            success: function (response) {
+                console.log(response)
+                alert("wewe");
+            },
+            fail: function (error) {
+              console.log(error)
+              alert("wewe");
+            },
+          })
+          Kakao.Auth.setAccessToken(undefined)
         }
-        function closePopUp(){
-            testPopUp.close();
-        }
-        function naverLogout() {
-        	openPopUp();
-            closePopUp();
-        }
-    </script>
+      }
+</script>
 
 </head>
 <body>
@@ -195,8 +224,11 @@ User userInfo = (User)session.getAttribute("userInfo");
                 	<%if(userInfo == null){ %>
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
-                    	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                    	<li class="user-navi-item"><a <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}%> href="<%=contextPath %>/logout">로그아웃</a></li>
+                    	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                    	<li class="user-navi-item"><a 
+                            <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
+                            else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
+                            href="<%=contextPath %>/logout">로그아웃</a></li>
                     <%} %>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -223,8 +255,11 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <%if(userInfo == null){ %>
                 	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                	<li class="user-navi-item"><a <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}%> href="<%=contextPath %>/logout">로그아웃</a></li>
+                	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                	<li class="user-navi-item"><a 
+                        <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
+                        else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
+                        href="<%=contextPath %>/logout">로그아웃</a></li>
                 <%} %>
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>

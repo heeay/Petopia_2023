@@ -238,4 +238,26 @@ public class UserDao {
 		
 		return user;
 	}
+	public int insertKakaoUser(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertKakaoUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user.getUserMethod());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserPass());
+			pstmt.setString(4, "KakaoUser");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 }
