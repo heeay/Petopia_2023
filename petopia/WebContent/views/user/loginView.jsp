@@ -302,19 +302,6 @@ if(cookies!=null){
             <a href="<%=contextPath %>/register">회원가입</a>
         </div>
     </section>
-
-    <!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-    <script>
-        //네이버 로그인
-        var naverLogin = new naver.LoginWithNaverId({
-			clientId: "8ZYnqypIAIHZc2Ycz4px", //내 애플리케이션 정보에 cliendId
-			callbackUrl: "http://localhost:8001/petopia/naverLogin", // 내 애플리케이션 API설정의 Callback URL
-			isPopup: false,
-			callbackHandle: true
-		});	
-
-        naverLogin.init();
-    </script>-->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //카카오로그인

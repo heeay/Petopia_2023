@@ -63,6 +63,7 @@ public class NaverLoginController extends HttpServlet {
 		String token_type = "";
 		String access_token = "";
 		String refresh_token = "";
+		System.out.println();
 		System.out.println("apiURL="+apiURL);
 
 		try {

@@ -87,6 +87,7 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			}
 			StringBuffer sb = new StringBuffer();
 			sb.append("<h3>[Petopia] 회원 가입 인증 번호입니다.</h3>\n");
+			sb.append("<h4>아래의 인증번호를 입력해 주십시오.</h4>\n");
 			sb.append("<h3>인증 번호 : <span style='color:red'>"+ cNumber +"</span></h3>\n");
 			String mailContent = sb.toString();
 			mTextPart.setText(mailContent,"UTF-8","html");

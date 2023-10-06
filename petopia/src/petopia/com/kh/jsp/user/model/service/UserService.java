@@ -84,10 +84,9 @@ public class UserService {
 	
 	public User simpleAuth(User u) {
 		Connection conn = JDBCTemplate.getConnection();
-		boolean isThere = new UserDao().checkUserEmail(conn, u.getUserEmail());
 		
 		User user = null;
-		if(isThere) {
+		if(new UserDao().checkUserEmail(conn, u.getUserEmail())) {
 			user = new UserDao().loginSimpleAuth(conn, u.getUserEmail());
 		} else {
 			if(new UserDao().insertSimpleAuth(conn, u)>0) {
