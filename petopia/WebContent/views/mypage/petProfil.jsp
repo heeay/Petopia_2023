@@ -274,7 +274,7 @@
                                 <div class="profil-name3">
                                     사진등록
                                     <div class="profil-align-right">
-                                        <input type="file" name="petImgFile" id="petImgFile">
+                                        <input type="file" name="petImgFile" id="petImgFile" required>
                                     </div>
                                 </div>
                             </div>
