@@ -162,6 +162,21 @@ User userInfo = (User)session.getAttribute("userInfo");
             box-shadow: -4px 5px 5px -4px black;
         }
     </style>
+    
+    <script>
+        var testPopUp;
+        function openPopUp() {
+            testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
+        }
+        function closePopUp(){
+            testPopUp.close();
+        }
+        function naverLogout() {
+        	openPopUp();
+            closePopUp();
+        }
+    </script>
+
 </head>
 <body>
     <header>
@@ -181,7 +196,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
                     	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                    	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
+                    	<li class="user-navi-item"><a <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}%> href="<%=contextPath %>/logout">로그아웃</a></li>
                     <%} %>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -209,7 +224,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
                 	<li class="user-navi-item"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                	<li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
+                	<li class="user-navi-item"><a <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}%> href="<%=contextPath %>/logout">로그아웃</a></li>
                 <%} %>
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>

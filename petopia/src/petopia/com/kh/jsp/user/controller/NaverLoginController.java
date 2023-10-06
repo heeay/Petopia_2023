@@ -60,7 +60,6 @@ public class NaverLoginController extends HttpServlet {
 		apiURL += "&redirect_uri=" + redirectURI;
 		apiURL += "&code=" + code;
 		apiURL += "&state=" + state;
-		String token_type = "";
 		String access_token = "";
 		String refresh_token = "";
 		System.out.println();
