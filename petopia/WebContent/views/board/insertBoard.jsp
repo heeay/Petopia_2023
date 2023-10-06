@@ -26,69 +26,78 @@
         background-color: rgb(255, 248, 240);
     }
 
-    #title-area{
+    #option-area{
         box-sizing: border-box;
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: space-between;
-        /* border : 1px solid black; */
         width  : 1100px;
-        height : 10%;
-        border-bottom : 1px solid black;
-    }
-    #content-area{
+        height : 70%;
         
+        
+    }
+    
+    #upload-area{
         width : 1100px;
-        height : 60%;
+        height : 15%;
         box-sizing: border-box;
-        border-bottom : 1px solid black;
-    }
-    #reply-area {
-        /* margin-top: 30px; */
-        box-sizing: border-box;
-        height : 20%;
     }
 
-</style>
-
-<!-- title -->
-<style>
-    .title-info{
-        display: flex;
-        /* justify-content: space-between; */
-        align-items: center;
-    }
-    .title-info *{
-        margin-left: 10px;
-    }
-    #title{
-        font-size : 30px;
-    }
-    #category {
+    p {
         font-size : 20px;
-        margin-left: 10px;
+        font-weight: 600;
+        /* float : left; */
+      
+    }
+   
+
+</style>
+
+<!-- option -->
+<style>
+    #option{
+       
+    }
+    .option-list{
+        display : flex;
+
+        margin : 10px 0px;
+       
+    }
+    .option-name{
+        margin-right : 20px;
+       
+    }
+
+    #option-board{
+        
+    }
+    #option-animal{
+
+    }
+    #option-detail{
+        
+    }
+    #option-title{
+        width : 900px;
+    }
+    #option-content{
+        width : 900px;
+        height : 300px;
+        resize:none;
+    }
+   
+</style>
+
+<!-- upload -->
+<style>
+    #upload-admin{
+        display : flex;
+        justify-content: right;
     }
 </style>
 
-<!-- content -->
+<!-- button -->
 <style>
-#content img{
-   
-}
-#content{
 
-   height : 40%;
-}
-#content-img{
-    display : flex;
-    justify-content: center;
-    align-items: center;
-}
 </style>
-
-
-
-
 
 
 </style>
@@ -102,34 +111,76 @@
 
 <div id="wrapper">
     
-    <div id="title-area">
+    <p>게시글 작성</p>
 
-        <div class="title-info">
-            <div id="title">게시글 작성</div> 
-            <div id="category">동물종류</div>
-        </div>
+    <div id="option-area">
 
-        <div class="title-info">
-            <img src="" id="writer-img">작성자이름
-            <div>2023.09.09</div>
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
-
+        <ul id="option">
+            <li class="option-list">
+                <span class="option-name">게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <select name="" id="option-board">
+                    <option value="">동물게시판</option>
+                    <option value="">실종게시판</option>
+                </select>
+            </li>
+            <li class="option-list">
+                <span class="option-name">동물&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <select name="" id="option-animal">
+                    <option value="">강아지</option>
+                    <option value="">고양이</option>
+                    <option value="">설치류</option>
+                    <option value="">파충류</option>
+                    <option value="">조류</option>
+                    <option value="">어류</option>
+                </select>
+            </li>
+            <li class="option-list">
+                <span class="option-name">세부게시판</span>
+                <select name="" id="option-detail">
+                    <option value="">꿀팁공유</option>
+                    <option value="">QnA</option>
+                    <option value="">수제간식 레시피</option>
+                    <option value="">전국 동물자랑</option>
+                    <option value="">무료나눔</option>
+                    <option value="">돌봄SOS</option>
+                </select>
+            </li>
+            <li class="option-list">
+                <span class="option-name">제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="text" id="option-title" placeholder="제목을 입력하세요">
+            </li>
+            <li class="option-list">
+                <span class="option-name">내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <textarea name="" id="option-content" placeholder="내용을 입력하세요"></textarea>
+            </li>
+        </ul>
+      
     </div>
 
-    <div id="content-area">
 
-        <div id="content">  
-            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-        </div>
+    <div id="upload-area">
 
+        <ul>
+            <li>
+                <span class="option-name">사진 업로드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button type="button" id="upload-picture">사진첨부</button>
+                <span class="upload-file">선택된 파일 없음</span>
+            </li>
+            <li>
+                <span class="option-name">동영상 업로드</span>
+                <button type="button" id="upload-video">동영상첨부</button>
+                <span class="upload-file">선택된 파일 없음</span>
+            </li>
+        </ul>
    
+    <div id="upload-admin">
+        <button type="submit">글등록</button>
+        <button>취소</button>
+    </div>
 
    
        
     </div>
-
 
     
 </div>
