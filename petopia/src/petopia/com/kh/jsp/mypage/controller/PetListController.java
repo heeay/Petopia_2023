@@ -51,12 +51,12 @@ public class PetListController extends HttpServlet {
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
-		System.out.println(listCount);
-		System.out.println(currentPage);
+		//System.out.println(listCount);
+		//System.out.println(currentPage);
 		
 		
 		pageLimit = 10;
-		PetLimit = 10;
+		PetLimit = 5;
 		
 		maxPage = (int)Math.ceil((double)listCount/pageLimit);
 		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;

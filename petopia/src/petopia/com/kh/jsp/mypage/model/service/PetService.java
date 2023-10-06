@@ -22,14 +22,15 @@ public class PetService {
 	public int insertPetProfil(Pet p, PetFile pt) {
 		Connection conn = getConnection();
 		
-		int result1 = new PetDao().insertPet(conn, p);
-		
-		// 프로필 사진 넣을수도 안넣을 수도 있음
 		int result2 = 1;
 		
 		if(pt != null) {
 			result2 = new PetDao().insertPetImg(conn, pt);
 		}
+		
+		int result1 = new PetDao().insertPet(conn, p);
+		
+		// 프로필 사진 넣을수도 안넣을 수도 있음
 		
 		if((result1*result2)>0) {
 			commit(conn);
@@ -46,6 +47,19 @@ public class PetService {
 		return listCount;
 	}
 
-	
+	public Pet selectPetProfil(int petNo) {
+		Connection conn = getConnection();
+		Pet p = new PetDao().selectPetProfil(conn, petNo);
+		close(conn);
+		return p;
+	}
 
+	public PetFile selectPetFile(int petNo) {
+		Connection conn = getConnection();
+		PetFile pt = new PetDao().selectPetFile(conn, petNo);
+		close(conn);
+		return pt;
+	}
+
+	
 }

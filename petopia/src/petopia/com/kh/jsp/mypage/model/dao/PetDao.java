@@ -123,6 +123,46 @@ public class PetDao {
 		}
 		return listCount;
 	}
+	public Pet selectPetProfil(Connection conn, int petNo) {
+		Pet p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPetProfil");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  petNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Pet();
+				p.setPetNo(rset.getInt("PET_NO"));
+				p.setPetName(rset.getString("PET_NAME"));
+				p.setPetSpecies(rset.getString("PET_SPECIES"));
+				p.setPetSpecific(rset.getString("PET_SPECIFIC"));
+				p.setPetWeight(rset.getInt("PET_WEIGHT"));
+				p.setPetGender(rset.getString("PET_GENDER"));
+				p.setPetPersonality(rset.getString("PET_PERSONALITY"));
+				p.setPetEtc(rset.getString("PET_ETC"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+	public PetFile selectPetFile(Connection conn, int petNo) {
+		PetFile pt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPetFile");
+		
+		return null;
+	}
 
 	
 

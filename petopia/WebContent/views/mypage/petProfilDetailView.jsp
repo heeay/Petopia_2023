@@ -121,12 +121,7 @@
 <body>
     <%@ include file = "mysidebar.jsp" %>
 
-
-
-    
     <div class="content-area">
-        
-        <form action="<%=contextPath%>/petDetail.my?pno=<%=p.getPetNo() %>" enctype="multipart/form-data" method="post">
         
             <div class="mg-a">
 
@@ -213,7 +208,7 @@
                 </div>
                 
             </div>
-        </form>
+       
         
     </div>
 </body>

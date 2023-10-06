@@ -29,7 +29,8 @@
 				PET_GENDER, 
 				PET_PERSONALITY, 
 				PET_ETC, 
-				USER_NO
+				USER_NO,
+				FILE_MYPAGE_NO
 		   		)
 		 VALUES 
 	 			(
@@ -42,6 +43,7 @@
 	 			?,
 	 			?,
 	 			?
+	 			
 	 			)
 	</entry>
 	
@@ -72,6 +74,36 @@
 		  WHERE 
 				USER_NO = ? 
 	</entry>
+	
+	<entry key="selectPetProfil">
+		 SELECT 
+		 		PET_NO,
+				PET_NAME,
+				PET_SPECIES,
+				PET_SPECIFIC,
+				PET_WEIGHT,
+				PET_GENDER,
+				PET_PERSONALITY,
+				PET_ETC 
+		   FROM 
+		   		TB_PET 
+		  WHERE 
+		  		PET_NO=?
+	</entry>
+	
+	<entry key="selectPetFile">
+		 SELECT 
+				FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   FROM 
+		   		TB_MYPAGE_FILE 
+		  WHERE 
+		  		FILE_MYPAGE_NO=?
+		   		
+	</entry>
+	
 	
 	
 </properties>
