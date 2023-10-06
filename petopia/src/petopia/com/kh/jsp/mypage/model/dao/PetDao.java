@@ -86,7 +86,20 @@ public class PetDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertPetImg");
 		
-		return 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pt.getOriginalName());
+			pstmt.setString(2, pt.getUploadName());
+			pstmt.setString(3, pt.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	

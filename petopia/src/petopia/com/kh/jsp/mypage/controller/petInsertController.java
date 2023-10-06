@@ -1,5 +1,6 @@
 package petopia.com.kh.jsp.mypage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -78,7 +79,21 @@ public class petInsertController extends HttpServlet {
 				pt.setFilePath("resources/pet_upfiles");
 			}
 			
-			new PetService().insertPetProfil(p, pt);
+			int result = new PetService().insertPetProfil(p, pt);
+			
+			if(result>0) {
+				request.getSession().setAttribute("alertMsg", "프로필 등록 성공");
+				response.sendRedirect(request.getContextPath()+"/petProfil.jsp");
+				return;
+			} else {
+				// 첨푸파일을 넣었지만 insert 실패했을때
+				if(pt != null) {
+					new File(savePath + pt.getUploadName()).delete();
+				}
+				
+			}
+			request.setAttribute("errorMsg", "프로필 등록 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

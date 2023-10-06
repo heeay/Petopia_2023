@@ -216,12 +216,12 @@
                                     <label>종</label>
                                     <div class="profil-align-right">
                                         <select name="petSpecies" style="width: 205px;">
-                                            <option value="dog">강아지</option>
-                                            <option value="cat">고양이</option>
-                                            <option value="rodent">설치류</option>
-                                            <option value="reptile">파충류</option>
-                                            <option value="birds">조류</option>
-                                            <option value="pisces">어류</option>
+                                            <option value="강아지">강아지</option>
+                                            <option value="고양이">고양이</option>
+                                            <option value="설치류">설치류</option>
+                                            <option value="파충류">파충류</option>
+                                            <option value="조류">조류</option>
+                                            <option value="어류">어류</option>
                                         </select>
                                     </div>
                                 </div>
