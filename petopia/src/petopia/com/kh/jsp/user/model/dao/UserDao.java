@@ -41,6 +41,7 @@ public class UserDao {
 			if(rset.next()) {
 				user = new User();
 				user.setUserNo(rset.getInt("USER_NO"));
+				user.setUserMethod(rset.getInt("USER_METHOD"));
 				user.setUserEmail(rset.getString("USER_EMAIL"));
 				user.setUserPass(rset.getString("USER_PASS"));
 				user.setUserNickname(rset.getString("USER_NICKNAME"));

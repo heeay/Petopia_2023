@@ -5,16 +5,18 @@ import java.sql.Date;
 public class User {
 	/*
 	"USER_NO"			NUMBER				NOT NULL,
+	"USER_METHOD"		NUMBER	DEFAULT 0		NULL,
 	"USER_EMAIL"		VARCHAR2(50)		NOT NULL,
-	"USER_PASS"			VARCHAR2(50)		NOT NULL,
+	"USER_PASS"			VARCHAR2(64)		NOT NULL,
 	"USER_NICKNAME"		VARCHAR2(50)		NOT NULL,
 	"USER_PHONE"		VARCHAR2(11)		NOT NULL,
 	"ROLE_ID"			CHAR(2)	DEFAULT 'R1'	NULL,
 	"USER_CREATE_DATE"	DATE	DEFAULT SYSDATE	NULL,
 	"USER_UPDATE_DATE"	DATE	DEFAULT SYSDATE	NULL,
-	"USER_ENABLE_STATE"
+	"USER_ENABLE_STATE"	CHAR(1)	DEFAULT 'Y'
 	*/
 	private int userNo;
+	private int userMethod;
 	private String userEmail;
 	private String userPass;
 	private String userNickname;
@@ -27,10 +29,11 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(int userNo, String userEmail, String userPass, String userNickname, String userPhone, String roleId,
-			Date userCreateDate, Date userUpdateDate, String userEnableState) {
+	public User(int userNo, int userMethod, String userEmail, String userPass, String userNickname, String userPhone,
+			String roleId, Date userCreateDate, Date userUpdateDate, String userEnableState) {
 		super();
 		this.userNo = userNo;
+		this.userMethod = userMethod;
 		this.userEmail = userEmail;
 		this.userPass = userPass;
 		this.userNickname = userNickname;
@@ -46,6 +49,12 @@ public class User {
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	public int getUserMethod() {
+		return userMethod;
+	}
+	public void setUserMethod(int userMethod) {
+		this.userMethod = userMethod;
 	}
 	public String getUserEmail() {
 		return userEmail;
@@ -98,9 +107,9 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", userEmail=" + userEmail + ", userPass=" + userPass + ", userNickname="
-				+ userNickname + ", userPhone=" + userPhone + ", roleId=" + roleId + ", userCreateDate="
-				+ userCreateDate + ", userUpdateDate=" + userUpdateDate + ", userEnableState=" + userEnableState + "]";
+		return "User [userNo=" + userNo + ", userMethod=" + userMethod + ", userEmail=" + userEmail + ", userPass="
+				+ userPass + ", userNickname=" + userNickname + ", userPhone=" + userPhone + ", roleId=" + roleId
+				+ ", userCreateDate=" + userCreateDate + ", userUpdateDate=" + userUpdateDate + ", userEnableState="
+				+ userEnableState + "]";
 	}
-	
 }

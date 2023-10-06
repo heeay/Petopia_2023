@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%
 String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute("fail") : "";
 String cookieEmail = "";
@@ -130,11 +133,15 @@ if(cookies!=null){
             box-sizing: border-box;
         }
         #naverIdLogin_loginButton{
+            display: block;
             cursor: pointer;
             background-color: #03C75A;
             color: #ffffff;
             border-color: #03bd57;
             box-sizing: border-box;
+        }
+        #naverIdLogin_loginButton:hover{
+            text-decoration: none;
         }
         #kakao-auth{
             cursor: pointer;
@@ -261,11 +268,22 @@ if(cookies!=null){
                 </form>
             </div>
         </div>
+        <%
+        String clientId = "8ZYnqypIAIHZc2Ycz4px";//애플리케이션 클라이언트 아이디값";
+        String redirectURI = URLEncoder.encode("http://localhost:8001/petopia/naverLogin", "UTF-8");
+        SecureRandom random = new SecureRandom();
+        String state = new BigInteger(130, random).toString();
+        String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+        apiURL += "&client_id=" + clientId;
+        apiURL += "&redirect_uri=" + redirectURI;
+        apiURL += "&state=" + state;
+        session.setAttribute("state", state);
+        %>
         <div class="auth-wrap margin-bottom">
-            <div id="naverIdLogin_loginButton" class="auth-btn">
+            <a href="<%=apiURL%>" id="naverIdLogin_loginButton" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/naver_login_icon.svg">
                 	네이버 로그인
-            </div>
+            </a>
         </div>
         <div class="auth-wrap margin-bottom">
             <div id="kakao-auth" class="auth-btn" onclick="kakaoLogin();">
@@ -285,7 +303,7 @@ if(cookies!=null){
         </div>
     </section>
 
-    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script>
         //네이버 로그인
         var naverLogin = new naver.LoginWithNaverId({
@@ -296,47 +314,7 @@ if(cookies!=null){
 		});	
 
         naverLogin.init();
-
-        window.addEventListener('load', function () {
-        	naverLogin.getLoginStatus(function (status) {
-        		if (status) {
-        			let nickname = naverLogin.user.getNickname(); // 필수설정
-        			let phone = naverLogin.user.getMobile(); // 필수설정
-
-                    alert(nickname);
-                    alert(phone);
-        			console.log(naverLogin.user); 
-                
-                    if( nickname == undefined || nickname == null) {
-        				alert("닉네임은 필수정보입니다. 정보제공을 동의해주세요.");
-                        naverLogin.reprompt();
-        				return;
-        			}
-                    if( phone == undefined || phone == null) {
-        				alert("전화번호는 필수정보입니다. 정보제공을 동의해주세요.");
-                        naverLogin.reprompt();
-        				return;
-        			}
-        		} else {
-        			console.log("callback 처리에 실패하였습니다.");
-        		}
-        	});
-        });
-
-        var testPopUp;
-        function openPopUp() {
-            testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
-        }
-        function closePopUp(){
-            testPopUp.close();
-        }
-        function naverLogout() {
-        	openPopUp();
-        	setTimeout(function() {
-        		closePopUp();
-        	}, 1000);
-        }
-    </script>
+    </script>-->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //카카오로그인

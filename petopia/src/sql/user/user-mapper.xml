@@ -5,6 +5,7 @@
 <entry key="loginUser">
 SELECT
 	USER_NO,
+	USER_METHOD,
 	USER_EMAIL,
 	USER_PASS,
 	USER_NICKNAME,
