@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
  * Servlet implementation class NaverLoginController
  */
@@ -48,6 +55,7 @@ public class NaverLoginController extends HttpServlet {
 	    apiURL += "&redirect_uri=" + redirectURI;
 	    apiURL += "&code=" + code;
 	    apiURL += "&state=" + state;
+	    String token_type = "";
 	    String access_token = "";
 	    String refresh_token = "";
 	    System.out.println("apiURL="+apiURL);
@@ -60,24 +68,27 @@ public class NaverLoginController extends HttpServlet {
 	    	BufferedReader br;
 	    	System.out.println("responseCode="+responseCode);
 	    	if(responseCode==200) { // 정상 호출
-	            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	          } else {  // 에러 발생
-	            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-	          }
-	          String inputLine;
-	          StringBuffer res = new StringBuffer();
-	          while ((inputLine = br.readLine()) != null) {
-	            res.append(inputLine);
-	          }
-	          br.close();
-	          if(responseCode==200) {
-	            System.out.println(res.toString());
-	          }
-		} catch (Exception e) {
+	    		br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    	} else {  // 에러 발생
+	    		br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	    	}
+	    	String inputLine;
+	    	StringBuffer res = new StringBuffer();
+	    	while ((inputLine = br.readLine()) != null) {
+	    		res.append(inputLine);
+	    	}
+	    	br.close();
+	    	if(responseCode==200) {
+	    		JSONParser parser = new JSONParser();
+	    		JSONObject jObj = (JSONObject)parser.parse(res.toString());
+	    		token_type = (String) jObj.get("token_type");
+	    		access_token = (String) jObj.get("access_token");
+	    		refresh_token = (String) jObj.get("refresh_token");
+	    	}
+	    } catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
