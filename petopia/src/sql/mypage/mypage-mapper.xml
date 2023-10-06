@@ -42,8 +42,8 @@
 	 			?,
 	 			?,
 	 			?,
-	 			?
-	 			
+	 			?,
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
 	 			)
 	</entry>
 	
@@ -92,15 +92,17 @@
 	</entry>
 	
 	<entry key="selectPetFile">
-		 SELECT 
+		  SELECT 
 				FILE_MYPAGE_NO,
 				ORIGINAL_NAME,
 				UPLOAD_NAME,
-				FILE_PATH
+				FILE_PATH 
 		   FROM 
 		   		TB_MYPAGE_FILE 
+		   JOIN 
+		   		TB_PET USING(FILE_MYPAGE_NO) 
 		  WHERE 
-		  		FILE_MYPAGE_NO=?
+		  		PET_NO=?
 		   		
 	</entry>
 	
