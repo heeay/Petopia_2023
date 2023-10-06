@@ -1,28 +1,23 @@
-package petopia.com.kh.jsp.info.controller;
+package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.info.model.service.InfoService;
-import petopia.com.kh.jsp.info.model.vo.InfoCategory;
-
 /**
- * Servlet implementation class ShareEnrollFormController
+ * Servlet implementation class InsertBoardController
  */
-@WebServlet("/insertForm.in")
-public class ShareEnrollFormController extends HttpServlet {
+@WebServlet("/insert.bo")
+public class InsertBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShareEnrollFormController() {
+    public InsertBoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +27,9 @@ public class ShareEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<InfoCategory> list = new InfoService().selectInfoCategory();
 		
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/info/shareEnrollForm.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/insertBoard.jsp").forward(request, response);
+
 	}
 
 	/**

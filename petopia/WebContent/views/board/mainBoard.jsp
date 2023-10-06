@@ -27,12 +27,19 @@
     }
 
     #search-area{
-       width : 100%;
+       width : 1100px;
        height : 10%;
        /* border : 1px solid black; */
        display : flex;
        justify-content: space-between;
        align-items: center;
+    }
+
+    .content-area{
+        display : flex;
+        justify-content: center;
+        height : 80%;
+        width : 1100px;
     }
 
 </style>
@@ -92,11 +99,7 @@
 <!-- content -->
 <style>
 
-    .content-area{
-        display : flex;
-        justify-content: center;
-        height : 80%;
-    }
+  
     .content{
         margin : 20px 100px;
         width : 300px;
