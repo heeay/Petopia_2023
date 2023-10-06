@@ -133,7 +133,7 @@
                 <input type="file" id="petProfil" name="petProfil">
 
                 <span id="petEnroll">
-                    <a href="<%=contextPath %>/" id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</a>
+                    <button type="button" id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</button>
                 </span>
             </div>
 
@@ -156,7 +156,7 @@
                         
                         <% if(list.isEmpty()) { %>
                         	<tr>
-                        		<td>등록된 프로필이 없습니다.</td>
+                        		<td colspan="3" align="center">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
                         	<% for(Pet p : list){ %>
@@ -198,7 +198,8 @@
             <div id="modalContainer" class="hidden">
             <div id="modalContent">
                 
-                <form action="">
+                <form action="<%=contextPath%>/petInsert.my" enctype="multipart/form-data" method="post">
+                	<input type="hidden" name="userNo" value="<%=userInfo.getUserNo()%>">
                     <div>
                         <p class="profil-content-name">반려동물 프로필</p>
     
@@ -208,41 +209,41 @@
     
                                 <div class="profil-name">
                                     이름
-                                    <div class="profil-align-right"><input type="text"></div>
+                                    <div class="profil-align-right"><input type="text" name="petName"></div>
                                 </div>
     
                                 <div class="profil-name">
-                                    <label for="">종</label>
+                                    <label>종</label>
                                     <div class="profil-align-right">
-                                        <select name="" id="" style="width: 205px;">
-                                            <option value="dog">강아지</option>
-                                            <option value="cat">고양이</option>
-                                            <option value="rodent">설치류</option>
-                                            <option value="reptile">파충류</option>
-                                            <option value="birds">조류</option>
-                                            <option value="pisces">어류</option>
+                                        <select name="petSpecies" style="width: 205px;">
+                                            <option value="강아지">강아지</option>
+                                            <option value="고양이">고양이</option>
+                                            <option value="설치류">설치류</option>
+                                            <option value="파충류">파충류</option>
+                                            <option value="조류">조류</option>
+                                            <option value="어류">어류</option>
                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div class="profil-name">
                                     세부종
-                                    <div class="profil-align-right"><input type="text"></div>
+                                    <div class="profil-align-right"><input type="text" name="petSpecific"></div>
                                 </div>
                                 
                                 <div class="profil-name">
                                     몸무게
-                                    <div class="profil-align-right"><input type="number" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
+                                    <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
                                 </div>
     
                                 <div class="profil-name">
                                     성별
                                     <div class="profil-align-right">
-                                        <input type="radio" name="gender" id="F">&nbsp;F
+                                        <input type="radio" name="petGender" id="F" value="F">&nbsp;F
                                         &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="gender" id="M">&nbsp;M
+                                        <input type="radio" name="petGender" id="M" value="M">&nbsp;M
                                         &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="gender" id="N" checked>&nbsp;중성화
+                                        <input type="radio" name="petGender" id="N" checked value="N">&nbsp;중성화
                                         &nbsp;&nbsp;
                                     </div>
                                 </div>
@@ -254,20 +255,20 @@
                                 <div class="profil-name">
                                     성격
                                     <div class="profil-align-right">
-                                        <input type="text">
+                                        <input type="text" name="petPersonality">
                                     </div>
                                 </div>
     
                                 <div class="profil-name2">
                                     기타사항
                                     <div class="profil-align-right">
-                                        <textarea name="" id="" cols="35" rows="7" style="resize:none;"></textarea>
+                                        <textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
                                     </div>
                                 </div>
                                 <div class="profil-name3">
                                     사진등록
                                     <div class="profil-align-right">
-                                        <input type="file">
+                                        <input type="file" name="petImgFile" id="petImgFile">
                                     </div>
                                 </div>
                             </div>

@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
+import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
@@ -53,6 +54,52 @@ public class PetDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertPet(Connection conn, Pet p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getPetName());
+			pstmt.setString(2, p.getPetSpecies());
+			pstmt.setString(3, p.getPetSpecific());
+			pstmt.setInt(4, p.getPetWeight());
+			pstmt.setString(5, p.getPetGender());
+			pstmt.setString(6, p.getPetPersonality());
+			pstmt.setString(7, p.getPetEtc());
+			pstmt.setInt(8, p.getUserNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int insertPetImg(Connection conn, PetFile pt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pt.getOriginalName());
+			pstmt.setString(2, pt.getUploadName());
+			pstmt.setString(3, pt.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	
