@@ -32,15 +32,16 @@
         display: flex;
         justify-content: space-between;
         /* border : 1px solid black; */
-        width  : 100%;
+        width  : 1100px;
         height : 10%;
+        border-bottom : 1px solid black;
     }
     #content-area{
         
-        width : 100%;
+        width : 1100px;
         height : 60%;
         box-sizing: border-box;
-       
+        border-bottom : 1px solid black;
     }
     #reply-area {
         /* margin-top: 30px; */
