@@ -5,6 +5,7 @@
 <entry key="loginUser">
 SELECT
 	USER_NO,
+	USER_METHOD,
 	USER_EMAIL,
 	USER_PASS,
 	USER_NICKNAME,
@@ -25,13 +26,13 @@ AND
 </entry>
 <entry key="insertUser">
 INSERT INTO
-TB_USER(
-	USER_NO,
-	USER_EMAIL,
-	USER_PASS,
-	USER_NICKNAME,
-	USER_PHONE
-)
+	TB_USER(
+		USER_NO,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE
+	)
 VALUES(
 	SEQ_USER_NO.NEXTVAL,
 	?,
@@ -55,6 +56,42 @@ FROM
 	TB_USER
 WHERE
 	USER_NICKNAME = ?
+</entry>
+<entry key="updateEmailAuth">
+UPDATE
+	TB_EMAIL_AUTH
+SET
+	EMAIL_AUTH_CODE = ?,
+	EMAIL_AUTH_DATE = SYSDATE
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+</entry>
+<entry key="insertEmailAuth">
+INSERT INTO
+	TB_EMAIL_AUTH(
+		EMAIL_AUTH_EMAIL,
+		EMAIL_AUTH_CODE
+	)
+VALUES(
+	?,
+	?
+)
+</entry>
+<entry key="selectEmailAuth">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+AND
+	EMAIL_AUTH_CODE = ?
+</entry>
+<entry key="deleteEmailAuth">
+DELETE FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = ?
 </entry>
 <entry key="updateUserInfo">
 UPDATE

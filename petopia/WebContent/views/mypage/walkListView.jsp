@@ -150,7 +150,7 @@
                     </div>
 
                     
-                    <div class="btn btn-sm btn-secondary btn-right"><a href="" class="color-black">작성하기</a></div>
+                    <div class="btn btn-sm btn-secondary btn-right"><a href="<%=contextPath %>/views/mypage/walkEnrollForm.jsp" class="color-black">작성하기</a></div>
                 </div>
 
                 

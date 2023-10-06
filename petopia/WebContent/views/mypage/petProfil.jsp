@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.Pet"%>
+<%
+	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 애완동물 프로필</title>
     <style>
-        div{/*border: 1px solid black;*/}
+        /*div{border: 1px solid black;}*/
         .content-area{
-            /*border: 1px solid black;*/
             position: absolute;
             top: 130px;
             left: 340px;
@@ -78,7 +81,11 @@
         }
         .profil-name2{
             width: 400px;
-            height: 300px;
+            height: 210px;
+        }
+        .profil-name3{
+            width: 425px;
+            height: 70px;
         }
         .profil-align-left{float: left;}
         .profil-align-right{float: right;}
@@ -115,7 +122,6 @@
     </style>
 </head>
 <body>
-
     <%@ include file = "mysidebar.jsp" %>
 
 	<div class="content-area">
@@ -127,13 +133,13 @@
                 <input type="file" id="petProfil" name="petProfil">
 
                 <span id="petEnroll">
-                    <button id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</button>
+                    <button type="button" id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</button>
                 </span>
             </div>
 
 
             <div class="petProfil-list">
-                
+ 
                 <div>
 
                     <table class="table table-hover">
@@ -142,29 +148,43 @@
                             <tr>
                                 <th style="width: 200px;">No.</th>
                                 <th style="width: 400px;">Name</th>
-                                <th style="width: 300px;">Date</th>
+                                <th style="width: 300px;">Species</th>
                             </tr>
                         </thead>
         
                         <tbody>
-
+                        
+                        <% if(list.isEmpty()) { %>
+                        	<tr>
+                        		<td colspan="3" align="center">등록된 프로필이 없습니다.</td>
+                        	</tr>
+                        <% }else { %>
+                        	<% for(Pet p : list){ %>
+                        	<tr>
+                        		<td><%=p.getPetNo() %></td>
+                        		<td><%=p.getPetName() %></td>
+                        		<td><%=p.getPetSpecies() %></td>
+                        	</tr>
+                        	<% } %>
+                        <% } %>
+							<!--				
                             <tr>
                                 <td>1.</td>
                                 <td>제리</td>
-                                <td>2023-10-04</td>
+                                <td>강아지</td>
                                 <td style="width: 20px; border-top:none;">
                                     <btn class="btn btn-sm btn-secondary">—</btn>
                                 </td>
                             </tr>
-                            <tr class>
+                            <tr>
                                 <td>2.</td>
                                 <td>톰</td>
-                                <td>2023-10-04</td>
+                                <td>고양이</td>
                                 <td style="width: 20px; border-top:none;">
                                     <btn class="btn btn-sm btn-secondary">—</btn>
                                 </td>
                             </tr>
-
+						    -->	
                         </tbody>
         
                     </table>
@@ -178,7 +198,8 @@
             <div id="modalContainer" class="hidden">
             <div id="modalContent">
                 
-                <form action="">
+                <form action="<%=contextPath%>/petInsert.my" enctype="multipart/form-data" method="post">
+                	<input type="hidden" name="userNo" value="<%=userInfo.getUserNo()%>">
                     <div>
                         <p class="profil-content-name">반려동물 프로필</p>
     
@@ -188,40 +209,41 @@
     
                                 <div class="profil-name">
                                     이름
-                                    <div class="profil-align-right"><input type="text"></div>
+                                    <div class="profil-align-right"><input type="text" name="petName"></div>
                                 </div>
     
                                 <div class="profil-name">
-                                    <label for="">종</label>
+                                    <label>종</label>
                                     <div class="profil-align-right">
-                                        <select name="" id="" style="width: 205px;">
-                                            <option value="1">강아지</option>
-                                        </select>
-                                    </div>
-                                </div>
-    
-                                <div class="profil-name">
-                                    <label for="">세부종</label>
-                                    <div class="profil-align-right">
-                                        <select name="" id="" style="width: 205px;">
-                                            <option value="1">푸들</option>
+                                        <select name="petSpecies" style="width: 205px;">
+                                            <option value="dog">강아지</option>
+                                            <option value="cat">고양이</option>
+                                            <option value="rodent">설치류</option>
+                                            <option value="reptile">파충류</option>
+                                            <option value="birds">조류</option>
+                                            <option value="pisces">어류</option>
                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div class="profil-name">
+                                    세부종
+                                    <div class="profil-align-right"><input type="text" name="petSpecific"></div>
+                                </div>
+                                
+                                <div class="profil-name">
                                     몸무게
-                                    <div class="profil-align-right"><input type="number" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
+                                    <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
                                 </div>
     
                                 <div class="profil-name">
                                     성별
                                     <div class="profil-align-right">
-                                        <input type="radio" name="gender" id="F">&nbsp;F
+                                        <input type="radio" name="petGender" id="F" value="F">&nbsp;F
                                         &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="gender" id="M">&nbsp;M
+                                        <input type="radio" name="petGender" id="M" value="M">&nbsp;M
                                         &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="gender" id="N" checked>&nbsp;중성화
+                                        <input type="radio" name="petGender" id="N" checked value="N">&nbsp;중성화
                                         &nbsp;&nbsp;
                                     </div>
                                 </div>
@@ -233,14 +255,20 @@
                                 <div class="profil-name">
                                     성격
                                     <div class="profil-align-right">
-                                        <input type="text">
+                                        <input type="text" name="petPersonality">
                                     </div>
                                 </div>
     
                                 <div class="profil-name2">
                                     기타사항
                                     <div class="profil-align-right">
-                                        <textarea name="" id="" cols="35" rows="10" resize:none;></textarea>
+                                        <textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="profil-name3">
+                                    사진등록
+                                    <div class="profil-align-right">
+                                        <input type="file" name="petImgFile" id="petImgFile">
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +285,6 @@
                 <button id="modalCloseButton" class="btn btn-sm btn-danger">닫기</button>
             </div>
             </div>
-
             <script>
                 const modalOpenButton = document.getElementById('modalOpenButton');
                 const modalCloseButton = document.getElementById('modalCloseButton');
@@ -271,12 +298,13 @@
                 modal.classList.add('hidden');
                 });
             </script>
+
             
             
         </div>
 
-        <div class="page-btn">
-            페이지 버튼 위치
+        <div class="page-btn" align="center">
+           	
         </div>
 
     </div>

@@ -85,9 +85,9 @@ public class ShareInsertController extends HttpServlet {
 			int result = new InfoService().insertShareInfo(in, star, list);
 			
 			if(result > 0) {
-				request.getSession().setAttribute("alertMsg", "인포 게시글 작성 성공");
 				response.sendRedirect(request.getContextPath() + "/share.in");
 			} else {
+				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			

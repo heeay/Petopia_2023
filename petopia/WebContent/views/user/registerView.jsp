@@ -43,20 +43,54 @@
         .input-wrap>input:focus + .input-icon{
             color: #6b6e2e;
         }
-        .submit-wrap{
+        .btn-wrap{
             width: 460px;
             height: 50px;
             margin: auto;
             margin-top: 10px;
+            margin-bottom: 5px;
         }
-        .submit-wrap>button{
+        .btn-wrap>button{
             width: 100%;
             height: 100%;
             border: 5px solid #C7CA93;
             border-radius: 12px;
             box-sizing: border-box;
             background-color: #DBDfA9;
+            font-size: 18px;
+            font-weight: bold;
+            color: #515242;
             cursor: pointer;
+        }
+        #auth-code{
+            width: 80%;
+        }
+        #auth-code-btn{
+            width: 18%;
+            height: 100%;
+            border: 5px solid #C7CA93;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #DBDfA9;
+            font-size: 18px;
+            font-weight: bold;
+            color: #515242;
+            cursor: pointer;
+        }
+        #email-auth-success{
+            width: 460px;
+            height: 50px;
+            margin: auto;
+            margin-bottom: 5px;
+            border: 5px solid #C7CA93;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #DBDfA9;
+            font-size: 18px;
+            font-weight: bold;
+            color: #515242;
+            text-align: center;
+            line-height: 40px;
         }
         .register-error-wrap{
             width: 450px;
@@ -67,9 +101,6 @@
             font-weight: bold;
             font-size: 12px;
         }
-        .err-input{
-            border-color: #f53636;
-        }
     </style>
 </head>
 <body>
@@ -78,13 +109,29 @@
         <div id="register-form-wrap">
             <form id="register-form" action="<%=contextPath %>/register.prossess" method="post">
                 <div class="input-wrap">
-                    <input id="email" class="err-input" type="text" name="email" placeholder=" 이메일" autocomplete="off">
+                    <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">person</span>
                     </div>
                 </div>
                 <div class="register-error-wrap" id="err-email" style="display: none;">
                     <!--이메일을 입력해 주세요.-->
+                </div>
+                <div id="email-auth-btn-wrap" class="btn-wrap">
+                    <button type="button" id="email-auth-btn">인증</button>
+                </div>
+                <div id="auth-code-wrap" class="input-wrap" style="display: none;">
+                    <div class="input-icon">
+                        <span class="material-symbols-outlined icon-size">key</span>
+                    </div>
+                    <input id="auth-code" type="text" name="authCode" placeholder=" 인증코드" autocomplete="off">
+                    <button type="button" id="auth-code-btn">인증</button>
+                </div>
+                <div id="email-auth-success" style="display: none;">
+                    이메일 인증을 완료했습니다!
+                </div>
+                <div class="register-error-wrap" id="err-email-auth" style="display: none;">
+                    <!--이메일인증을 진행해 주세요.-->
                 </div>
                 <div class="input-wrap">
                     <input id="nickname" type="text" name="nickname" placeholder=" 닉네임" autocomplete="off">
@@ -122,13 +169,14 @@
                 <div class="register-error-wrap" id="err-phone" style="display: none;">
                     <!--전화번호를 입력해 주세요.-->
                 </div>
-                <div class="submit-wrap">
+                <div class="btn-wrap">
                     <button id="register-submit" type="button">회원가입</button>
                 </div>
             </form>
         </div>
     <script>
         let emailFlag = false;
+        let emailAuthFlag = false;
         let nicknameFlag = false;
         let pwFlag = false;
         let phoneFlag = false;
@@ -138,14 +186,20 @@
                 checkPw();
                 checkNickname();
                 checkEmail();
+                checkAuthEmail();
 
-                console.log(emailFlag+","+nicknameFlag+","+pwFlag+","+phoneFlag);
-                if(emailFlag && nicknameFlag && pwFlag && phoneFlag){
+                if(emailAuthFlag  && nicknameFlag && pwFlag && phoneFlag){
                     $("#register-form").submit();
                 }
             })
             $("#email").focusout(function(){
                 checkEmail();
+            });
+            $("#email").change(function(){
+                emailAuthFlag = false;
+                $("#email-auth-btn-wrap").css("display","block");
+                $("#auth-code-wrap").css("display","none");
+                $("#email-auth-success").css("display","none");
             });
             $("#nickname").focusout(function(){
                 checkNickname();
@@ -161,6 +215,17 @@
             });
         })
 
+        function checkAuthEmail(){
+            const errEmailAuth = document.getElementById("err-email-auth");
+            if(emailFlag && !emailAuthFlag){
+                errEmailAuth.style.display="block";
+                errEmailAuth.innerText = "이메일인증을 진행해 주세요.";
+            }
+            else{
+                errEmailAuth.style.display="none";
+                errEmailAuth.innerText = "";
+            }
+        }
         function checkEmail(){
             const email = document.getElementById("email");
             const errEmail = document.getElementById("err-email");
@@ -191,7 +256,7 @@
                             emailFlag = false;
 				        }
 				        else{
-                            errEmail.style = "";
+                            errEmail.style.display="none";
                             errEmail.innerText = "";
                             email.style = "";
                             emailFlag = true;
@@ -226,7 +291,7 @@
                             nicknameFlag = false;
 				        }
 				        else{
-                            errNickname.style = "";
+                            errNickname.style.display="none";
                             errNickname.innerText = "";
                             nickname.style = "";
                             nicknameFlag = true;
@@ -272,7 +337,7 @@
                 pwFlag = false;
             }
             else{
-                errPw.style = "";
+                errPw.style.display="none";
                 errPw.innerText = "";
                 pw.style = "";
                 pwCheck.style = "";
@@ -296,7 +361,7 @@
                 phoneFlag = false;
             }
             else{
-                errPhone.style = "";
+                errPhone.style.display="none";
                 errPhone.innerText = "";
                 phone.style = "";
                 phoneFlag = true;
@@ -309,10 +374,73 @@
                 errCapslock.innerText = "CapsLock이 켜져 있습니다.";
             }
             else{
-                errCapslock.style = "";
+                errCapslock.style.display="none";
                 errCapslock.innerText = "";
             }
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#email-auth-btn").click(function(){
+                checkEmail();
+                if(emailFlag){
+                    const email = document.getElementById("email");
+                    $("#email-auth-btn-wrap").css("display","none");
+                    $("#auth-code-wrap").css("display","block");
+                    $.ajax({
+                        url : "requestAuthEmail",
+                        type : "get",
+                        data : {email : email.value},
+                        success : function(result){
+                            console.log(result);
+                            if(result == "1"){
+                                $("#err-email-auth").css("display","none");
+                                $("#err-email-auth").text("");
+                            }
+                            else{
+                                
+                                $("#email-auth-btn-wrap").css("display","block");
+                                $("#auth-code-wrap").css("display","none");
+                                $("#err-email-auth").css("display","block");
+                                $("#err-email-auth").text("코드 전송이 실패했습니다.");
+                            }
+                        },
+                        error : function(e){
+                            console.log(e);
+                        }
+                    });
+                }
+            });
+            $("#auth-code-btn").click(function(){
+                const email = document.getElementById("email");
+                const authCode = document.getElementById("auth-code");
+                $.ajax({
+                    url : "checkAuthEmail",
+                    type : "get",
+                    data : {
+                        email : email.value,
+                        authCode : authCode.value
+                    },
+                    success : function(result){
+                        console.log(result);
+                        if(result == "true"){
+                            $("#auth-code-wrap").css("display","none");
+                            $("#email-auth-success").css("display","block");
+                            emailAuthFlag = true;
+                            $("#err-email-auth").css("display","none");
+                            $("#err-email-auth").text("");
+                        }
+                        else{
+                            $("#err-email-auth").css("display","block");
+                            $("#err-email-auth").text("코드가 다릅니다. 코드를 확인해주세요.");
+                        }
+                    },
+                    error : function(e){
+                        console.log(e);
+                    }
+                });
+            });
+        })
     </script>
     </section>
 </body>

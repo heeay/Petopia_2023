@@ -47,6 +47,17 @@ public class InfoService {
 		return (result1 * result2 * result3);
 	}
 
+	public int selectListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new InfoDao().selectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
 	
 	
 }

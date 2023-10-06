@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
 <%
     String contextPath = request.getContextPath();
+	User userInfo = (User)session.getAttribute("userInfo");
 %>
 <!DOCTYPE html>
 <html>
@@ -170,7 +172,7 @@
                     <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp"">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="">마이페이지</a></li>
+                    <li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>
@@ -186,15 +188,15 @@
 
             <div class="profil-bar">
                 <div class="profil"><img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필"></div>
-                <div id="profil-name"><a href="#">닉네임</a></div>
+                <div id="profil-name"><a href="#"><%=userInfo.getUserNickname() %></a></div>
             </div>
 
             <div id="sidemenu">
-                <div class="side"><a href="#">내 등급 및 점수</a></div>
+                <div class="side"><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">내 등급 및 점수</a></div>
                 <div class="side"><a href="#">내 정보변경</a></div>
-                <div class="side"><a href="#">펫 다이어리 작성</a></div>
-                <div class="side"><a href="#">내 애완동물 프로필</a></div>
-                <div class="side"><a href="#">건의사항/고객센터</a></div>
+                <div class="side"><a href="<%=contextPath %>/views/mypage/petDiaryView.jsp">펫 다이어리 작성</a></div>
+                <div class="side"><a href="<%=contextPath %>/pet.my">내 애완동물 프로필</a></div>
+                <div class="side"><a href="<%=contextPath %>/views/mypage/suggestions.jsp">건의사항/고객센터</a></div>
             </div>
 
         </div>

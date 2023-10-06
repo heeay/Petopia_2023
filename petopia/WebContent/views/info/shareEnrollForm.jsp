@@ -56,8 +56,6 @@
 </head>
 <body>
 
-	<%@ include file="../common/header-min.jsp" %>
-	
 	<section>
 	
         <%@ include file="infoSidebar.jsp" %>
@@ -69,7 +67,7 @@
 
             <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
 			
-				<input type="text" name="userNo" value="<%= userInfo.getUserNo() %>">
+				<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
 				<input type="hidden" name="star" value="">
 
                 <table align="center">
@@ -115,8 +113,8 @@
                 </div>
                  
                 <div align="right">
-                    <button type="submit" class="btn btn-sm btn-warning">등록</button>
-                    <button type="reset" class="btn btn-sm btn-secondary">취소</button>
+                    <button type="submit" class="btn btn-sm btn-warning">작성</button>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">취소</button>
                 </div>
 
             </form>

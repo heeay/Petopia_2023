@@ -66,7 +66,7 @@ public class InfoDao {
 			pstmt.setString(1, in.getInfoTitle());
 			pstmt.setString(2, in.getInfoContent());
 			pstmt.setInt(3, in.getUserNo());
-			pstmt.setInt(4, in.getCategoryNo());
+			pstmt.setInt(4, Integer.parseInt(in.getCategory()));
 			
 			result = pstmt.executeUpdate();
 			
@@ -122,6 +122,32 @@ public class InfoDao {
 		}
 		return result;
 	}
+	
+	public int selectListCount(Connection conn) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("BOARD_COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
 	
 	
 	
