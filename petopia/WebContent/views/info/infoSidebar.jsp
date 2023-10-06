@@ -48,11 +48,12 @@
 	<%@ include file="../common/header-min.jsp" %>
     
     <div id="info-side-wrap">
+    	<input type="text" name="ctgNo" value="<%= %>">
         <div id="info-side">
             <ul id="info-category">
                 <li><a id="info-board">📢정보공유</a>
                     <ul id="sub-info" style="display: none;">
-                    	<li><a href="<%= contextPath %>/share.in">🐾애견동반</a></li>
+                    	<li><a href="<%= contextPath %>/share.in" id="ctgWith">🐾애견동반</a></li>
                         <li><a>🦴애견용품</a></li>
                         <li><a>🏥병원</a></li>
                     </ul>
@@ -76,6 +77,26 @@
                     infoCategory.slideUp(100);
                 }
             });
+        });
+	</script>
+      
+    <script>
+        $(function(){
+        	$('#ctgWith').click(function(){
+        		
+        		$.ajax({
+        			url : 'share.in',
+        			data : {ctgNo : }
+        			type : 'get',
+        			success : function(result){
+        				console.log('카테고리 번호 넘기기 성공');
+        				console.log(result);
+        			},
+        			error : function(){
+        				console.log('카테고리 번호 넘기기 실패');
+        			}
+        		});
+        	});
         });
     </script>
 

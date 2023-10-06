@@ -37,7 +37,6 @@ public class ShareEnrollFormController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/info/shareEnrollForm.jsp").forward(request, response);
-		
 	}
 
 	/**

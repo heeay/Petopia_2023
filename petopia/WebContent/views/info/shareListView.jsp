@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +18,7 @@
     #wrap{
         border : 1px solid red;
         width: 780px;
-        height: 100%;
+        height: 95%;
         margin-top : 20px;
     }
     
@@ -59,7 +58,7 @@
                 <td width="600px">맛있는 음식점 방문</td>
             </tr>
             <tr>
-                <td>한 페이지에 12개 들어가면 딱 맞음</td>
+                <td>한 페이지에 11개 들어가면 딱 맞음</td>
             </tr>
             <tr height="10px"></tr>
             
