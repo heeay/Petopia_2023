@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class petUpdateController
  */
-@WebServlet("/PetUpdate.my")
+@WebServlet("/petUpdate.my")
 public class petUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
