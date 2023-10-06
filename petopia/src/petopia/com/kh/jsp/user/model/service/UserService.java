@@ -29,6 +29,7 @@ public class UserService {
 		
 		return result;
 	}
+	
 	public boolean checkUserEmail(String email) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -64,7 +65,6 @@ public class UserService {
 		
 		return result;
 	}
-	
 	public boolean selectEmailAuth(String email, String authCode) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -80,5 +80,25 @@ public class UserService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+	
+	public User simpleAuth(User u) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		User user = null;
+		if(new UserDao().checkUserEmail(conn, u.getUserEmail())) {
+			user = new UserDao().loginSimpleAuth(conn, u.getUserEmail());
+		} else {
+			if(new UserDao().insertSimpleAuth(conn, u)>0) {
+				JDBCTemplate.commit(conn);
+				user = new UserDao().loginSimpleAuth(conn, u.getUserEmail());
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return user;
 	}
 }

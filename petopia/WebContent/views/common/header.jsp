@@ -142,7 +142,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
-            box-shadow: 0 4px 4px -4px black;
+            box-shadow: 4px 5px 5px -4px black;
         }
         .header-search-bar:focus{
             outline: none;
@@ -160,7 +160,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
-            box-shadow: 0 4px 4px -4px black;
+            box-shadow: -4px 5px 5px -4px black;
         }
     </style>
     <style>
@@ -181,7 +181,22 @@ User userInfo = (User)session.getAttribute("userInfo");
             color : white;
             /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
         }
-        </style>
+    </style>
+    <!--
+    <script>
+        var testPopUp;
+        function openPopUp() {
+            testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
+        }
+        function closePopUp(){
+            testPopUp.close();
+        }
+        function naverLogout() {
+        	openPopUp();
+            closePopUp();
+        }
+    </script>
+    -->
 </head>
 <body>
     <header>

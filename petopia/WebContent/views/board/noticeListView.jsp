@@ -27,7 +27,7 @@
     }
 
     #search-area{
-       width : 100%;
+       width : 1100px;
        height : 10%;
        /* border : 1px solid black; */
        display : flex;
@@ -36,7 +36,7 @@
     }
 
     #content-area{
-        width : 100%;
+        width : 1100px;
         height : 85%;
       
     }
@@ -79,7 +79,7 @@
     #search-radio{
         /* border: 1px solid green; */
         
-       
+        margin-left : 10px;
         box-sizing: border-box;
     }
 </style>

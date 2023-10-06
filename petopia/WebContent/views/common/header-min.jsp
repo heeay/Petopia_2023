@@ -141,7 +141,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
-            box-shadow: 0 4px 4px -4px black;
+            box-shadow: 4px 5px 5px -4px black;
         }
         .header-search-bar:focus{
             outline: none;
@@ -159,7 +159,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0;
             box-sizing: border-box;
             float: left;
-            box-shadow: 0 4px 4px -4px black;
+            box-shadow: -4px 5px 5px -4px black;
         }
     </style>
 </head>

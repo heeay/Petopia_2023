@@ -16,17 +16,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
-<script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js'></script>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
-    calendar.render();
-  });
 
-</script>
 
 <!-- overal -->
 <style>
@@ -41,7 +33,7 @@
 
     #title-area{
         box-sizing: border-box;
-        width : 100%;
+        width : 1100px;
         height : 5%;
         /*flex로 띄운 뒤 가운데정렬하기 */
         display : flex;
@@ -51,9 +43,8 @@
     }
     #content-area{
        
-        width : 100%;
+        width : 1100px;
         height : 90%;
-    
         box-sizing: border-box;
         
     }
@@ -97,13 +88,61 @@
             <div id="calendar"></div>
            
         </div>
-    
-        
-    
-      
+
         
     </div>
 
+    <script>
+
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+          var calendarEl = document.getElementById('calendar');
+
+          //eventContent: { domNodes: arrayOfDomNodes }
+
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+
+            initialView: 'dayGridMonth',
+
+            dateClick: function() {
+                //alert('a day has been clicked!');
+            },
+
+           
+            eventContent: { html: '<i>some html</i>' },
+            eventContent: function(arg) {
+            let italicEl = document.createElement('i')
+
+            if (arg.event.extendedProps.isUrgent) {
+                italicEl.innerHTML = 'urgent event'
+            } else {
+                italicEl.innerHTML = 'normal event'
+            }
+
+            let arrayOfDomNodes = [ italicEl ]
+            return { domNodes: arrayOfDomNodes }
+            }
+
+            
+          })
+          
+            calendar.render();
+
+            // 클릭시 세부이벤트판으로 이동
+            calendar.on('dateClick', function() {
+                window.location.href="<%=contextPath%>/detail.mp";
+            });
+    
+
+
+
+    
+        });
+      
+      
+      </script>
 
 
 
