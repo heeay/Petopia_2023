@@ -104,6 +104,7 @@ public class NaverLoginController extends HttpServlet {
 			Map<String, String> requestHeaders = new HashMap<>();
 			requestHeaders.put("Authorization", header);
 			String responseBody = get(apiURL,requestHeaders);
+			String id = "";
 			String email = "";
 			String nickname = "";
 			String phone = "";
@@ -114,9 +115,11 @@ public class NaverLoginController extends HttpServlet {
 				JSONParser parser = new JSONParser();
 				JSONObject jObj = (JSONObject)parser.parse(responseBody);
 				JSONObject responseJObj = (JSONObject) jObj.get("response");
+				id = (String)responseJObj.get("id");
 				email = (String)responseJObj.get("email");
 				nickname = (String)responseJObj.get("nickname");
 				phone = (String)responseJObj.get("mobile");
+				System.out.println(id);
 				System.out.println(email);
 				System.out.println(nickname);
 				System.out.println(phone);
@@ -126,6 +129,7 @@ public class NaverLoginController extends HttpServlet {
 			
 			User u = new User();
 			u.setUserEmail(email);
+			u.setUserPass(id);
 			u.setUserNickname(nickname);
 			u.setUserPhone(phone);
 			u.setUserMethod(1);

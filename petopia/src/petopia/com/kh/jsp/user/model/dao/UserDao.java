@@ -201,7 +201,6 @@ public class UserDao {
 		
 		return result;
 	}
-	
 	public User loginSimpleAuth(Connection conn, String email) {
 		User user = null;
 		PreparedStatement pstmt = null;
