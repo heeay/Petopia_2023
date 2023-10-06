@@ -52,6 +52,8 @@ FROM
 	TB_USER
 WHERE
 	USER_EMAIL = ?
+AND
+	USER_METHOD = 0
 </entry>
 <entry key="checkUserNickname">
 SELECT
@@ -60,6 +62,8 @@ FROM
 	TB_USER
 WHERE
 	USER_NICKNAME = ?
+AND
+	USER_METHOD = 0
 </entry>
 <entry key="updateEmailAuth">
 UPDATE
