@@ -31,7 +31,6 @@ public class PetService {
 			result2 = new PetDao().insertPetImg(conn, pt);
 		}
 		
-		
 		if((result1*result2)>0) {
 			commit(conn);
 		} else {

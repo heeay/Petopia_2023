@@ -48,19 +48,19 @@
 	<entry key="insertPetImg">
 		 INSERT 
 		   INTO 
-		   		TB_FILE
+		   		TB_MYPAGE_FILE
 		   		(
-		   		FILE_NO,
-				REF_BNO,
+		   		FILE_MYPAGE_NO,
 				ORIGINAL_NAME,
 				UPLOAD_NAME,
-				FILE_PATH,
-				FILE_LEVEL
+				FILE_PATH
 		   		)
 		VALUES 
 				(
-				SEQ_FILE_NO.NEXTVAL,
-				
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				?, 
+				?,
+				?
 				)
 	</entry>
 	
