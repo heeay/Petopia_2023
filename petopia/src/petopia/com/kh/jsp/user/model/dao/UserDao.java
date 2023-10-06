@@ -68,10 +68,11 @@ public class UserDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUserEmail());
-			pstmt.setString(2, user.getUserPass());
-			pstmt.setString(3, user.getUserNickname());
-			pstmt.setString(4, user.getUserPhone());
+			pstmt.setInt(1, user.getUserMethod());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserPass());
+			pstmt.setString(4, user.getUserNickname());
+			pstmt.setString(5, user.getUserPhone());
 			
 			result = pstmt.executeUpdate();
 			
@@ -201,7 +202,8 @@ public class UserDao {
 		
 		return result;
 	}
-	public User loginSimpleAuth(Connection conn, String email) {
+	
+	public User loginSimpleAuth(Connection conn, User u) {
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -209,7 +211,8 @@ public class UserDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);
+			pstmt.setString(1, u.getUserEmail());
+			pstmt.setString(2, u.getUserPass());
 			
 			rset = pstmt.executeQuery();
 			
@@ -234,28 +237,5 @@ public class UserDao {
 		}
 		
 		return user;
-	}
-	public int insertSimpleAuth(Connection conn, User user) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertSimpleAuth");
-		
-		try {
-			System.out.println(user);
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, user.getUserMethod());
-			pstmt.setString(2, user.getUserEmail());
-			pstmt.setString(3, user.getUserNickname());
-			pstmt.setString(4, user.getUserPhone());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(pstmt);
-		}
-		
-		return result;
 	}
 }

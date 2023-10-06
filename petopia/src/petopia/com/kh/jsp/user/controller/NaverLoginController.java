@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -127,12 +129,26 @@ public class NaverLoginController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				md.update(id.getBytes());
+				
+				byte[] bytes = md.digest();
+				StringBuilder builder = new StringBuilder();
+				for(int i=0;i<bytes.length;i++) {
+					builder.append(String.format("%02X", bytes[i]));
+				}
+				id = builder.toString();
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			
 			User u = new User();
+			u.setUserMethod(1);
 			u.setUserEmail(email);
 			u.setUserPass(id);
 			u.setUserNickname(nickname);
 			u.setUserPhone(phone);
-			u.setUserMethod(1);
 			User user = new UserService().simpleAuth(u);
 			
 			if(user == null) {

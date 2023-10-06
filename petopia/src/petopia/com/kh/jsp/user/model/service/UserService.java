@@ -85,11 +85,11 @@ public class UserService {
 	public User simpleAuth(User u) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		User user = new UserDao().loginUser(conn, u);
+		User user = new UserDao().loginSimpleAuth(conn, u);
 		if(user == null) {
-			if(new UserDao().insertSimpleAuth(conn, u)>0) {
+			if(new UserDao().insertUser(conn, u)>0) {
 				JDBCTemplate.commit(conn);
-				user = new UserDao().loginUser(conn, u);
+				user = new UserDao().loginSimpleAuth(conn, u);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}

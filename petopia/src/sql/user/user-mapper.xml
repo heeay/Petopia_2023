@@ -22,12 +22,15 @@ WHERE
 AND
 	USER_PASS = ?
 AND
+	USER_METHOD = 0
+AND
 	USER_ENABLE_STATE = 'Y'
 </entry>
 <entry key="insertUser">
 INSERT INTO
 	TB_USER(
 		USER_NO,
+		USER_METHOD,
 		USER_EMAIL,
 		USER_PASS,
 		USER_NICKNAME,
@@ -35,6 +38,7 @@ INSERT INTO
 	)
 VALUES(
 	SEQ_USER_NO.NEXTVAL,
+	?,
 	?,
 	?,
 	?,
@@ -93,25 +97,7 @@ DELETE FROM
 WHERE
 	EMAIL_AUTH_EMAIL = ?
 </entry>
-<entry key="updateUserInfo">
-UPDATE
-	TB_USER
-SET
-	USER_NICKNAME = ?,
-	USER_PHONE = ?,
-	USER_UPDATE_DATE = SYSDATE
-WHERE
-	USER_NO = ?
-</entry>
-<entry key="updateUserPass">
-UPDATE
-	TB_USER
-SET
-	USER_PASS = ?,
-	USER_UPDATE_DATE = SYSDATE
-WHERE
-	USER_NO = ?
-</entry>
+
 <entry key="loginSimpleAuth">
 SELECT
 	USER_NO,
@@ -130,23 +116,10 @@ JOIN TB_ROLE USING(ROLE_ID)
 WHERE
 	USER_EMAIL = ?
 AND
+	USER_PASS = ?
+AND
+	USER_METHOD != 0
+AND
 	USER_ENABLE_STATE = 'Y'
-</entry>
-<entry key="insertSimpleAuth">
-INSERT INTO
-	TB_USER(
-		USER_NO,
-		USER_METHOD,
-		USER_EMAIL,
-		USER_NICKNAME,
-		USER_PHONE
-	)
-VALUES(
-	SEQ_USER_NO.NEXTVAL,
-	?,
-	?,
-	?,
-	?
-)
 </entry>
 </properties>
