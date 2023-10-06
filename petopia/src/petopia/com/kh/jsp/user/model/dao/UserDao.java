@@ -122,6 +122,7 @@ public class UserDao {
 		}
 		return isThere;
 	}
+	
 	public int updateEmailAuth(Connection conn, String toEmail, String cNumber){
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -158,7 +159,6 @@ public class UserDao {
 		
 		return result;
 	}
-	
 	public boolean selectEmailAuth(Connection conn, String email, String authCode) {
 		boolean isThere = false;
 		PreparedStatement pstmt = null;
@@ -182,7 +182,6 @@ public class UserDao {
 		
 		return isThere;
 	}
-	
 	public int deleteEmailAuth(Connection conn, String email) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -191,6 +190,64 @@ public class UserDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public User loginSimpleAuth(Connection conn, String email) {
+		User user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("loginSimpleAuth");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user = new User();
+				user.setUserNo(rset.getInt("USER_NO"));
+				user.setUserMethod(rset.getInt("USER_METHOD"));
+				user.setUserEmail(rset.getString("USER_EMAIL"));
+				user.setUserPass(rset.getString("USER_PASS"));
+				user.setUserNickname(rset.getString("USER_NICKNAME"));
+				user.setUserPhone(rset.getString("USER_PHONE"));
+				user.setRoleId(rset.getString("ROLE_NAME"));
+				user.setUserCreateDate(rset.getDate("USER_CREATE_DATE"));
+				user.setUserUpdateDate(rset.getDate("USER_UPDATE_DATE"));
+				user.setUserEnableState(rset.getString("USER_ENABLE_STATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return user;
+	}
+	public int insertSimpleAuth(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertSimpleAuth");
+		
+		try {
+			System.out.println(user);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user.getUserMethod());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserNickname());
+			pstmt.setString(4, user.getUserPhone());
 			
 			result = pstmt.executeUpdate();
 			
