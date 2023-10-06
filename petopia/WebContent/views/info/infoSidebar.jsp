@@ -48,7 +48,7 @@
 	<%@ include file="../common/header-min.jsp" %>
     
     <div id="info-side-wrap">
-    	<input type="text" name="ctgNo" value="<%= %>">
+    	<input type="text" name="ctgNo" value="">
         <div id="info-side">
             <ul id="info-category">
                 <li><a id="info-board">📢정보공유</a>
