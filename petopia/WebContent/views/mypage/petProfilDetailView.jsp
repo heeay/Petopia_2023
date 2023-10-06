@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	Pet p = (Pet)request.getAttribute("p");
+	// 번호, 카테고리명, 제목, 내용, 작성자 아이디, 작성일
+	
+	PetFile pt = (PetFile)request.getAttribute("pt");
+	// 파일번호, 원본명, 수정된이름, 저장경로 || null
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,94 +120,100 @@
 </head>
 <body>
     <%@ include file = "mysidebar.jsp" %>
+
+
+
+    
     <div class="content-area">
         
-        <div class="mg-a">
+        <form action="<%=contextPath%>/petDetail.my?pno=<%=p.getPetNo() %>" enctype="multipart/form-data" method="post">
+        
+            <div class="mg-a">
 
-            <div>
-                <p class="profil-content-name">반려동물 프로필</p>
                 <div>
-                    <div class="profil-content">
+                    <p class="profil-content-name">프로필 상세보기</p>
+                    <div>
+                        <div class="profil-content">
+
+                            <div class="petfil-size">
+
+                                <div class="profil-name">
+                                    이름
+                                    <div class="profil-align-right"><input type="text" name="petName"></div>
+                                </div>
+
+                                <div class="profil-name">
+                                    <label>종</label>
+                                    <div class="profil-align-right">
+                                        <select name="petSpecies" style="width: 205px;">
+                                            <option value="강아지">강아지</option>
+                                            <option value="고양이">고양이</option>
+                                            <option value="설치류">설치류</option>
+                                            <option value="파충류">파충류</option>
+                                            <option value="조류">조류</option>
+                                            <option value="어류">어류</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="profil-name">
+                                    세부종
+                                    <div class="profil-align-right"><input type="text" name="petSpecific"></div>
+                                </div>
+                                
+                                <div class="profil-name">
+                                    몸무게
+                                    <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
+                                </div>
+
+                                <div class="profil-name">
+                                    성별
+                                    <div class="profil-align-right">
+                                        <input type="radio" name="petGender" id="F" value="F">&nbsp;F
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="petGender" id="M" value="M">&nbsp;M
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="petGender" id="N" checked value="N">&nbsp;중성화
+                                        &nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                
+                        </div>
 
                         <div class="petfil-size">
 
                             <div class="profil-name">
-                                이름
-                                <div class="profil-align-right"><input type="text"></div>
-                            </div>
-
-                            <div class="profil-name">
-                                <label for="">종</label>
+                                성격
                                 <div class="profil-align-right">
-                                    <select name="" id="" style="width: 205px;">
-                                        <option value="dog">강아지</option>
-                                        <option value="cat">고양이</option>
-                                        <option value="rodent">설치류</option>
-                                        <option value="reptile">파충류</option>
-                                        <option value="birds">조류</option>
-                                        <option value="pisces">어류</option>
-                                    </select>
+                                    <input type="text">
                                 </div>
                             </div>
-                            
-                            <div class="profil-name">
-                                세부종
-                                <div class="profil-align-right"><input type="text"></div>
-                            </div>
-                            
-                            <div class="profil-name">
-                                몸무게
-                                <div class="profil-align-right"><input type="number" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
-                            </div>
 
-                        <div class="profil-name">
-                            성별
-                            <div class="profil-align-right">
-                                <input type="radio" name="gender" id="F">&nbsp;F
-                                &nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="gender" id="M">&nbsp;M
-                                &nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="gender" id="N" checked>&nbsp;중성화
-                                &nbsp;&nbsp;
+                            <div class="profil-name2">
+                                기타사항
+                                <div class="profil-align-right">
+                                    <textarea name="" id="" cols="35" rows="7" style="resize:none;"></textarea>
+                                </div>
                             </div>
-                        </div>
-                            
-                    </div>
-
-                    <div class="petfil-size">
-
-                        <div class="profil-name">
-                            성격
-                            <div class="profil-align-right">
-                                <input type="text">
+                            <div class="profil-name3">
+                                사진등록
+                                <div class="profil-align-right">
+                                    <input type="file">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="profil-name2">
-                            기타사항
-                            <div class="profil-align-right">
-                                <textarea name="" id="" cols="35" rows="7" style="resize:none;"></textarea>
-                            </div>
+                        <div class="btn-wid">
+                            <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
+                            <button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
                         </div>
-                        <div class="profil-name3">
-                            사진등록
-                            <div class="profil-align-right">
-                                <input type="file">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="btn-wid">
-                        <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
-                        <button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
                     </div>
 
                 </div>
-
+                
             </div>
-            
-        </div>
-        
+        </form>
         
     </div>
 </body>

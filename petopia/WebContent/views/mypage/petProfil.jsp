@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.Pet"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
 <%
 	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -142,7 +148,7 @@
  
                 <div>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="list-area">
         
                         <thead class>
                             <tr>
@@ -285,6 +291,7 @@
                 <button id="modalCloseButton" class="btn btn-sm btn-danger">닫기</button>
             </div>
             </div>
+            <!--모달창-->
             <script>
                 const modalOpenButton = document.getElementById('modalOpenButton');
                 const modalCloseButton = document.getElementById('modalCloseButton');
@@ -299,12 +306,36 @@
                 });
             </script>
 
+            <!-- 동물목록 클릭 시 디테일 창-->
+            <script>
+                $(function(){
+
+                    $('#list-area>tbody>tr').click(function(){
+                        location.href="<%= contextPath %>/petDetail.my?pno=" + $(this).children().eq(0).text();
+                    });
+                })
+
+            </script>
             
             
         </div>
 
         <div class="page-btn" align="center">
-           	
+           	<% if(currentPage != 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
+        	<% } %>
+        	
+        	<% for(int i = startPage; i <= endPage; i++) { %>
+        		<% if(currentPage != i) { %>
+        			<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
+        		<% } else {%>
+        			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
+        		<% } %>
+        	<% } %>
+        	
+        	<% if(currentPage != maxPage) { %>
+            	<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
+        	<% } %>
         </div>
 
     </div>
