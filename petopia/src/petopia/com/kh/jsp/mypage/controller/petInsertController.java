@@ -83,7 +83,7 @@ public class petInsertController extends HttpServlet {
 			
 			if(result>0) {
 				request.getSession().setAttribute("alertMsg", "프로필 등록 성공");
-				response.sendRedirect(request.getContextPath()+"/petProfil.jsp");
+				response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
 				return;
 			} else {
 				// 첨푸파일을 넣었지만 insert 실패했을때

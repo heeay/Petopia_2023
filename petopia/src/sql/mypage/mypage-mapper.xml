@@ -64,5 +64,14 @@
 				)
 	</entry>
 	
+	<entry key="selectPetListCount">
+		 SELECT 
+				COUNT(*)
+		   FROM 
+				TB_PET 
+		  WHERE 
+				USER_NO = ? 
+	</entry>
+	
 	
 </properties>

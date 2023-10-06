@@ -39,6 +39,13 @@ public class PetService {
 		return (result1*result2);
 	}
 
+	public int selectPetListCount(User loginUser) {
+		Connection conn = getConnection();
+		int listCount = new PetDao().selectPetListCount(conn, loginUser);
+		close(conn);
+		return listCount;
+	}
+
 	
 
 }
