@@ -160,8 +160,25 @@ public class PetDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectPetFile");
-		
-		return null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pt = new PetFile();
+				pt.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
+				pt.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				pt.setUploadName(rset.getString("UPLOAD_NAME"));
+				pt.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pt;
 	}
 
 	
