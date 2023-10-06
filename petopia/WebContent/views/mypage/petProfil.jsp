@@ -29,7 +29,7 @@
     <style>
         .petImg{
             margin-top: 20px;
-            display:inline-flex;
+            display:flex;
             margin-bottom: 50px;
         }
         #PetImg{
@@ -135,11 +135,22 @@
         <div class="area-padding">
 
             <div class="petImg">
-                <img src="<%=contextPath%>\resources\images/profil.png" alt="프로필기본" width="150px" height="150px" id="PetImg">
-                <input type="file" id="petProfil" name="petProfil">
+                <div>
+                    <div style="width: 500px;">
+                        <img src="<%=contextPath%>\resources\images/profil.png" alt="프로필기본" width="150px" height="150px" id="PetImg">
+                    </div>
+                    <div style="float: right; margin-top: 60px;">
+                        <div style="padding-bottom: 10px;">
+                            <input type="file" id="userProfil" name="userProfil">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-sm btn-secondary">유저프로필 등록</button>
+                        </div>
+                    </div>
+                </div>
 
                 <span id="petEnroll">
-                    <button type="button" id="modalOpenButton" class="btn btn-sm btn-secondary">프로필 등록하기</button>
+                    <button type="button" id="modalOpenButton" class="btn btn-sm btn-info">펫프로필 등록</button>
                 </span>
             </div>
 
@@ -215,7 +226,7 @@
     
                                 <div class="profil-name">
                                     이름
-                                    <div class="profil-align-right"><input type="text" name="petName"></div>
+                                    <div class="profil-align-right"><input type="text" name="petName" required></div>
                                 </div>
     
                                 <div class="profil-name">
@@ -234,7 +245,7 @@
                                 
                                 <div class="profil-name">
                                     세부종
-                                    <div class="profil-align-right"><input type="text" name="petSpecific"></div>
+                                    <div class="profil-align-right"><input type="text" name="petSpecific" required></div>
                                 </div>
                                 
                                 <div class="profil-name">
@@ -261,7 +272,7 @@
                                 <div class="profil-name">
                                     성격
                                     <div class="profil-align-right">
-                                        <input type="text" name="petPersonality">
+                                        <input type="text" name="petPersonality" required>
                                     </div>
                                 </div>
     

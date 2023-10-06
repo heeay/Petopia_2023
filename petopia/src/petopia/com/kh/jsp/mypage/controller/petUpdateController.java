@@ -1,28 +1,23 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.mypage.model.service.PetService;
-import petopia.com.kh.jsp.mypage.model.vo.Pet;
-import petopia.com.kh.jsp.mypage.model.vo.PetFile;
-
 /**
- * Servlet implementation class PetDetailViewController
+ * Servlet implementation class petUpdateController
  */
-@WebServlet("/petDetail.my")
-public class PetDetailViewController extends HttpServlet {
+@WebServlet("/PetUpdate.my")
+public class petUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetDetailViewController() {
+    public petUpdateController() {
         super();
     }
 
@@ -30,18 +25,8 @@ public class PetDetailViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+
 		
-		// petopia/petDetail.my?pno=XXX
-		int petNo = Integer.parseInt(request.getParameter("pno"));
-		
-		Pet p = new PetService().selectPetProfil(petNo);
-		PetFile pt = new PetService().selectPetFile(petNo);
-		
-		request.setAttribute("p", p);
-		request.setAttribute("pt", pt);
-		
-		request.getRequestDispatcher("views/mypage/petProfilDetailView.jsp").forward(request, response);
 		
 	}
 
