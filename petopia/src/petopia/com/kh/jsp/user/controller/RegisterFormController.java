@@ -27,7 +27,11 @@ public class RegisterFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/user/registerView.jsp").forward(request, response);
+		if(request.getSession().getAttribute("userInfo") == null) {
+			request.getRequestDispatcher("views/user/registerView.jsp").forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**
