@@ -268,7 +268,8 @@ CREATE TABLE "TB_MATCHING" (
 	"MEET_BOARD_UPDATE_DATE"	DATE		NULL,
 	"STATUS"	CHAR(1)	DEFAULT 'Y' CHECK(STATUS IN ('Y','N'))	NULL,
 	"USER_NO"	NUMBER		NOT NULL,
-	"PET_NO"	NUMBER		NOT NULL
+	"PET_NO"	NUMBER		NOT NULL,
+	"FILE_NO"	NUMBER	NULL/*<-제약조건 없음*/
 );
 
 COMMENT ON COLUMN "TB_MATCHING"."MEET_BOARD_NO" IS '게시글번호';
@@ -983,6 +984,17 @@ INSERT INTO TB_BOARD(BOARD_NO,BOARD_TITLE,BOARD_CONTENT,USER_NO,CTG_NO,PET_CTG_N
 VALUES(SEQ_BOARD_NO.NEXTVAL,'9 게시글 제목','9 게시글 내용 9 게시글 내용 9 게시글 내용',4,5,3);
 INSERT INTO TB_BOARD(BOARD_NO,BOARD_TITLE,BOARD_CONTENT,USER_NO,CTG_NO,PET_CTG_NO)
 VALUES(SEQ_BOARD_NO.NEXTVAL,'10 게시글 제목','10 게시글 내용 10 게시글 내용 10 게시글 내용',1,8,1);
+
+INSERT INTO TB_FILE VALUES (1, 1, 'A', 'a', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg&type=a340', 1);
+INSERT INTO TB_FILE VALUES (2, 2, 'B', 'b', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg&type=a340', 2);
+INSERT INTO TB_FILE VALUES (3, 3, 'C', 'c', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg&type=a340', 3);
+INSERT INTO TB_FILE VALUES (4, 4, 'D', 'd', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg&type=a340', 4);
+INSERT INTO TB_FILE VALUES (5, 5, 'E', 'e', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg&type=a340', 5);
+INSERT INTO TB_FILE VALUES (6, 6, 'F', 'f', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg&type=a340', 6);
+INSERT INTO TB_FILE VALUES (7, 7, 'G', 'g', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg&type=a340', 7);
+INSERT INTO TB_FILE VALUES (8, 8, 'H', 'h', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg&type=a340', 8);
+INSERT INTO TB_FILE VALUES (9, 9, 'I', 'i', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg&type=a340', 9);
+INSERT INTO TB_FILE VALUES (10, 10, 'J', 'j', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg&type=a340', 10);
 
 INSERT INTO TB_MYPAGE_FILE(FILE_MYPAGE_NO,ORIGINAL_NAME,UPLOAD_NAME,FILE_PATH)
 VALUES (SEQ_MYPAGE_FILE_NO.NEXTVAL,'bono.jpg','PETOPIA_20231006161149_81420.jpg','resources/pet_upfiles');
