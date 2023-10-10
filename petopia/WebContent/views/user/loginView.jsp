@@ -292,7 +292,7 @@ if(cookies!=null){
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
-            <div id="google-auth" class="auth-btn">
+            <div id="google-auth" class="auth-btn" onclick="doGoogleLogin();">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
                	    구글 로그인
             </div>
@@ -329,21 +329,18 @@ if(cookies!=null){
               },
             })
           }
-        //카카오로그아웃  
-        function kakaoLogout() {
-            if (Kakao.Auth.getAccessToken()) {
-              Kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function (response) {
-                    console.log(response)
-                },
-                fail: function (error) {
-                  console.log(error)
-                },
-              })
-              Kakao.Auth.setAccessToken(undefined)
-            }
-          }
+
+        //구글 로그인
+        function doGoogleLogin() {
+            const url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" +
+            "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com" +
+            "&redirect_uri=" +
+            "http://localhost:8001/petopia" +
+            "&response_type=code" +
+            "&scope=email profile";
+
+            this.showSocialLoginPopup(url)
+        }
     </script>
     <%@include file="../common/footer.jsp" %>
 </body>

@@ -37,30 +37,20 @@ public class PetDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
-		if(ServletFileUpload.isMultipartContent(request)) {
 			
-			int maxSize = 1024*1024*10;
+		int petNo = Integer.parseInt(request.getParameter("pno"));
+		//int petFileNo = Integer.parseInt(multiRequest.getParameter("petFileNo"));
 			
-			// 펫프로필 등록 시 올라갈 파일경로
-			String savePath = request.getServletContext().getRealPath("/resources/pet_upfiles/");
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		// ON DELETE CASCADE사용으로 부모테이블 삭제 시 자식테이블도 자동 삭제 => 파일도 자동 삭제
+		int result = new PetService().petDelete(petNo);
 			
-			int petNo = Integer.parseInt(multiRequest.getParameter("pno"));
-			//int petFileNo = Integer.parseInt(multiRequest.getParameter("petFileNo"));
-			
-			// ON DELETE CASCADE사용으로 부모테이블 삭제 시 자식테이블도 자동 삭제 => 파일도 자동 삭제
-			int result = new PetService().petDelete(petNo);
-			
-			if(result>0) {
-				request.getSession().setAttribute("alertMsg", "프로필 등록 성공");
-				response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
-			} 
-			request.setAttribute("errorMsg", "프로필 등록 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "프로필 삭제 성공");
+			response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
+		} else {
+		request.setAttribute("errorMsg", "프로필 삭제 실패");
+		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
 	}
 
 	/**
