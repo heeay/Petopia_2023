@@ -120,7 +120,7 @@
                 }
             })
         });
-        
+
         function checkEmail(){
             const email = document.getElementById("email");
             const errEmail = document.getElementById("err-email");
@@ -149,7 +149,7 @@
 				        }
 				        else{
                             errEmail.style.display="block";
-                            errEmail.innerText = "가입되어있지 않는 이메일입니다.";
+                            errEmail.innerText = "가입되어있지 않은 이메일입니다.";
                             emailFlag = false;
 				        }
 			        },
