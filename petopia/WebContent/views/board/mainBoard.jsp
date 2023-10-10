@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	// 페이징바 만들 때 필요한 변수 미리 세팅
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,7 +152,7 @@
 
             <div id="search-help">
                 <div id="search-bar">
-                    <form action="main.mp" method="get" id="search-form">
+                    <form action="main.bo" method="get" id="search-form">
                         <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
                         <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
                     </form>
@@ -175,54 +187,58 @@
             
         </div>
 
-        <div id="content-area">
-            <div class="content-area">
-                <div class="content">
-                    <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                    <span>강아지 목욕 꿀팁!</span>
-                    <span class="content-reply">댓글[]</span><br>
-                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
-                    <span>나는야집사</span>
-                    <span>2023.09.09</span>
-                    <span class="content-view">조회수[]</span>
-                </div>
-                <div class="content">
-                    <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                    <span>강아지 목욕 꿀팁!</span>
-                    <span class="content-reply">댓글[]</span><br>
-                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
-                    <span>나는야집사</span>
-                    <span>2023.09.09</span>
-                    <span class="content-view">조회수[]</span>
-                </div>
-            </div>
-            <div class="content-area">
-                <div class="content">
-                    <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                    <span>강아지 목욕 꿀팁!</span>
-                    <span class="content-reply">댓글[]</span><br>
-                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
-                    <span>나는야집사</span>
-                    <span>2023.09.09</span>
-                    <span class="content-view">조회수[]</span>
-                </div>
-                <div class="content">
-                    <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                    <span>강아지 목욕 꿀팁!</span>
-                    <span class="content-reply">댓글[]</span><br>
-                    <img id="writer-img"src="https://m.animalfriends.co.kr/web/product/big/animalfriends_11364.jpg" alt="">
-                    <span>나는야집사</span>
-                    <span>2023.09.09</span>
-                    <span class="content-view">조회수[]</span>
-                </div>
-            </div>
 
+                
+                <table class="content-area" align="center">
+            <thead>
+                <tr>
+                    <th width="100">글번호</th>
+                    <th width="100">이미지파일번호</th>
+                    <th width="300">제목</th>
+                    <th width="100">작성자</th>
+                    <th width="50">조회수</th>
+                    <th width="100">작성일</th>
+                    <th width="100">카테고리번호</th>
+                    <th width="100">펫카테고리번호</th>
+                </tr>
+            </thead>
+            
+            <br>
+            
+            <tbody>
+
+            	<% if(list.isEmpty()) { %>
+	                <tr>
+	                    <td colspan="6">조회된 게시글이 없습니다.</td>
+	                </tr>
+                <% } else { %>
+                
+                	<% for(Board b : list) { %>
+	                	<tr>
+	                		<td><%= b.getBoardNo() %></td>
+	                		<td><%= b.getFileNo() %></td>
+	                		<td><%= b.getBoardTitle() %></td>
+	                		<td><%= b.getUserNo() %></td>
+	                		<td><%= b.getBoardViews() %></td>
+	                		<td><%= b.getBoardCreateDate() %></td>
+	                		<td><%= b.getCtgNo() %></td>
+	                		<td><%= b.getPetCtgNo() %></td>
+	                	</tr>
+                	<% } %>
+
+                <% } %>
+                
+            </tbody>
+        </table>
 
         <script>
 
-            
-
             $(function(){
+            	
+                $('.list-area > tbody > tr').click(function(){
+                    location.href = '<%=contextPath%>/detail.bo?bno=' + $(this).children().eq(0).text();
+                });
+                
                 $('.content-reply').html('댓글[' + ']');
 
                 $('.content-view').html('조회수[' + ']');
@@ -231,8 +247,6 @@
                     
                 });
 
-
-
             });
 
         </script>
@@ -240,18 +254,25 @@
 
 
             <div id="pasing-area">
-                <button type="button" class="btn btn-dark"><</button>
-                <button type="button" class="btn btn-dark">1</button>
-                <button type="button" class="btn btn-dark">2</button>
-                <button type="button" class="btn btn-dark">3</button>
-                <button type="button" class="btn btn-dark">4</button>
-                <button type="button" class="btn btn-dark">5</button>
-                <button type="button" class="btn btn-dark">></button>
+                
+              <% if(currentPage != 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
+            <% } %>
+            
+            <% for(int i = startPage; i <= endPage; i++) { %>
+            	<% if(currentPage != i) { %>
+            		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%=i%>'" class="btn btn-sm btn-info"><%= i %></button>
+            	<% } else { %>
+            		<button disabled class="btn btn-sm btn-info"><%= i %></button>
+            	<% } %>
+            <% } %>
+            
+            <% if(currentPage != maxPage) { %>
+            	<button onclick="location.href='<%=contextPath %>/main.bo?cpage=<%= currentPage + 1 %>'" class="btn btn-sm btn-info">&gt;</button>
+            <% } %>
             </div>
         </div>
-    </div>
-        
-       
+
 
 
 <%@ include file="../common/footer.jsp" %>

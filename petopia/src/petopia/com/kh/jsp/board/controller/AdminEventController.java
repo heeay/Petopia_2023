@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AdminEvent
  */
 @WebServlet("/admin.mp")
-public class AdminEvent extends HttpServlet {
+public class AdminEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminEvent() {
+    public AdminEventController() {
         super();
         // TODO Auto-generated constructor stub
     }

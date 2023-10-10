@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>게시판 관련 SQL문</comment>
+
+<entry key="selectListCount">
+		SELECT
+		      			COUNT(*)
+		  FROM
+		       			TB_BOARD
+		 WHERE
+		       			BOARD_STATUS = 'Y'
+		
+</entry>
+
+<entry key="selectList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT 
+		                       BOARD_NO,
+		                       BOARD_TITLE,
+		                       BOARD_VIEWS,
+		                       BOARD_CREATE_DATE,
+		                       USER_NO,
+		                       FILE_NO,
+		                       CTG_NO,
+		                       PET_CTG_NO
+		                  FROM
+		                       TB_BOARD
+		                  JOIN
+		                        TB_USER
+		                        		USING(USER_NO) 
+		                  JOIN
+		                        TB_FILE
+		                        		USING(FILE_NO) 
+		                  JOIN
+		                        TB_CATEGORY
+		                        		USING(CTG_NO) 
+		                  JOIN 
+		                  		TB_PET_CATEGORY
+		                  				USING(PET_CTG_NO)
+		                 WHERE
+		                       BOARD_STATUS = 'Y'
+		                 ORDER
+		                    BY BOARD_CREATE_DATE DESC) A)
+		         WHERE RNUM BETWEEN ? AND ?
+		         		
+</entry>
+
+<entry key="selectBoard">
+						SELECT 
+		                       BOARD_NO,
+		                       BOARD_TITLE,
+		                       BOARD_VIEWS,
+		                       BOARD_CREATE_DATE,
+		                       USER_NO,
+		                       FILE_NO,
+		                       CTG_NO,
+		                       PET_CTG_NO
+		                  FROM
+		                       TB_BOARD
+		                  JOIN
+		                        TB_USER
+		                        		USING(USER_NO) 
+		                  JOIN
+		                        TB_FILE
+		                        		USING(FILE_NO) 
+		                  JOIN
+		                        TB_CATEGORY
+		                        		USING(CTG_NO) 
+		                  JOIN 
+		                  		TB_PET_CATEGORY
+		                  				USING(PET_CTG_NO)
+		                 WHERE
+		                       BOARD_STATUS = 'Y'
+		                 ORDER
+		                    BY BOARD_CREATE_DATE DESC
+		         		
+</entry>
+
+</properties>

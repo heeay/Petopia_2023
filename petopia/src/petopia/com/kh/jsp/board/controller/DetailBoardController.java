@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class DetailBoard
  */
 @WebServlet("/detail.bo")
-public class DetailBoard extends HttpServlet {
+public class DetailBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailBoard() {
+    public DetailBoardController() {
         super();
         // TODO Auto-generated constructor stub
     }
