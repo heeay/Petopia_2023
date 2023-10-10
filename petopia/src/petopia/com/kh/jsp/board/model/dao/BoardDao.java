@@ -57,9 +57,10 @@ public class BoardDao {
 			
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-			JDBCTemplate.close(conn);
-		}
 
+		}
+		
+		System.out.println("난 게시글 총 개수 : " + listCount);
 		return listCount;
 	}
 	
@@ -82,13 +83,8 @@ public class BoardDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset != null) {
-				System.out.println("dddddddddddddd");
-			}
-			
-			
 			while(rset.next()){
-				System.out.println("ddd");
+				System.out.println("내가보인다면 reset은 null도, []도 아니야");
 				Board b = new Board();
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
@@ -102,7 +98,7 @@ public class BoardDao {
 			
 				list.add(b);
 			}
-			System.out.println(rset);
+			System.out.println("나는 resultSet : " + rset);
 
 			
 		} catch (SQLException e) {
@@ -112,11 +108,11 @@ public class BoardDao {
 			
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-			JDBCTemplate.close(conn);
+
 			
 		}
 		
-		System.out.println(list);
+		System.out.println("난 리스트 : " + list);
 		return list;
 		
 		

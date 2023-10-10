@@ -16,6 +16,8 @@ public class BoardService {
 		
 		int listCount = new BoardDao().selectListCount(conn);
 		
+		JDBCTemplate.close(conn);
+		
 		return listCount;
 	}
 	
@@ -24,6 +26,8 @@ public class BoardService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		ArrayList<Board> list = new BoardDao().selectList(conn, pi);
+		
+		JDBCTemplate.close(conn);
 		
 		return list;
 	}

@@ -43,8 +43,8 @@ public class MainBoardController extends HttpServlet {
 		// 필요한 변수들
 		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용(STATUS = 'Y')해서 조회
 		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 10개로 고정
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 10개로 고정
+		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 5개로 고정
+		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 8개로 고정
 		
 		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
@@ -60,8 +60,8 @@ public class MainBoardController extends HttpServlet {
 		} catch(NumberFormatException e) {
 			currentPage = 1;
 		}
-		System.out.println(listCount);
-		System.out.println(currentPage);
+		System.out.println("총게시글수 : " + listCount); 
+		System.out.println("사용자가 요청한 페이지 : " + currentPage);
 		
 		// * pageLimit : 페이징바 최대 개수
 		pageLimit = 5;
@@ -94,8 +94,8 @@ public class MainBoardController extends HttpServlet {
 		//boardLimit = 15;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		
-		//System.out.println(maxPage);
+		System.out.println("총페이지개수 : " + maxPage);
+
 		
 		// * startPage : 페이지 하단에 보여질 페이징바의 시작 수
 		/*
@@ -139,7 +139,7 @@ public class MainBoardController extends HttpServlet {
 		 * startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		 */
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-		
+		System.out.println("시작페이지 : " + startPage);
 		// * endPage : 페이지 하단에 보여질 페이징바의 끝 수
 		/*
 		 * startPage, pageLimit에 영향을 받음 (단, maxPage도 마지막 페이징 바에 대해 영향을 끼침)
@@ -154,6 +154,7 @@ public class MainBoardController extends HttpServlet {
 		 * => endPage = startPage + pageLimit - 1;
 		 */
 		endPage = startPage + pageLimit - 1;
+		System.out.println("끝 페이지 : " +  endPage);
 		
 		// startPage가 21이라서 endPage에는 30이 들어갔는데
 		// maxPage가 23이라면??
