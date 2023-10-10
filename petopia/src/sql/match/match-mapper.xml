@@ -16,7 +16,7 @@
 		      )
 		 VALUES
 		 	  (
-		 	  SEQ_BNO.NEXTVAL,
+		 	  SEQ_MEET_BOARD_NO.NEXTVAL,
 		 	  ?,
 		 	  ?,
 		 	  ?,

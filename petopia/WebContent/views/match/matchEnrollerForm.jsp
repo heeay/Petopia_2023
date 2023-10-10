@@ -100,7 +100,7 @@
             </ul>
         </div>
     </div>
-            <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
+            <form action="<%=contextPath%>/main.pb" id="write" method="post" enctype="multipart/form-data">
 
                 
             <section id="pet-img">
@@ -111,13 +111,18 @@
             </section>
    
          
+                <div id="meetBoardTitle">
+                    <h2>제목</h2>
+                    <textarea style="background-color:transparent;" name="meetBoardTitle" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
+                </div>
+                <br><br><br>
                 <div id="hope-activity">
                     <h2>희망 교류 활동</h2>
-                    <textarea style="background-color:transparent;" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
+                    <textarea style="background-color:transparent;" name="hopeActivity" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
                 </div>
                 <div id="pet-introduction">
                     <h2>우리 아이 소개</h2>
-                    <textarea style="background-color:transparent;" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
+                    <textarea style="background-color:transparent;" name="petInfo" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
                 </div>
 		        
    
