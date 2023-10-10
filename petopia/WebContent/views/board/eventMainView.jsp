@@ -14,6 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 캘린더 셋팅 -->
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.9/index.global.min.js'></script>
@@ -94,53 +96,79 @@
 
     <script>
 
-        
 
         document.addEventListener('DOMContentLoaded', function() {
 
-          var calendarEl = document.getElementById('calendar');
+        var calendarEl = document.getElementById('calendar');
 
-          //eventContent: { domNodes: arrayOfDomNodes }
 
-          var calendar = new FullCalendar.Calendar(calendarEl, {
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        
+            initialView: 'dayGridMonth', // 초기화면
 
-            initialView: 'dayGridMonth',
-
-            dateClick: function() {
-                //alert('a day has been clicked!');
+            eventAdd : (obj) => { // 이벤트 추가
+                console.log(obj);
             },
 
-           
-            eventContent: { html: '<i>some html</i>' },
-            eventContent: function(arg) {
-            let italicEl = document.createElement('i')
+            eventChange : (obj) => { // 이벤트 수정
+                console.log(obj);
+            },
 
-            if (arg.event.extendedProps.isUrgent) {
-                italicEl.innerHTML = 'urgent event'
-            } else {
-                italicEl.innerHTML = 'normal event'
-            }
+            eventRemove : (obj) => { // 이벤트 제거
+                console.log(obj);
+            },
 
-            let arrayOfDomNodes = [ italicEl ]
-            return { domNodes: arrayOfDomNodes }
-            }
+            select : (arg) => {
+                var title = prompt('Event Title : ');
+                if (title) {
+                calendar.addEvent({
+                title: title,
+                start: arg.start,
+                end: arg.end,
+                allDay: arg.allDay
+                })
+                }
+                calendar.unselect()
+            },
 
-            
-          })
-          
-            calendar.render();
+        // plugins: ['dayGrid', 'interaction'],
+            events: [
+                {
+                    id: 1,
+                    title: '강형욱 훈련사 강연',
+                    start: '2023-10-11',
+                    
+                },
+                {
+                    id: 2,
+                    title: '퍼그 축제',
+                    start: '2023-10-21',
+                }
+        ]});
+        
+        // eventContent: { html: '<i>some html</i>' },
+        // eventContent: function(arg) {
+        // let italicEl = document.createElement('i')
 
-            // 클릭시 세부이벤트판으로 이동
-            calendar.on('dateClick', function() {
-                window.location.href="<%=contextPath%>/detail.mp";
-            });
-    
+        // if (arg.event.extendedProps.isUrgent) {
+        //     italicEl.innerHTML = 'urgent event'
+        // } else {
+        //     italicEl.innerHTML = 'normal event'
+        // }
 
+        // let arrayOfDomNodes = [ italicEl ]
+        // return { domNodes: arrayOfDomNodes }
+        // }
 
+        
+        calendar.render();
 
-    
+        // 클릭시 세부이벤트판으로 이동
+        calendar.on('dateClick', function() {
+            window.location.href="<%=contextPath%>/detail.mp";
         });
-      
+
+        });
       
       </script>
 

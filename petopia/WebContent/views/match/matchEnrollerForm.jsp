@@ -56,7 +56,7 @@
     }
 
     #write-button {
-        margin-left: 620px;
+        margin-left: 550px;
     }
     
     
@@ -100,16 +100,17 @@
             </ul>
         </div>
     </div>
+            <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
+
+                
             <section id="pet-img">
                 <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU"  width="130" height="170">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU"  width="130" height="170">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg" width="130" height="170">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="contentImg" width="130" height="170">
                 </div>
-                </div>
-
             </section>
    
-            <section id="write">
+         
                 <div id="hope-activity">
                     <h2>희망 교류 활동</h2>
                     <textarea style="background-color:transparent;" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
@@ -118,12 +119,61 @@
                     <h2>우리 아이 소개</h2>
                     <textarea style="background-color:transparent;" required cols=90 rows=10 onclick="this.value=''">1000자 이내로 내용을 입력하세요</textarea>
                 </div>
-		</section>      
+		        
    
             <div id="write-button">
                 <button class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기</button>            
             </div>
+            </form> 
  
+            <div id="file-area">
+                <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1);">
+                <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+            </div>
+            </div>
+            </div>
+            
+            
+            
+            <script>
+                function loadImg(inputFile, num) {
+                    if(inputFile.files.length == 1) {
+                        let reader = new FileReader();
+                        reader.readAsDataURL(inputFile.files[0]);
+                        reader.onload = function(e){
+
+                            switch(num) {
+                                case 1 : $('#titleImg').attr('src',e.target.result);break;
+                                case 2 : $('#contentImg').attr('src',e.target.result);break;
+                            }
+
+
+                        }
+
+
+
+                    } else {
+                        const str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU"
+                        switch(num) {
+                            case 1 : $('#titleImg').attr('src', str); break;
+                            case 2 : $('#contentImg').attr('src', str); break;
+                        }
+                    }
+                };
+
+                $(function(){
+
+                    $('#file-area').hide();
+
+                    $('#titleImg').click(function() {
+                        $('#file1').click();
+                    })
+                    
+                    $('#contentImg').click(function() {
+                        $('#file2').click();
+                    })
+                })
+            </script>
 
 
     

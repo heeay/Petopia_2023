@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.board.controller;
+package petopia.com.kh.jsp.match.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdminEvent
+ * Servlet implementation class MatchEnrollerFormController
  */
-@WebServlet("/admin.mp")
-public class AdminEventController extends HttpServlet {
+@WebServlet("/enroller.pb")
+public class MatchEnrollerFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminEventController() {
+    public MatchEnrollerFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,8 +27,9 @@ public class AdminEventController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-		request.getRequestDispatcher("views/board/mainBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("views/match/matchEnrollerForm.jsp").forward(request, response);
+		
+	
 	}
 
 	/**

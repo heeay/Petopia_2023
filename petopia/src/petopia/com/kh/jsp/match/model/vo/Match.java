@@ -2,21 +2,21 @@ package petopia.com.kh.jsp.match.model.vo;
 
 public class Match {
 	
-	private int meetBoardNo; 
+	private String meetBoardNo; 
 	private String meetBoardTitle;
 	private String petInfo;
 	private String hopeActivity;
-	private int meetBoardViews;
+	private String meetBoardViews;
 	private String meetBoardCreateDate;
 	private String meetBoardUpdateDate;
 	private String status;
-	private int userNo;
-	private int petNo;
+	private String userNo;
+	private String petNo;
 	public Match() {
 		super();
 	}
-	public Match(int meetBoardNo, String meetBoardTitle, String petInfo, String hopeActivity, int meetBoardViews,
-			String meetBoardCreateDate, String meetBoardUpdateDate, String status, int userNo, int petNo) {
+	public Match(String meetBoardNo, String meetBoardTitle, String petInfo, String hopeActivity, String meetBoardViews,
+			String meetBoardCreateDate, String meetBoardUpdateDate, String status, String userNo, String petNo) {
 		super();
 		this.meetBoardNo = meetBoardNo;
 		this.meetBoardTitle = meetBoardTitle;
@@ -29,10 +29,11 @@ public class Match {
 		this.userNo = userNo;
 		this.petNo = petNo;
 	}
-	public int getMeetBoardNo() {
+	
+	public String getMeetBoardNo() {
 		return meetBoardNo;
 	}
-	public void setMeetBoardNo(int meetBoardNo) {
+	public void setMeetBoardNo(String meetBoardNo) {
 		this.meetBoardNo = meetBoardNo;
 	}
 	public String getMeetBoardTitle() {
@@ -53,10 +54,10 @@ public class Match {
 	public void setHopeActivity(String hopeActivity) {
 		this.hopeActivity = hopeActivity;
 	}
-	public int getMeetBoardViews() {
+	public String getMeetBoardViews() {
 		return meetBoardViews;
 	}
-	public void setMeetBoardViews(int meetBoardViews) {
+	public void setMeetBoardViews(String meetBoardViews) {
 		this.meetBoardViews = meetBoardViews;
 	}
 	public String getMeetBoardCreateDate() {
@@ -77,27 +78,24 @@ public class Match {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getUserNo() {
+	public String getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(int userNo) {
+	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
-	public int getPetNo() {
+	public String getPetNo() {
 		return petNo;
 	}
-	public void setPetNo(int petNo) {
+	public void setPetNo(String petNo) {
 		this.petNo = petNo;
 	}
 	@Override
 	public String toString() {
-		return "Match [meetBoardNo=" + meetBoardNo + ", meetBoardTitle=" + meetBoardTitle + ", petInfo=" + petInfo
-				+ ", hopeActivity=" + hopeActivity + ", meetBoardViews=" + meetBoardViews + ", meetBoardCreateDate="
-				+ meetBoardCreateDate + ", meetBoardUpdateDate=" + meetBoardUpdateDate + ", status=" + status
-				+ ", userNo=" + userNo + ", petNo=" + petNo + "]";
+		return "Match [hopeActivity=" + hopeActivity + ", meetBoardCreateDate=" + meetBoardCreateDate + ", meetBoardNo="
+				+ meetBoardNo + ", meetBoardTitle=" + meetBoardTitle + ", meetBoardUpdateDate=" + meetBoardUpdateDate
+				+ ", meetBoardViews=" + meetBoardViews + ", petInfo=" + petInfo + ", petNo=" + petNo + ", status="
+				+ status + ", userNo=" + userNo + "]";
 	}
-	
-	
-	
 	
 }

@@ -19,7 +19,7 @@
         }
 
     #side-menu-wrap{
-        width: 220px;
+        width: 100px;
         height: 100%;
         float: right;
     }
@@ -151,6 +151,58 @@
     color: #e3dede;
 }
 
+
+
+    #search-bar{
+        position : relative;
+        display : flex;
+        width : 50%;
+        align-items: center;
+    }
+
+    #search-icon{
+        position : absolute;
+        right : 10px;
+    }
+
+    #search-text {
+        width: 100%; /*search-bar의 100%길이란 뜻*/
+    
+        /* border: 1px solid #bbb; */
+        
+        border-radius: 10px;
+        padding : 1%;
+        font-size: 15px;
+    
+    }
+
+    #search-help{
+        display : flex;
+        width : 100%;
+        align-items: center;
+    }
+    #search-radio{
+        /* border: 1px solid green; */
+        
+        margin-left : 10px;
+        box-sizing: border-box;
+    }
+
+    #search-btn{
+        display : none;
+    }
+  
+  	.content {
+  		cursor:pointer;
+  		opactity: 0.9;
+  	}
+
+   
+
+
+
+</style>
+
 </style>
 </head>
 <body>
@@ -173,22 +225,46 @@
 
 
         <div id="wrapper">
-            <div id="content-area">
-                <div id="search-bar">
-                    <div id="search-form">검색바<i class="fas fa-search"></i>
-                    <input type="radio">제목
-                    <input type="radio">작성자
-                </div>
-                    <div id="search-view">
-                    <select name="" id="">
-                        <option value="">게시글 4개씩 보기</option>
-                        <option value="">게시글 2개씩 보기</option>
-                        <option value="">게시글 8개씩 보기</option>
-                    </select>   
+
+            <div id="search-area">
+
+                <div id="search-help">
+                    <div id="search-bar">
+                        <form action="main.mp" method="get" id="search-form">
+                            <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
+                            <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
+                        </form>
                     </div>
+    
+            <script>
+                $(function(){
+                    $('#search-icon').click(function(){
+                        // ???
+                        $('#search-btn').submit();
+                    })
+                });
+            </script>
+    
+                    <div id="search-radio">
+                        <input type="radio" name="">제목
+                        <input type="radio" name="">작성자
+                    </div>
+    
                 </div>
     
+                   
     
+                    <div id="search-view">
+                        <select name="" id="">
+                            <option value="">게시글 4개씩 보기</option>
+                            <option value="">게시글 2개씩 보기</option>
+                            <option value="">게시글 8개씩 보기</option>
+                        </select>   
+                        
+                    </div>
+                
+            </div>
+            <div id="content-area">
                 <div class="content-box">
                     <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
@@ -275,7 +351,7 @@
 
                 
         <div id="write-button">
-            <button class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기</button>            
+            <a href="<%=contextPath%>/enroller.pb" class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기     </a>     
         </div>
 
             </div>

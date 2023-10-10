@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class MainEvent
  */
 @WebServlet("/main.mp")
-public class MainEvent extends HttpServlet {
+public class MainEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainEvent() {
+    public MainEventController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,8 +27,11 @@ public class MainEvent extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+		// ㅁ
 		request.getRequestDispatcher("views/board/eventMainView.jsp").forward(request, response);
+		
+		
+		
 	}
 
 	/**

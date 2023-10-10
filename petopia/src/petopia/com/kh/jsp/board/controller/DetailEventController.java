@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class DetailEvent
  */
 @WebServlet("/detail.mp")
-public class DetailEvent extends HttpServlet {
+public class DetailEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailEvent() {
+    public DetailEventController() {
         super();
         // TODO Auto-generated constructor stub
     }
