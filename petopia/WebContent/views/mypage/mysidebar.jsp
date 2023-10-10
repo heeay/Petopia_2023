@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
+<%@page import="petopia.com.kh.jsp.user.model.vo.*"%>
 <%
     String contextPath = request.getContextPath();
 	User userInfo = (User)session.getAttribute("userInfo");
@@ -194,6 +194,7 @@
                 	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
                 <% } %>
                 </div>
+                <br>
                 <div id="profil-name"><b><%=userInfo.getUserNickname() %> 님</b></div>
             </div>
 
