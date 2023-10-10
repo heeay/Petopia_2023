@@ -77,5 +77,18 @@ public class PetService {
 		return (result1*result2);
 	}
 
+	public int petDelete(int petNo) {
+		Connection conn = getConnection();
+		//int result2 = new PetDao().petImgDelete(conn, petFileNo);
+		int result1 = new PetDao().petDelete(conn, petNo);
+		
+		if(result1>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return (result1);
+	}
+
 	
 }

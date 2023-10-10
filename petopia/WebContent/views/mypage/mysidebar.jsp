@@ -188,7 +188,7 @@
 
             <div class="profil-bar">
                 <div class="profil"><img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필"></div>
-                <div id="profil-name"><a href="#"><%=userInfo.getUserNickname() %></a></div>
+                <div id="profil-name"><a href="#"><%=userInfo.getUserNickname() %> 님</a></div>
             </div>
 
             <div id="sidemenu">

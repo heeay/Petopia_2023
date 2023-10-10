@@ -202,6 +202,7 @@ public class PetDao {
 		}
 		return result;
 	}
+	
 	public int updatePet(Connection conn, Pet p) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -227,6 +228,40 @@ public class PetDao {
 		}
 		return result;
 	}
+	
+	public int petDelete(Connection conn, int petNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("petDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/*public int petImgDelete(Connection conn, int petFileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("petImgDelete");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, petFileNo);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}*/
 
 	
 
