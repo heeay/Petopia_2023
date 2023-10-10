@@ -19,6 +19,7 @@ if(cookies!=null){
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name ="google-signin-client_id" content="572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com">
     <title>로그인</title>
     <style>
         .margin-top{margin-top: 50px;}
@@ -150,7 +151,7 @@ if(cookies!=null){
             border-color: #ebd300;
             box-sizing: border-box;
         }
-        #google-auth{
+        #GgCustomLogin{
             cursor: pointer;
             background-color: #ffffff;
             color: #505050;
@@ -292,7 +293,7 @@ if(cookies!=null){
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
-            <div id="google-auth" class="auth-btn">
+            <div id="GgCustomLogin" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
                	    구글 로그인
             </div>
@@ -328,22 +329,51 @@ if(cookies!=null){
                 console.log(error)
               },
             })
-          }
-        //카카오로그아웃  
-        function kakaoLogout() {
-            if (Kakao.Auth.getAccessToken()) {
-              Kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function (response) {
-                    console.log(response)
-                },
-                fail: function (error) {
-                  console.log(error)
-                },
-              })
-              Kakao.Auth.setAccessToken(undefined)
-            }
-          }
+        }
+    </script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        //구글 로그인
+        $(document).ready(function(){
+            init();
+        })
+        function init() {
+            console.log("init");
+    	    gapi.load("auth2", function() {
+    		    gapi.auth2.init();
+    		    options = new gapi.auth2.SigninOptionsBuilder();
+    		    options.setPrompt("select_account");
+                // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
+    		    options.setScope("email profile openid https://www.googleapis.com/auth/user.birthday.read");
+                // 인스턴스의 함수 호출 - element에 로그인 기능 추가
+                // GgCustomLogin은 태그ID, 위에 설정한 options와 아래 성공,실패시 실행하는 함수들
+    		    gapi.auth2.getAuthInstance().attachClickHandler("GgCustomLogin", options, onSignIn, onSignInFailure);
+    	    })
+        }
+
+        function onSignIn(googleUser) {
+            console.log("success");
+        	var access_token = googleUser.getAuthResponse().access_token
+        	$.ajax({
+            	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
+        		url: 'https://people.googleapis.com/v1/people/me'
+                // key에 자신의 API 키를 넣습니다.
+        		, data: {personFields:"birthdays", key:"AAIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q", "access_token": access_token}
+        		, method:"GET"
+        	})
+        	.done(function(e){
+                //프로필을 가져온다.
+        		var profile = googleUser.getBasicProfile();
+        		console.log(profile)
+        	})
+        	.fail(function(e){
+        		console.log(e);
+        	})
+        }
+        function onSignInFailure(e){
+            console.log("fail");
+	        console.log(e);
+        }
     </script>
     <%@include file="../common/footer.jsp" %>
 </body>

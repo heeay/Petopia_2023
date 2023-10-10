@@ -56,7 +56,7 @@ public class MainBoardController extends HttpServlet {
 		// * currentPage : 현재 페이지(사용자가 요청한페이지) : 서블릿에서 getParameter할수있는것은 사용자가 요청한 값뿐
 		
 		try {
-		currentPage = Integer.parseInt(request.getParameter("cpage")); // 1    ""
+			currentPage = Integer.parseInt(request.getParameter("cpage")); // 1    ""
 		} catch(NumberFormatException e) {
 			currentPage = 1;
 		}
@@ -167,11 +167,12 @@ public class MainBoardController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
-		// System.out.println(pi);
+		 System.out.println(pi);
 		
 		// 4) Service로 가자~
 		ArrayList<Board> list = new BoardService().selectList(pi);
 		
+		System.out.println(list);
 		// 5) 응답화면 지정
 		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
 		request.setAttribute("pi", pi);  // 아래 페이지바 

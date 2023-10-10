@@ -34,6 +34,7 @@ public class LoginUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		System.out.println("1");
 		String email = request.getParameter("email").trim();
 		String pw = request.getParameter("pw").trim();
 		String remember = request.getParameter("remember")!=null ? request.getParameter("remember") : "off";
