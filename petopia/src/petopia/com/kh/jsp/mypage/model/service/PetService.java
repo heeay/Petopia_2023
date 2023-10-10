@@ -105,26 +105,17 @@ public class PetService {
 		return (result1*result2);
 	}
 
-	public int insertUserProfil(PetFile pt) {
+	public int insertUserProfil(PetFile pt, User loginUser) {
 		Connection conn = getConnection();
-		int result = new PetDao().insertUserProfil(conn, pt);
-		if(result>0) {
+		int result1 = new PetDao().insertUserProfil(conn, pt);
+		int result2 = new PetDao().updateUserProfil(conn, loginUser);
+		
+		if(result1*result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
-		return result;
-	}
-
-	public int updateUserProfil(User loginUser) {
-		Connection conn = getConnection();
-		int result = new PetDao().updateUserProfil(conn, loginUser);
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		return result;
+		return result1*result2;
 	}
 
 	

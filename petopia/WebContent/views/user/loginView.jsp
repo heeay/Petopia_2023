@@ -334,6 +334,28 @@ if(cookies!=null){
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
         //구글 로그인
+        /*
+        function start() {
+          // 2. Initialize the JavaScript client library.
+          gapi.client.init({
+            'apiKey': 'AIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q',
+            // clientId and scope are optional if auth is not required.
+            'clientId': '572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com',
+            'scope': 'profile',
+          }).then(function() {
+            // 3. Initialize and make the API request.
+            return gapi.client.request({
+              'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
+            })
+          }).then(function(response) {
+            console.log(response.result);
+          }, function(reason) {
+            console.log('Error: ' + reason.result.error.message);
+          });
+        };
+        // 1. Load the JavaScript client library.
+        gapi.load('client', start);
+        */
         $(document).ready(function(){
             init();
         })
@@ -355,11 +377,13 @@ if(cookies!=null){
             console.log("success");
         	var access_token = googleUser.getAuthResponse().access_token
         	$.ajax({
-            	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
-        		url: 'https://people.googleapis.com/v1/people/me'
-                // key에 자신의 API 키를 넣습니다.
-        		, data: {personFields:"birthdays", key:"AAIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q", "access_token": access_token}
-        		, method:"GET"
+        		url: 'https://people.googleapis.com/v1/people/me',
+                data: {
+                    personFields:"birthdays",
+                    key:"AAIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q",
+                    "access_token": access_token
+                },
+                method:"GET"
         	})
         	.done(function(e){
                 //프로필을 가져온다.

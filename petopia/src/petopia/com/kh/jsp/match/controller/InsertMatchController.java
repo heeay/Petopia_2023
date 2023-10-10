@@ -52,8 +52,8 @@ public class InsertMatchController extends HttpServlet {
 			new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			String meetBoardTitle = multiRequest.getParameter("meetBoardTitle");
-			String petInfo = multiRequest.getParameter("petInfo");
 			String hopeActivity = multiRequest.getParameter("hopeActivity");
+			String petInfo = multiRequest.getParameter("petInfo");
 			String userNo = multiRequest.getParameter("userNo");
 			String petNo = multiRequest.getParameter("petNo");
 			
@@ -94,6 +94,7 @@ public class InsertMatchController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 				response.sendRedirect(request.getContextPath() + "/main.pb");
 				
+			} else {
 			}
 			
 			 
