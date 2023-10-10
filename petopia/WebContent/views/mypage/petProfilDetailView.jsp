@@ -125,106 +125,108 @@
         
             <div class="mg-a">
 
-                <div>
-                    <p class="profil-content-name">프로필 상세보기</p>
+                <form action="<%=contextPath%>/petUpdate.my" enctype="multipart/form-data" method="post">
+                    <input type="hidden" name="pno" value="<%=p.getPetNo()%>">
                     <div>
-                        <div class="profil-content">
+                        <p class="profil-content-name">프로필 상세보기</p>
+                        <div>
+                            <div class="profil-content">
+
+                                <div class="petfil-size">
+
+                                    <div class="profil-name">
+                                        이름
+                                        <div class="profil-align-right"><input type="text" name="petName" value="<%=p.getPetName()%>"></div>
+                                    </div>
+
+                                    <div class="profil-name">
+                                        <label>종</label>
+                                        <div class="profil-align-right">
+                                            <select id="petSpecies" name="petSpecies" style="width: 205px;">
+                                                    <option value="강아지">강아지</option>
+                                                    <option value="고양이">고양이</option>
+                                                    <option value="설치류">설치류</option>
+                                                    <option value="파충류">파충류</option>
+                                                    <option value="조류">조류</option>
+                                                    <option value="어류">어류</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $('#petSpecies option[value=<%=p.getPetSpecies()%>]').attr('selected','selected');
+                                    </script>
+                                    
+                                    
+                                    <div class="profil-name">
+                                        세부종
+                                        <div class="profil-align-right"><input type="text" name="petSpecific" value="<%=p.getPetSpecific()%>"></div>
+                                    </div>
+                                    
+                                    <div class="profil-name">
+                                        몸무게
+                                        <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="<%=p.getPetWeight()%>">&nbsp; Kg</div>
+                                    </div>
+
+                                    <div class="profil-name">
+                                        성별
+                                        <div class="profil-align-right">
+                                            <input type="radio" name="petGender" id="F" value="F">&nbsp;F
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="petGender" id="M" value="M">&nbsp;M
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="petGender" id="N" value="N">&nbsp;중성화
+                                            &nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                    
+                                    <script>
+                                        $("input:radio[name='petGender']:radio[value='<%=p.getPetGender()%>']").prop('checked', true);
+                                    </script>
+                                    
+                            </div>
 
                             <div class="petfil-size">
 
-                                <div class="profil-name">
-                                    이름
-                                    <div class="profil-align-right"><input type="text" name="petName" value="<%=p.getPetName()%>"></div>
-                                </div>
-
-                                <div class="profil-name">
-                                    <label>종</label>
-                                    <div class="profil-align-right">
-                                        <select id="petSpecies" name="petSpecies" style="width: 205px;">
-	                                            <option value="강아지">강아지</option>
-	                                            <option value="고양이">고양이</option>
-	                                            <option value="설치류">설치류</option>
-	                                            <option value="파충류">파충류</option>
-	                                            <option value="조류">조류</option>
-	                                            <option value="어류">어류</option>
-                                        </select>
+                                    <div class="profil-name">
+                                    성격
+                                        <div class="profil-align-right">
+                                            <input type="text" name="petPersonality" value="<%=p.getPetPersonality()%>">
+                                        </div>
+                                    </div>
+        
+                                    <div class="profil-name2">
+                                        기타사항
+                                        <div class="profil-align-right">
+                                        <% if(p.getPetEtc() != null) { %>
+                                            <textarea name="petEtc" cols="35" rows="7" style="resize:none;"><%=p.getPetEtc()%></textarea>
+                                        <% } else {%>
+                                            <textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
+                                        <% } %>
                                     </div>
                                 </div>
-                                <script>
-                                	$('#petSpecies option[value=<%=p.getPetSpecies()%>]').attr('selected','selected');
-                                </script>
-                                
-                                
-                                <div class="profil-name">
-                                    세부종
-                                    <div class="profil-align-right"><input type="text" name="petSpecific" value="<%=p.getPetSpecific()%>"></div>
-                                </div>
-                                
-                                <div class="profil-name">
-                                    몸무게
-                                    <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="<%=p.getPetWeight()%>">&nbsp; Kg</div>
-                                </div>
-
-                                <div class="profil-name">
-                                    성별
+                                <div class="profil-name3">
+                                    사진등록
                                     <div class="profil-align-right">
-                                        <input type="radio" name="petGender" id="F" value="F">&nbsp;F
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="petGender" id="M" value="M">&nbsp;M
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="petGender" id="N" value="N">&nbsp;중성화
-                                        &nbsp;&nbsp;
+                                    <input type="file" name=petImgFile id="petImgFile" required>
                                     </div>
                                 </div>
-                                
-                                <script>
-                                	$("input:radio[name='petGender']:radio[value='<%=p.getPetGender()%>']").prop('checked', true);
-                                </script>
-                                
-                        </div>
-
-                        <div class="petfil-size">
-
-                            	<div class="profil-name">
-                                성격
-                                    <div class="profil-align-right">
-                                        <input type="text" name="petPersonality" value="<%=p.getPetPersonality()%>">
-                                    </div>
-                                </div>
-    
-                                <div class="profil-name2">
-                                    기타사항
-                                    <div class="profil-align-right">
-                                    <% if(p.getPetEtc() != null) { %>
-                                        <textarea name="petEtc" cols="35" rows="7" style="resize:none;"><%=p.getPetEtc()%></textarea>
-                                	<% } else {%>
-                                		<textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
-                                	<% } %>
+                                <div class="profil-name3">
+                                    기존사진 : 
+                                    <a href="<%=contextPath%>/<%=pt.getFilePath()%>/<%=pt.getUploadName()%>" download="<%=pt.getOriginalName()%>">
+                                        <%=pt.getOriginalName()%>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="profil-name3">
-                                사진등록
-                                <div class="profil-align-right">
-                                   <input type="file" name=petImgFile id="petImgFile" required>
-                                </div>
-                            </div>
-                            <div class="profil-name3">
-                                기존사진 : 
-                                <a href="<%=contextPath%>/<%=pt.getFilePath()%>/<%=pt.getUploadName()%>" download="<%=pt.getOriginalName()%>">
-                             	    <%=pt.getOriginalName()%>
-                                </a>
-                             </div>
-                        </div>
 
-                        <div class="btn-wid">
-                            <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
-                            <button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
+                            <div class="btn-wid">
+                                <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
+                                <button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
+                            </div>
+
                         </div>
 
                     </div>
-
-                </div>
-                
+                </form>
             </div>
        
         
