@@ -46,6 +46,7 @@
 	
         <div id="content-area">
         	<% if(userInfo != null) { %>
+        		<!-- 매핑값 : insertForm.in -->
 		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
         	<% } %>
         </div>

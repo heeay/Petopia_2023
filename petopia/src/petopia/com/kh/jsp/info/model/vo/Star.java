@@ -2,8 +2,8 @@ package petopia.com.kh.jsp.info.model.vo;
 
 public class Star {
 
-	private int boardNo;
-	private int starScore;
+	private int boardNo; // 참조 게시글 번호
+	private int starScore; // 별점 수 (1 ~ 5)
 	
 	public Star() {
 		super();

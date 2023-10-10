@@ -3,11 +3,11 @@ package petopia.com.kh.jsp.info.model.vo;
 public class InfoFile {
 	
 	private int fileNo; // FILE_NO	NUMBER
-	private int refBno; // REF_BNO	NUMBER
+	private int refBno; // REF_BNO	NUMBER (참조 게시글 번호)
 	private String originalName; // ORIGINAL_NAME	VARCHAR2(500 BYTE)
 	private String uploadName; // UPLOAD_NAME	VARCHAR2(500 BYTE)
 	private String filePath; // FILE_PATH	VARCHAR2(1000 BYTE)
-	private int fileLevel; // FILE_LEVEL	NUMBER
+	private int fileLevel; // FILE_LEVEL	NUMBER (썸네일로 list에서 보여줄 파일은 1, 나머지는 2)
 	
 	public InfoFile() {
 		super();

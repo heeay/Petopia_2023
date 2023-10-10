@@ -38,57 +38,69 @@ public class ShareInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// POST 방식으로 받아왔음 => 인코딩 설정
 		request.setCharacterEncoding("UTF-8");
 		
+		// enctype이 multipart/form-data로 잘 전송되었을 경우 내용들을 수정할 수 있도록 조건을 걸어줌
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
+			// 전송파일의 용량 제한 (10Mbyte)
 			int maxSize = 1024 * 1024 * 100;
 			
+			// 전달될 파일을 저장할 서버의 폴더 경로 지정
 			String savePath = request.getServletContext().getRealPath("/resources/info_upfiles/");
 			
+			// 서버에 파일 업로드 (MyFileRenamePolicy()를 사용해서 파일명 수정해서 업로드)
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			// 값 뽑기 => 게시글 제목, 카테고리, 게시글 내용, 작성자 번호, 별점
 			String title = multiRequest.getParameter("title");
 			String category = multiRequest.getParameter("category");
 			String content = multiRequest.getParameter("content");
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
 			int star = Integer.parseInt(multiRequest.getParameter("star"));
 			
-			// 인포 가공
+			// VO로 가공 (Info)
 			Info in = new Info();
 			in.setInfoTitle(title);
 			in.setCategory(category);
 			in.setInfoContent(content);
 			in.setUserNo(userNo);
 			
-			// 첨부파일
+			// 첨부파일은 여러 개 첨부할 수 있으므로 ArrayList 사용
 			ArrayList<InfoFile> list = new ArrayList();
 			
+			// 키값 : file1 ~ file5
 			for (int i = 1; i <= 5; i++) {
 				String key = "file" + i;
 				
-				if(multiRequest.getOriginalFileName(key) != null) {
-					InfoFile iFile = new InfoFile();
-					iFile.setOriginalName(multiRequest.getOriginalFileName(key));
-					iFile.setUploadName(multiRequest.getFilesystemName(key));
-					iFile.setFilePath("resources/info_upfiles");
+				// 현재 반복하고 있는 키값을 통해 파일을 업로드했는지 파악
+				if(multiRequest.getOriginalFileName(key) != null) { // 파일이 존재한다면
 					
+					InfoFile iFile = new InfoFile(); // InfoFile 객체 생성
+					iFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
+					iFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
+					iFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
+					
+					// 파일 레벨을 지정하는 조건문
 					if(i == 1) {
-						iFile.setFileLevel(1);
+						iFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)
 					} else {
-						iFile.setFileLevel(2);
+						iFile.setFileLevel(2); // 나머지 파일의 파일 레벨은 2
 					}
 					list.add(iFile);
 				}
 			}
 			
-			int result = new InfoService().insertShareInfo(in, star, list);
+			// InfoService의 insertShareInfo 메소드를 호출해서 받아온 값을 result에 담음
+			int result = new InfoService().insertShareInfo(in, star, list); // Info VO와 별점수, 첨부파일 list 넘김
 			
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/share.in");
+			// 결과에 따른 응답 뷰 지정
+			if(result > 0) { // 성공
+				response.sendRedirect(request.getContextPath() + "/share.in"); // 인포 리스트 화면으로 돌아감
 			} else {
 				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); // 에러페이지로 가서 에러메시지 보여줌
 			}
 			
 		}
