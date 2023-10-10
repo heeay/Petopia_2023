@@ -106,6 +106,32 @@
 		   		
 	</entry>
 	
+	<entry key="updatePetImg">
+		 UPDATE 
+				TB_MYPAGE_FILE 
+			SET 
+				ORIGINAL_NAME=?,
+				UPLOAD_NAME=?,
+				FILE_PATH=? 
+		  WHERE 
+		  		FILE_MYPAGE_NO=?
+	</entry>
+	
+	<entry key="updatePet">
+		 UPDATE
+		 		TB_PET
+		 	SET 
+				PET_NAME=?,
+				PET_SPECIES=?,
+				PET_SPECIFIC=?,
+				PET_WEIGHT=?,
+				PET_GENDER=?,
+				PET_PERSONALITY=?,
+				PET_ETC=? 
+		  WHERE 
+		  		PET_NO=? 
+	</entry>
+	
 	
 	
 </properties>

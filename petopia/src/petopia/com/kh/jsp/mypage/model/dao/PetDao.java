@@ -28,7 +28,7 @@ public class PetDao {
 		}
 	}
 	public ArrayList<Pet> selectPetList(Connection conn, User loginUser) {
-		ArrayList<Pet> list = new ArrayList<Pet>();
+		ArrayList<Pet> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -179,6 +179,52 @@ public class PetDao {
 			close(pstmt);
 		}
 		return pt;
+	}
+	public int updatePetImg(Connection conn, PetFile pt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pt.getOriginalName());
+			pstmt.setString(2, pt.getUploadName());
+			pstmt.setString(3, pt.getFilePath());
+			pstmt.setInt(4, pt.getFileNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updatePet(Connection conn, Pet p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePet");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getPetName());
+			pstmt.setString(2, p.getPetSpecies());
+			pstmt.setString(3, p.getPetSpecific());
+			pstmt.setInt(4, p.getPetWeight());
+			pstmt.setString(5, p.getPetGender());
+			pstmt.setString(6, p.getPetPersonality());
+			pstmt.setString(7, p.getPetEtc());
+			pstmt.setInt(8, p.getPetNo());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	
