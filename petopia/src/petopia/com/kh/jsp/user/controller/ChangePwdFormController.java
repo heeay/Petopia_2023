@@ -26,6 +26,8 @@ public class ChangePwdFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String token = request.getParameter("token");
+		request.setAttribute("token", token);
 		request.getRequestDispatcher("views/user/changePwdView.jsp").forward(request, response);
 	}
 

@@ -80,12 +80,13 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			String urlPath = request.getContextPath()+"/changePassword?token="+token;
-			System.out.println(urlPath);
+			String url = request.getRequestURL().toString();
+			url = url.substring(0, url.lastIndexOf("/"));
+			String urlPath = url+"/changePassword?token="+token;
 			StringBuffer sb = new StringBuffer();
 			sb.append("<h3>[Petopia] 비밀번호 변경 링크</h3>");
 			sb.append("<h4>다음 링크를 통해 비밀번호를 변경해 주십시오.</h4>");
-			sb.append("<h3>링크 : <a href='"+urlPath+"'>link</a></h3>");
+			sb.append("<h3>링크 : <a href='"+urlPath+"'>"+urlPath+"</a></h3>");
 			sb.append("<h4>비밀번호 재설정을 요청하지 않았다면 이 이메일을 무시하셔도 됩니다.</h4>");
 			sb.append("<h4>감사합니다.</h4>");
 			String mailContent = sb.toString();

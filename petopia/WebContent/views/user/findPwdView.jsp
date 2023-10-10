@@ -120,29 +120,43 @@
                 }
             })
         });
-
+        
         function checkEmail(){
             const email = document.getElementById("email");
             const errEmail = document.getElementById("err-email");
             const regExpEmail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-            document.getElementById("log-email").style.display="none";
             if(email.value==""){
                 errEmail.style.display="block";
                 errEmail.innerText = "이메일을 입력해 주세요.";
-                email.style.borderColor = "#f53636";
                 emailFlag = false;
             }
             else if(!regExpEmail.test(email.value)){
                 errEmail.style.display="block";
                 errEmail.innerText = "올바른 이메일이 아닙니다. 이메일을 확인해 주세요.";
-                email.style.borderColor = "#f53636";
                 emailFlag = false;
             }
             else{
-                errEmail.style.display="none";
-                errEmail.innerText = "";
-                email.style = "";
-                emailFlag = true;
+                $.ajax({
+                    url : "emailCheck",
+			        type : "get",
+			        data : {email : email.value},
+			        success : function(result){
+                        console.log(result);
+				        if(result == "N"){
+                            errEmail.style.display="none";
+                            errEmail.innerText = "";
+                            emailFlag = true;
+				        }
+				        else{
+                            errEmail.style.display="block";
+                            errEmail.innerText = "가입되어있지 않는 이메일입니다.";
+                            emailFlag = false;
+				        }
+			        },
+			        error : function(e){
+				        console.log(e);
+			        }
+		        });
             }
         }
     </script>
