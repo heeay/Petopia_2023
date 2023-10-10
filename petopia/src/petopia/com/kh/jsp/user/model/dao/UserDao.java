@@ -89,7 +89,7 @@ public class UserDao {
 		String userEmail = "";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("checkUserEmail");
+		String sql = prop.getProperty("checkUserNo");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -306,10 +306,10 @@ public class UserDao {
 		return result;
 	}
 	
-	public int upadteUserPw(Connection conn, User user) {
+	public int updateUserPw(Connection conn, User user) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("upadteUserPw");
+		String sql = prop.getProperty("updateUserPw");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -320,7 +320,7 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println(result);
 		return result;
 	}
 }

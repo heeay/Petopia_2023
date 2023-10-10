@@ -137,7 +137,7 @@ public class UserService {
 	public int updateUserPw(User user) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new UserDao().upadteUserPw(conn, user);
+		int result = new UserDao().updateUserPw(conn, user);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}
