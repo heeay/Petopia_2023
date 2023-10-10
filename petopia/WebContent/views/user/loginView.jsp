@@ -338,7 +338,7 @@ if(cookies!=null){
             init();
         })
         function init() {
-            console.log("d");
+            console.log("init");
     	    gapi.load("auth2", function() {
     		    gapi.auth2.init();
     		    options = new gapi.auth2.SigninOptionsBuilder();
@@ -352,6 +352,7 @@ if(cookies!=null){
         }
 
         function onSignIn(googleUser) {
+            console.log("success");
         	var access_token = googleUser.getAuthResponse().access_token
         	$.ajax({
             	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
@@ -370,6 +371,7 @@ if(cookies!=null){
         	})
         }
         function onSignInFailure(e){
+            console.log("fail");
 	        console.log(e);
         }
     </script>
