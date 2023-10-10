@@ -167,7 +167,7 @@ public class MainBoardController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
-		// System.out.println(pi);
+		 System.out.println(pi);
 		
 		// 4) Service로 가자~
 		ArrayList<Board> list = new BoardService().selectList(pi);
