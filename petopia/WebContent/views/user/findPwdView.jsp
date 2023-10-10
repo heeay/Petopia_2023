@@ -48,6 +48,15 @@
             background-color: #DBDfA9;
             cursor: pointer;
         }
+        .find-pwd-error-wrap{
+            width: 450px;
+            margin: auto;
+            margin-bottom: 5px;
+            color:#f53636;
+            font-size: 13px;
+            font-weight: bold;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -56,15 +65,62 @@
         <div class="sub-title">
             비밀번호 변경 및 찾기
         </div>
-        <form action="">
-            <div class="input-wrap">
-                <input id="email" type="text" name="email" placeholder="이메일" autocomplete="off">
-            </div>
-            <div class="submit-wrap">
-                <button id="submit" type="button">재설정 링크 발송</button>
-            </div>
-        </form>
+        <div class="input-wrap">
+            <input id="email" type="text" name="email" placeholder="이메일" autocomplete="off">
+        </div>
+        <div class="find-pwd-error-wrap" id="err-email" style="display: none;">
+            <!--이메일을 입력해 주세요.-->
+        </div>
+        <div class="submit-wrap">
+            <button id="submit" type="button">재설정 링크 발송</button>
+        </div>
     </section>
+    <script>
+        let emailFlag = false;
+        $(document).ready(function(){
+            $("email").focusout(function(){
+                console.log("1");
+                checkEmail();
+            });
+            $("submit").click(function(){
+                $.ajax({
+                    url : "findPasswordEmail",
+                    type : "get",
+                    data : {
+                        email : email.value,
+                    },
+                    success : function(result){
+                        console.log(result);
+                        /*if(result == "true"){
+                        }
+                        else{
+                        }*/
+                    },
+                    error : function(e){
+                        console.log(e);
+                    }
+                })
+            })
+        });
+
+        function checkEmail(){
+            const email = document.getElementById("email");
+            const errEmail = document.getElementById("err-email");
+            const regExpEmail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+            if(email.value==""){
+                errEmail.style.display="block";
+                errEmail.innerText = "이메일을 입력해 주세요.";
+                email.style.borderColor = "#f53636";
+                emailFlag = false;
+            }
+            else if(!regExpEmail.test(email.value)){
+                errEmail.style.display="block";
+                errEmail.innerText = "올바른 이메일이 아닙니다. 이메일을 확인해 주세요.";
+                email.style.borderColor = "#f53636";
+                emailFlag = false;
+            }
+        }
+    </script>
     <%@include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -75,7 +75,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			transport.connect(fromEmail, password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
-			System.out.println("비밀번호 재설정 링크 메일 전송");
+			System.out.println("비밀번호 재설정 링크 메일 전송 성공");
 			
 			success = true;
 		} catch (UnsupportedEncodingException | MessagingException e) {
