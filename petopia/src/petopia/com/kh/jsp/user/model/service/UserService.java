@@ -15,6 +15,14 @@ public class UserService {
 		
 		return user;
 	}
+	public User updateUser(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		User user = new UserDao().updateUser(conn, userNo);
+		JDBCTemplate.close(conn);
+		
+		return user;
+	}
 	public int insertUser(User user) {
 		Connection conn = JDBCTemplate.getConnection();
 		

@@ -36,7 +36,7 @@ public class ChangePwdFormController extends HttpServlet {
 			request.setAttribute("key", key);
 			request.getRequestDispatcher("views/user/changePwdView.jsp").forward(request, response);
 		} else {
-			request.setAttribute("errorMsg", "토큰이 변경되거나 만료되었습니다.");
+			request.setAttribute("errorMsg", "토큰이 사용되거나 만료되었습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
