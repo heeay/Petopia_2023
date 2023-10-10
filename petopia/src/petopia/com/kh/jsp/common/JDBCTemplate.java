@@ -19,7 +19,7 @@ public class JDBCTemplate {
 		Properties prop = new Properties();
 		
 		try {
-			String filePath = JDBCTemplate.class.getResource("/sql/driver/driver.properties").getPath();
+			String filePath = JDBCTemplate.class.getResource("/sql/properties/driver.properties").getPath();
 			prop.load(new FileInputStream(filePath));
 			
 			Class.forName(prop.getProperty("driver"));
