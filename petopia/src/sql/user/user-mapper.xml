@@ -45,6 +45,16 @@ VALUES(
 	?
 )
 </entry>
+<entry key="checkUserNo">
+SELECT
+	USER_EMAIL
+FROM
+	TB_USER
+WHERE
+	USER_NO = ?
+AND
+	USER_METHOD = 0
+</entry>
 <entry key="checkUserEmail">
 SELECT
 	USER_NO
@@ -95,6 +105,14 @@ WHERE
 AND
 	EMAIL_AUTH_CODE = ?
 </entry>
+<entry key="selectToken">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_CODE = ?
+</entry>
 <entry key="deleteEmailAuth">
 DELETE FROM
 	TB_EMAIL_AUTH
@@ -142,5 +160,13 @@ VALUES(
 	?,
 	?||SEQ_USER_NO.CURRVAL
 )
+</entry>
+<entry key="updateUserPw">
+UPDATE
+	TB_USER
+SET
+	USER_PASS = ?
+WHERE
+	USER_NO = ?
 </entry>
 </properties>

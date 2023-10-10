@@ -32,10 +32,10 @@ public class AjaxCheckEmailController extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		
-		boolean isThere = new UserService().checkUserEmail(email);
+		int userNo = new UserService().checkUserEmail(email);
 		
 		response.setContentType("text/html; charset=UTF-8");
-		if(isThere) {
+		if(userNo!=0) {
 			response.getWriter().print("N");
 		} else {
 			response.getWriter().print("Y");

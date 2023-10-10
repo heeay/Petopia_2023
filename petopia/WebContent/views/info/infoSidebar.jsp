@@ -48,14 +48,13 @@
 	<%@ include file="../common/header-min.jsp" %>
     
     <div id="info-side-wrap">
-    	<!-- <input type="text" name="ctgNo" value=""> -->
         <div id="info-side">
             <ul id="info-category">
                 <li><a id="info-board">📢정보공유</a>
                     <ul id="sub-info" style="display: none;">
-                    	<li><a href="<%= contextPath %>/share.in" id="ctgWith">🐾애견동반</a></li>
-                        <li><a>🦴애견용품</a></li>
-                        <li><a>🏥병원</a></li>
+                    	<li><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">🐾애견동반</a></li>
+                        <li><a href="<%= contextPath %>/share.in?ictg=13&ipage=1">🦴애견용품</a></li>
+                        <li><a href="<%= contextPath %>/share.in?ictg=14&ipage=1">🏥병원</a></li>
                     </ul>
                 </li>
                 <li><a>⚾트레이닝 센터</a></li>
@@ -79,8 +78,6 @@
             });
         });
 	</script>
-      
     
-
 </body>
 </html>

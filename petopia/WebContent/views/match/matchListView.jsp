@@ -19,7 +19,7 @@
         }
 
     #side-menu-wrap{
-        width: 220px;
+        width: 100px;
         height: 100%;
         float: right;
     }
@@ -131,6 +131,78 @@
     	margin : 5px;
     }
 
+    .w-btn-outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+    
+    .w-btn-gray-outline {
+    border: 3px solid #a3a1a1;
+    color: #6e6e6e;
+}
+.w-btn-gray-outline:hover {
+    background-color: #a3a1a1;
+    color: #e3dede;
+}
+
+
+
+    #search-bar{
+        position : relative;
+        display : flex;
+        width : 50%;
+        align-items: center;
+    }
+
+    #search-icon{
+        position : absolute;
+        right : 10px;
+    }
+
+    #search-text {
+        width: 100%; /*search-bar의 100%길이란 뜻*/
+    
+        /* border: 1px solid #bbb; */
+        
+        border-radius: 10px;
+        padding : 1%;
+        font-size: 15px;
+    
+    }
+
+    #search-help{
+        display : flex;
+        width : 100%;
+        align-items: center;
+    }
+    #search-radio{
+        /* border: 1px solid green; */
+        
+        margin-left : 10px;
+        box-sizing: border-box;
+    }
+
+    #search-btn{
+        display : none;
+    }
+  
+  	.content {
+  		cursor:pointer;
+  		opactity: 0.9;
+  	}
+
+   
+
+
+
+</style>
+
 </style>
 </head>
 <body>
@@ -153,22 +225,46 @@
 
 
         <div id="wrapper">
-            <div id="content-area">
-                <div id="search-bar">
-                    <div id="search-form">검색바<i class="fas fa-search"></i>
-                    <input type="radio">제목
-                    <input type="radio">작성자
-                </div>
-                    <div id="search-view">
-                    <select name="" id="">
-                        <option value="">게시글 4개씩 보기</option>
-                        <option value="">게시글 2개씩 보기</option>
-                        <option value="">게시글 8개씩 보기</option>
-                    </select>   
+
+            <div id="search-area">
+
+                <div id="search-help">
+                    <div id="search-bar">
+                        <form action="main.mp" method="get" id="search-form">
+                            <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
+                            <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
+                        </form>
                     </div>
+    
+            <script>
+                $(function(){
+                    $('#search-icon').click(function(){
+                        // ???
+                        $('#search-btn').submit();
+                    })
+                });
+            </script>
+    
+                    <div id="search-radio">
+                        <input type="radio" name="">제목
+                        <input type="radio" name="">작성자
+                    </div>
+    
                 </div>
     
+                   
     
+                    <div id="search-view">
+                        <select name="" id="">
+                            <option value="">게시글 4개씩 보기</option>
+                            <option value="">게시글 2개씩 보기</option>
+                            <option value="">게시글 8개씩 보기</option>
+                        </select>   
+                        
+                    </div>
+                
+            </div>
+            <div id="content-area">
                 <div class="content-box">
                     <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
@@ -252,10 +348,14 @@
                     <button type="button" class="btn btn-dark">5</button>
                     <button type="button" class="btn btn-dark">></button>
                 </div>
-            </div>
+
+                
+        <div id="write-button">
+            <a href="<%=contextPath%>/enroller.pb" class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기     </a>     
         </div>
 
-        
+            </div>
+        </div>
 
 </section>
 <%@include file="../common/footer.jsp" %>

@@ -234,7 +234,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 </div>
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
                 </ul>
@@ -267,7 +267,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp">커뮤니티</a></li>
                 <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
                 <li class="header-navi-item"><a href="#">행사</a></li>
-                <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
+                <li class="header-navi-item"><a href="<%=contextPath %>/views/match/matchListView.jsp">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
                 <%if(userInfo == null){ %>

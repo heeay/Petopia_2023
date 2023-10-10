@@ -1,5 +1,6 @@
 package petopia.com.kh.jsp.user.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -49,20 +50,26 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 		String password = "ekbc gagq amwi gquu";
 		String fromUsername = "펫토피아";
 		
-		Properties props = new Properties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587"); //465, 587
-		props.put("mail.smtp.auth", "true");
 		
-		props.put("mail.smtp.quitwait", "false");
-		props.put("mail.smtp.socketFactory.port", "587");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.socketFactory.fallback", "true");
-		props.put("mail.smtp.starttls.enable", "true");
+		String filePath = AjaxRegisterEmailAuthController.class.getResource("/sql/properties/email.properties").getPath();
+		Properties prop = new Properties();
+		prop.load(new FileInputStream(filePath));
+		/*
+		prop.put("mail.transport.protocol", "smtp");
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", "587"); //465, 587
+		prop.put("mail.smtp.auth", "true");
 		
-		Session session = Session.getDefaultInstance(props);
+		prop.put("mail.smtp.quitwait", "false");
+		prop.put("mail.smtp.socketFactory.port", "587");
+		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		prop.put("mail.smtp.socketFactory.fallback", "true");
+		prop.put("mail.smtp.starttls.enable", "true");
+		*/
+		
+		Session session = Session.getDefaultInstance(prop);
 		Message message = new MimeMessage(session);
+		response.setContentType("text/html; charset=UTF-8");
 		try {
 			message.setFrom(new InternetAddress(fromEmail, fromUsername));
 			message.addRecipient(RecipientType.TO, new InternetAddress(toEmail));
@@ -89,19 +96,19 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			sb.append("<h3>[Petopia] 회원 가입 인증 번호입니다.</h3>\n");
 			sb.append("<h4>아래의 인증번호를 입력해 주십시오.</h4>\n");
 			sb.append("<h3>인증 번호 : <span style='color:red'>"+ cNumber +"</span></h3>\n");
+			sb.append("<h4>감사합니다.</h4>\n");
 			String mailContent = sb.toString();
 			mTextPart.setText(mailContent,"UTF-8","html");
 			mParts.addBodyPart(mTextPart);
 			message.setContent(mParts);
-			Transport t =session.getTransport("smtp");
-			t.connect(fromEmail, password);
-			System.out.println("인증메일전송");
-			t.sendMessage(message, message.getAllRecipients());
-			t.close();
+			Transport transport = session.getTransport(prop.getProperty("mail.transport.protocol"));
+			transport.connect(fromEmail, password);
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+			System.out.println("이메일 인증 메일 전송 성공");
 			
 			int result = new UserService().insertEmailAuth(toEmail,cNumber);
 			
-			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().print(result);
 			
 		} catch (UnsupportedEncodingException | MessagingException e) {

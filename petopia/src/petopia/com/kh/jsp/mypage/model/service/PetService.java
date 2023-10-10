@@ -27,10 +27,7 @@ public class PetService {
 		if(pt != null) {
 			result2 = new PetDao().insertPetImg(conn, pt);
 		}
-		
 		int result1 = new PetDao().insertPet(conn, p);
-		
-		// 프로필 사진 넣을수도 안넣을 수도 있음
 		
 		if((result1*result2)>0) {
 			commit(conn);
@@ -59,6 +56,38 @@ public class PetService {
 		PetFile pt = new PetDao().selectPetFile(conn, petNo);
 		close(conn);
 		return pt;
+	}
+
+	public int updatePetProfil(Pet p, PetFile pt) {
+		Connection conn = getConnection();
+		
+		int result2 = 1;
+		
+		if(pt != null) {
+			result2 = new PetDao().updatePetImg(conn, pt);
+		}
+		
+		int result1 = new PetDao().updatePet(conn, p);
+		
+		if((result1*result2)>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return (result1*result2);
+	}
+
+	public int petDelete(int petNo) {
+		Connection conn = getConnection();
+		//int result2 = new PetDao().petImgDelete(conn, petFileNo);
+		int result1 = new PetDao().petDelete(conn, petNo);
+		
+		if(result1>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return (result1);
 	}
 
 	

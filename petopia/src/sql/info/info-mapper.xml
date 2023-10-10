@@ -4,6 +4,7 @@
 
 	<comment>정보제공 관련 SQL문</comment>
 
+	<!-- 게시글 작성 폼에서 카테고리 리스트를 보여줄 SQL -->
 	<entry key="selectInfoCategory">
 		SELECT
 			   CTG_NO,
@@ -11,12 +12,13 @@
 		  FROM 
 		  	   TB_CATEGORY
 		 WHERE 
-		 	   CTG_NO > 12
+		 	   CTG_NO >= 12
 		 ORDER 
 		 	BY 
 		 	   CTG_NO ASC
 	</entry>
 	
+	<!-- 게시글을 INSERT하는 SQL -->
 	<entry key="insertShareInfo">
 		INSERT
 		  INTO
@@ -40,6 +42,7 @@
 			   )
 	</entry>
 	
+	<!-- 별점을 INSERT하는 SQL -->
 	<entry key="insertStar">
 		INSERT
 		  INTO
@@ -55,6 +58,7 @@
 			   )
 	</entry>
 	
+	<!-- 첨부파일 리스트를 INSERT하는 SQL -->
 	<entry key="insertFileList">
 		INSERT
 		  INTO
@@ -78,13 +82,14 @@
 		 	    )
 	</entry>
 	
+	<!-- 게시글 수를 구하는 SQL -->
 	<entry key="selectListCount">
 		SELECT
 			   COUNT(BOARD_NO) "BOARD_COUNT"
 		  FROM 
 		  	   TB_BOARD
 		 WHERE 
-		 	   CTG_NO = 13
+		 	   CTG_NO = ?
 	</entry>
 	
 
