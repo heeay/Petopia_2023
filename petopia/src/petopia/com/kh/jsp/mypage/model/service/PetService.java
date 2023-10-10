@@ -8,6 +8,7 @@ import petopia.com.kh.jsp.mypage.model.dao.PetDao;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
+import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public class PetService {
@@ -88,6 +89,20 @@ public class PetService {
 			rollback(conn);
 		}
 		return (result1);
+	}
+
+	public int insertSuggestion(Suggestion sug, ArrayList<PetFile> list) {
+		Connection conn = getConnection();
+		int result1 = new PetDao().insertSuggestion(conn, sug);
+		int result2 = new PetDao().insertSuggestionFile(conn, list);
+		
+		if((result1*result2) > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return (result1*result2);
 	}
 
 	

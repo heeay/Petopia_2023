@@ -1,17 +1,16 @@
 package petopia.com.kh.jsp.common.model.vo;
 
 public class File {
-	private String fileNo;
-	private String refBno;
+	private int fileNo;
+	private int refBno;
 	private String originalName;
 	private String uploadName;
 	private String filePath;
-	private String fileLevel;
+	private int fileLevel;
 	public File() {
 		super();
 	}
-	public File(String fileNo, String refBno, String originalName, String uploadName, String filePath,
-			String fileLevel) {
+	public File(int fileNo, int refBno, String originalName, String uploadName, String filePath, int fileLevel) {
 		super();
 		this.fileNo = fileNo;
 		this.refBno = refBno;
@@ -20,16 +19,16 @@ public class File {
 		this.filePath = filePath;
 		this.fileLevel = fileLevel;
 	}
-	public String getFileNo() {
+	public int getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(String fileNo) {
+	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
 	}
-	public String getRefBno() {
+	public int getRefBno() {
 		return refBno;
 	}
-	public void setRefBno(String refBno) {
+	public void setRefBno(int refBno) {
 		this.refBno = refBno;
 	}
 	public String getOriginalName() {
@@ -50,10 +49,10 @@ public class File {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
-	public String getFileLevel() {
+	public int getFileLevel() {
 		return fileLevel;
 	}
-	public void setFileLevel(String fileLevel) {
+	public void setFileLevel(int fileLevel) {
 		this.fileLevel = fileLevel;
 	}
 	@Override
@@ -61,5 +60,4 @@ public class File {
 		return "File [fileNo=" + fileNo + ", refBno=" + refBno + ", originalName=" + originalName + ", uploadName="
 				+ uploadName + ", filePath=" + filePath + ", fileLevel=" + fileLevel + "]";
 	}
-	
 }
