@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
@@ -171,7 +172,42 @@ public class InfoDao {
 		return listCount;
 	}
 	
-	
+	public ArrayList<Info> selectList(Connection conn, PageInfo pi) {
+		
+		ArrayList<Info> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Info i = new Info();
+				i.setInfoTitle(rset.getString("INFO_TITLE"));
+				i.setInfoContent(rset.getString("INFO_CONTENT"));
+				i.setTitleImg(rset.getString("TITLE_IMG"));
+				
+				list.add(i);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 }
