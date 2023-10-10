@@ -100,10 +100,6 @@
     #search-btn{
         display : none;
     }
-  
-
-   
-
 
 
 </style>
@@ -193,19 +189,18 @@
             <thead>
                 <tr>
                     <th width="100">글번호</th>
-                    <th width="100">이미지파일번호</th>
-                    <th width="300">제목</th>
+                    <th width="100">파일번호</th>
+                    <th width="200">제목</th>
                     <th width="100">작성자</th>
                     <th width="50">조회수</th>
                     <th width="100">작성일</th>
                     <th width="100">카테고리번호</th>
-                    <th width="100">펫카테고리번호</th>
+                    <th width="200">펫카테고리번호</th>
                 </tr>
             </thead>
             
-            <br>
-            
             <tbody>
+          
 
             	<% if(list.isEmpty()) { %>
 	                <tr>
@@ -235,7 +230,7 @@
 
             $(function(){
             	
-                $('.list-area > tbody > tr').click(function(){
+                $('.content-area > tbody > tr').click(function(){
                     location.href = '<%=contextPath%>/detail.bo?bno=' + $(this).children().eq(0).text();
                 });
                 
