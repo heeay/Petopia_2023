@@ -4,7 +4,7 @@
 <%
 	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-
+	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -152,7 +152,11 @@
                     
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
-                            <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
+                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
+                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
+                        	<% } else {%>
+                        		<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
+                        	<% } %>
                         </div>
                         
                         <div>
@@ -160,7 +164,7 @@
                                 <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
                             </div>
                             <div style="margin-left: 30px; padding-bottom: 15px;">
-                                <button type="submit" class="btn btn-sm btn-secondary" onclick="insertUserProfil()">유저프로필 등록</button>
+                                <button type="submit" class="btn btn-sm btn-secondary">유저프로필 등록</button>
                             </div>
                         </div>
                     </div>
