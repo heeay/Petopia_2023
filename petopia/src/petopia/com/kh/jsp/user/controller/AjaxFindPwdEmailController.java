@@ -3,7 +3,10 @@ package petopia.com.kh.jsp.user.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -61,10 +64,27 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			Multipart mParts = new MimeMultipart();
 			MimeBodyPart mTextPart = new MimeBodyPart();
 			
+			String token = "";
+			try {
+				byte[] arr = new byte[10];
+				new Random().nextBytes(arr);
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				md.update(arr);
+				
+				byte[] bytes = md.digest();
+				StringBuilder builder = new StringBuilder();
+				for(int i=0;i<bytes.length;i++) {
+					builder.append(String.format("%02X", bytes[i]));
+				}
+				token = builder.toString();
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			String urlPath = request.getContextPath()+"/changePassword?token="+token;
 			StringBuffer sb = new StringBuffer();
 			sb.append("<h3>[Petopia] 비밀번호 변경 링크</h3>");
 			sb.append("<h4>다음 링크를 통해 비밀번호를 변경해 주십시오.</h4>");
-			sb.append("<h3>링크 : <a>link</a></h3>");
+			sb.append("<h3>링크 : <a href='"+urlPath+"'>link</a></h3>");
 			sb.append("<h4>비밀번호 재설정을 요청하지 않았다면 이 이메일을 무시하셔도 됩니다.</h4>");
 			sb.append("<h4>감사합니다.</h4>");
 			String mailContent = sb.toString();
@@ -75,7 +95,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			transport.connect(fromEmail, password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
-			System.out.println("비밀번호 재설정 링크 메일 전송");
+			System.out.println("비밀번호 재설정 링크 메일 전송 성공");
 			
 			success = true;
 		} catch (UnsupportedEncodingException | MessagingException e) {
