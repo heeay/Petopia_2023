@@ -17,6 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
+import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -56,11 +57,11 @@ public class UserProfilController extends HttpServlet {
 				pt.setFilePath("resources/user_upfiles");
 			}
 			
-			int result1 = new PetService().insertUserProfil(pt);
-			int result2 = new PetService().updateUserProfil(loginUser);
+			int result = new PetService().insertUserProfil(pt, loginUser);
 			
-			if(result1*result2>0) {
-				request.getSession().setAttribute("alertMsg", "유저프로필 등록 성공");
+			
+			if(result>0) {
+				request.getSession().setAttribute("userInfo", new UserService().updateUser(loginUser.getUserNo()));
 				response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
 			}else {
 				// 첨푸파일을 넣었지만 insert 실패했을때

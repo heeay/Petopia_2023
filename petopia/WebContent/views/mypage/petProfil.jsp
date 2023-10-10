@@ -153,9 +153,9 @@
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
                         	<% if(userInfo.getFileMypageNo().equals("/")) {%>
-                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
+                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px">
                         	<% } else {%>
-                        		<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
+                        		<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px">
                         	<% } %>
                         </div>
                         
@@ -219,7 +219,7 @@
                         
                         <% if(list.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="3" align="center">등록된 프로필이 없습니다.</td>
+                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
                         	<% for(int i = 0; i<list.size(); i++){ %>
