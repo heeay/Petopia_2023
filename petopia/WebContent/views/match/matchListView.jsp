@@ -131,6 +131,26 @@
     	margin : 5px;
     }
 
+    .w-btn-outline {
+    position: relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+    
+    .w-btn-gray-outline {
+    border: 3px solid #a3a1a1;
+    color: #6e6e6e;
+}
+.w-btn-gray-outline:hover {
+    background-color: #a3a1a1;
+    color: #e3dede;
+}
+
 </style>
 </head>
 <body>
@@ -252,10 +272,14 @@
                     <button type="button" class="btn btn-dark">5</button>
                     <button type="button" class="btn btn-dark">></button>
                 </div>
-            </div>
+
+                
+        <div id="write-button">
+            <button class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기</button>            
         </div>
 
-        
+            </div>
+        </div>
 
 </section>
 <%@include file="../common/footer.jsp" %>
