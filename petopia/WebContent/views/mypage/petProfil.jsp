@@ -164,7 +164,7 @@
                                 <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
                             </div>
                             <div style="margin-left: 30px; padding-bottom: 15px;">
-                                <button type="submit" class="btn btn-sm btn-secondary">유저프로필 등록</button>
+                                <button type="submit" class="btn btn-sm btn-warning">유저프로필 등록</button>
                             </div>
                         </div>
                     </div>
