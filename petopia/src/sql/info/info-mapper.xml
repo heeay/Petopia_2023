@@ -11,7 +11,7 @@
 		  FROM 
 		  	   TB_CATEGORY
 		 WHERE 
-		 	   CTG_NO > 12
+		 	   CTG_NO >= 12
 		 ORDER 
 		 	BY 
 		 	   CTG_NO ASC
