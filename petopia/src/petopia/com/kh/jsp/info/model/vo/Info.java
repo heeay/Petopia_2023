@@ -14,7 +14,7 @@ public class Info {
 	private int fileNo; // FILE_NO	NUMBER
 	private int categoryNo; // CTG_NO	NUMBER
 	private int petCategoryNo; // PET_CTG_NO	NUMBER
-	private String category;
+	private String category; // 카테고리명을 담기 위해 String형의 category를 만듦
 	
 	public Info() {
 		super();
