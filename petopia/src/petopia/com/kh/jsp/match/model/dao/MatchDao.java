@@ -2,8 +2,11 @@ package petopia.com.kh.jsp.match.model.dao;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.close;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -15,7 +18,17 @@ public class MatchDao {
 
 	private Properties prop = new Properties();
 	
+	public MatchDao() {
+		String filePath = MatchDao.class.getResource("/sql/match/match-mapper.xml").getPath();
+		try {
+			prop.loadFromXML(new FileInputStream(filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
 	public int insertThumbnailBoard(Connection conn, Match m) {
+		
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -27,8 +40,8 @@ public class MatchDao {
 			pstmt.setString(1, m.getMeetBoardTitle());
 			pstmt.setString(2, m.getPetInfo());
 			pstmt.setString(3, m.getHopeActivity());
-			pstmt.setInt(3, Integer.parseInt(m.getUserNo()));
-			pstmt.setInt(4, Integer.parseInt(m.getPetNo()));
+			pstmt.setString(4, (m.getUserNo()));
+			pstmt.setString(5, (m.getPetNo()));
 			
 			result = pstmt.executeUpdate();
 			

@@ -187,8 +187,14 @@
 
 
             <div class="profil-bar">
-                <div class="profil"><img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필"></div>
-                <div id="profil-name"><a href="#"><%=userInfo.getUserNickname() %> 님</a></div>
+                <div class="profil">
+                <% if(userInfo.getFileMypageNo().equals("/")) {%>
+                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필">
+                <% } else {%>
+                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                <% } %>
+                </div>
+                <div id="profil-name"><b><%=userInfo.getUserNickname() %> 님</b></div>
             </div>
 
             <div id="sidemenu">
