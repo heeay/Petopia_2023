@@ -30,6 +30,14 @@ public class UserService {
 		return result;
 	}
 	
+	public String checkUserNo(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String userEmail = new UserDao().checkUserNo(conn, userNo);
+		JDBCTemplate.close(conn);
+		
+		return userEmail;
+	}
 	public int checkUserEmail(String email) {
 		Connection conn = JDBCTemplate.getConnection();
 		

@@ -85,6 +85,27 @@ public class UserDao {
 		return result;
 	}
 	
+	public String checkUserNo(Connection conn, int userNo) {
+		String userEmail = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkUserEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				userEmail = rset.getString("USER_EMAIL");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return userEmail;
+	}
 	public int checkUserEmail(Connection conn, String email) {
 		int userNo = 0;
 		PreparedStatement pstmt = null;

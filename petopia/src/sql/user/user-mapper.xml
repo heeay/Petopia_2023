@@ -45,6 +45,16 @@ VALUES(
 	?
 )
 </entry>
+<entry key="checkUserNo">
+SELECT
+	USER_EMAIL
+FROM
+	TB_USER
+WHERE
+	USER_NO = ?
+AND
+	USER_METHOD = 0
+</entry>
 <entry key="checkUserEmail">
 SELECT
 	USER_NO

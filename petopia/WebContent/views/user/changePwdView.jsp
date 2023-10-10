@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 String token = (String)request.getAttribute("token");
-String email = (String)request.getAttribute("email");
+String key = (String)request.getAttribute("key");
 %>
 <!DOCTYPE html>
 <html>
@@ -66,9 +66,9 @@ String email = (String)request.getAttribute("email");
 <body>
 	<%@include file="../common/header-min.jsp" %>
 	<section>
-        <form id="change-pw-form" action="<%=contextPath %>/changePassword" method="post">
+        <form id="change-pw-form" action="<%=contextPath %>/changePassword.process" method="post">
             <input type="hidden" name="token" value="<%=token %>">
-            <input type="hidden" name="email" value="<%=email %>">
+            <input type="hidden" name="key" value="<%=key %>">
             <div class="sub-title">
                 비밀번호 변경
             </div>
@@ -85,14 +85,14 @@ String email = (String)request.getAttribute("email");
                 <!--비밀번호를 입력해 주세요.-->
             </div>
             <div class="submit-wrap">
-                <button id="submit" type="button">변경</button>
+                <button id="change-pw-submit" type="button">변경</button>
             </div>
         </form>
     </section>
     <script>
         let pwFlag = false;
         $(document).ready(function(){
-            $("#submit").click(function(){
+            $("#change-pw-submit").click(function(){
                 checkPw();
 
                 if(pwFlag){
@@ -114,36 +114,26 @@ String email = (String)request.getAttribute("email");
             if(pw.value==""){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호를 입력해 주세요.";
-                pw.style.borderColor = "#f53636";
-                pwCheck.style = "";
                 pwFlag = false;
             }
             else if(!regExpPw.test(pw.value)){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호는 영어와 숫자만 가능합니다.";
-                pw.style.borderColor = "#f53636";
-                pwCheck.style = "";
                 pwFlag = false;
             }
             else if(pwCheck.value==""){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호 확인을 입력해 주세요.";
-                pw.style = "";
-                pwCheck.style.borderColor = "#f53636";
                 pwFlag = false;
             }
             else if(pwCheck.value!=pw.value){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호 확인이 일치하지 않습니다.";
-                pw.style = "";
-                pwCheck.style.borderColor = "#f53636";
                 pwFlag = false;
             }
             else{
                 errPw.style.display="none";
                 errPw.innerText = "";
-                pw.style = "";
-                pwCheck.style = "";
                 pwFlag = true;
             }
         }
