@@ -161,4 +161,12 @@ VALUES(
 	?||SEQ_USER_NO.CURRVAL
 )
 </entry>
+<entry key="updateUserPw">
+UPDATE
+	TB_USER
+SET
+	USER_PASS = ?
+WHERE
+	USER_NO = ?
+</entry>
 </properties>
