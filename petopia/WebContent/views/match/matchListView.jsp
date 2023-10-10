@@ -230,7 +230,7 @@
 
                 <div id="search-help">
                     <div id="search-bar">
-                        <form action="main.mp" method="get" id="search-form">
+                        <form action="main.pb" method="get" id="search-form">
                             <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
                             <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
                         </form>
