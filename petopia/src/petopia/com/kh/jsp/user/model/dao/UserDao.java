@@ -50,6 +50,42 @@ public class UserDao {
 				user.setUserCreateDate(rset.getDate("USER_CREATE_DATE"));
 				user.setUserUpdateDate(rset.getDate("USER_UPDATE_DATE"));
 				user.setUserEnableState(rset.getString("USER_ENABLE_STATE"));
+				user.setFileMypageNo(rset.getString("PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println(user);
+		return user;
+	}
+	public User updateUser(Connection conn, int userNo) {
+		User user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("updateUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user = new User();
+				user.setUserNo(rset.getInt("USER_NO"));
+				user.setUserMethod(rset.getInt("USER_METHOD"));
+				user.setUserEmail(rset.getString("USER_EMAIL"));
+				user.setUserPass(rset.getString("USER_PASS"));
+				user.setUserNickname(rset.getString("USER_NICKNAME"));
+				user.setUserPhone(rset.getString("USER_PHONE"));
+				user.setRoleId(rset.getString("ROLE_NAME"));
+				user.setUserCreateDate(rset.getDate("USER_CREATE_DATE"));
+				user.setUserUpdateDate(rset.getDate("USER_UPDATE_DATE"));
+				user.setUserEnableState(rset.getString("USER_ENABLE_STATE"));
+				user.setFileMypageNo(rset.getString("PATH"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

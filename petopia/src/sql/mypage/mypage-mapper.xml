@@ -211,4 +211,13 @@
 				)
 	</entry>
 	
+	<entry key="updateUserProfil">
+		 UPDATE
+		 		TB_USER
+		    SET 
+		    	FILE_MYPAGE_NO = SEQ_MYPAGE_FILE_NO.CURRVAL
+		  WHERE 
+		  		USER_NO=?
+	</entry>
+	
 </properties>

@@ -116,5 +116,16 @@ public class PetService {
 		return result;
 	}
 
+	public int updateUserProfil(User loginUser) {
+		Connection conn = getConnection();
+		int result = new PetDao().updateUserProfil(conn, loginUser);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 }

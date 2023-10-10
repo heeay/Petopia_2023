@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -16,6 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
+import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
  * Servlet implementation class UserProfilController
@@ -36,12 +38,13 @@ public class UserProfilController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		User loginUser = ((User)session.getAttribute("userInfo"));
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024*1024*10;
 			String savePath = request.getServletContext().getRealPath("/resources/user_upfiles/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
-			//int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
 			
 			PetFile pt = null;
 			
@@ -53,9 +56,10 @@ public class UserProfilController extends HttpServlet {
 				pt.setFilePath("resources/user_upfiles");
 			}
 			
-			int result = new PetService().insertUserProfil(pt);
+			int result1 = new PetService().insertUserProfil(pt);
+			int result2 = new PetService().updateUserProfil(loginUser);
 			
-			if(result>0) {
+			if(result1*result2>0) {
 				request.getSession().setAttribute("alertMsg", "유저프로필 등록 성공");
 				response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
 			}else {
