@@ -89,7 +89,7 @@
 		  FROM 
 		  	   TB_BOARD
 		 WHERE 
-		 	   CTG_NO = 13
+		 	   CTG_NO = ?
 	</entry>
 	
 

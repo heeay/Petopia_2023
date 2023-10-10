@@ -146,7 +146,7 @@ public class InfoDao {
 	 * 게시글 수를 돌려줄 메소드
 	 * @return 게시글 수
 	 */
-	public int selectListCount(Connection conn) {
+	public int selectListCount(Connection conn, int ctgNo) {
 		
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -155,7 +155,7 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+			pstmt.setInt(1, ctgNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {

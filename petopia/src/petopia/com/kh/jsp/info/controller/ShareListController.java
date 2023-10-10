@@ -30,6 +30,9 @@ public class ShareListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// petopia/share.in?ictg=12
+		
+		int ctgNo;
 		int listCount;
 		int currentPage;
 		int pageLimit;
@@ -38,9 +41,12 @@ public class ShareListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		listCount = new InfoService().selectListCount(); // 특정 카테고리의 게시글만 조회
+		// 사용자가 클릭한 카테고리에 따른 카테고리 번호
+		ctgNo = Integer.parseInt(request.getParameter("ictg"));
 		
+		listCount = new InfoService().selectListCount(ctgNo); // 특정 카테고리의 게시글만 조회
 		
+		System.out.println(ctgNo);
 		
 		
 		
