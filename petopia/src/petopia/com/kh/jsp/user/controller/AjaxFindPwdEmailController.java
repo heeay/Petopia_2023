@@ -81,6 +81,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 				e.printStackTrace();
 			}
 			String urlPath = request.getContextPath()+"/changePassword?token="+token;
+			System.out.println(urlPath);
 			StringBuffer sb = new StringBuffer();
 			sb.append("<h3>[Petopia] 비밀번호 변경 링크</h3>");
 			sb.append("<h4>다음 링크를 통해 비밀번호를 변경해 주십시오.</h4>");
