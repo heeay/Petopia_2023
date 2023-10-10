@@ -1,6 +1,7 @@
 package petopia.com.kh.jsp.info.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.service.InfoService;
+import petopia.com.kh.jsp.info.model.vo.Info;
 
 /**
  * Servlet implementation class InfoListController
@@ -43,12 +46,33 @@ public class ShareListController extends HttpServlet {
 		
 		// 사용자가 클릭한 카테고리에 따른 카테고리 번호
 		ctgNo = Integer.parseInt(request.getParameter("ictg"));
+		// 현재 페이지 번호
+		currentPage = Integer.parseInt(request.getParameter("ipage"));
 		
-		listCount = new InfoService().selectListCount(ctgNo); // 특정 카테고리의 게시글만 조회
+		// 특정 카테고리에 따른 게시글 수
+		listCount = new InfoService().selectListCount(ctgNo);
 		
-		System.out.println(ctgNo);
-		System.out.println(listCount);
+		// System.out.println(ctgNo);
+		// System.out.println(listCount);
 		
+		pageLimit = 5;
+		boardLimit = 11;
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		
+		endPage = startPage + pageLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		ArrayList<Info> list = new InfoService().selectList(pi);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
 		
 		request.getRequestDispatcher("views/info/shareListView.jsp").forward(request, response);
 		
