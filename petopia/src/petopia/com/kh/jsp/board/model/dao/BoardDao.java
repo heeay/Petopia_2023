@@ -77,14 +77,18 @@ public class BoardDao {
 			// 위치홀더는 sql값을 넣는 게 아니라 계산식을 변수에 담아서 그 변수를 넣기
 			int startRow = ((pi.getCurrentPage()) - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
+			if(rset != null) {
+				System.out.println("dddddddddddddd");
+			}
+			
+			
 			while(rset.next()){
-				
+				System.out.println("ddd");
 				Board b = new Board();
 				
 				b.setBoardNo(rset.getInt("BOARD_NO"));
@@ -98,6 +102,7 @@ public class BoardDao {
 			
 				list.add(b);
 			}
+			System.out.println(rset);
 
 			
 		} catch (SQLException e) {
@@ -111,6 +116,7 @@ public class BoardDao {
 			
 		}
 		
+		System.out.println(list);
 		return list;
 		
 		
