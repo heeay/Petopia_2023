@@ -7,7 +7,8 @@
 		 SELECT 
 		 		PET_NO,
 				PET_NAME,
-				PET_SPECIES 
+				PET_SPECIES,
+				FILE_MYPAGE_NO 
 		   FROM 
 		   		TB_PET 
 		  WHERE 
