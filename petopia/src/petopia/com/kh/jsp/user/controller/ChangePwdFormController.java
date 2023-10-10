@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
+
 /**
  * Servlet implementation class ChangePwdFormController
  */
@@ -27,8 +29,15 @@ public class ChangePwdFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String token = request.getParameter("token");
-		request.setAttribute("token", token);
-		request.getRequestDispatcher("views/user/changePwdView.jsp").forward(request, response);
+		String userNo = request.getParameter("key");
+		boolean result = new UserService().selectToken(token);
+		if(result) {
+			request.setAttribute("token", token);
+			request.getRequestDispatcher("views/user/changePwdView.jsp").forward(request, response);
+		} else {
+			request.setAttribute("errorMsg", "토큰이 변경되거나 만료되었습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

@@ -85,8 +85,8 @@ public class UserDao {
 		return result;
 	}
 	
-	public boolean checkUserEmail(Connection conn, String email) {
-		boolean isThere = true;
+	public int checkUserEmail(Connection conn, String email) {
+		int userNo = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("checkUserEmail");
@@ -95,14 +95,16 @@ public class UserDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rset = pstmt.executeQuery();
-			isThere = rset.next();
+			if(rset.next()) {
+				userNo = rset.getInt("USER_NO");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		return isThere;
+		return userNo;
 	}
 	public boolean checkUserNickname(Connection conn, String nickname) {
 		boolean isThere = true;
@@ -170,6 +172,28 @@ public class UserDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			pstmt.setString(2, authCode);
+			
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return isThere;
+	}
+	public boolean selectToken(Connection conn, String token) {
+		boolean isThere = false;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectToken");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, token);
 			
 			rset = pstmt.executeQuery();
 			isThere = rset.next();

@@ -30,13 +30,13 @@ public class UserService {
 		return result;
 	}
 	
-	public boolean checkUserEmail(String email) {
+	public int checkUserEmail(String email) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		boolean isThere = new UserDao().checkUserEmail(conn, email);
+		int userNo = new UserDao().checkUserEmail(conn, email);
 		JDBCTemplate.close(conn);
 		
-		return isThere;
+		return userNo;
 	}
 	public boolean checkUserNickname(String nickname) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -76,6 +76,15 @@ public class UserService {
 				JDBCTemplate.rollback(conn);
 			}
 		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	public boolean selectToken(String token) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean result = new UserDao().selectToken(conn, token);
 		
 		JDBCTemplate.close(conn);
 		

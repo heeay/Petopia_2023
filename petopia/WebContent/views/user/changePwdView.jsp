@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 String token = (String)request.getAttribute("token");
+String email = (String)request.getAttribute("email");
 %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@ String token = (String)request.getAttribute("token");
         background-color: #DBDfA9;
         cursor: pointer;
     }
-    .change-pwd-error-wrap{
+    .change-pw-error-wrap{
         width: 350px;
         margin: auto;
         margin-bottom: 5px;
@@ -65,15 +66,22 @@ String token = (String)request.getAttribute("token");
 <body>
 	<%@include file="../common/header-min.jsp" %>
 	<section>
-        <form action="" method="post">
+        <form id="change-pw-form" action="<%=contextPath %>/changePassword" method="post">
             <input type="hidden" name="token" value="<%=token %>">
+            <input type="hidden" name="email" value="<%=email %>">
             <div class="sub-title">
                 비밀번호 변경
             </div>
             <div class="input-wrap">
-                <input id="pwd" type="text" name="pwd" placeholder="비밀번호">
+                <input id="pw" type="text" name="pw" placeholder="비밀번호" onkeyup="checkCaps(event);">
             </div>
-            <div class="change-pwd-error-wrap" id="err-pw" style="display: none;">
+            <div class="input-wrap">
+                <input id="pw-check" type="text" placeholder="비밀번호 확인" onkeyup="checkCaps(event);">
+            </div>
+            <div class="change-pw-error-wrap" id="err-capslock" style="display: none;">
+                <!--CapsLock이 켜져 있습니다.-->
+            </div>
+            <div class="change-pw-error-wrap" id="err-pw" style="display: none;">
                 <!--비밀번호를 입력해 주세요.-->
             </div>
             <div class="submit-wrap">
@@ -81,6 +89,76 @@ String token = (String)request.getAttribute("token");
             </div>
         </form>
     </section>
+    <script>
+        let pwFlag = false;
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                checkPw();
+
+                if(pwFlag){
+                    $("#change-pw-form").submit();
+                }
+            })
+            $("#pw").focusout(function(){
+                checkPw();
+            });
+            $("#pw-check").focusout(function(){
+                checkPw();
+            });
+        })
+        function checkPw(){
+            const pw = document.getElementById("pw");
+            const pwCheck = document.getElementById("pw-check");
+            const errPw = document.getElementById("err-pw");
+            const regExpPw = /^[a-zA-Z0-9]+$/;
+            if(pw.value==""){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호를 입력해 주세요.";
+                pw.style.borderColor = "#f53636";
+                pwCheck.style = "";
+                pwFlag = false;
+            }
+            else if(!regExpPw.test(pw.value)){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호는 영어와 숫자만 가능합니다.";
+                pw.style.borderColor = "#f53636";
+                pwCheck.style = "";
+                pwFlag = false;
+            }
+            else if(pwCheck.value==""){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호 확인을 입력해 주세요.";
+                pw.style = "";
+                pwCheck.style.borderColor = "#f53636";
+                pwFlag = false;
+            }
+            else if(pwCheck.value!=pw.value){
+                errPw.style.display="block";
+                errPw.innerText = "비밀번호 확인이 일치하지 않습니다.";
+                pw.style = "";
+                pwCheck.style.borderColor = "#f53636";
+                pwFlag = false;
+            }
+            else{
+                errPw.style.display="none";
+                errPw.innerText = "";
+                pw.style = "";
+                pwCheck.style = "";
+                pwFlag = true;
+            }
+        }
+        function checkCaps(event){
+            const errCapslock = document.getElementById("err-capslock");
+            if(event.getModifierState("CapsLock")){
+                errCapslock.style.display="block";
+                errCapslock.innerText = "CapsLock이 켜져 있습니다.";
+            }
+            else{
+                errCapslock.style.display="none";
+                errCapslock.innerText = "";
+            }
+        }
+    </script>
 	<%@include file="../common/footer.jsp" %>
 </body>
 </html>

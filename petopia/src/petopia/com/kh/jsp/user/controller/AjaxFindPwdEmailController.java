@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
+
 /**
  * Servlet implementation class FindPwdEmailController
  */
@@ -80,9 +82,10 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
+			int userNo = new UserService().checkUserEmail(toEmail);
 			String url = request.getRequestURL().toString();
 			url = url.substring(0, url.lastIndexOf("/"));
-			String urlPath = url+"/changePassword?token="+token;
+			String urlPath = url+"/changePassword?key="+userNo+"&token="+token;
 			StringBuffer sb = new StringBuffer();
 			sb.append("<h3>[Petopia] 비밀번호 변경 링크</h3>");
 			sb.append("<h4>다음 링크를 통해 비밀번호를 변경해 주십시오.</h4>");
@@ -99,7 +102,11 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			transport.close();
 			System.out.println("비밀번호 재설정 링크 메일 전송 성공");
 			
-			success = true;
+			int result = new UserService().insertEmailAuth(toEmail,token);
+			
+			if(result>0) {
+				success = true;
+			}
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();
 			response.setStatus(500);
