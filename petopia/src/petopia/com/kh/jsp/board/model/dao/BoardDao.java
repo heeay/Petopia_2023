@@ -87,6 +87,7 @@ public class BoardDao {
 				System.out.println("내가보인다면 reset은 null도, []도 아니야");
 				Board b = new Board();
 				
+				// 메인게시판에 보여줄 컬럼은 총 8개 // board 필드는 총 11개  // sql은 8개 + rownum = 9개
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardViews(rset.getInt("BOARD_VIEWS"));
