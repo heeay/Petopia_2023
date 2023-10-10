@@ -21,21 +21,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.tribes.membership.McastService;
-
-import petopia.com.kh.jsp.user.model.service.UserService;
-
 /**
- * Servlet implementation class RegisterEmailAuthController
+ * Servlet implementation class FindPwdEmailController
  */
-@WebServlet("/requestAuthEmail")
-public class AjaxRegisterEmailAuthController extends HttpServlet {
+@WebServlet("/findPasswordEmail")
+public class AjaxFindPwdEmailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxRegisterEmailAuthController() {
+    public AjaxFindPwdEmailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,27 +41,15 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String toEmail = request.getParameter("email");
-		String subject = "[Petopia] 회원 가입 이메일 인증번호";
+		String subject = "[Petopia] 비밀번호 변경 링크";
 		String fromEmail = "leemj9987@gmail.com";
 		String password = "ekbc gagq amwi gquu";
 		String fromUsername = "펫토피아";
+		boolean success = false;
 		
-		
-		String filePath = AjaxRegisterEmailAuthController.class.getResource("/sql/properties/email.properties").getPath();
+		String filePath = AjaxFindPwdEmailController.class.getResource("/sql/properties/email.properties").getPath();
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(filePath));
-		/*
-		prop.put("mail.transport.protocol", "smtp");
-		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", "587"); //465, 587
-		prop.put("mail.smtp.auth", "true");
-		
-		prop.put("mail.smtp.quitwait", "false");
-		prop.put("mail.smtp.socketFactory.port", "587");
-		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		prop.put("mail.smtp.socketFactory.fallback", "true");
-		prop.put("mail.smtp.starttls.enable", "true");
-		*/
 		
 		Session session = Session.getDefaultInstance(prop);
 		Message message = new MimeMessage(session);
@@ -77,26 +61,12 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			Multipart mParts = new MimeMultipart();
 			MimeBodyPart mTextPart = new MimeBodyPart();
 			
-			String cNumber = "";
-			for(int i=0 ; i< 6 ; i++) {
-				int sel1 = (int)(Math.random() * 3); // 0:숫자 / 1,2:영어
-				if(sel1 == 0) {
-					int num = (int)(Math.random() * 10); // 0~9
-					cNumber += num;
-				}else {
-					char ch = (char)(Math.random() * 26 + 65); // A~Z
-					int sel2 = (int)(Math.random() * 2); // 0:소문자 / 1:대문자
-					if(sel2 == 0) {
-						ch = (char)(ch + ('a' - 'A')); // 대문자로 변경
-					}
-					cNumber += ch;
-				}
-			}
 			StringBuffer sb = new StringBuffer();
-			sb.append("<h3>[Petopia] 회원 가입 인증 번호입니다.</h3>\n");
-			sb.append("<h4>아래의 인증번호를 입력해 주십시오.</h4>\n");
-			sb.append("<h3>인증 번호 : <span style='color:red'>"+ cNumber +"</span></h3>\n");
-			sb.append("<h4>감사합니다.</h4>\n");
+			sb.append("<h3>[Petopia] 비밀번호 변경 링크</h3>");
+			sb.append("<h4>다음 링크를 통해 비밀번호를 변경해 주십시오.</h4>");
+			sb.append("<h3>링크 : <a>link</a></h3>");
+			sb.append("<h4>비밀번호 재설정을 요청하지 않았다면 이 이메일을 무시하셔도 됩니다.</h4>");
+			sb.append("<h4>감사합니다.</h4>");
 			String mailContent = sb.toString();
 			mTextPart.setText(mailContent,"UTF-8","html");
 			mParts.addBodyPart(mTextPart);
@@ -105,17 +75,16 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			transport.connect(fromEmail, password);
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
-			System.out.println("이메일 인증 메일 전송 성공");
+			System.out.println("비밀번호 재설정 링크 메일 전송");
 			
-			int result = new UserService().insertEmailAuth(toEmail,cNumber);
-			
-			response.getWriter().print(result);
-			
+			success = true;
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();
 			response.setStatus(500);
 			response.getWriter().print(e.getMessage());
 		}
+		
+		response.getWriter().print(success);
 	}
 
 	/**
