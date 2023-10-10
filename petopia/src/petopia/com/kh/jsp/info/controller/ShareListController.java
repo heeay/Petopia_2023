@@ -47,7 +47,7 @@ public class ShareListController extends HttpServlet {
 		listCount = new InfoService().selectListCount(ctgNo); // 특정 카테고리의 게시글만 조회
 		
 		System.out.println(ctgNo);
-		
+		System.out.println(listCount);
 		
 		
 		request.getRequestDispatcher("views/info/shareListView.jsp").forward(request, response);
