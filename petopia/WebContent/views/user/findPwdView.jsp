@@ -49,7 +49,7 @@
             cursor: pointer;
         }
         .find-pwd-error-wrap{
-            width: 450px;
+            width: 350px;
             margin: auto;
             margin-bottom: 5px;
             color:#f53636;
@@ -78,11 +78,10 @@
     <script>
         let emailFlag = false;
         $(document).ready(function(){
-            $("email").focusout(function(){
-                console.log("1");
+            $("#email").focusout(function(){
                 checkEmail();
             });
-            $("submit").click(function(){
+            $("#submit").click(function(){
                 $.ajax({
                     url : "findPasswordEmail",
                     type : "get",
