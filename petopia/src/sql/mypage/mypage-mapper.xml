@@ -133,6 +133,21 @@
 		  		PET_NO=? 
 	</entry>
 	
+	<entry key="petDelete">
+		 DELETE 
+		   FROM 
+		   		TB_PET 
+    	  WHERE 
+    	  		PET_NO=? 
+	</entry>
 	
+	<!-- 
+	<entry key="petImgDelete">
+		 DELETE 
+		   FROM 
+		   		TB_MYPAGE_FILE 
+    	  WHERE 
+    	  		FILE_MYPAGE_NO=? 
+	</entry> -->
 	
 </properties>

@@ -221,7 +221,7 @@
 
                             <div class="btn-wid">
                                 <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
-                                <button type="submit" class="btn btn-sm btn-danger">삭제하기</button>
+                                <a href="<%=contextPath%>/deletePet.my?pno=<%=p.getPetNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
                             </div>
 
                         </div>
