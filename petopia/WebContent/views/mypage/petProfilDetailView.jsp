@@ -214,7 +214,7 @@
                                     기존사진 : 
                                     <a href="<%=contextPath%>/<%=pt.getFilePath()%>/<%=pt.getUploadName()%>" download="<%=pt.getOriginalName()%>">
                                         <%=pt.getOriginalName()%>
-                                        <input type="hidden" name="petFileNo" value="<%=p.getFileNo()%>">
+                                        <input type="hidden" name="petFileNo" value="<%=pt.getFileNo()%>">
                                     </a>
                                 </div>
                             </div>
