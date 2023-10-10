@@ -28,7 +28,7 @@ public class PetDao {
 		}
 	}
 	public ArrayList<Pet> selectPetList(Connection conn, User loginUser) {
-		ArrayList<Pet> list = new ArrayList<Pet>();
+		ArrayList<Pet> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -43,6 +43,7 @@ public class PetDao {
 				p.setPetNo(rset.getInt("PET_NO"));
 				p.setPetName(rset.getString("PET_NAME"));
 				p.setPetSpecies(rset.getString("PET_SPECIES"));
+				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
 				
 				list.add(p);
 			}
@@ -180,6 +181,87 @@ public class PetDao {
 		}
 		return pt;
 	}
+	public int updatePetImg(Connection conn, PetFile pt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pt.getOriginalName());
+			pstmt.setString(2, pt.getUploadName());
+			pstmt.setString(3, pt.getFilePath());
+			pstmt.setInt(4, pt.getFileNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updatePet(Connection conn, Pet p) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePet");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getPetName());
+			pstmt.setString(2, p.getPetSpecies());
+			pstmt.setString(3, p.getPetSpecific());
+			pstmt.setInt(4, p.getPetWeight());
+			pstmt.setString(5, p.getPetGender());
+			pstmt.setString(6, p.getPetPersonality());
+			pstmt.setString(7, p.getPetEtc());
+			pstmt.setInt(8, p.getPetNo());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int petDelete(Connection conn, int petNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("petDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, petNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/*public int petImgDelete(Connection conn, int petFileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("petImgDelete");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, petFileNo);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}*/
 
 	
 

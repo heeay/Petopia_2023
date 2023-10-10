@@ -176,13 +176,14 @@
                         		<td colspan="3" align="center">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                        	<% for(Pet p : list){ %>
-                        	<tr>
-                        		<td><%=p.getPetNo() %></td>
-                        		<td><%=p.getPetName() %></td>
-                        		<td><%=p.getPetSpecies() %></td>
-                        	</tr>
-                        	<% } %>
+                        	<% for(int i = 1; i<list.size(); i++){ %>
+                                <tr>
+                                    <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
+                                    <td><%=i%></td>
+                                    <td><%=list.get(i).getPetName() %></td>
+                                    <td><%=list.get(i).getPetSpecies() %></td>
+                        	    </tr>
+                        	    <% } %>
                         <% } %>
 							<!--				
                             <tr>
@@ -217,6 +218,7 @@
                 
                 <form action="<%=contextPath%>/petInsert.my" enctype="multipart/form-data" method="post">
                 	<input type="hidden" name="userNo" value="<%=userInfo.getUserNo()%>">
+
                     <div>
                         <p class="profil-content-name">반려동물 프로필</p>
     
@@ -322,7 +324,7 @@
                 $(function(){
 
                     $('#list-area>tbody>tr').click(function(){
-                        location.href="<%= contextPath %>/petDetail.my?pno=" + $(this).children().eq(0).text();
+                        location.href="<%= contextPath %>/petDetail.my?pno=" + $(this).children().eq(0).val();
                     });
                 })
 

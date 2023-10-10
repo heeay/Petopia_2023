@@ -18,16 +18,16 @@ import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 
 /**
- * Servlet implementation class petUpdateController
+ * Servlet implementation class PetDeleteController
  */
-@WebServlet("/petUpdate.my")
-public class petUpdateController extends HttpServlet {
+@WebServlet("/deletePet.my")
+public class PetDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public petUpdateController() {
+    public PetDeleteController() {
         super();
     }
 
@@ -35,7 +35,7 @@ public class petUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -47,53 +47,18 @@ public class petUpdateController extends HttpServlet {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			int petNo = Integer.parseInt(multiRequest.getParameter("pno"));
+			//int petFileNo = Integer.parseInt(multiRequest.getParameter("petFileNo"));
 			
-			String petName = multiRequest.getParameter("petName");
-			String petSpecies = multiRequest.getParameter("petSpecies");
-			String petSpecific = multiRequest.getParameter("petSpecific");
-			int petWeight = Integer.parseInt(multiRequest.getParameter("petWeight"));
-			String petGender = multiRequest.getParameter("petGender");
-			String petPersonality = multiRequest.getParameter("petPersonality");
-			String petEtc = multiRequest.getParameter("petEtc");
-			int petFileNo = Integer.parseInt(multiRequest.getParameter("petFileNo"));
-			
-			Pet p = new Pet();
-			p.setPetNo(petNo);
-			p.setPetName(petName);
-			p.setPetSpecies(petSpecies);
-			p.setPetSpecific(petSpecific);
-			p.setPetWeight(petWeight);
-			p.setPetGender(petGender);
-			p.setPetPersonality(petPersonality);
-			p.setPetEtc(petEtc);
-			
-			// 파일이 있을수도 없을수도
-			PetFile pt = null;
-			
-			if(multiRequest.getOriginalFileName("petImgFile") != null) {
-				pt = new PetFile();
-				
-				pt.setOriginalName(multiRequest.getOriginalFileName("petImgFile"));
-				pt.setUploadName(multiRequest.getFilesystemName("petImgFile"));
-				pt.setFilePath("resources/pet_upfiles");
-				pt.setFileNo(petFileNo);
-			}
-			
-			int result = new PetService().updatePetProfil(p, pt);
+			// ON DELETE CASCADE사용으로 부모테이블 삭제 시 자식테이블도 자동 삭제 => 파일도 자동 삭제
+			int result = new PetService().petDelete(petNo);
 			
 			if(result>0) {
 				request.getSession().setAttribute("alertMsg", "프로필 등록 성공");
 				response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
-				return;
-			} else {
-				// 첨푸파일을 넣었지만 insert 실패했을때
-				if(pt != null) {
-					new File(savePath + pt.getUploadName()).delete();
-				}
-				
-			}
+			} 
 			request.setAttribute("errorMsg", "프로필 등록 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
 		
 	}

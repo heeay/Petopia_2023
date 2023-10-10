@@ -14,14 +14,16 @@ public class Info {
 	private int fileNo; // FILE_NO	NUMBER
 	private int categoryNo; // CTG_NO	NUMBER
 	private int petCategoryNo; // PET_CTG_NO	NUMBER
-	private String category;
+	private String category; // 카테고리명을 담기 위해 String형의 category를 만듦
+	private String titleImg; // 리스트에 보여줄 썸네일 이미지를 담기 위해 만듦
 	
 	public Info() {
 		super();
 	}
 
 	public Info(int infoNo, String infoTitle, String infoContent, int infoViews, Date infoCreateDate,
-			Date infoUpdateDate, int userNo, int fileNo, int categoryNo, int petCategoryNo, String category) {
+			Date infoUpdateDate, int userNo, int fileNo, int categoryNo, int petCategoryNo, String category,
+			String titleImg) {
 		super();
 		this.infoNo = infoNo;
 		this.infoTitle = infoTitle;
@@ -34,6 +36,7 @@ public class Info {
 		this.categoryNo = categoryNo;
 		this.petCategoryNo = petCategoryNo;
 		this.category = category;
+		this.titleImg = titleImg;
 	}
 
 	public int getInfoNo() {
@@ -124,12 +127,20 @@ public class Info {
 		this.category = category;
 	}
 
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
 	@Override
 	public String toString() {
 		return "Info [infoNo=" + infoNo + ", infoTitle=" + infoTitle + ", infoContent=" + infoContent + ", infoViews="
 				+ infoViews + ", infoCreateDate=" + infoCreateDate + ", infoUpdateDate=" + infoUpdateDate + ", userNo="
 				+ userNo + ", fileNo=" + fileNo + ", categoryNo=" + categoryNo + ", petCategoryNo=" + petCategoryNo
-				+ ", category=" + category + "]";
+				+ ", category=" + category + ", titleImg=" + titleImg + "]";
 	}
 	
 }

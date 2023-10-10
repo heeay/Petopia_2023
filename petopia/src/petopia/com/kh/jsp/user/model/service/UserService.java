@@ -30,13 +30,21 @@ public class UserService {
 		return result;
 	}
 	
-	public boolean checkUserEmail(String email) {
+	public String checkUserNo(int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		boolean isThere = new UserDao().checkUserEmail(conn, email);
+		String userEmail = new UserDao().checkUserNo(conn, userNo);
 		JDBCTemplate.close(conn);
 		
-		return isThere;
+		return userEmail;
+	}
+	public int checkUserEmail(String email) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int userNo = new UserDao().checkUserEmail(conn, email);
+		JDBCTemplate.close(conn);
+		
+		return userNo;
 	}
 	public boolean checkUserNickname(String nickname) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -81,6 +89,15 @@ public class UserService {
 		
 		return result;
 	}
+	public boolean selectToken(String token) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		boolean result = new UserDao().selectToken(conn, token);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 	
 	public User simpleAuth(User u) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -115,5 +132,21 @@ public class UserService {
 		JDBCTemplate.close(conn);
 		
 		return user;
+	}
+	
+	public int updateUserPw(User user) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new UserDao().updateUserPw(conn, user);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 }
