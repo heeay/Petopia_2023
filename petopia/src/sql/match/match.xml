@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertThumbnailBoard">
+		INSERT
+		  INTO
+		      TB_MATCHING
+		      (
+		      MEET_BOARD_NO,
+		      MEET_BOARD_TITLE,
+		      PET_INFO,
+		      HOPE_ACTIVITY,
+		      USER_NO,
+			  PET_NO
+		      )
+		 VALUES
+		 	  (
+		 	  SEQ_BNO.NEXTVAL,
+		 	  ?,
+		 	  ?,
+		 	  ?,
+		 	  ?,
+		 	  ?
+		 	  )
+		 	  
+	</entry>
+	
+	<entry key="insertFileList">
+		INSERT
+		  INTO
+		      TB_FILE
+		      (
+		      FILE_NO,
+		      REF_BNO,
+		      ORIGINAL_NAME,
+		      UPLOAD_NAME,
+		      FILE_PATH,
+		      FILE_LEVEL
+		      )
+		VALUES
+			  (
+			  SEQ_FNO.NEXTVAL,
+			  SEQ_BNO.CURRVAL,
+			  ?,
+			  ?,
+			  ?,
+			  ?
+			  )
+		      
+	</entry>
+
+</properties>

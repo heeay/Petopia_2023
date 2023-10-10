@@ -1,6 +1,7 @@
 package petopia.com.kh.jsp.match.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +15,13 @@ import com.oreilly.servlet.MultipartRequest;
 
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.common.model.vo.File;
+import petopia.com.kh.jsp.match.model.service.MatchService;
 import petopia.com.kh.jsp.match.model.vo.Match;
 
 /**
  * Servlet implementation class InsertMatchController
  */
-@WebServlet("/Insert.pb")
+@WebServlet("/insert.pb")
 public class InsertMatchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -62,6 +64,8 @@ public class InsertMatchController extends HttpServlet {
 			m.setUserNo(userNo); 
 			m.setPetInfo(petInfo);
 			
+			ArrayList<File> list = new ArrayList();
+			
 			for(int i = 1; i <= 2; i++) {
 				String key = "file" + i;
 				
@@ -72,11 +76,25 @@ public class InsertMatchController extends HttpServlet {
 					fi.setUploadName(multiRequest.getFilesystemName(key));
 					fi.setFilePath("resources/thumbnail_upfiles");
 					
+					if(i == 1) {
+						fi.setFileLevel(1);
+					} else {
+						fi.setFileLevel(2);
+					}
 					
+					list.add(fi);
 				}
 				
 			}
 			
+			int result = new MatchService().insertThumbnailBoard(m, list);
+			
+			
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
+				response.sendRedirect(request.getContextPath() + "/main.pb");
+				
+			}
 			
 			 
 			
