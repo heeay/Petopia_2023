@@ -64,11 +64,11 @@ public class InfoService {
 	 * 게시글 수를 돌려줄 메소드
 	 * @return 게시글 수
 	 */
-	public int selectListCount() {
+	public int selectListCount(int ctgNo) {
 		
 		Connection conn = getConnection();
 		
-		int listCount = new InfoDao().selectListCount(conn);
+		int listCount = new InfoDao().selectListCount(conn, ctgNo);
 		
 		close(conn);
 		
