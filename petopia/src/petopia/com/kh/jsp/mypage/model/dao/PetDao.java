@@ -43,6 +43,7 @@ public class PetDao {
 				p.setPetNo(rset.getInt("PET_NO"));
 				p.setPetName(rset.getString("PET_NAME"));
 				p.setPetSpecies(rset.getString("PET_SPECIES"));
+				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
 				
 				list.add(p);
 			}

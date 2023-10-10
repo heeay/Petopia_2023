@@ -177,8 +177,8 @@
                         	</tr>
                         <% }else { %>
                         	<% for(int i = 1; i<list.size(); i++){ %>
-                                <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
                                 <tr>
+                                    <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
                                     <td><%=i%></td>
                                     <td><%=list.get(i).getPetName() %></td>
                                     <td><%=list.get(i).getPetSpecies() %></td>
@@ -324,7 +324,7 @@
                 $(function(){
 
                     $('#list-area>tbody>tr').click(function(){
-                        location.href="<%= contextPath %>/petDetail.my?pno=" + $(this).children().eq(0).text();
+                        location.href="<%= contextPath %>/petDetail.my?pno=" + $(this).children().eq(0).val();
                     });
                 })
 

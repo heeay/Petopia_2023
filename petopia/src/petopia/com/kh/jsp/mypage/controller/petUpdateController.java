@@ -55,6 +55,7 @@ public class petUpdateController extends HttpServlet {
 			String petGender = multiRequest.getParameter("petGender");
 			String petPersonality = multiRequest.getParameter("petPersonality");
 			String petEtc = multiRequest.getParameter("petEtc");
+			int petFileNo = Integer.parseInt(multiRequest.getParameter("petFileNo"));
 			
 			Pet p = new Pet();
 			p.setPetNo(petNo);
@@ -75,6 +76,7 @@ public class petUpdateController extends HttpServlet {
 				pt.setOriginalName(multiRequest.getOriginalFileName("petImgFile"));
 				pt.setUploadName(multiRequest.getFilesystemName("petImgFile"));
 				pt.setFilePath("resources/pet_upfiles");
+				pt.setFileNo(petFileNo);
 			}
 			
 			int result = new PetService().updatePetProfil(p, pt);
