@@ -150,4 +150,46 @@
     	  		FILE_MYPAGE_NO=? 
 	</entry> -->
 	
+	<entry key="insertSuggestion">
+		 INSERT 
+		   INTO 
+		   		TB_SUGGESTION
+		    	(
+		    	SUG_NO,
+		    	SUG_TITLE,
+				SUG_CONTENT,
+				SUG_DATE,
+				USER_NO
+		    	)
+		 VALUES 
+				(
+				SEQ_SUG_NO.NEXTVAL,
+				?,
+				?,
+				SYSDATE,
+				?
+				)
+	</entry>
+	
+	<entry key="insertSuggestionFile">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+		   		SUG_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				SEQ_SUG_NO.CURRVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
 </properties>

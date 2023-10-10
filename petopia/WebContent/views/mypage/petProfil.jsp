@@ -176,10 +176,10 @@
                         		<td colspan="3" align="center">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                        	<% for(int i = 1; i<list.size(); i++){ %>
+                        	<% for(int i = 0; i<list.size(); i++){ %>
                                 <tr>
                                     <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
-                                    <td><%=i%></td>
+                                    <td><%=i+1%></td>
                                     <td><%=list.get(i).getPetName() %></td>
                                     <td><%=list.get(i).getPetSpecies() %></td>
                         	    </tr>

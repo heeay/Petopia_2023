@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+    Suggestion sug = (Suggestion)request.getAttribute("sug");
+	PetFile pt = (PetFile)request.getAttribute("pt");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,13 +84,13 @@
 </head>
 <body>
 	 <%@ include file = "mysidebar.jsp" %>
+	 
 	 <div class="content-area">
-        <form action="">
-        
+        <form action="<%=contextPath%>/sugEnroll.my" enctype="multipart/form-data" method="post">
+            <input type="hidden" name="userNo" value="<%=userInfo.getUserNo() %>">
             <div id="sug-content">
 
                 <div>
-                    
                     <div>
                         <div id="delete">
                             <button type="reset" style="border: none; background-color: rgba(247, 222, 205, 0);">⨉</button>
@@ -95,29 +100,30 @@
                     
 
                     <div id="sub-content-back">
-                        <div class="contentSize">
-                            <div class="float-left">제목</div>
-                            <div class="float-right"><input type="text" class="input-width"></div>
-                        </div>
+                        <div>
+                            <div class="contentSize">
+                                <div class="float-left">제목</div>
+                                <div class="float-right"><input type="text" class="input-width" name="title"></div>
+                            </div>
 
-                        <div class="contentSize2">
-                            <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" resize: none></textarea></div>
+                            <div class="contentSize2">
+                                <div class="float-left">내용</div>
+                                <div class="float-right2"><textarea name="content" cols="85" rows="9" resize: none></textarea></div>
+                            </div>
+                            <br><br>
+                            <div class="contentSize3">
+                                <div class="float-left">첨부파일 1</div>
+                                <div><input type="file" name="file1" id="file1"></div>
+                            </div>
+                            <div class="contentSize3">
+                                <div class="float-left">첨부파일 2</div>
+                                <div><input type="file" name="file2" id="file2"></div>
+                            </div>
+                            <div class="contentSize3">
+                                <div class="float-left">첨부파일 3</div>
+                                <div><input type="file" name="file3" id="file3"></div>
+                            </div>
                         </div>
-                        <br><br>
-                        <div class="contentSize3">
-                            <div class="float-left">첨부파일 1</div>
-                            <div><input type="file" name="fil1" id="file1"></div>
-                        </div>
-                        <div class="contentSize3">
-                            <div class="float-left">첨부파일 2</div>
-                            <div><input type="file" name="fil2" id="file2"></div>
-                        </div>
-                        <div class="contentSize3">
-                            <div class="float-left">첨부파일 3</div>
-                            <div><input type="file" name="fil3" id="file3"></div>
-                        </div>
-                        
                         <div class="btn-right">
                             <button type="submit" class="btn btn-sm btn-secondary">제출</button>
                         </div>
