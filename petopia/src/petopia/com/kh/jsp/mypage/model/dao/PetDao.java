@@ -286,6 +286,25 @@ public class PetDao {
 		}
 		return result;
 	}
+	public int insertUserProfil(Connection conn, PetFile pt) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertUserProfil");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pt.getOriginalName());
+			pstmt.setString(2, pt.getUploadName());
+			pstmt.setString(3, pt.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;

@@ -4,7 +4,7 @@
 <%
 	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
+
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -15,8 +15,12 @@
 <head>
 <meta charset="UTF-8">
 <title>내 애완동물 프로필</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /*div{border: 1px solid black;}*/
+       /* div{border: 1px solid black;}*/
         .content-area{
             position: absolute;
             top: 130px;
@@ -39,7 +43,10 @@
             padding-top: 100px;
             float: right;
         }
-        #petEnroll{padding-top: 100px;}
+        #petEnroll{
+           padding-bottom: 5px;
+           float: right;
+        }
         .area-padding{padding-left: 300px;}
         .btn-right{
             float: right; 
@@ -125,6 +132,12 @@
         #modalContainer.hidden {
             display: none;
         }
+        #style-user{
+            border: 3px solid rgb(244, 217, 174);
+            border-radius: 90px;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -135,24 +148,50 @@
         <div class="area-padding">
 
             <div class="petImg">
-                <div>
-                    <div style="width: 500px;">
-                        <img src="<%=contextPath%>\resources\images/profil.png" alt="프로필기본" width="150px" height="150px" id="PetImg">
-                    </div>
-                    <div style="float: right; margin-top: 60px;">
-                        <div style="padding-bottom: 10px;">
-                            <input type="file" id="userProfil" name="userProfil">
+                <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
+                    
+                    <div id="style-user">
+                        <div style="width: 300px;" id="file-area">
+                            <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px" id="PetImg">
                         </div>
+                        
                         <div>
-                            <button type="submit" class="btn btn-sm btn-secondary">유저프로필 등록</button>
+                            <div style="margin-left: 30px; margin-bottom: 5px; margin-top: 20px;">
+                                <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
+                            </div>
+                            <div style="margin-left: 30px; padding-bottom: 15px;">
+                                <button type="submit" class="btn btn-sm btn-secondary" onclick="insertUserProfil()">유저프로필 등록</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <span id="petEnroll">
-                    <button type="button" id="modalOpenButton" class="btn btn-sm btn-info">펫프로필 등록</button>
-                </span>
+                </form>
+
             </div>
+
+            <script>
+               function loadImg(inputFile, num){
+					if(inputFile.files.length == 1){ // 파일이 첨부
+						let reader = new FileReader();
+						reader.readAsDataURL(inputFile.files[0]);
+                        reader.onload = function(e){
+
+							switch(num){
+								case 1 : $('#titleImg').attr('src', e.target.result); break;
+							}
+						}
+
+					}
+					else {
+						const str = '<%=contextPath%>\resources\images/profil.png';
+						switch(num){
+								case 1 : $('#titleImg').attr('src', str); break;
+						}
+					}
+
+				};
+				
+            </script>
 
 
             <div class="petProfil-list">
@@ -160,6 +199,9 @@
                 <div>
 
                     <table class="table table-hover" id="list-area">
+                        <div id="petEnroll">
+                            <button type="button" id="modalOpenButton" class="btn btn-sm btn-info">펫프로필 등록</button>
+                        </div>
         
                         <thead class>
                             <tr>

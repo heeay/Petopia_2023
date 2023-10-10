@@ -192,4 +192,23 @@
 				)
 	</entry>
 	
+	<entry key="insertUserProfil">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
 </properties>

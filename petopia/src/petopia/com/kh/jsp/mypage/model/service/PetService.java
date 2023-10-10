@@ -105,5 +105,16 @@ public class PetService {
 		return (result1*result2);
 	}
 
+	public int insertUserProfil(PetFile pt) {
+		Connection conn = getConnection();
+		int result = new PetDao().insertUserProfil(conn, pt);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 }
