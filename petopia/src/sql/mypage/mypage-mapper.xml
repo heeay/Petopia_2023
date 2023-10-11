@@ -14,7 +14,7 @@
 		  WHERE 
 		  		USER_NO = ? 
 		  ORDER BY 
-		  		PET_NO DESC
+		  		FILE_MYPAGE_NO DESC
 	</entry>
 	
 	<entry key="insertPet">
@@ -218,6 +218,32 @@
 		    	FILE_MYPAGE_NO = SEQ_MYPAGE_FILE_NO.CURRVAL
 		  WHERE 
 		  		USER_NO=?
+	</entry>
+	
+	<entry key="selectHosListCount">
+		 SELECT 
+				COUNT(*) 
+		   FROM 
+		  		TB_HOS_RECORDS 
+		   JOIN 
+		  		TB_PET USING (PET_NO) 
+		  WHERE 
+		 		USER_NO = ? 
+	</entry>
+	
+	<entry key="selectHosList">
+		 SELECT 
+		 		HOS_NO,
+				HOS_DATE,
+				PET_NAME
+		   FROM 
+		   		TB_HOS_RECORDS 
+		   JOIN 
+		   		TB_PET USING (PET_NO) 
+		  WHERE 
+		  		USER_NO = ? 
+		  ORDER BY 
+		  		HOS_DATE DESC
 	</entry>
 	
 </properties>

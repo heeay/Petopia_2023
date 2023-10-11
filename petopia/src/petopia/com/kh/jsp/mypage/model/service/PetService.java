@@ -1,11 +1,15 @@
 package petopia.com.kh.jsp.mypage.model.service;
 
+import static petopia.com.kh.jsp.common.JDBCTemplate.close;
+import static petopia.com.kh.jsp.common.JDBCTemplate.commit;
+import static petopia.com.kh.jsp.common.JDBCTemplate.getConnection;
+import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 import petopia.com.kh.jsp.mypage.model.dao.PetDao;
-import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
+import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
@@ -116,6 +120,21 @@ public class PetService {
 			rollback(conn);
 		}
 		return result1*result2;
+	}
+
+	public int selectHosListCount(User loginUser) {
+		Connection conn = getConnection();
+		int hosListCount = new PetDao().selectHosListCount(conn, loginUser);
+		close(conn);
+		return hosListCount;
+	}
+
+	public ArrayList<HosRecords> selectHosList(User loginUser) {
+		Connection conn = getConnection();
+		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, loginUser);
+		close(conn);
+		//System.out.println(hosList);
+		return hosList;
 	}
 
 	

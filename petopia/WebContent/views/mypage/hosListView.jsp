@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	ArrayList<HosRecords> hosList = (ArrayList<HosRecords>)request.getAttribute("hosList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,17 +86,35 @@
                         <th>Date</th>
                         <th>Name</th>
                     </tr>
-
-                   
                 </thead>
 
                 <tbody>
+                	<% if(hosList.isEmpty()) { %>
+                        	<tr>
+                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
+                        	</tr>
+                        <% }else { %>
+                       		<% for(int i=hosList.size()-1; i>=0; i--){ %>
+                                <tr>
+                                    <input type="hidden" name="hno" value="<%=hosList.get(i).getHosNo() %>">
+                                    
+                                    <td><%=i+1%></td>
+                                    <td><%=hosList.get(i).getHosDate() %></td>
+                                    <td><%=hosList.get(i).getPetName() %></td>
+                                    <td style="width: 20px; border-top:none;">
+				                        <button type="button" class="btn btn-sm btn-secondary">—</button>
+				                    </td>
+                        	    </tr>
+                        	<% } %>
+                        <% } %>
+                	<!-- 
                     <td>1.</td>
                     <td>2023-09-27</td>
                     <td>제리</td>
                     <td style="width: 20px; border-top:none;">
                         <button type="button" class="btn btn-sm btn-secondary">—</button>
                     </td>
+                     -->
                 </tbody>
 
             </table>
@@ -94,7 +122,21 @@
         </div>
 
         <div class="page-btn">
-            페이지 버튼 위치
+           	<% if(currentPage != 1) { %>
+        		<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
+        	<% } %>
+        	
+        	<% for(int i = startPage; i <= endPage; i++) { %>
+        		<% if(currentPage != i) { %>
+        			<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
+        		<% } else {%>
+        			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
+        		<% } %>
+        	<% } %>
+        	
+        	<% if(currentPage != maxPage) { %>
+            	<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
+        	<% } %>
         </div>
 
 	</div>

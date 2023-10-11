@@ -222,7 +222,7 @@
                         		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                        	<% for(int i = 0; i<list.size(); i++){ %>
+                        	<% for(int i=list.size()-1; i>=0; i--){ %>
                                 <tr>
                                     <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
                                     <td><%=i+1%></td>
