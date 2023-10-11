@@ -373,7 +373,7 @@ public class PetDao {
 			while(rset.next()) {
 				HosRecords hr = new HosRecords();
 				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getDate("HOS_DATE"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
 				hr.setPetName(rset.getString("PET_NAME"));
 				hr.setRowNum(rset.getInt("IND"));
 				

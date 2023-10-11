@@ -85,7 +85,10 @@
                     <div id="sub-content-back">
                         <div class="contentSize">
                             <div class="float-left">이름</div>
-                            <div class="float-right"><input type="text" class="input-width" name="hosTitle"></div>
+                            <div class="float-right">
+                                <select class="input-width" name="petName">
+                                    <option value="강아지이름">강아지이름</option>
+                                </div>
                         </div>
 
                         <div class="contentSize">
@@ -111,7 +114,7 @@
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" style="resize:none;"></textarea></div>
+                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" style="resize:none;" name="hosContent"></textarea></div>
                         </div>
 
 
