@@ -40,11 +40,32 @@ public class GoogleLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//http://localhost:8001/petopia/googleLogin
+		//?code=4%2F0AfJohXmXa9-cK3iUpwkjCJCk3Zrw8aQNee7E3G0bKrXnUsenizO_TQa_RXkIELiSClzsGA
+		//&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid
+		//&authuser=0
+		//&prompt=consent
+		String code = request.getParameter("code");
+		String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
+		String clientSecret = "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";
+		String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
+		//String apiURL = "https://oauth2.googleapis.com/token";
 		String access_token = request.getParameter("access_token");
 		String id_token = "";
 		String apiURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_token;
-		
+		/*
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("code", code);
+		params.put("client_id", clientId);
+		params.put("client_secret", clientSecret);
+		params.put("redirect_uri", redirectURI);
+		params.put("grant_type", "authorization_code");
+
+		JSONObject json = new JSONObject(params);
+
+		String access_token = "";`
+		String id_token = "";
+		 */
 		System.out.println();
 		System.out.println(access_token);
 		System.out.println("apiURL="+apiURL);
@@ -56,9 +77,15 @@ public class GoogleLoginController extends HttpServlet {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("GET");
+			//conn.setRequestMethod("POST");
+			//conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; UTF-8");
 			conn.setRequestProperty("Content-Type", "application/json; utf-8");
 			conn.setDoOutput(true);
-			
+			/*OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+			osw.write(new Gson().toJson(json));
+			osw.flush();
+			osw.close();
+			conn.connect();*/
 			int responseCode = conn.getResponseCode();
 			BufferedReader br;
 			System.out.println("responseCode="+responseCode);
