@@ -143,30 +143,6 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int selectCategoryNo(Connection conn, String category) {
-		
-		int categoryNo = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCategoryNo");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, category);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				categoryNo = rset.getInt("CTG_NO");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return categoryNo;
-	}
-	
 	/**
 	 * 게시글 수를 돌려줄 메소드
 	 * @return 게시글 수

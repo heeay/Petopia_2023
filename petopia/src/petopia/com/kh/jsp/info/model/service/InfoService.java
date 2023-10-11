@@ -59,17 +59,6 @@ public class InfoService {
 		
 		return (result1 * result2 * result3);
 	}
-	
-	public int selectCategoryNo(String category) {
-		
-		Connection conn = getConnection();
-		
-		int categoryNo = new InfoDao().selectCategoryNo(conn, category);
-		
-		close(conn);
-		
-		return categoryNo;
-	}
 
 	/**
 	 * 게시글 수를 돌려줄 메소드
