@@ -8,26 +8,42 @@ public class HosRecords {
 	private Date hosDate;			//HOS_DATE	DATE
 	private	String hosVaccination;	//HOS_VACCINATION	VARCHAR2(500 BYTE)
 	private	String hosIllness;		//HOS_ILLNESS	VARCHAR2(1000 BYTE)
+	private	String hosMedicine;
 	private	String hosContent;		//HOS_CONTENT	VARCHAR2(4000 BYTE)
 	private	int petNo;				//PET_NO	NUMBER
 	private String petName;
+	private int rowNum;
 	
 	public HosRecords() {
 		super();
 	}
 	
-	public HosRecords(int hosNo, Date hosDate, String hosVaccination, String hosIllness, String hosContent, int petNo,
-			String petName) {
+	public HosRecords(int hosNo, Date hosDate, String hosVaccination, String hosIllness, String hosMedicine,
+			String hosContent, int petNo, String petName, int rowNum) {
 		super();
 		this.hosNo = hosNo;
 		this.hosDate = hosDate;
 		this.hosVaccination = hosVaccination;
 		this.hosIllness = hosIllness;
+		this.hosMedicine = hosMedicine;
 		this.hosContent = hosContent;
 		this.petNo = petNo;
 		this.petName = petName;
+		this.rowNum = rowNum;
 	}
 
+	public String getHosMedicine() {
+		return hosMedicine;
+	}
+	public void setHosMedicine(String hosMedicine) {
+		this.hosMedicine = hosMedicine;
+	}
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
 	public int getHosNo() {
 		return hosNo;
 	}
@@ -74,8 +90,8 @@ public class HosRecords {
 	@Override
 	public String toString() {
 		return "HosRecords [hosNo=" + hosNo + ", hosDate=" + hosDate + ", hosVaccination=" + hosVaccination
-				+ ", hosIllness=" + hosIllness + ", hosContent=" + hosContent + ", petNo=" + petNo + ", petName="
-				+ petName + "]";
+				+ ", hosIllness=" + hosIllness + ", hosMedicine=" + hosMedicine + ", hosContent=" + hosContent
+				+ ", petNo=" + petNo + ", petName=" + petName + ", rowNum=" + rowNum + "]";
 	}
 
 }

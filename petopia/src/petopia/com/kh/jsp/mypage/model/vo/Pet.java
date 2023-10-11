@@ -12,13 +12,14 @@ public class Pet {
 	private String petEtc;			//PET_ETC	VARCHAR2(1000 BYTE)
 	private int userNo;				//USER_NO	NUMBER
 	private int fileNo;				//FILE_NO	NUMBER
+	private int rowNum;
 	
 	public Pet() {
 		super();
 	}
 	
 	public Pet(int petNo, String petName, String petSpecies, String petSpecific, int petWeight, String petGender,
-			String petPersonality, String petEtc, int userNo, int fileNo) {
+			String petPersonality, String petEtc, int userNo, int fileNo, int rowNum) {
 		super();
 		this.petNo = petNo;
 		this.petName = petName;
@@ -30,8 +31,17 @@ public class Pet {
 		this.petEtc = petEtc;
 		this.userNo = userNo;
 		this.fileNo = fileNo;
+		this.rowNum = rowNum;
 	}
-	
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	public int getPetNo() {
 		return petNo;
 	}
@@ -92,12 +102,13 @@ public class Pet {
 	public void setFileNo(int fileNo) {
 		this.fileNo = fileNo;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Pet [petNo=" + petNo + ", petName=" + petName + ", petSpecies=" + petSpecies + ", petSpecific="
 				+ petSpecific + ", petWeight=" + petWeight + ", petGender=" + petGender + ", petPersonality="
-				+ petPersonality + ", petEtc=" + petEtc + ", userNo=" + userNo + ", fileNo=" + fileNo + "]";
+				+ petPersonality + ", petEtc=" + petEtc + ", userNo=" + userNo + ", fileNo=" + fileNo + ", rowNum="
+				+ rowNum + "]";
 	}
 	
 }

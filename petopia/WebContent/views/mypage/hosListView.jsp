@@ -94,11 +94,11 @@
                         		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                       		<% for(int i=hosList.size()-1; i>=0; i--){ %>
+                       		<% for(int i=0; i<hosList.size(); i++){ %>
                                 <tr>
                                     <input type="hidden" name="hno" value="<%=hosList.get(i).getHosNo() %>">
                                     
-                                    <td><%=i+1%></td>
+                                    <td><%=hosList.get(i).getRowNum()%></td>
                                     <td><%=hosList.get(i).getHosDate() %></td>
                                     <td><%=hosList.get(i).getPetName() %></td>
                                     <td style="width: 20px; border-top:none;">

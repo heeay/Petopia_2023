@@ -75,7 +75,6 @@ public class ShareListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		
 		request.getRequestDispatcher("views/info/shareListView.jsp").forward(request, response);
-		
 	}
 
 	/**

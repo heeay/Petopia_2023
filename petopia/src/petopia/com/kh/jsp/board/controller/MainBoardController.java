@@ -67,7 +67,7 @@ public class MainBoardController extends HttpServlet {
 		pageLimit = 5;
 		
 		// * boardLimit : 한 페이지에 보여질 게시글의 최대 개수
-		boardLimit = 8;
+		boardLimit = 4;
 		
 		// * maxPage : 가장 마지막페이지가 몇 번 페이지인지(총 페이지 개수)
 		/*

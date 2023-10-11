@@ -41,7 +41,7 @@ public class HosListController extends HttpServlet {
 		int listCount;		// 현재 일반게시판의 게시글 총 개수
 		int currentPage;	// 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
 		int pageLimit;		// 페이지 하단에 보여질 페이징바의 최대 개수
-		int PetLimit;		// 한 페이지에 보여질 게시글의 초대 개수
+		int boardLimit;		// 한 페이지에 보여질 게시글의 초대 개수
 		
 		int maxPage;		// 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
@@ -52,7 +52,7 @@ public class HosListController extends HttpServlet {
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
 		pageLimit = 10;
-		PetLimit = 8;
+		boardLimit = 8;
 		
 		maxPage = (int)Math.ceil((double)listCount/pageLimit);
 		
@@ -64,9 +64,9 @@ public class HosListController extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
-								   PetLimit, maxPage, startPage, endPage);
+								boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<HosRecords> hosList = new PetService().selectHosList(loginUser);
+		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser);
 		
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);

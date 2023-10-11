@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.board.controller;
+package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,36 +8,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class InsertBoardController
+ * Servlet implementation class HosInsertController
  */
-@WebServlet("/insert.bo")
-public class InsertBoardController extends HttpServlet {
+@WebServlet("/HosInsert.my")
+public class HosInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardController() {
+    public HosInsertController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// post
 		request.setCharacterEncoding("UTF-8");
-		request.getRequestDispatcher("views/board/insertBoard.jsp").forward(request, response);
-
+		
+		String hosTitle = request.getParameter("hosTitle");
+		String hosDate = request.getParameter("hosDate");
+		String hosVaccination = request.getParameter("hosVaccination");
+		String hosIllness = request.getParameter("hosIllness");
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
