@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.board.model.service.BoardService;
+import petopia.com.kh.jsp.board.model.vo.Board;
+import petopia.com.kh.jsp.common.model.vo.File;
+
 /**
  * Servlet implementation class DetailBoard
  */
@@ -26,7 +30,30 @@ public class DetailBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		// mainBoard의 boardTitle을 클릭하면 detail.bo로 이동
+		// 1. 인코딩 생략
+		// 2. 값 뽑아내기 : PK인 boardNo만 뽑기 = 식별가능
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		
+		BoardService bs = new BoardService();
+		
+		// 3. 기능 : 조회수 증가 : DML
+		
+		 int increaseCount = bs.increaseViewsCount(boardNo);
+		 
+		 // 서비스 갔다온 뒤 결과
+		 if(increaseCount > 0) {
+			 // 테이블 조회 파일 조회도 같이
+			 Board b = bs.selectBoard(boardNo);
+		
+			 // 조회한 결과 담기
+			 request.setAttribute("b", b);
+	
+		 } else {
+			 request.getRequestDispatcher("views/common/errorPage.jsp");
+		 }
+		
 
 		request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 	}

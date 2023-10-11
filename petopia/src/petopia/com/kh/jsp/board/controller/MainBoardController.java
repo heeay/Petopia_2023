@@ -94,8 +94,10 @@ public class MainBoardController extends HttpServlet {
 		//boardLimit = 15;
 		
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		// listCount == 0이면 maxPage도 0
+		
 		System.out.println("총페이지개수 : " + maxPage);
-
+		
 		
 		// * startPage : 페이지 하단에 보여질 페이징바의 시작 수
 		/*
@@ -139,6 +141,8 @@ public class MainBoardController extends HttpServlet {
 		 * startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		 */
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		// lsitCount가 0일때 currentPage -1은 0 == startPage는 1
+		
 		System.out.println("시작페이지 : " + startPage);
 		// * endPage : 페이지 하단에 보여질 페이징바의 끝 수
 		/*
@@ -154,13 +158,19 @@ public class MainBoardController extends HttpServlet {
 		 * => endPage = startPage + pageLimit - 1;
 		 */
 		endPage = startPage + pageLimit - 1;
+		//listCount가 0일때 startPage는 1 == endPage는 pageLimit
+		// ==> pageLimit은 5이므로 endPage는 5
+		
 		System.out.println("끝 페이지 : " +  endPage);
+		
 		
 		// startPage가 21이라서 endPage에는 30이 들어갔는데
 		// maxPage가 23이라면??
 		// endPage값을 maxPage값으로 변경
 		if(endPage > maxPage) {
 			endPage = maxPage;
+			// endpage는 0 
+		
 		}
 		
 		// 여기까지 총 7개의 변수를 만들었음!
@@ -177,7 +187,7 @@ public class MainBoardController extends HttpServlet {
 		// 5) 응답화면 지정
 		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
 		request.setAttribute("pi", pi);  // 아래 페이지바 
-		
+//		response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
 		request.getRequestDispatcher("views/board/mainBoard.jsp").forward(request, response);
 		
 	}
