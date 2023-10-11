@@ -338,37 +338,6 @@ if(cookies!=null){
         //구글 로그인
         /*
         function init() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init({
-                    client_id: '572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com'
-                });
-            });
-        }
-        
-        /*
-        function start() {
-          // 2. Initialize the JavaScript client library.
-          gapi.client.init({
-            'apiKey': 'AIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q',
-            // clientId and scope are optional if auth is not required.
-            'clientId': '572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com',
-            'scope': 'profile',
-          }).then(function() {
-            // 3. Initialize and make the API request.
-            return gapi.client.request({
-              'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
-            })
-          }).then(function(response) {
-            console.log(response.result);
-          }, function(reason) {
-            console.log('Error: ' + reason.result.error.message);
-          });
-        };
-        // 1. Load the JavaScript client library.
-        gapi.load('client', start);
-        */
-        /*
-        function init() {
             console.log("init");
     	    gapi.load("auth2", function() {
     		    gapi.auth2.init({
@@ -416,12 +385,11 @@ if(cookies!=null){
             const url = 'https://accounts.google.com/o/oauth2/v2/auth?'+
             'client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com'+
             '&redirect_uri=http://localhost/petopia/google-callback'+
-            '&response_type=code'+
-            '&scope=email profile';
+            '&response_type=token'+
+            '&scope=email profile https://www.googleapis.com/auth/user.phonenumbers.read';
 
             //code
             //token
-            //permission
             location.href = url;
             //window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
         }

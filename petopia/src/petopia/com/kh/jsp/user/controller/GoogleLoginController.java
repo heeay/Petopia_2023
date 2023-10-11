@@ -3,13 +3,11 @@ package petopia.com.kh.jsp.user.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,22 +18,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.google.gson.Gson;
+import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
  * Servlet implementation class GoogleLoginController
  */
-@WebServlet("/google-callback")
+@WebServlet("/googleLogin")
 public class GoogleLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GoogleLoginController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GoogleLoginController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,33 +49,42 @@ public class GoogleLoginController extends HttpServlet {
 		String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
 		String clientSecret = "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";
 		String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
-		String apiURL = "https://oauth2.googleapis.com/token";
-		
+		//String apiURL = "https://oauth2.googleapis.com/token";
+		String access_token = request.getParameter("access_token");
+		String id_token = "";
+		String apiURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_token;
+		/*
 		Map<String,String> params = new HashMap<String, String>();
 		params.put("code", code);
 		params.put("client_id", clientId);
 		params.put("client_secret", clientSecret);
 		params.put("redirect_uri", redirectURI);
 		params.put("grant_type", "authorization_code");
-		
+
 		JSONObject json = new JSONObject(params);
-		
-		String access_token = "";
+
+		String access_token = "";`
 		String id_token = "";
+		 */
 		System.out.println();
 		System.out.println("apiURL="+apiURL);
-		
+		System.out.println(request.getRequestURI());
+		String id = "";
+		String email = "";
+		String name = "";
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/json; utf-8");
-	        conn.setDoOutput(true);
-	        OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-	        osw.write(new Gson().toJson(json));
-	        osw.flush();
-	        osw.close();
-	        conn.connect();
+			conn.setRequestMethod("GET");
+			//conn.setRequestMethod("POST");
+			//conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; UTF-8");
+			//conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			conn.setDoOutput(true);
+			/*OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+			osw.write(new Gson().toJson(json));
+			osw.flush();
+			osw.close();
+			conn.connect();*/
 			int responseCode = conn.getResponseCode();
 			BufferedReader br;
 			System.out.println("responseCode="+responseCode);
@@ -92,19 +100,52 @@ public class GoogleLoginController extends HttpServlet {
 			}
 			br.close();
 			if(responseCode==200) {
-				System.out.println("===========인증토큰===========");
+				System.out.println("===========유저프로필===========");
 				System.out.println(res.toString());
 				JSONParser parser = new JSONParser();
 				JSONObject jObj = (JSONObject)parser.parse(res.toString());
-				access_token = (String)jObj.get("access_token");
+				id = (String)jObj.get("id");
+				email = (String)jObj.get("email");
+				name = (String)jObj.get("name");
 				id_token = (String)jObj.get("id_token");
-				System.out.println(access_token);
-				System.out.println(id_token);
+				System.out.println(id);
+				System.out.println(email);
+				System.out.println(name);
 			} else {
 				System.out.println(res.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(id.getBytes());
+
+			byte[] bytes = md.digest();
+			StringBuilder builder = new StringBuilder();
+			for(int i=0;i<bytes.length;i++) {
+				builder.append(String.format("%02X", bytes[i]));
+			}
+			id = builder.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		User u = new User();
+		u.setUserEmail(email);
+		u.setUserPass(id);
+		u.setUserNickname(name);
+		u.setUserPhone("");
+		u.setUserMethod(3);
+
+		User user = new UserService().simpleAuth(u);
+		if(user == null) {
+			request.setAttribute("errorMsg", "간편 로그인 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		} else {
+			request.getSession().setAttribute("userInfo", user);
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 
