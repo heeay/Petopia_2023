@@ -411,12 +411,16 @@ if(cookies!=null){
         }
         */
         //https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A8001%3Fid%3Dauth631447&response_type=permission%20id_token&scope=email%20profile%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.birthday.read&openid.realm&include_granted_scopes=true&client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A8001&prompt=select_account&fetch_basic_profile=true&gsiwebsdk=2&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow
+        //https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8001%2Fpetopia&response_type=code&scope=email%20profile&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow
         function googleLogin(){
-            const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com&redirect_uri=http://localhost:8001/petopia&response_type=code&scope=email profile';
+            const url = 'https://accounts.google.com/o/oauth2/v2/auth?'+
+            'client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com'+
+            '&redirect_uri=http://localhost:8001/petopia/googleLogin'+
+            '&response_type=code'+
+            '&scope=email profile';
 
             location.href = url;
             //window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
-            //this.showSocialLoginPopup(url)
         }
     </script>
     <%@include file="../common/footer.jsp" %>

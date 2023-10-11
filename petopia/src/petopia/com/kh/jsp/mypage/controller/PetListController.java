@@ -57,7 +57,7 @@ public class PetListController extends HttpServlet {
 		pageLimit = 10;
 		boardLimit = 5;
 		
-		maxPage = (int)Math.ceil((double)listCount/pageLimit);
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
 		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
 		endPage = startPage + pageLimit -1;
@@ -65,9 +65,6 @@ public class PetListController extends HttpServlet {
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
-		System.out.println(startPage);
-		System.out.println(endPage);
-		System.out.println(maxPage);
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 									boardLimit, maxPage, startPage, endPage);
