@@ -82,6 +82,15 @@
 		 	    )
 	</entry>
 	
+	<entry key="selectCategoryNo">
+		SELECT
+			   CTG_NO
+		  FROM 
+		  	   TB_BOARD
+		 WHERE 
+		 	   BOARD_NO = SEQ_BOARD_NO.CURRVAL
+	</entry>
+	
 	<!-- 게시글 수를 구하는 SQL -->
 	<entry key="selectListCount">
 		SELECT
