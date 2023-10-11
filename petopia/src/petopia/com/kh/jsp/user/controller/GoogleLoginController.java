@@ -67,7 +67,6 @@ public class GoogleLoginController extends HttpServlet {
 		String id_token = "";
 		 */
 		System.out.println();
-		System.out.println(access_token);
 		System.out.println("apiURL="+apiURL);
 		System.out.println(request.getRequestURI());
 		String id = "";
@@ -79,7 +78,7 @@ public class GoogleLoginController extends HttpServlet {
 			conn.setRequestMethod("GET");
 			//conn.setRequestMethod("POST");
 			//conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; UTF-8");
-			conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			//conn.setRequestProperty("Content-Type", "application/json; utf-8");
 			conn.setDoOutput(true);
 			/*OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
 			osw.write(new Gson().toJson(json));
