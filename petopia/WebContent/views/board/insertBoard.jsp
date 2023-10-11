@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% User user = (User)request.getAttribute("user");  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,16 +107,19 @@
 <body>
 
 <%@ include file="../common/header-min.jsp" %>
-
 <%@ include file="../common/sideBar.jsp" %>
+
 
 <div id="wrapper">
     
     <p>게시글 작성</p>
 
-    <div id="option-area">
+    <section id="option-area">
 
-        <ul id="option">
+        <form action="<%=contextPath%>/insert.bo" id="option-form" enctype="multipart/form-data" method="post" >
+
+            <input type="hidden" name="userNo" value="<%=user.getUserNo()%>">
+       
             <li class="option-list">
                 <span class="option-name">게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <select name="" id="option-board">
@@ -153,12 +157,14 @@
                 <span class="option-name">내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <textarea name="" id="option-content" placeholder="내용을 입력하세요"></textarea>
             </li>
-        </ul>
+        
       
-    </div>
+        </form>
+
+    </section>
 
 
-    <div id="upload-area">
+    <section id="upload-area">
 
         <ul>
             <li>
@@ -180,7 +186,7 @@
 
    
        
-    </div>
+    </section>
 
     
 </div>
