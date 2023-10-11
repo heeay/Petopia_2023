@@ -48,8 +48,8 @@ public class PetDeleteController extends HttpServlet {
 			request.getSession().setAttribute("alertMsg", "프로필 삭제 성공");
 			response.sendRedirect(request.getContextPath()+"/pet.my?cpage=1");
 		} else {
-		request.setAttribute("errorMsg", "프로필 삭제 실패");
-		request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("errorMsg", "프로필 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

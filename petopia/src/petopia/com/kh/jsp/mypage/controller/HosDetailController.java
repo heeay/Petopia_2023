@@ -49,6 +49,7 @@ public class HosDetailController extends HttpServlet {
 		request.setAttribute("petList", petList);
 		
 		request.getRequestDispatcher("views/mypage/hosDetailView.jsp").forward(request, response);
+		
 	}
 
 	/**

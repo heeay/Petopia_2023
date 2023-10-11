@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>병원기록</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	<style>
         /*div{border: 1px solid black;}*/
@@ -101,8 +102,17 @@
 
                         <div class="contentSize">
                             <div class="float-left">일자</div>
-                            <div class="float-right"><input type="date" class="input-width" name="hosDate" value="<%=hr.getHosDate()%>"></div>
+                            <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"></div>
                         </div>
+                        
+                        <script>
+                             $(function () {
+
+                                $("#getDate").datepicker();
+                                $("#getDate").datepicker('setDate', '2018-12-25');
+                                
+                                });
+                        </script>
 
                         <div class="contentSize">
                             <div class="float-left">예방접종 종류</div>
