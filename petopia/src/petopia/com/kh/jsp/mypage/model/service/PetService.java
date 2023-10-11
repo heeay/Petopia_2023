@@ -134,7 +134,6 @@ public class PetService {
 		Connection conn = getConnection();
 		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi,loginUser);
 		close(conn);
-		//System.out.println(hosList);
 		return hosList;
 	}
 
