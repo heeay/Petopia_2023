@@ -24,27 +24,46 @@ import petopia.com.kh.jsp.user.model.vo.User;
 /**
  * Servlet implementation class GoogleLoginController
  */
-@WebServlet("/googleLogin")
-public class GoogleLoginController extends HttpServlet {
+@WebServlet("/google-callback")
+public class GoogleCallbackController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GoogleLoginController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GoogleCallbackController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.getRequestDispatcher("views/user/googleCallback.jsp").forward(request, response);
+		
+		/*String code = request.getParameter("code");
+		String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
+		String clientSecret = "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";
+		String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
+		//String apiURL = "https://oauth2.googleapis.com/token";
 		String access_token = request.getParameter("access_token");
 		String id_token = "";
-		String apiURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_token;
+		String apiURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_token;*/
+		/*
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("code", code);
+		params.put("client_id", clientId);
+		params.put("client_secret", clientSecret);
+		params.put("redirect_uri", redirectURI);
+		params.put("grant_type", "authorization_code");
 		
+		JSONObject json = new JSONObject(params);
+		
+		String access_token = "";`
+		String id_token = "";
+		*//*
 		System.out.println();
 		System.out.println(access_token);
 		System.out.println("apiURL="+apiURL);
@@ -56,9 +75,15 @@ public class GoogleLoginController extends HttpServlet {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("GET");
+			//conn.setRequestMethod("POST");
+			//conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; UTF-8");
 			conn.setRequestProperty("Content-Type", "application/json; utf-8");
-			conn.setDoOutput(true);
-			
+	        conn.setDoOutput(true);*/
+	        /*OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+	        osw.write(new Gson().toJson(json));
+	        osw.flush();
+	        osw.close();
+	        conn.connect();*//*
 			int responseCode = conn.getResponseCode();
 			BufferedReader br;
 			System.out.println("responseCode="+responseCode);
@@ -91,11 +116,11 @@ public class GoogleLoginController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(id.getBytes());
-
+			
 			byte[] bytes = md.digest();
 			StringBuilder builder = new StringBuilder();
 			for(int i=0;i<bytes.length;i++) {
@@ -105,14 +130,14 @@ public class GoogleLoginController extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-
+		
 		User u = new User();
 		u.setUserEmail(email);
 		u.setUserPass(id);
 		u.setUserNickname(name);
 		u.setUserPhone("");
 		u.setUserMethod(3);
-
+		
 		User user = new UserService().simpleAuth(u);
 		if(user == null) {
 			request.setAttribute("errorMsg", "간편 로그인 실패");
@@ -120,7 +145,7 @@ public class GoogleLoginController extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("userInfo", user);
 			response.sendRedirect(request.getContextPath());
-		}
+		}*/
 	}
 
 	/**
