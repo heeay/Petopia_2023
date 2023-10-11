@@ -27,7 +27,8 @@ public class InsertBoardController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		// post
+		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("views/board/insertBoard.jsp").forward(request, response);
 
 	}
