@@ -137,5 +137,24 @@ public class PetService {
 		return hosList;
 	}
 
+	public ArrayList<Pet> selectPetName(User loginUser) {
+		Connection conn = getConnection();
+		ArrayList<Pet> PetList = new PetDao().selectPetName(conn, loginUser);
+		close(conn);
+		return PetList;
+	}
+
+	public int insertHos(HosRecords hr) {
+		Connection conn = getConnection();
+		int result = new PetDao().insertHos(conn, hr);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 }
