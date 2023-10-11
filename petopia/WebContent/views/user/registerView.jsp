@@ -161,7 +161,7 @@
                     <!--비밀번호를 입력해 주세요.-->
                 </div>
                 <div class="input-wrap">
-                    <input id="phone" type="text" name="phone" placeholder=" 전화번호">
+                    <input id="phone" type="text" name="phone" placeholder=" 전화번호" maxlength="13">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">deskphone</span>
                     </div>
@@ -211,6 +211,20 @@
                 checkPw();
             });
             $("#phone").focusout(function(){
+                let phoneNum = $(this).val().replace(/\-/g,"");
+                let phone1 = phoneNum.substr(0,3);
+                let phone2 = "";
+                let phone3 = "";
+                if(phone1 == "010"){
+                    phone2 = phoneNum.substr(3,4);
+                    phone3 = phoneNum.substr(7);
+                    $(this).val(phone1+"-"+phone2+"-"+phone3);
+                }
+                else if(phone1 == "011"){
+                    phone2 = phoneNum.substr(3,3);
+                    phone3 = phoneNum.substr(6);
+                    $(this).val(phone1+"-"+phone2+"-"+phone3);
+                }
                 checkPhone();
             });
         })
@@ -347,7 +361,7 @@
         function checkPhone(){
             const phone = document.getElementById("phone");
             const errPhone = document.getElementById("err-phone");
-            const regExpPhone = /^\d{10,11}$/;
+            const regExpPhone = /\d{3}-\d{3,4}-\d{4}/;
             if(phone.value==""){
                 errPhone.style.display="block";
                 errPhone.innerText = "전화번호를 입력해 주세요.";
