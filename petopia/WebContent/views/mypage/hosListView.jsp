@@ -66,7 +66,7 @@
             <div class="mg-t-b">
                 <div class="hos-title">병원기록</div>
 
-                <div class="btn-right"><a href="<%=contextPath %>/views/mypage/hosEnrollForm.jsp" class="btn btn-secondary">글작성</a></div>
+                <div class="btn-right"><a href="<%=contextPath %>/hosEnrollForm.my" class="btn btn-secondary">글작성</a></div>
                 
                 <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startday"> ~ <input type="date" name="lastday">
