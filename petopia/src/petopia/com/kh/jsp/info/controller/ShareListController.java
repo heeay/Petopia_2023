@@ -55,8 +55,8 @@ public class ShareListController extends HttpServlet {
 		// System.out.println(ctgNo);
 		// System.out.println(listCount);
 		
-		pageLimit = 5;
-		boardLimit = 11;
+		pageLimit = 10;
+		boardLimit = 10;
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
@@ -73,6 +73,7 @@ public class ShareListController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("ctgNo", ctgNo);
 		
 		request.getRequestDispatcher("views/info/shareListView.jsp").forward(request, response);
 	}
