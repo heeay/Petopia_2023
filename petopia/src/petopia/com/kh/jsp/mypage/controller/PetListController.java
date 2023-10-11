@@ -64,6 +64,9 @@ public class PetListController extends HttpServlet {
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
+		System.out.println(startPage);
+		System.out.println(endPage);
+		System.out.println(maxPage);
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 									PetLimit, maxPage, startPage, endPage);
