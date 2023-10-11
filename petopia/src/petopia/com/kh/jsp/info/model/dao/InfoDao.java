@@ -193,8 +193,8 @@ public class InfoDao {
 			while(rset.next()) {
 				
 				Info i = new Info();
-				i.setInfoTitle(rset.getString("INFO_TITLE"));
-				i.setInfoContent(rset.getString("INFO_CONTENT"));
+				i.setInfoTitle(rset.getString("BOARD_TITLE"));
+				i.setInfoContent(rset.getString("BOARD_CONTENT"));
 				i.setTitleImg(rset.getString("TITLE_IMG"));
 				
 				list.add(i);
