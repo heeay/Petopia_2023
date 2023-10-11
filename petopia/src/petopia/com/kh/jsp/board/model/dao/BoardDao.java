@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
-import petopia.com.kh.jsp.common.JDBCTemplate;
+import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
 public class BoardDao {
@@ -56,8 +56,8 @@ public class BoardDao {
 		
 		} finally {
 			
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			close(rset);
+			close(pstmt);
 
 		}
 		
@@ -108,8 +108,8 @@ public class BoardDao {
 			e.printStackTrace();
 		} finally {
 			
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			close(rset);
+			close(pstmt);
 
 			
 		}
@@ -120,9 +120,71 @@ public class BoardDao {
 		
 	}
 	
+	public int increaseViewsCount(Connection conn, int boardNo) {
+		
+		int increaseCount = 0;
+		PreparedStatement pstmt = null;
+		Board b = new Board();
+		
+		String sql = prop.getProperty("increaseViewsCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, b.getBoardNo());
+			
+			increaseCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		return increaseCount;
+		
+	}
 	
 	
-	
+	public Board selectBoard(Connection conn, int boardNo) {
+		
+		Board b = new Board();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+		
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setBoardContent(rset.getString("BOARD_CONTENT"));
+			b.setBoardViews(rset.getInt("BOARD_VIEWS"));
+			b.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+			b.setUserNo(rset.getInt("USER_NO"));
+			b.setFileNo(rset.getInt("FILE_NO"));
+			b.setCtgNo(rset.getInt("CTG_NO"));
+			b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+			
+			
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return b;
+	}
 	
 	
 	
