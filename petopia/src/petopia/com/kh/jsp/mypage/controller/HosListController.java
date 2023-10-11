@@ -55,6 +55,7 @@ public class HosListController extends HttpServlet {
 		PetLimit = 8;
 		
 		maxPage = (int)Math.ceil((double)listCount/pageLimit);
+		
 		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
 		endPage = startPage + pageLimit -1;
 		

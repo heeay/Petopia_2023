@@ -29,7 +29,7 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Pet> selectPetList(Connection conn, User loginUser) {
+	public ArrayList<Pet> selectPetList(Connection conn, PageInfo pi, User loginUser) {
 		ArrayList<Pet> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -38,6 +38,13 @@ public class PetDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, loginUser.getUserNo());
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endrow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
