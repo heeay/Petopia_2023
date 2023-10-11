@@ -97,12 +97,12 @@ public class ShareInsertController extends HttpServlet {
 			
 			// 결과에 따른 응답 뷰 지정
 			if(result > 0) { // 성공
-				response.sendRedirect(request.getContextPath() + "/share.in"); // 인포 리스트 화면으로 돌아감
+				response.sendRedirect(request.getContextPath() + "/share.in?ictg=12&ipage=1"); // 정보공유 메인 화면으로 돌아감
 			} else {
 				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); // 에러페이지로 가서 에러메시지 보여줌
 			}
-			+
+			
 		}
 		
 	}

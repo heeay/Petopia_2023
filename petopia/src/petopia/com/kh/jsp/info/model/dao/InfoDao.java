@@ -172,7 +172,7 @@ public class InfoDao {
 		return listCount;
 	}
 	
-	public ArrayList<Info> selectList(Connection conn, PageInfo pi) {
+	public ArrayList<Info> selectList(Connection conn, PageInfo pi, int ctgNo) {
 		
 		ArrayList<Info> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -185,8 +185,9 @@ public class InfoDao {
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, ctgNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -194,7 +195,7 @@ public class InfoDao {
 				
 				Info i = new Info();
 				i.setInfoTitle(rset.getString("BOARD_TITLE"));
-				i.setInfoContent(rset.getString("BOARD_CONTENT"));
+				i.setInfoContent(rset.getString("SUB_CONTENT"));
 				i.setTitleImg(rset.getString("TITLE_IMG"));
 				
 				list.add(i);
