@@ -78,7 +78,7 @@
 
         <div class="container">
 
-            <table class="table table-hover">
+            <table class="table table-hover" id="list-area">
 
                 <thead>
                     <tr>
@@ -118,6 +118,16 @@
                 </tbody>
 
             </table>
+            
+            <script>
+                $(function(){
+
+                    $('#list-area>tbody>tr').click(function(){
+                        location.href="<%= contextPath %>/hosDetail.my?hno=" + $(this).children().eq(0).val();
+                    });
+                })
+
+            </script>
             
         </div>
 

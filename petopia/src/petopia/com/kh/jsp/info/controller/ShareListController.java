@@ -69,7 +69,7 @@ public class ShareListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Info> list = new InfoService().selectList(pi);
+		ArrayList<Info> list = new InfoService().selectList(pi, ctgNo);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

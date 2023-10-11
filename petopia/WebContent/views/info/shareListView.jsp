@@ -28,20 +28,29 @@
     #wrap{
         border : 1px solid red;
         width: 780px;
-        height: 95%;
+        height: 90%;
         margin-top : 20px;
     }
     
     .paging-area{
     	width : 780px;
-    	height : 5%;
+    	height : 10%;
     }
     
     #content-area{text-align: right;}
-    
+
     .info-list *{
         border : 1px solid black;
     }
+
+    .info-list{
+        display: flex;
+        justify-content: center;
+    }
+    
+    td{background-color : rgb(255, 248, 240);}
+    
+    #no-list{font-size : 30px;}
     
     img{
     	width: 90%;
@@ -50,7 +59,8 @@
     }
     
     .share-btn{
-    	bakground-color : orange;
+    	background-color: rgb(228, 156, 92);
+    	color : white;
     	border-radius: 5px;
         margin: 2px;
         width: 30px;
@@ -80,7 +90,7 @@
 			
 			<% if(list.isEmpty()) { %>
             <tr>
-                <td>조회된 게시글이 없습니다.</td>
+                <td id="no-list">조회된 게시글이 없습니다.</td>
             </tr>
             <% } else { %>
 
@@ -89,10 +99,10 @@
                         <td rowspan="2" width="400px" height="150px"><img src="<%= in.getTitleImg() %>"></td>
                         <td width="600px"><%= in.getInfoTitle() %></td>
                     </tr>
-                    <tr>
-                        <td><%= in.getInfoContent() %></td>
-                    </tr>
-                    <tr height="10px"></tr>
+	                <tr>
+	                    <td><%= in.getInfoContent() %></td>
+	                </tr>
+                    <tr height="20px"></tr>
                 <% } %>
                 
             <% } %>
@@ -113,22 +123,28 @@
     </div>
 
         <div class="pagin-area" align="center">
-
-			<% if(currentPage != 1) { %>
-				<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage - 1 %>'" class="share-btn">&lt;</button>
-			<% } %>
-			
-			<% for(int i = startPage; i <= endPage; i++) { %>
-				<% if(currentPage != i) { %>
-					<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= i %>'" class="share-btn"><%= i %></button>
-				<% } else { %>
-					<button disabled class="share-btn"><%= i %></button>
+        
+        	<% if(list.isEmpty()) { %>
+            	<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">1</button>
+            
+            <% } else { %>
+				<% if(currentPage != 1) { %>
+					<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage - 1 %>'" class="share-btn">&lt;</button>
 				<% } %>
-			<% } %>
-
-			<% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage + 1 %>'" class="share-btn">&gt;</button>
-            <% } %>
+				
+				<% for(int i = startPage; i <= endPage; i++) { %>
+					<% if(currentPage != i) { %>
+						<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= i %>'" class="share-btn"><%= i %></button>
+					<% } else { %>
+						<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)"><%= i %></button>
+					<% } %>
+				<% } %>
+	
+				<% if(currentPage != maxPage) { %>
+	            	<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage + 1 %>'" class="share-btn">&gt;</button>
+	            <% } %>
+	        <% } %>
+            
         </div>
     
     </section>
