@@ -31,6 +31,7 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 	}
+	 
 	
 	public int selectListCount(Connection conn) {
 		
