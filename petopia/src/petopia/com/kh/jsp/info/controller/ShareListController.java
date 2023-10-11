@@ -33,7 +33,7 @@ public class ShareListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// petopia/share.in?ictg=12
+		// petopia/share.in?ictg=22
 		
 		int ctgNo;
 		int listCount;

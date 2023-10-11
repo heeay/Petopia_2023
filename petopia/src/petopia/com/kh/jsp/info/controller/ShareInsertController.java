@@ -102,7 +102,7 @@ public class ShareInsertController extends HttpServlet {
 				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); // 에러페이지로 가서 에러메시지 보여줌
 			}
-			
+			+
 		}
 		
 	}

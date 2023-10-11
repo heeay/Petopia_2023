@@ -79,11 +79,13 @@ public class InfoService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Info> list = new InfoDao().selectListCount(conn, pi);
+		ArrayList<Info> list = new InfoDao().selectList(conn, pi);
 		
 		close(conn);
 		
 		return list;
 	}
+	
+	
 	
 }

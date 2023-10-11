@@ -12,7 +12,7 @@
 		  FROM 
 		  	   TB_CATEGORY
 		 WHERE 
-		 	   CTG_NO >= 12
+		 	   CTG_NO > 21
 		 ORDER 
 		 	BY 
 		 	   CTG_NO ASC
@@ -90,6 +90,30 @@
 		  	   TB_BOARD
 		 WHERE 
 		 	   CTG_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	<!-- 카테고리별 게시글 리스트를 구하는 SQL -->
+	<entry key="selectList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+		  		  FROM (SELECT
+		  		  			   BOARD_TITLE,
+		  		  			   BOARD_CONTENT,
+		  		  			   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
+		  		  	      FROM 
+		  		  	      	   TB_BOARD
+		  		  	      JOIN
+		  		  	      	   TB_FILE ON(BOARD_NO = REF_BNO)
+		  		  	     WHERE 
+		  		  	     	   FILE_LEVEL = 1
+		  		  	       AND
+		  		  	     	   BOARD_STATUS = 'Y'
+		  		  	     ORDER
+		  		  	     	BY 
+		  		  	     	   BOARD_NO DESC) A)
+				 WHERE RNUM BETWEEN ? AND ?		  		
 	</entry>
 	
 
