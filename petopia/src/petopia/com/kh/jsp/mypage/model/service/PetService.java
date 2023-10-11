@@ -130,9 +130,9 @@ public class PetService {
 		return hosListCount;
 	}
 
-	public ArrayList<HosRecords> selectHosList(User loginUser) {
+	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser) {
 		Connection conn = getConnection();
-		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, loginUser);
+		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi,loginUser);
 		close(conn);
 		//System.out.println(hosList);
 		return hosList;

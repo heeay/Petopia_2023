@@ -4,20 +4,25 @@
 	<comment>마이페이지 관련 SQL문</comment>
 	
 	<entry key="selectPetList">
-		 SELECT * 
-  		   FROM (SELECT ROWNUM RNUM, A.* 
-           FROM (SELECT 
-				 		PET_NO,
-						PET_NAME,
-						PET_SPECIES,
-						FILE_MYPAGE_NO 
-				   FROM 
-				   		TB_PET 
-				  WHERE 
-				  		USER_NO =?
-				  ORDER BY 
-				  		FILE_MYPAGE_NO DESC)A)
-		 WHERE RNUM BETWEEN ? AND ?
+		  SELECT *
+			FROM
+			(SELECT ROWNUM RNUM, A.*
+			FROM
+			(SELECT *
+			FROM
+			(SELECT
+			    ROWNUM IND,
+			    PET_NO,
+			    PET_NAME,
+			    PET_SPECIES,
+			    FILE_MYPAGE_NO
+			FROM
+			    TB_PET
+			WHERE
+			    USER_NO = ?
+			ORDER BY PET_NO)
+			ORDER BY IND DESC) A)
+			WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="insertPet">
@@ -232,21 +237,27 @@
 		  		TB_PET USING (PET_NO) 
 		  WHERE 
 		 		USER_NO = ? 
+		 		
 	</entry>
 	
 	<entry key="selectHosList">
-		 SELECT 
-		 		HOS_NO,
-				HOS_DATE,
-				PET_NAME
-		   FROM 
-		   		TB_HOS_RECORDS 
-		   JOIN 
-		   		TB_PET USING (PET_NO) 
-		  WHERE 
-		  		USER_NO = ? 
-		  ORDER BY 
-		  		HOS_DATE DESC
+		 SELECT *
+  		   FROM (SELECT ROWNUM RNUM, A.* 
+  		   		   FROM (SELECT *
+          		  		   FROM (SELECT 
+		          		  				ROWNUM IND,
+								 		HOS_NO,
+										HOS_DATE,
+										PET_NAME
+								   FROM 
+								   		TB_HOS_RECORDS 
+								   JOIN 
+								   		TB_PET USING (PET_NO) 
+								  WHERE 
+								  		USER_NO = ? 
+								  ORDER BY HOS_DATE)
+						  ORDER BY IND DESC) A)
+		  WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 </properties>

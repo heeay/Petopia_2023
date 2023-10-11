@@ -46,7 +46,6 @@ public class PetListController extends HttpServlet {
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 		int endPage;		// 페이지 하단에 보여질 페이징바의 끝 수
 		
-		
 		listCount = new PetService().selectPetListCount(loginUser);
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
@@ -57,7 +56,7 @@ public class PetListController extends HttpServlet {
 		pageLimit = 10;
 		boardLimit = 5;
 		
-		maxPage = (int)Math.ceil((double)listCount/pageLimit);
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
 		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
 		endPage = startPage + pageLimit -1;
@@ -70,6 +69,7 @@ public class PetListController extends HttpServlet {
 									boardLimit, maxPage, startPage, endPage);
 
 		ArrayList<Pet> list = new PetService().selectPetList(pi, loginUser);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
