@@ -419,6 +419,9 @@ if(cookies!=null){
             '&response_type=code'+
             '&scope=email profile';
 
+            //code
+            //token
+            //permission
             location.href = url;
             //window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
         }
