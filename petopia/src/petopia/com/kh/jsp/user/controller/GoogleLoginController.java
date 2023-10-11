@@ -3,6 +3,8 @@ package petopia.com.kh.jsp.user.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -18,10 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class GoogleLoginController
  */
-@WebServlet("/googleLogin")
+@WebServlet("/google-callback")
 public class GoogleLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,24 +49,17 @@ public class GoogleLoginController extends HttpServlet {
 		String code = request.getParameter("code");
 		String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
 		String clientSecret = "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";
-		String redirectURI = URLEncoder.encode("http://localhost:8001/petopia/googleLogin","UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
 		String apiURL = "https://oauth2.googleapis.com/token";
 		
-		Map<String,Object> params = new HashMap<String, Object>();
+		Map<String,String> params = new HashMap<String, String>();
 		params.put("code", code);
 		params.put("client_id", clientId);
 		params.put("client_secret", clientSecret);
 		params.put("redirect_uri", redirectURI);
 		params.put("grant_type", "authorization_code");
 		
-		StringBuilder postData = new StringBuilder();
-        for(Map.Entry<String,Object> param : params.entrySet()) {
-            if(postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-        }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+		JSONObject json = new JSONObject(params);
 		
 		String access_token = "";
 		String id_token = "";
@@ -73,10 +70,13 @@ public class GoogleLoginController extends HttpServlet {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+			conn.setRequestProperty("Content-Type", "application/json; utf-8");
 	        conn.setDoOutput(true);
-	        conn.getOutputStream().write(postDataBytes);
+	        OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+	        osw.write(new Gson().toJson(json));
+	        osw.flush();
+	        osw.close();
+	        conn.connect();
 			int responseCode = conn.getResponseCode();
 			BufferedReader br;
 			System.out.println("responseCode="+responseCode);
@@ -100,6 +100,8 @@ public class GoogleLoginController extends HttpServlet {
 				id_token = (String)jObj.get("id_token");
 				System.out.println(access_token);
 				System.out.println(id_token);
+			} else {
+				System.out.println(res.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
