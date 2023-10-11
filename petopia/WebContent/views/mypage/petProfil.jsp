@@ -20,7 +20,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-       /* div{border: 1px solid black;}*/
+        /*div{border: 1px solid black;}*/
         .content-area{
             position: absolute;
             top: 130px;
@@ -160,10 +160,10 @@
                         </div>
                         
                         <div>
-                            <div style="margin-left: 30px; margin-bottom: 5px; margin-top: 20px;">
+                            <div style="margin-left: 30px; margin-bottom: 5px; margin-top: 10px;">
                                 <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
                             </div>
-                            <div style="margin-left: 30px; padding-bottom: 15px;">
+                            <div style="margin-left: 30px; padding-bottom: 10px;">
                                 <button type="submit" class="btn btn-sm btn-warning">유저프로필 등록</button>
                             </div>
                         </div>
@@ -222,10 +222,10 @@
                         		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                        	<% for(int i=list.size()-1; i>=0; i--){ %>
+                        	<% for(int i=0; i<list.size(); i++){ %>
                                 <tr>
                                     <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
-                                    <td><%=i+1%></td>
+                                    <td><%=list.get(i).getRowNum() %></td>
                                     <td><%=list.get(i).getPetName() %></td>
                                     <td><%=list.get(i).getPetSpecies() %></td>
                         	    </tr>

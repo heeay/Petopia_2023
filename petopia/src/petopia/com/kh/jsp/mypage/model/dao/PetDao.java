@@ -53,6 +53,7 @@ public class PetDao {
 				p.setPetName(rset.getString("PET_NAME"));
 				p.setPetSpecies(rset.getString("PET_SPECIES"));
 				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
+				p.setRowNum(rset.getInt("IND"));
 				
 				list.add(p);
 			}
@@ -351,7 +352,7 @@ public class PetDao {
 		}
 		return hosListCount;
 	}
-	public ArrayList<HosRecords> selectHosList(Connection conn, User loginUser) {
+	public ArrayList<HosRecords> selectHosList(Connection conn, PageInfo pi, User loginUser) {
 		ArrayList<HosRecords> hosList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -361,13 +362,20 @@ public class PetDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, loginUser.getUserNo());
 			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endrow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				HosRecords hr = new HosRecords();
 				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getDate("HOS_DATE"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
 				hr.setPetName(rset.getString("PET_NAME"));
+				hr.setRowNum(rset.getInt("IND"));
 				
 				hosList.add(hr);
 			}
