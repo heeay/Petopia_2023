@@ -47,7 +47,7 @@
        align-items: center;
     }
 
-    .content-area{
+    #content-area{
         display : flex;
         justify-content: center;
         height : 80%;
@@ -106,7 +106,33 @@
 
 <!-- content -->
 <style>
+    .contents{
+       
+        
+    }
+    #content-header{
+        font-size : 20px;
+        font-weight : 600;
+       
+    }
+    #content-item{
+        float : left;
+    }
 
+    #list-header {
+
+    }
+    #list-header li{
+        display : inline;
+        margin-right : 20px;
+    }
+    #list-item{
+        float : left;
+    }
+    #list-item li{
+        display : inline;
+        margin-right : 20px;
+    }
   
     .content{
         margin : 20px 100px;
@@ -144,9 +170,10 @@
 	
 	<div id="wrapper">
 		
-        <div id="search-area">
+        <section id="search-area">
 
-            <div id="search-help">
+            <article id="search-help">
+
                 <div id="search-bar">
                     <form action="main.bo" method="get" id="search-form">
                         <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
@@ -154,77 +181,77 @@
                     </form>
                 </div>
 
-        <script>
-            $(function(){
-                $('#search-icon').click(function(){
-                    // ???
-                    $('#search-btn').submit();
-                })
-            });
-        </script>
+                <script>
+                    $(function(){
+                        $('#search-icon').click(function(){
+                            // ???
+                            $('#search-btn').submit();
+                        })
+                    });
+                </script>
 
                 <div id="search-radio">
                     <input type="radio" name="">제목
                     <input type="radio" name="">작성자
                 </div>
 
-            </div>
+            </article>
 
-               
-
-                <div id="search-view">
-                    <select name="" id="">
-                        <option value="">게시글 4개씩 보기</option>
-                        <option value="">게시글 2개씩 보기</option>
-                        <option value="">게시글 8개씩 보기</option>
-                    </select>   
-                    
-                </div>
+            <article id="search-view">
+                <select name="" id="">
+                    <option value="">게시글 4개씩 보기</option>
+                    <option value="">게시글 2개씩 보기</option>
+                    <option value="">게시글 8개씩 보기</option>
+                </select>   
+                
+            </article>
             
-        </div>
+        </section>
 
 
                 
-                <table class="content-area" align="center">
-            <thead>
-                <tr>
-                    <th width="100">글번호</th>
-                    <th width="100">파일번호</th>
-                    <th width="200">제목</th>
-                    <th width="100">작성자</th>
-                    <th width="50">조회수</th>
-                    <th width="100">작성일</th>
-                    <th width="100">카테고리번호</th>
-                    <th width="200">펫카테고리번호</th>
-                </tr>
-            </thead>
+        <section id="content-area">
+
+            <article id="content-header" class="contents">
+                
+                <ul id="list-header">
+                    <li>글번호</li>
+                    <li>파일번호</li>
+                    <li>제목</li>
+                    <li>작성자</li>
+                    <li>조회수</li>
+                    <li>작성일</li>
+                    <li>카테고리번호</li>
+                    <li>펫카테고리번호</li>
+                </ul>
+                  
+            </article>
             
-            <tbody>
-          
+            <article id="content-item" class="contents">
 
             	<% if(list.isEmpty()) { %>
-	                <tr>
-	                    <td colspan="6">조회된 게시글이 없습니다.</td>
-	                </tr>
+	                <ul id="list-item">
+	                    <li>조회된 게시글이 없습니다.</li>
+	                </ul>
                 <% } else { %>
                 
                 	<% for(Board b : list) { %>
-	                	<tr>
-	                		<td><%= b.getBoardNo() %></td>
-	                		<td><%= b.getFileNo() %></td>
-	                		<td><%= b.getBoardTitle() %></td>
-	                		<td><%= b.getUserNo() %></td>
-	                		<td><%= b.getBoardViews() %></td>
-	                		<td><%= b.getBoardCreateDate() %></td>
-	                		<td><%= b.getCtgNo() %></td>
-	                		<td><%= b.getPetCtgNo() %></td>
-	                	</tr>
+	                	<ul id="list-item">
+	                		<li><%= b.getBoardNo() %></li>
+	                		<li><%= b.getFileNo() %></li>
+	                		<li><%= b.getBoardTitle() %></li>
+	                		<li><%= b.getUserNo() %></li>
+	                		<li><%= b.getBoardViews() %></li>
+	                		<li><%= b.getBoardCreateDate() %></li>
+	                		<li><%= b.getCtgNo() %></li>
+	                		<li><%= b.getPetCtgNo() %></li>
+	                	</ul>
                 	<% } %>
 
                 <% } %>
                 
-            </tbody>
-        </table>
+            </article>
+        </section>
 
         <script>
 
