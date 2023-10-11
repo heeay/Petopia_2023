@@ -215,9 +215,12 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                 </div>
                 <ul class="header-navi">
+
                     <li class="header-navi-item"><a href="<%= contextPath %>/main.bo
                     ">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12">정보</a></li>
+
+                   
                     <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
                 </ul>

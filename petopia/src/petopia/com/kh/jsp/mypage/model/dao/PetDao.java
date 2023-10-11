@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
@@ -28,7 +29,7 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Pet> selectPetList(Connection conn, User loginUser) {
+	public ArrayList<Pet> selectPetList(Connection conn, PageInfo pi, User loginUser) {
 		ArrayList<Pet> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -37,6 +38,13 @@ public class PetDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, loginUser.getUserNo());
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endrow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -320,6 +328,56 @@ public class PetDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int selectHosListCount(Connection conn, User loginUser) {
+		int hosListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHosListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hosListCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hosListCount;
+	}
+	public ArrayList<HosRecords> selectHosList(Connection conn, User loginUser) {
+		ArrayList<HosRecords> hosList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHosList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HosRecords hr = new HosRecords();
+				hr.setHosNo(rset.getInt("HOS_NO"));
+				hr.setHosDate(rset.getDate("HOS_DATE"));
+				hr.setPetName(rset.getString("PET_NAME"));
+				
+				hosList.add(hr);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hosList;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

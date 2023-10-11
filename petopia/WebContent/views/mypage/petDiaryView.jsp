@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,7 +142,7 @@
                         </form>
 
                         <div class="btn-right">
-                            <a href="<%=contextPath %>/views/mypage/hosListlView.jsp" class="btn btn-sm btn-secondary">more</a>
+                            <a href="<%=contextPath %>/hosList.my?cpage=1" class="btn btn-sm btn-secondary">more</a>
                         </div>
 
                     </div>
