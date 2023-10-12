@@ -5,7 +5,7 @@ import java.sql.Date;
 public class HosRecords {
 
 	private int hosNo;				//HOS_NO	NUMBER
-	private Date hosDate;			//HOS_DATE	DATE
+	private String hosDate;			//HOS_DATE	DATE
 	private	String hosVaccination;	//HOS_VACCINATION	VARCHAR2(500 BYTE)
 	private	String hosIllness;		//HOS_ILLNESS	VARCHAR2(1000 BYTE)
 	private	String hosMedicine;
@@ -18,7 +18,7 @@ public class HosRecords {
 		super();
 	}
 	
-	public HosRecords(int hosNo, Date hosDate, String hosVaccination, String hosIllness, String hosMedicine,
+	public HosRecords(int hosNo, String hosDate, String hosVaccination, String hosIllness, String hosMedicine,
 			String hosContent, int petNo, String petName, int rowNum) {
 		super();
 		this.hosNo = hosNo;
@@ -50,10 +50,10 @@ public class HosRecords {
 	public void setHosNo(int hosNo) {
 		this.hosNo = hosNo;
 	}
-	public Date getHosDate() {
+	public String getHosDate() {
 		return hosDate;
 	}
-	public void setHosDate(Date hosDate) {
+	public void setHosDate(String hosDate) {
 		this.hosDate = hosDate;
 	}
 	public String getHosVaccination() {

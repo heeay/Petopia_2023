@@ -75,11 +75,11 @@ public class InfoService {
 		return listCount;
 	}
 	
-	public ArrayList<Info> selectList(PageInfo pi) {
+	public ArrayList<Info> selectList(PageInfo pi, int ctgNo) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Info> list = new InfoDao().selectList(conn, pi);
+		ArrayList<Info> list = new InfoDao().selectList(conn, pi, ctgNo);
 		
 		close(conn);
 		

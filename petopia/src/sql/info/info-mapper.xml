@@ -12,7 +12,7 @@
 		  FROM 
 		  	   TB_CATEGORY
 		 WHERE 
-		 	   CTG_NO > 21
+		 	   CTG_NO > 11
 		 ORDER 
 		 	BY 
 		 	   CTG_NO ASC
@@ -100,7 +100,7 @@
 		  FROM (SELECT ROWNUM RNUM, A.*
 		  		  FROM (SELECT
 		  		  			   BOARD_TITLE,
-		  		  			   BOARD_CONTENT,
+		  		  			   SUBSTR(BOARD_CONTENT, 1, 30) SUB_CONTENT,
 		  		  			   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
 		  		  	      FROM 
 		  		  	      	   TB_BOARD
@@ -108,6 +108,8 @@
 		  		  	      	   TB_FILE ON(BOARD_NO = REF_BNO)
 		  		  	     WHERE 
 		  		  	     	   FILE_LEVEL = 1
+		  		  	       AND
+		  		  	       	   CTG_NO = ?
 		  		  	       AND
 		  		  	     	   BOARD_STATUS = 'Y'
 		  		  	     ORDER

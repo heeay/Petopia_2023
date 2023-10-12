@@ -373,7 +373,7 @@ public class PetDao {
 			while(rset.next()) {
 				HosRecords hr = new HosRecords();
 				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getDate("HOS_DATE"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
 				hr.setPetName(rset.getString("PET_NAME"));
 				hr.setRowNum(rset.getInt("IND"));
 				
@@ -386,6 +386,82 @@ public class PetDao {
 			close(pstmt);
 		}
 		return hosList;
+	}
+	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
+		ArrayList<Pet> PetList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPetName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Pet p = new Pet();
+				p.setPetName(rset.getString("PET_NAME"));
+				p.setPetNo(rset.getInt("PET_NO"));
+				PetList.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return PetList;
+	}
+	public int insertHos(Connection conn, HosRecords hr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertHos");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, hr.getHosDate());
+			pstmt.setString(2, hr.getHosVaccination());
+			pstmt.setString(3, hr.getHosMedicine());
+			pstmt.setString(4, hr.getHosContent());
+			pstmt.setString(5, hr.getHosIllness());
+			pstmt.setInt(6, hr.getPetNo());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public HosRecords selectHosContent(Connection conn, int hosNo) {
+		HosRecords hr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHosContent");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  hosNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hr = new HosRecords();
+				hr.setHosNo(rset.getInt("HOS_NO"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
+				hr.setHosVaccination(rset.getString("HOS_VACCINATION"));
+				hr.setHosIllness(rset.getString("HOS_ILLNESS"));
+				hr.setHosMedicine(rset.getString("HOS_MEDICINE"));
+				hr.setHosContent(rset.getString("HOS_CONTENT"));
+				hr.setPetNo(rset.getInt("PET_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hr;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

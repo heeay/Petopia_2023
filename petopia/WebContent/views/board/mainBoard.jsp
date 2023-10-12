@@ -5,11 +5,13 @@
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
+
 	// 페이징바 만들 때 필요한 변수 미리 세팅
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+    int boardLimit = pi.getBoardLimit();
 
 %>
 <!DOCTYPE html>
@@ -199,13 +201,18 @@
 
             <article id="search-view">
                 <select name="" id="">
-                    <option value="">게시글 4개씩 보기</option>
-                    <option value="">게시글 2개씩 보기</option>
-                    <option value="">게시글 8개씩 보기</option>
+                    <option value="" id="search-four">게시글 4개씩 보기</option>
+                    <option value="" id="search-two">게시글 2개씩 보기</option>
+                    <option value="" id="search-eight">게시글 8개씩 보기</option>
                 </select>   
                 
             </article>
-            
+                 <!-- id가 search-two인 option이 선택되면 -->
+                 <!-- <% boardLimit == 2 %> 로 바뀐다.    -->
+
+                
+                
+
         </section>
 
 
@@ -239,7 +246,7 @@
 	                	<ul id="list-item">
 	                		<li><%= b.getBoardNo() %></li>
 	                		<li><%= b.getFileNo() %></li>
-	                		<li><%= b.getBoardTitle() %></li>
+	                		<li><a href="<%= contextPath %>/detail.bo?bno=<%= b.getBoardNo()%>"><%= b.getBoardTitle() %></a></li>
 	                		<li><%= b.getUserNo() %></li>
 	                		<li><%= b.getBoardViews() %></li>
 	                		<li><%= b.getBoardCreateDate() %></li>
@@ -274,14 +281,20 @@
         </script>
             
 
-
+           
+ <!-- startPage는 1, endPage는 0이므로 1 < 0가 성립못함 -->
             <div id="pasing-area">
                 
-              <% if(currentPage != 1) { %>
+            <% if(currentPage != 1) { %>
         		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
             <% } %>
-            
-            <% for(int i = startPage; i <= endPage; i++) { %>
+
+            <%if(startPage >= endPage){%>
+                <button class="btn btn-sm btn-info" >1</button>
+            <%}%>
+
+            <% for(int i = startPage; i < endPage; i++) { %>
+       
             	<% if(currentPage != i) { %>
             		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%=i%>'" class="btn btn-sm btn-info"><%= i %></button>
             	<% } else { %>

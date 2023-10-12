@@ -134,8 +134,33 @@ public class PetService {
 		Connection conn = getConnection();
 		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi,loginUser);
 		close(conn);
-		//System.out.println(hosList);
 		return hosList;
+	}
+
+	public ArrayList<Pet> selectPetName(User loginUser) {
+		Connection conn = getConnection();
+		ArrayList<Pet> PetList = new PetDao().selectPetName(conn, loginUser);
+		close(conn);
+		return PetList;
+	}
+
+	public int insertHos(HosRecords hr) {
+		Connection conn = getConnection();
+		int result = new PetDao().insertHos(conn, hr);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public HosRecords selectHosContent(int hosNo) {
+		Connection conn = getConnection();
+		HosRecords hr = new PetDao().selectHosContent(conn, hosNo);
+		close(conn);
+		return hr;
 	}
 
 	

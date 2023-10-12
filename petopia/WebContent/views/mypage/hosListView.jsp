@@ -66,7 +66,7 @@
             <div class="mg-t-b">
                 <div class="hos-title">병원기록</div>
 
-                <div class="btn-right"><a href="<%=contextPath %>/views/mypage/hosEnrollForm.jsp" class="btn btn-secondary">글작성</a></div>
+                <div class="btn-right"><a href="<%=contextPath %>/hosEnrollForm.my" class="btn btn-secondary">글작성</a></div>
                 
                 <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startday"> ~ <input type="date" name="lastday">
@@ -78,7 +78,7 @@
 
         <div class="container">
 
-            <table class="table table-hover">
+            <table class="table table-hover" id="list-area">
 
                 <thead>
                     <tr>
@@ -118,6 +118,16 @@
                 </tbody>
 
             </table>
+            
+            <script>
+                $(function(){
+
+                    $('#list-area>tbody>tr').click(function(){
+                        location.href="<%= contextPath %>/hosDetail.my?hno=" + $(this).children().eq(0).val();
+                    });
+                })
+
+            </script>
             
         </div>
 

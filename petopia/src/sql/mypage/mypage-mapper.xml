@@ -247,7 +247,7 @@
           		  		   FROM (SELECT 
 		          		  				ROWNUM IND,
 								 		HOS_NO,
-										HOS_DATE,
+										TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
 										PET_NAME
 								   FROM 
 								   		TB_HOS_RECORDS 
@@ -258,6 +258,32 @@
 								  ORDER BY HOS_DATE)
 						  ORDER BY IND DESC) A)
 		  WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectPetName">
+		SELECT PET_NAME, PET_NO
+		  FROM TB_PET
+		 WHERE USER_NO=?
+	</entry>
+	
+	<entry key="insertHos">
+		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
+		VALUES (SEQ_HOS_NO.NEXTVAL,?,?,?,?,?,?)
+	</entry>
+	
+	<entry key="selectHosContent">
+		 SELECT 
+		 		HOS_NO,
+                HOS_DATE,
+                HOS_VACCINATION,
+                HOS_ILLNESS,
+                HOS_MEDICINE,
+                HOS_CONTENT,
+                PET_NO
+		   FROM 
+		   		TB_HOS_RECORDS 
+		  WHERE 
+		  		HOS_NO=?
 	</entry>
 	
 </properties>

@@ -271,7 +271,7 @@ if(cookies!=null){
         </div>
         <%
         String clientId = "8ZYnqypIAIHZc2Ycz4px";//애플리케이션 클라이언트 아이디값";
-        String redirectURI = URLEncoder.encode("http://localhost:8001/petopia/naverLogin", "UTF-8");
+        String redirectURI = URLEncoder.encode("http://localhost/petopia/naverLogin", "UTF-8");
         SecureRandom random = new SecureRandom();
         String state = new BigInteger(130, random).toString();
         String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -293,7 +293,7 @@ if(cookies!=null){
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
-            <div id="GgCustomLogin" class="auth-btn">
+            <div id="GgCustomLogin" class="auth-btn" onclick="googleLogin();">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
                	    구글 로그인
             </div>
@@ -331,38 +331,18 @@ if(cookies!=null){
             })
         }
     </script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!--<script src="https://apis.google.com/js/api.js"></script>-->
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         //구글 로그인
         /*
-        function start() {
-          // 2. Initialize the JavaScript client library.
-          gapi.client.init({
-            'apiKey': 'AIzaSyAF05O9hpVOzmHfDOvz8riiG6X-o8ML3-Q',
-            // clientId and scope are optional if auth is not required.
-            'clientId': '572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com',
-            'scope': 'profile',
-          }).then(function() {
-            // 3. Initialize and make the API request.
-            return gapi.client.request({
-              'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
-            })
-          }).then(function(response) {
-            console.log(response.result);
-          }, function(reason) {
-            console.log('Error: ' + reason.result.error.message);
-          });
-        };
-        // 1. Load the JavaScript client library.
-        gapi.load('client', start);
-        */
-        $(document).ready(function(){
-            init();
-        })
         function init() {
             console.log("init");
     	    gapi.load("auth2", function() {
-    		    gapi.auth2.init();
+    		    gapi.auth2.init({
+                    client_id: '572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com'
+                });
     		    options = new gapi.auth2.SigninOptionsBuilder();
     		    options.setPrompt("select_account");
                 // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
@@ -397,6 +377,21 @@ if(cookies!=null){
         function onSignInFailure(e){
             console.log("fail");
 	        console.log(e);
+        }
+        */
+        //https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A8001%3Fid%3Dauth631447&response_type=permission%20id_token&scope=email%20profile%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.birthday.read&openid.realm&include_granted_scopes=true&client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A8001&prompt=select_account&fetch_basic_profile=true&gsiwebsdk=2&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow
+        //https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8001%2Fpetopia&response_type=code&scope=email%20profile&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow
+        function googleLogin(){
+            const url = 'https://accounts.google.com/o/oauth2/v2/auth?'+
+            'client_id=572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com'+
+            '&redirect_uri=http://localhost/petopia/google-callback'+
+            '&response_type=token'+
+            '&scope=email profile https://www.googleapis.com/auth/user.phonenumbers.read';
+
+            //code
+            //token
+            location.href = url;
+            //window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
         }
     </script>
     <%@include file="../common/footer.jsp" %>

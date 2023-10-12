@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +75,7 @@
 	<%@ include file = "mysidebar.jsp" %>
 	<div class="content-area">
 
-        <form action="">
+        <form action="<%=contextPath%>/hosInsert.my" method="post">
         
             <div id="sug-content">
 
@@ -85,12 +89,18 @@
                     <div id="sub-content-back">
                         <div class="contentSize">
                             <div class="float-left">이름</div>
-                            <div class="float-right"><input type="text" class="input-width" name="hosTitle"></div>
+                            <div class="float-right">
+                                <select class="input-width" name="petNo" style="border: none;">
+                                	<% for(Pet p : petList) {%>
+                                    	<option value="<%=p.getPetNo() %>"><%=p.getPetName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="contentSize">
                             <div class="float-left">일자</div>
-                            <div class="float-right"><input type="date" name="" class="input-width" name="hosDate"></div>
+                            <div class="float-right"><input type="date" class="input-width" name="hosDate"></div>
                         </div>
 
                         <div class="contentSize">
@@ -111,11 +121,9 @@
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" style="resize:none;"></textarea></div>
+                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="hosContent"></textarea></div>
                         </div>
 
-
-                        
                         <div class="btn-right">
                             <button type="submit" class="btn btn-sm btn-secondary">제출</button>
                         </div>

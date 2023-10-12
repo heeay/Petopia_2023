@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% User user = (User)request.getAttribute("user");  %>
+ <!-- User user = (User)request.getAttribute("user");
+Board b = (Board)request.getAttribute("b"); -->
+<%@ page import="petopia.com.kh.jsp.board.model.vo.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,47 +118,84 @@
 
     <section id="option-area">
 
-        <form action="<%=contextPath%>/insert.bo" id="option-form" enctype="multipart/form-data" method="post" >
+        <table id="detail-area" align="center" border="1">
+            <tr>
+                <th width="100">카테고리</th>
+                <td width="150">?</td>
+                <th width="100">제목</th>
+                <td width="400">?</td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>?</td>
+                <th>작성일</th>
+                <td>?</td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td colspan="3">
+                    <p style="height:400px;">?</p>
+                </td>
+            </tr>
+            <tr>
+                <th>첨부파일</th>
+                <td colspan="3">
+                	<% if(b.getFileNo() == null) { %>
+                    <!-- 첨부파일이 없을 경우 -->
+                        	첨부파일 없어요 ~
+                    <% } else {%>
+                    <!-- 첨부파일이 있을 경우 -->
+                    <!-- /jsp/resources/board_upfiles/changeName -->
+                        <a href="#" download="#"></a>
+                    <% } %>
+                </td>
+            </tr>
+        </table>
 
-            <input type="hidden" name="userNo" value="<%=user.getUserNo()%>">
-       
-            <li class="option-list">
-                <span class="option-name">게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <select name="" id="option-board">
-                    <option value="">동물게시판</option>
-                    <option value="">실종게시판</option>
-                </select>
-            </li>
-            <li class="option-list">
-                <span class="option-name">동물&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <select name="" id="option-animal">
-                    <option value="">강아지</option>
-                    <option value="">고양이</option>
-                    <option value="">설치류</option>
-                    <option value="">파충류</option>
-                    <option value="">조류</option>
-                    <option value="">어류</option>
-                </select>
-            </li>
-            <li class="option-list">
-                <span class="option-name">세부게시판</span>
-                <select name="" id="option-detail">
-                    <option value="">꿀팁공유</option>
-                    <option value="">QnA</option>
-                    <option value="">수제간식 레시피</option>
-                    <option value="">전국 동물자랑</option>
-                    <option value="">무료나눔</option>
-                    <option value="">돌봄SOS</option>
-                </select>
-            </li>
-            <li class="option-list">
-                <span class="option-name">제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <input type="text" id="option-title" placeholder="제목을 입력하세요">
-            </li>
-            <li class="option-list">
-                <span class="option-name">내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <textarea name="" id="option-content" placeholder="내용을 입력하세요"></textarea>
-            </li>
+        <br>
+
+        <div align="center">
+            <a href="#" class="btn btn-sm btn-info">목록으로</a>
+            
+            <% if(user != null && user.getUserNo().equals(b.getBoardWriter())) { %>
+	            <a href="#" class="btn btn-sm btn-warning">수정하기</a>
+	            <a href="#">삭제하기</a>
+            <% } %>
+            
+        </div>
+        <br><br>
+	    <!-- <div id="reply-area">
+			
+			<table border="1" align="center">
+				<thead>
+					<tr>
+						<th>댓글작성</th>
+						<% if(user != null) { %>
+							<td>
+								<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
+							</td>
+							<td><button onclick="insertReply();">댓글등록</button></td>
+						<% } else { %>
+							<td>
+								<textarea readonly cols="50" rows="3" style="resize:none;">로그인 후 이용가능한 서비스입니다.</textarea>
+							</td>
+							<td><button>댓글등록</button></td>
+						<% } %>
+					</tr>
+				</thead>
+				<tbody>
+				
+				</tbody> -->
+			</table>
+    
+        
+            <span class="option-name">제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input class="option-list" type="text" id="option-title" placeholder="제목을 입력하세요">
+        
+          
+            <span class="option-name">내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <textarea name="" id="option-content" placeholder="내용을 입력하세요"></textarea>
+    
         
       
         </form>

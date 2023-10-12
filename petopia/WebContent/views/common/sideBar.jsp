@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath();%>
+<!-- String contextPath = request.getContextPath(); : 이건 왜 안될까 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
                     <ul id="sub-category" style="display: none;">
                         <li><a class="sub-category-title">🐶강아지</a>
                             <ul class="sub-category-content" style="display: none;">
-                                <li><a href="<%=contextPath %>/main.bo">꿀팁공유</a></li>
+                                <li><a>꿀팁공유</a></li><!-- href="%=contextPath %/main.bo"왜 안될까 -->
                                 <li><a>QnA</a></li>
                                 <li><a>수제간식 레시피</a></li>
                                 <li><a>전국 동물자랑</a></li>
