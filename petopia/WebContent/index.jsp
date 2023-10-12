@@ -74,25 +74,52 @@
     <div id="section-wrap">
 
         <div id="content-wrap">
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133"></script>
+            <div id="map" style="width:500px;height:400px;"></div>
+	        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133"></script>
+	        <script>
+	        	let mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+	            let mapOption = {
+	        	        center: new kakao.maps.LatLng(37.56633, 126.97917), // 지도의 중심좌표
+	        	        level: 5, // 지도의 확대 레벨
+	        	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+	        	    }; 
+                
+	        	// 지도를 생성한다 
+	        	const map = new kakao.maps.Map(mapContainer, mapOption); 
+                let mapBounds = map.getBounds();
+
+	        	// 지도 영역 변화 이벤트를 등록한다
+	        	kakao.maps.event.addListener(map, 'bounds_changed', function () {
+	        		mapBounds = map.getBounds();
+	        		console.log('지도의 남서쪽, 북동쪽 영역좌표는 '+mapBounds.toString()+'입니다.');
+                    console.log("남서쪽 : "+mapBounds["qa"]+", "+mapBounds["ha"]);
+                    console.log("북동쪽 : "+mapBounds["pa"]+", "+mapBounds["oa"]);
+                    updateMap();
+	        	});
+	        </script>
             <script>
                 $(document).ready(function(){
-                    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-                    var options = { //지도를 생성할 때 필요한 기본 옵션
-                        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-                        level: 5 //지도의 레벨(확대, 축소 정도)
-                    };
-    
-                    var map = new kakao.maps.Map(container, options);
+                    updateMap();
                 })
-            </script>
-            <style>
-                #map{
-                    width: 500px;
-                    height: 400px;
+                function updateMap(){
+                    $.ajax({
+                        url : "updateMap",
+                        type : "post",
+                        data : {
+                            "south" : mapBounds["qa"],
+                            "west" : mapBounds["ha"],
+                            "north" : mapBounds["pa"],
+                            "east" : mapBounds["oa"]
+                        },
+                        success : function(result){
+                            console.log(result);
+                        },
+                        error : function(error){
+                            console.log(error);
+                        }
+                    });
                 }
-            </style>
-            <div id="map"></div>
+            </script>
 
             <div class="board-item">
                 <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
