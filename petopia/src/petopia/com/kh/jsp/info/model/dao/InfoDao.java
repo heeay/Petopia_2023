@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.HospitalData;
 import petopia.com.kh.jsp.info.model.vo.Info;
