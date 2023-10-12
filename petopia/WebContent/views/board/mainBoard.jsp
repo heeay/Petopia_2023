@@ -12,6 +12,8 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
     int boardLimit = pi.getBoardLimit();
+    
+
 
 %>
 <!DOCTYPE html>
@@ -42,17 +44,17 @@
 
     #search-area{
        width : 1100px;
-       height : 10%;
+       height : 20%;
        /* border : 1px solid black; */
        display : flex;
-       justify-content: space-between;
+       justify-content: center;
        align-items: center;
     }
 
     #content-area{
         display : flex;
         justify-content: center;
-        height : 80%;
+        height : 70%;
         width : 1100px;
     }
 
@@ -73,7 +75,7 @@
 
     #search-icon{
         position : absolute;
-        right : 10px;
+        right : 1100px;
     }
 
     #search-text {
@@ -89,7 +91,7 @@
 
     #search-help{
         display : flex;
-        width : 50%;
+        width : 100%;
         align-items: center;
     }
     #search-radio{
@@ -141,6 +143,7 @@
     #list-item li{
         display : inline;
         margin-right : 20px;
+        
     }
   
     .content{
@@ -179,18 +182,17 @@
     <%@ include file="../common/sideBar.jsp" %>
 	
 	<div id="wrapper">
-		
         <section id="search-area">
+
+        <form>
 
             <article id="search-help">
 
                 <div id="search-bar">
-                    <form action="<%=contextPath%>/main.bo" method="get" id="search-form">
-                        <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
-                        <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
-                    </form>
-                </div>
+                    
+                        <input type="text" name="search-text" id="search-text" placeholder="검색어 입력를 입력하세요.">
 
+                </div>
                 <script>
                     $(function(){
                         $('#search-icon').click(function(){
@@ -201,22 +203,43 @@
                 </script>
 
                 <div id="search-radio">
-                    <input type="radio" name="search-radio">제목
-                    <input type="radio" name="search-radio">작성자
+                    <input type="radio" name="search-radio" value="제목">제목
+                    <input type="radio" name="search-radio" value="작성자">작성자
                 </div>
 
             </article>
 
             <article id="search-view">
-                <select name="search-view" id="">
-                    <option value="" id="search-four">게시글 4개씩 보기</option>
-                    <option value="" id="search-two">게시글 2개씩 보기</option>
-                    <option value="" id="search-eight">게시글 8개씩 보기</option>
-                </select>   
+                <a href="#">4개씩 보기</a>
+                <ul>
+                    <li>
+                        <a href="<%=contextPath%>/main.bo?display=2">2개씩 보기</a>
+                    </li>
+                    <li>
+                        <a href="<%=contextPath%>/main.bo?display=4">4개씩 보기</a>
+                    </li>
+                    <li>
+                        <a href="<%=contextPath%>/main.bo?display=9">9개씩 보기</a>
+                    </li>
+                </ul>
                 
             </article>
-                 <!-- id가 search-two인 option이 선택되면 -->
-                 <!--  % boardLimit == 2 %  로 바뀐다.    -->
+            <i id="search-icon" class="fas fa-search"></i>
+            <button type="submit" id="search-btn" class="btn btn-sm btn-info">검색</button>
+            
+        </form>
+            
+               <!-- <script>
+              $(function(){
+                
+                 
+
+            <!- js안에는 scriptlet사용불가 -->
+            <!-- jsp에서는 가능 -->
+          		
+      
+     
+             
 	
                  <!-- 한 페이지에 form태그 여러개 상관없음! -->
 			<article>

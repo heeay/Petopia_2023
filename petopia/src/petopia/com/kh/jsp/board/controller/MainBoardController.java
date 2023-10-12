@@ -44,11 +44,12 @@ public class MainBoardController extends HttpServlet {
 		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용(STATUS = 'Y')해서 조회
 		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
 		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 5개로 고정
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 8개로 고정
+		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 8개로 고정  
 		
 		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
 		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+		
 		
 		// * listCount : 총 게시글의 수
 		listCount = new BoardService().selectListCount(); // 107
@@ -67,7 +68,26 @@ public class MainBoardController extends HttpServlet {
 		pageLimit = 5;
 		
 		// * boardLimit : 한 페이지에 보여질 게시글의 최대 개수
-		boardLimit = 4;
+
+//		이거아님
+//		if( ) {
+//		
+//			boardLimit = Integer.parseInt(request.getParameter("display"));
+//		} else {
+//			boardLimit = 4;
+//		}
+		
+		String display = request.getParameter("display");
+		if(display != null) {
+			switch(Integer.parseInt(display)) {
+			case 2 : boardLimit = 2; break;
+			case 9 : boardLimit = 9; break;
+			default : boardLimit = 4;
+			}
+		} else {
+			boardLimit = 4;
+		}
+		
 		
 		// * maxPage : 가장 마지막페이지가 몇 번 페이지인지(총 페이지 개수)
 		/*
