@@ -39,7 +39,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             background-color: rgb(255, 248, 240);
         }
         #header-wrap{
-            width: 1100px;
+            width: 1200px;
             height: 100%;
             margin: auto;
         }
@@ -110,7 +110,16 @@ User userInfo = (User)session.getAttribute("userInfo");
             float: left;
             position: relative;
         }
-        #header-bar{
+        #fixed-header-bar-wrap{
+            width: 100%;
+            height: 80px;
+            position: fixed;
+            z-index: 10;
+            top: 0px;
+            left: 0px;
+            background-color: rgb(245, 216, 190);
+        }
+        #header-bar-wrap{
             width: 100%;
             height: 80px;
             position: fixed;
@@ -119,7 +128,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             left: 0px;
             background-color: rgb(247, 222, 205);
         }
-        #header-bar-wrap{
+        .header-bar{
             width: 1100px;
             height: 100%;
             margin: auto;
@@ -209,8 +218,8 @@ User userInfo = (User)session.getAttribute("userInfo");
 </head>
 <body>
     <header>
-        <div id="header-bar" style="display: none;">
-            <div id="header-bar-wrap">
+        <div id="fixed-header-bar-wrap">
+            <div id="header-bar">
                 <div class="header-logo">
                     <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                 </div>
@@ -243,39 +252,43 @@ User userInfo = (User)session.getAttribute("userInfo");
             </div>
         </div>
         <div id="header-wrap">
-            <div class="header-logo">
-                <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+            <div id="header-bar-wrap">
+                <div class="header-bar">
+                    <div class="header-logo">
+                        <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                    </div>
+                    <ul class="header-navi">
+                        <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
+                        <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                        <li class="header-navi-item"><a href="#">행사</a></li>
+                        <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
+                    </ul>
+                    <ul class="header-navi user-navi">
+                        <%if(userInfo == null){ %>
+                            <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                        <%} else { %>
+                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                            <li class="user-navi-item"><a 
+                                <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
+                                else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
+                                href="<%=contextPath %>/logout">로그아웃</a></li>
+                        <%} %>
+                        <li class="user-navi-icon-btn">
+                            <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
+                            <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
+                                <input class="header-search-bar" type="text" name="query">
+                                <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
+                            </form>
+                        </li>
+                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                    </ul>
+                </div>
             </div>
-            <ul class="header-navi">
-                <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-                <li class="header-navi-item"><a href="#">행사</a></li>
-                <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
-            </ul>
-            <ul class="header-navi user-navi">
-                <%if(userInfo == null){ %>
-                	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                <%} else { %>
-                	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                	<li class="user-navi-item"><a 
-                        <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                        else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                        href="<%=contextPath %>/logout">로그아웃</a></li>
-                <%} %>
-                <li class="user-navi-icon-btn">
-                    <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
-                    <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
-                        <input class="header-search-bar" type="text" name="query">
-                        <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
-                    </form>
-                </li>
-                <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
-            </ul>
         </div>
     </header>
     <script>
         $(document).ready(function(){
-            const headerBar = document.getElementById("header-bar");
+            /*const headerBar = document.getElementById("fixed-header-bar");
             $(window).scroll(function(){
                 if($(window).scrollTop()>80){
                     headerBar.style.display="block";
@@ -283,7 +296,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 else{
                     headerBar.style.display="none";
                 }
-            });
+            });*/
 
             $(".header-search-tool").click(function(){
                 if($(this).siblings(".header-search-bar-wrap").css("display")=="none"){

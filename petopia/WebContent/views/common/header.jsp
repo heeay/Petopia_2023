@@ -10,6 +10,11 @@ User userInfo = (User)session.getAttribute("userInfo");
 <head>
     <meta charset="UTF-8">
     <title>header</title>
+    <!--나눔 팬 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -39,7 +44,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         header{
             width: 100%;
             height: 500px;
-            background-color: rgb(255, 248, 240);
+            background-color: rgb(54, 54, 54);
             position: relative;
             z-index: 0;
         }
@@ -57,7 +62,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             position: fixed;
             top: 0;
             left: 50%;
-            transform: translate(-50%, 0);
+            transform: translateX(-50%);
             z-index: 0;
         }
         .header-logo{
@@ -136,9 +141,9 @@ User userInfo = (User)session.getAttribute("userInfo");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(247, 222, 205);
+            background-color: rgb(245, 216, 190);
         }
-        #header-bar{
+        .header-bar{
             width: 1100px;
             height: 100%;
             margin: auto;
@@ -194,19 +199,47 @@ User userInfo = (User)session.getAttribute("userInfo");
         /* 이미지 영역 사이즈 조절 */
         .swiper {
             width: 1200px;
-            height: 400px;
+            height: 420px;
         }
 
         /* 이미지 사이즈 조절 */
         .swiper-slide>img {
             width : 100%;
             height : 100%;
+            object-fit: cover;
         }
 
         /* 화살표 버튼색 변경 (기본색은 파란색) */
         div[class^=swiper-button] {
             color : white;
             /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
+        }
+        #typo1{
+            font-size: 56px;
+            letter-spacing: 4px;
+            text-align: right;
+            position: absolute;
+            top: 150px;
+            left: 350px;
+            font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        #typo3{
+            font-size: 56px;
+            letter-spacing: 4px;
+            position: absolute;
+            top: 70px;
+            left: 700px;
+            font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.70);
+        }
+        #typo2{
+            font-size: 56px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Nanum Pen Script', cursive;
         }
     </style>
     
@@ -245,7 +278,7 @@ User userInfo = (User)session.getAttribute("userInfo");
 </head>
 <body>
     <div id="fixed-header-bar-wrap">
-        <div id="header-bar">
+        <div class="header-bar">
             <div class="header-logo">
                 <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
             </div>
@@ -283,7 +316,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         <div id="header-wrap">
             <div id="header-bar-wrap"></div>
             <!--<div id="header-bar-wrap">
-                <div id="header-bar">
+                <div class="header-bar">
                     <div class="header-logo">
                         <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
                     </div>
@@ -320,11 +353,12 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         <!-- Slides -->
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/07/31/11/42/bordeaux-868991_1280.jpg"><div id="typo1">펫들의 유토피아!<br>펫토피아</div></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/01/15/16/48/winter-1142029_1280.jpg"><div id="typo2">펫토피아에 오신 것을 환영합니다!</div></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg"><div id="typo3">펫들의 유토피아!<br>펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__480.jpg"></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/12/06/09/15/maple-1079235__480.jpg"></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/09/01/19/53/pocket-watch-1637396__480.jpg"></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/05/27/08/51/mobile-phone-1419275__480.jpg"></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/09/01/09/32/alphabet-916673__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/06/04/21/30/swans-1436266_1280.jpg"></div>
                     </div>
             
                     <!-- If we need pagination -->
