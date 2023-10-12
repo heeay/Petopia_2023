@@ -85,7 +85,7 @@
 	<!-- 게시글 수를 구하는 SQL -->
 	<entry key="selectListCount">
 		SELECT
-			   COUNT(BOARD_NO) "BOARD_COUNT"
+			   COUNT(BOARD_NO) BOARD_COUNT
 		  FROM 
 		  	   TB_BOARD
 		 WHERE 
@@ -100,7 +100,9 @@
 		  FROM (SELECT ROWNUM RNUM, A.*
 		  		  FROM (SELECT
 		  		  			   BOARD_TITLE,
-		  		  			   SUBSTR(BOARD_CONTENT, 1, 30) SUB_CONTENT,
+		  		  			   CASE WHEN LENGTH(BOARD_CONTENT) > 30 THEN SUBSTR(BOARD_CONTENT, 1, 30)||'...'
+		  		  			   		ELSE SUBSTR(BOARD_CONTENT, 1, 30)
+		  		  			   END AS SUB_CONTENT,
 		  		  			   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
 		  		  	      FROM 
 		  		  	      	   TB_BOARD
