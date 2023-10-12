@@ -12,7 +12,7 @@
 		  FROM 
 		  	   TB_CATEGORY
 		 WHERE 
-		 	   CTG_NO > 11
+		 	   CTG_NO BETWEEN 12 AND 14
 		 ORDER 
 		 	BY 
 		 	   CTG_NO ASC
