@@ -87,10 +87,31 @@ public class InfoService {
 		return list;
 	}
 	
+
 	public ArrayList<HospitalData> selectMapData(double[] mapBounds){
 		Connection conn = getConnection();
 		ArrayList<HospitalData> list = new InfoDao().selectMapData(conn, mapBounds);
 		close(conn);
+
+	public Info selectShare(int iNo) {
+		
+		Connection conn = getConnection();
+		
+		Info in = new InfoDao().selectShare(conn, iNo);
+		
+		close(conn);
+		
+		return in;
+	}
+	
+	public ArrayList<InfoFile> selectInfoFileList(int iNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<InfoFile> list = new InfoDao().selectInfoFileList(conn, iNo);
+		
+		close(conn);
+		
 		return list;
 	}
 	

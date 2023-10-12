@@ -16,6 +16,8 @@ public class Info {
 	private int petCategoryNo; // PET_CTG_NO	NUMBER
 	private String category; // 카테고리명을 담기 위해 String형의 category를 만듦
 	private String titleImg; // 리스트에 보여줄 썸네일 이미지를 담기 위해 만듦
+	private String infoWriter; // 게시글 작성자 닉네임을 보여주기 위해서 만듦
+	private int starScore; // 별점 수를 담기 위해 만듦
 	
 	public Info() {
 		super();
@@ -23,7 +25,7 @@ public class Info {
 
 	public Info(int infoNo, String infoTitle, String infoContent, int infoViews, Date infoCreateDate,
 			Date infoUpdateDate, int userNo, int fileNo, int categoryNo, int petCategoryNo, String category,
-			String titleImg) {
+			String titleImg, String infoWriter, int starScore) {
 		super();
 		this.infoNo = infoNo;
 		this.infoTitle = infoTitle;
@@ -37,6 +39,8 @@ public class Info {
 		this.petCategoryNo = petCategoryNo;
 		this.category = category;
 		this.titleImg = titleImg;
+		this.infoWriter = infoWriter;
+		this.starScore = starScore;
 	}
 
 	public int getInfoNo() {
@@ -135,12 +139,29 @@ public class Info {
 		this.titleImg = titleImg;
 	}
 
+	public String getInfoWriter() {
+		return infoWriter;
+	}
+
+	public void setInfoWriter(String infoWriter) {
+		this.infoWriter = infoWriter;
+	}
+
+	public int getStarScore() {
+		return starScore;
+	}
+
+	public void setStarScore(int starScore) {
+		this.starScore = starScore;
+	}
+
 	@Override
 	public String toString() {
 		return "Info [infoNo=" + infoNo + ", infoTitle=" + infoTitle + ", infoContent=" + infoContent + ", infoViews="
 				+ infoViews + ", infoCreateDate=" + infoCreateDate + ", infoUpdateDate=" + infoUpdateDate + ", userNo="
 				+ userNo + ", fileNo=" + fileNo + ", categoryNo=" + categoryNo + ", petCategoryNo=" + petCategoryNo
-				+ ", category=" + category + ", titleImg=" + titleImg + "]";
+				+ ", category=" + category + ", titleImg=" + titleImg + ", infoWriter=" + infoWriter + ", starScore="
+				+ starScore + "]";
 	}
 	
 }
