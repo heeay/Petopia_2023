@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.info.model.vo.InfoFile" %>
+<%
+	ArrayList<InfoFile> list = (ArrayList<InfoFile>)request.getAttribute("list");
+	Info in = (Info)request.getAttribute("in");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +14,7 @@
 <style>
 	section{
 		width: 1000px;
-        height: 800px;
+        height: 1000px;
         margin: auto;
         position: relative;
 	}
@@ -25,13 +30,22 @@
     }
 
     #content{
+    	background-color : rgb(255, 248, 240);
+    	border : 1px solid black;
         width: 100%;
-        height: 70%;
+        height: 60%;
     }
 
     #reply-content{
         width: 100%;
-        height: 25%;
+        height: 20%;
+    }
+    
+    #back{
+    	width : 100%;
+
+    	display: flex;
+        justify-content: center;
     }
 
     #photo-content, #text-content{
@@ -65,6 +79,10 @@
     #next-btn {
         float: right;
     }
+    
+    #img{
+        display : none;
+    }
 
 </style>
 </head>
@@ -87,27 +105,31 @@
            <div id="content">
                 
                 <div id="photo-content">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340" alt="">
-                    <button class="btn btn-sm btn-secondary"> < </button>
+                    <img src="<%= contextPath %>/<%= list.get(0).getFilePath() %>/<%= list.get(0).getUploadName() %>" id="titleImg" alt="대표이미지">
+                    <% for(int i = 1; i < list.size(); i++) { %>
+                    	<img src="<%= contextPath %>/<%= list.get(i).getFilePath() %>/<%= list.get(i).getUploadName() %>" id="img" alt="이미지">
+                    <% } %>
+                    
+                    <button id="before-btn" class="btn btn-sm btn-secondary"> < </button>
                     <button id="next-btn" class="btn btn-sm btn-secondary"> > </button>
                 </div>
                 <div id="text-content">
                     <table border="1">
                         <tr>
-                            <td width="500px">맛있는 음식점 방문</td>
+                            <td width="500px"><%= in.getInfoTitle() %></td>
                         </tr>
                         <tr>
-                            <td>별점</td>
+                            <td><%= in.getStarScore() %></td>
                         </tr>
                         <tr>
-                            <td>유저</td>
+                            <td><%= in.getInfoWriter() %></td>
                         </tr>
                         <tr>
-                            <td>2023/09/27</td>
+                            <td><%= in.getInfoCreateDate() %></td>
                         </tr>
                         <tr>
                             <td height="350px;">
-                                	어쩌고 저쩌고 정말 맛있었다
+                                	<%= in.getInfoContent() %>
                             </td>
                         </tr>
                         <tr>
@@ -120,16 +142,22 @@
 
            <div id="reply-content">
                 
-                댓글영역
+                	댓글영역
 
+           </div>
+           
+           <div id="back">
+           		<button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">목록으로</button>
            </div>
     
         </div>
         
         </section>
+        
+        <%@ include file="../common/footer.jsp" %>
 
         <script>
-            $(document).ready(function(){
+            $(function(){
                 $("#edit > h4").click(function(){
                     const editOption = $("#edit-option");
                     if(editOption.css("display") == 'none'){
@@ -138,6 +166,11 @@
                     else{
                         editOption.slideUp(100);
                     }
+                });
+                
+                $('#next-btn').click(function(){
+                	$('#img').show();
+                	$('#titleImg').hide();
                 });
             });
         </script>

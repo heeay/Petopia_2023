@@ -51,9 +51,8 @@
         border-spacing: 0px 20px;
         display: flex;
         justify-content: center;
+        background-color : rgb(255, 248, 240);
     }
-    
-    td{background-color : rgb(255, 248, 240);}
     
     #no-list{font-size : 30px;}
     

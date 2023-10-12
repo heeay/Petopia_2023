@@ -121,5 +121,39 @@
 				 WHERE RNUM BETWEEN ? AND ?		  		
 	</entry>
 	
+	<entry key="selectShare">
+		SELECT
+			   BOARD_NO,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   BOARD_CREATE_DATE,
+			   USER_NICKNAME,
+			   STAR_SCORE
+		  FROM 
+		  	   TB_BOARD
+		  JOIN
+		  	   TB_USER USING(USER_NO)
+		  JOIN 
+		  	   TB_STAR USING(BOARD_NO)
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectInfoFile">
+		SELECT
+			   FILE_NO,
+			   ORIGINAL_NAME,
+			   UPLOAD_NAME,
+			   FILE_PATH
+		  FROM 
+		  	   TB_FILE
+		 WHERE 
+		 	   REF_BNO = ?
+		 ORDER
+		 	BY
+		 	   FILE_NO ASC  
+	</entry>
 
 </properties>

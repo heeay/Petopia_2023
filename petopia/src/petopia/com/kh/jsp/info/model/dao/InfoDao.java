@@ -211,6 +211,66 @@ public class InfoDao {
 		return list;
 	}
 	
+	public Info selectShare(Connection conn, int iNo) {
+		
+		Info in = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectShare");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, iNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				in = new Info();
+				in.setInfoNo(rset.getInt("BOARD_NO"));
+				in.setInfoTitle(rset.getString("BOARD_TITLE"));
+				in.setInfoContent(rset.getString("BOARD_CONTENT"));
+				in.setInfoCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+				in.setInfoWriter(rset.getString("USER_NICKNAME"));
+				in.setStarScore(rset.getInt("STAR_SCORE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return in;
+	}
+	
+	public ArrayList<InfoFile> selectInfoFileList(Connection conn, int iNo) {
+		
+		ArrayList<InfoFile> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInfoFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, iNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				InfoFile iFile = new InfoFile();
+				iFile.setFileNo(rset.getInt("FILE_NO"));
+				iFile.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				iFile.setUploadName(rset.getString("UPLOAD_NAME"));
+				iFile.setFilePath(rset.getString("FILE_PATH"));
+				list.add(iFile);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	
 }

@@ -86,6 +86,26 @@ public class InfoService {
 		return list;
 	}
 	
+	public Info selectShare(int iNo) {
+		
+		Connection conn = getConnection();
+		
+		Info in = new InfoDao().selectShare(conn, iNo);
+		
+		close(conn);
+		
+		return in;
+	}
 	
+	public ArrayList<InfoFile> selectInfoFileList(int iNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<InfoFile> list = new InfoDao().selectInfoFileList(conn, iNo);
+		
+		close(conn);
+		
+		return list;
+	}
 	
 }
