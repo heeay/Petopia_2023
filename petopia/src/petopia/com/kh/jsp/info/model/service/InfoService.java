@@ -5,9 +5,6 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.commit;
 import static petopia.com.kh.jsp.common.JDBCTemplate.getConnection;
 import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.dao.InfoDao;
 import petopia.com.kh.jsp.info.model.vo.HospitalData;
@@ -92,6 +89,8 @@ public class InfoService {
 		Connection conn = getConnection();
 		ArrayList<HospitalData> list = new InfoDao().selectMapData(conn, mapBounds);
 		close(conn);
+		return list;
+	}
 
 	public Info selectShare(int iNo) {
 		

@@ -134,6 +134,7 @@
     	POS_X IS NOT NULL
 	OR
     	POS_Y IS NOT NULL
+    </entry>
 	
 	<entry key="selectShare">
 		SELECT

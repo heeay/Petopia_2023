@@ -230,6 +230,15 @@ public class InfoDao {
 				data.setPosX(rset.getDouble("POS_X"));
 				data.setPosY(rset.getDouble("POS_Y"));
 				list.add(data);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 	public Info selectShare(Connection conn, int iNo) {
 		
