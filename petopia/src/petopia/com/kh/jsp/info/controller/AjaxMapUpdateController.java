@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import petopia.com.kh.jsp.info.model.service.InfoService;
 import petopia.com.kh.jsp.info.model.vo.HospitalData;
 
@@ -32,7 +34,7 @@ public class AjaxMapUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		double east = Double.parseDouble(request.getParameter("east"));
+		double east = Double.parseDouble(request.getParameter("east"));//EPSG:5181
 		double west = Double.parseDouble(request.getParameter("west"));
 		double south = Double.parseDouble(request.getParameter("south"));
 		double north = Double.parseDouble(request.getParameter("north"));
@@ -43,6 +45,7 @@ public class AjaxMapUpdateController extends HttpServlet {
 		ArrayList<HospitalData> list = new InfoService().selectMapData(mapBounds);
 		
 		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
@@ -52,5 +55,4 @@ public class AjaxMapUpdateController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

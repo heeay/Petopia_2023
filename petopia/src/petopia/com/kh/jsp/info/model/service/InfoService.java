@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.dao.InfoDao;
+import petopia.com.kh.jsp.info.model.vo.HospitalData;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
@@ -86,6 +87,11 @@ public class InfoService {
 		return list;
 	}
 	
-	
+	public ArrayList<HospitalData> selectMapData(double[] mapBounds){
+		Connection conn = getConnection();
+		ArrayList<HospitalData> list = new InfoDao().selectMapData(conn, mapBounds);
+		close(conn);
+		return list;
+	}
 	
 }

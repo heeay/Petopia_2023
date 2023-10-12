@@ -75,25 +75,46 @@
 
         <div id="content-wrap">
             <div id="map" style="width:500px;height:400px;"></div>
-	        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133"></script>
+            <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
 	        	let mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 	            let mapOption = {
 	        	        center: new kakao.maps.LatLng(37.56633, 126.97917), // 지도의 중심좌표
-	        	        level: 5, // 지도의 확대 레벨
+	        	        level: 8, // 지도의 확대 레벨
 	        	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
 	        	    }; 
                 
 	        	// 지도를 생성한다 
 	        	const map = new kakao.maps.Map(mapContainer, mapOption); 
                 let mapBounds = map.getBounds();
+                let south = mapBounds["qa"];
+                let west = mapBounds["ha"];
+                let north = mapBounds["pa"];
+                let east = mapBounds["oa"];
+                const geocoder = new kakao.maps.services.Geocoder();
+                var transCoordCB = function(result, status){
+                    if (status === kakao.maps.services.Status.OK) {
+                        var markerPosition  = new kakao.maps.LatLng(result[0].x, result[0].y);
+                        var marker = new kakao.maps.Marker({
+                            position: markerPosition
+                        });
+                        marker.setMap(map);
+                        console.log(markerPosition);
+                    }
+                }
+
+                var markerPosition  = new kakao.maps.LatLng(37.56633, 126.97917);
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
 
 	        	// 지도 영역 변화 이벤트를 등록한다
 	        	kakao.maps.event.addListener(map, 'bounds_changed', function () {
-	        		mapBounds = map.getBounds();
-	        		console.log('지도의 남서쪽, 북동쪽 영역좌표는 '+mapBounds.toString()+'입니다.');
-                    console.log("남서쪽 : "+mapBounds["qa"]+", "+mapBounds["ha"]);
-                    console.log("북동쪽 : "+mapBounds["pa"]+", "+mapBounds["oa"]);
                     updateMap();
 	        	});
 	        </script>
@@ -102,17 +123,34 @@
                     updateMap();
                 })
                 function updateMap(){
+                    mapBounds = map.getBounds();
+                    console.log('지도의 남서쪽, 북동쪽 영역좌표는 '+mapBounds.toString()+'입니다.');
+                    south = mapBounds["qa"];
+                    west = mapBounds["ha"];
+                    north = mapBounds["pa"];
+                    east = mapBounds["oa"];
+
+                    //console.log("남서쪽 : "+mapBounds["qa"]+", "+mapBounds["ha"]);
+                    //console.log("북동쪽 : "+mapBounds["pa"]+", "+mapBounds["oa"]);
+                    console.log("남서쪽 : "+south+", "+west);
+                    console.log("북동쪽 : "+north+", "+east);
                     $.ajax({
                         url : "updateMap",
                         type : "post",
                         data : {
-                            "south" : mapBounds["qa"],
-                            "west" : mapBounds["ha"],
-                            "north" : mapBounds["pa"],
-                            "east" : mapBounds["oa"]
+                            "south" : south,
+                            "west" : west,
+                            "north" : north,
+                            "east" : east
                         },
                         success : function(result){
-                            console.log(result);
+                            console.log(result[0]);
+                            for(let i=0; i<10;i++){
+                                geocoder.transCoord(result[0]["posX"], result[0]["posY"], transCoordCB, {
+                                    input_coord : kakao.maps.services.Coords.WTM,
+                                    output_coord : kakao.maps.services.Coords.WGS84
+                                });
+                            }
                         },
                         error : function(error){
                             console.log(error);

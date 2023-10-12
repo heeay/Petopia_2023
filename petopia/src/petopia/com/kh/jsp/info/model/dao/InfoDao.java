@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
+import petopia.com.kh.jsp.info.model.vo.HospitalData;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
@@ -211,6 +212,32 @@ public class InfoDao {
 		return list;
 	}
 	
-	
+	public ArrayList<HospitalData> selectMapData(Connection conn, double[] mapBounds){
+		ArrayList<HospitalData> list = new ArrayList<HospitalData>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMapData");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			/*pstmt.setDouble(1, mapBounds[1]);
+			pstmt.setDouble(2, mapBounds[0]);
+			pstmt.setDouble(3, mapBounds[2]);
+			pstmt.setDouble(4, mapBounds[3]);*/
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				HospitalData data = new HospitalData();
+				data.setHospitalName(rset.getString("HOSPITAL_NAME"));
+				data.setPosX(rset.getDouble("POS_X"));
+				data.setPosY(rset.getDouble("POS_Y"));
+				list.add(data);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 }

@@ -120,6 +120,19 @@
 		  		  	     	   BOARD_NO DESC) A)
 				 WHERE RNUM BETWEEN ? AND ?		  		
 	</entry>
-	
+	<entry key="selectMapData">
+	SELECT
+		HOSPITAL_NAME,
+		POS_X,
+		POS_Y
+	FROM
+    	TB_HOSPITAL_DATA
+	WHERE
+		STATE='정상'
+	AND
+    	POS_X IS NOT NULL
+	OR
+    	POS_Y IS NOT NULL
+	</entry>
 
 </properties>
