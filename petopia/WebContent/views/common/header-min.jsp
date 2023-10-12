@@ -172,7 +172,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         }
     </style>
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
     //네이버 로그아웃
     var testPopUp;
@@ -204,7 +204,7 @@ User userInfo = (User)session.getAttribute("userInfo");
           Kakao.Auth.setAccessToken(undefined)
         }
       }
-</script>
+</script>-->
 
 </head>
 <body>

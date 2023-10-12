@@ -7,6 +7,9 @@
 <title>펫토피아에 오신 것을 환영합니다</title>
 <style>
         section{
+            width: 100%;
+        }
+        #section-wrap{
             width: 1000px;
             height: 2000px;
             margin: auto;
@@ -30,6 +33,7 @@
         #side-menu-wrap{
             width: 220px;
             height: 100%;
+            padding: 20px 0;
             float: left;
         }
         #side-menu{
@@ -67,88 +71,91 @@
 <body>
 	<%@include file="views/common/header.jsp" %>
 	<section>
-    <div id="content-wrap">
-    	내용
-        <div class="board-item">
-            <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
-            <p>
-                <div>강아지 목욕 꿀팁!</div>
-                <div>나는야집사 2020-01-01 조회수[55]</div>
-            </p>
+    <div id="section-wrap">
+
+        <div id="content-wrap">
+            내용
+            <div class="board-item">
+                <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+                <p>
+                    <div>강아지 목욕 꿀팁!</div>
+                    <div>나는야집사 2020-01-01 조회수[55]</div>
+                </p>
+            </div>
         </div>
-    </div>
-    <div id="side-menu-wrap">
-        <div id="side-menu">
-            <ul id="category">
-                <li><a>⭐베스트</a></li>
-                <li><a>📋공지사항</a></li>
-                <li><a id="animal-board">🐾동물게시판</a>
-                    <ul id="sub-category" style="display: none;">
-                        <li><a class="sub-category-title">🐶강아지</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="sub-category-title">🐱고양이</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="sub-category-title">🐹설치류</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="sub-category-title">🐍파충류</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="sub-category-title">🦜조류</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="sub-category-title">🐠어류</a>
-                            <ul class="sub-category-content" style="display: none;">
-                                <li><a>꿀팁공유</a></li>
-                                <li><a>QnA</a></li>
-                                <li><a>수제간식 레시피</a></li>
-                                <li><a>전국 동물자랑</a></li>
-                                <li><a>무료나눔</a></li>
-                                <li><a>돌봄SOS</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a>📢실종게시판</a></li>
-                <li><a>🚨신고하기</a></li>
-            </ul>
+        <div id="side-menu-wrap">
+            <div id="side-menu">
+                <ul id="category">
+                    <li><a>⭐베스트</a></li>
+                    <li><a>📋공지사항</a></li>
+                    <li><a id="animal-board">🐾동물게시판</a>
+                        <ul id="sub-category" style="display: none;">
+                            <li><a class="sub-category-title">🐶강아지</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="sub-category-title">🐱고양이</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="sub-category-title">🐹설치류</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="sub-category-title">🐍파충류</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="sub-category-title">🦜조류</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="sub-category-title">🐠어류</a>
+                                <ul class="sub-category-content" style="display: none;">
+                                    <li><a>꿀팁공유</a></li>
+                                    <li><a>QnA</a></li>
+                                    <li><a>수제간식 레시피</a></li>
+                                    <li><a>전국 동물자랑</a></li>
+                                    <li><a>무료나눔</a></li>
+                                    <li><a>돌봄SOS</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>📢실종게시판</a></li>
+                    <li><a>🚨신고하기</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <script>

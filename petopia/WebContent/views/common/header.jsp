@@ -38,13 +38,27 @@ User userInfo = (User)session.getAttribute("userInfo");
     <style>
         header{
             width: 100%;
-            height: 480px;
+            height: 500px;
             background-color: rgb(255, 248, 240);
+            position: relative;
+            z-index: 0;
+        }
+        section{
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+        #header-empty{
+            height: 0px;
         }
         #header-wrap{
-            width: 1100px;
-            height: 80px;
-            margin: auto;
+            width: 1200px;
+            height: 500px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+            z-index: 0;
         }
         .header-logo{
             width: 180px;
@@ -111,7 +125,11 @@ User userInfo = (User)session.getAttribute("userInfo");
             float: left;
             position: relative;
         }
-        #header-bar{
+        #header-bar-wrap{
+            width: 100%;
+            height: 80px;
+        }
+        #fixed-header-bar-wrap{
             width: 100%;
             height: 80px;
             position: fixed;
@@ -120,7 +138,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             left: 0px;
             background-color: rgb(247, 222, 205);
         }
-        #header-bar-wrap{
+        #header-bar{
             width: 1100px;
             height: 100%;
             margin: auto;
@@ -176,7 +194,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         /* 이미지 영역 사이즈 조절 */
         .swiper {
             width: 1200px;
-            height: 350px;
+            height: 400px;
         }
 
         /* 이미지 사이즈 조절 */
@@ -192,10 +210,10 @@ User userInfo = (User)session.getAttribute("userInfo");
         }
     </style>
     
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //네이버 로그아웃
-        /*var testPopUp;
+        var testPopUp;
         function openPopUp() {
             testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
         }
@@ -221,62 +239,30 @@ User userInfo = (User)session.getAttribute("userInfo");
               })
               Kakao.Auth.setAccessToken(undefined)
             }
-          }*/
-    </script>
+          }
+    </script>-->
     
 </head>
 <body>
-    <header>
-        <div id="header-bar" style="display: none;">
-            <div id="header-bar-wrap">
-                <div class="header-logo">
-                    <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
-                </div>
-                <ul class="header-navi">
-
-                    <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-
-                    <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
-                </ul>
-                <ul class="header-navi user-navi">
-                    <%if(userInfo == null){ %>
-                		<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                	<%} else { %>
-                		<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                		<li class="user-navi-item"><a 
-                            <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                            else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                            href="<%=contextPath %>/logout">로그아웃</a></li>
-                	<%} %>
-                    <li class="user-navi-icon-btn">
-                        <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
-                        <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
-                            <input class="header-search-bar" type="text" name="query">
-                            <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
-                        </form>
-                    </li>
-                    <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
-                </ul>
-            </div>
-        </div>
-        <div id="header-wrap">
+    <div id="fixed-header-bar-wrap">
+        <div id="header-bar">
             <div class="header-logo">
                 <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
             </div>
             <ul class="header-navi">
+
                 <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                 <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+
                 <li class="header-navi-item"><a href="#">행사</a></li>
-                <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
                 <%if(userInfo == null){ %>
-                	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                    <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                	<li class="user-navi-item"><a 
+                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                    <li class="user-navi-item"><a 
                         <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
                         else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
                         href="<%=contextPath %>/logout">로그아웃</a></li>
@@ -291,30 +277,69 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
             </ul>
         </div>
-        <div id="content_1">
-        <!-- Slider main container -->
-        <div class="swiper">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__480.jpg"></div>
-                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/12/06/09/15/maple-1079235__480.jpg"></div>
-                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/09/01/19/53/pocket-watch-1637396__480.jpg"></div>
-                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/05/27/08/51/mobile-phone-1419275__480.jpg"></div>
-                <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/09/01/09/32/alphabet-916673__480.jpg"></div>
-            </div>
-        
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
-        
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-        
-            <!-- If we need scrollbar -->
-            <div class="swiper-scrollbar"></div>
-        </div>
     </div>
+    <header>
+        <div id="header-empty"></div>
+        <div id="header-wrap">
+            <div id="header-bar-wrap"></div>
+            <!--<div id="header-bar-wrap">
+                <div id="header-bar">
+                    <div class="header-logo">
+                        <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                    </div>
+                    <ul class="header-navi">
+                        <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
+                        <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                        <li class="header-navi-item"><a href="#">행사</a></li>
+                        <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                    </ul>
+                    <ul class="header-navi user-navi">
+                        <%if(userInfo == null){ %>
+                            <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                        <%} else { %>
+                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                            <li class="user-navi-item"><a 
+                                <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
+                                else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
+                                href="<%=contextPath %>/logout">로그아웃</a></li>
+                        <%} %>
+                        <li class="user-navi-icon-btn">
+                            <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
+                            <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
+                                <input class="header-search-bar" type="text" name="query">
+                                <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
+                            </form>
+                        </li>
+                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                    </ul>
+                </div>
+            </div>-->
+            <div id="content_1">
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/12/06/09/15/maple-1079235__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/09/01/19/53/pocket-watch-1637396__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/05/27/08/51/mobile-phone-1419275__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/09/01/09/32/alphabet-916673__480.jpg"></div>
+                    </div>
+            
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+            
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+            
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
     <script>
         // 슬라이더 동작 정의
         const swiper = new Swiper('.swiper', {
@@ -333,18 +358,17 @@ User userInfo = (User)session.getAttribute("userInfo");
             }
         }); 
     </script>
-    </header>
     <script>
         $(document).ready(function(){
-            const headerBar = document.getElementById("header-bar");
+            /*const headerBarWrap = document.getElementById("fixed-header-bar-wrap");
             $(window).scroll(function(){
                 if($(window).scrollTop()>80){
-                    headerBar.style.display="block";
+                    headerBarWrap.style.display="block";
                 }
                 else{
-                    headerBar.style.display="none";
+                    headerBarWrap.style.display="none";
                 }
-            });
+            });*/
 
             $(".header-search-tool").click(function(){
                 if($(this).siblings(".header-search-bar-wrap").css("display")=="none"){
