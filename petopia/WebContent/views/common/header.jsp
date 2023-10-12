@@ -49,6 +49,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             z-index: 0;
         }
         section{
+            width: 100%;
             background-color: white;
             position: relative;
             z-index: 1;
@@ -356,8 +357,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/07/31/11/42/bordeaux-868991_1280.jpg"><div id="typo1">펫들의 유토피아!<br>펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/01/15/16/48/winter-1142029_1280.jpg"><div id="typo2">펫토피아에 오신 것을 환영합니다!</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg"><div id="typo3">펫들의 유토피아!<br>펫토피아</div></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__480.jpg"></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/09/01/19/53/pocket-watch-1637396__480.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/05/09/23/02/dog-2299480_1280.jpg"></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/06/04/21/30/swans-1436266_1280.jpg"></div>
                     </div>
             
