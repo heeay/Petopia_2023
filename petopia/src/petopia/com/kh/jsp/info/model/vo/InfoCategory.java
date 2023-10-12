@@ -3,7 +3,7 @@ package petopia.com.kh.jsp.info.model.vo;
 public class InfoCategory {
 	
 	private int categoryNo; // CTG_NO	NUMBER
-	private String categoryName; // CTG_NAME	VARCHAR2(50 BYTE)
+	private String categoryName; // CTG_NAME	 VARCHAR2(50 BYTE)
 	
 	public InfoCategory() {
 		super();

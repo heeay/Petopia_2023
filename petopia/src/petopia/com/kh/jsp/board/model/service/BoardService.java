@@ -32,11 +32,12 @@ public class BoardService {
 		return list;
 	}
 	
-	public int increaseViewsCount(int boardNo) {
+	public int increaseViewsCount(int bno) {
 		
 		Connection conn = getConnection();
 		
-		int increaseCount = new BoardDao().increaseViewsCount(conn, boardNo);
+		int increaseCount = new BoardDao().increaseViewsCount(conn, bno);
+		
 		
 		if(increaseCount > 0) commit(conn);
 		else rollback(conn);
@@ -45,11 +46,11 @@ public class BoardService {
 		return increaseCount;
 	}
 	
-	public Board selectBoard(int boardNo) {
+	public Board selectBoard(int bno) {
 		
 		Connection conn = getConnection();
 		
-		Board b = new BoardDao().selectBoard(conn, boardNo);
+		Board b = new BoardDao().selectBoard(conn, bno);
 		
 		close(conn);
 		

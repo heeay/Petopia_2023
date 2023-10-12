@@ -89,7 +89,7 @@
 
     #search-help{
         display : flex;
-        width : 100%;
+        width : 50%;
         align-items: center;
     }
     #search-radio{
@@ -101,6 +101,13 @@
 
     #search-btn{
         display : none;
+    }
+    #insert-board{
+        width : 100px;
+    }
+
+    #insert-board a{
+        font-style : none;
     }
 
 
@@ -167,8 +174,9 @@
 </head>
 <body>
 
-<%@ include file="../common/header-min.jsp" %>
-  <%@ include file="../common/sideBar.jsp" %>
+
+    <%@ include file="../common/header-min.jsp" %>
+    <%@ include file="../common/sideBar.jsp" %>
 	
 	<div id="wrapper">
 		
@@ -177,7 +185,7 @@
             <article id="search-help">
 
                 <div id="search-bar">
-                    <form action="main.bo" method="get" id="search-form">
+                    <form action="<%=contextPath%>/main.bo" method="get" id="search-form">
                         <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
                         <i id="search-icon" class="fas fa-search"><button type="submit" id="search-btn"></button></i>
                     </form>
@@ -193,14 +201,14 @@
                 </script>
 
                 <div id="search-radio">
-                    <input type="radio" name="">제목
-                    <input type="radio" name="">작성자
+                    <input type="radio" name="search-radio">제목
+                    <input type="radio" name="search-radio">작성자
                 </div>
 
             </article>
 
             <article id="search-view">
-                <select name="" id="">
+                <select name="search-view" id="">
                     <option value="" id="search-four">게시글 4개씩 보기</option>
                     <option value="" id="search-two">게시글 2개씩 보기</option>
                     <option value="" id="search-eight">게시글 8개씩 보기</option>
@@ -208,8 +216,12 @@
                 
             </article>
                  <!-- id가 search-two인 option이 선택되면 -->
-                 <!-- <% boardLimit == 2 %> 로 바뀐다.    -->
-
+                 <!--  % boardLimit == 2 %  로 바뀐다.    -->
+	
+                 <!-- 한 페이지에 form태그 여러개 상관없음! -->
+			<article>
+                <button class="btn btn-sm btn-danger"><a href="<%=contextPath%>/insertForm.bo">글쓰기</a></button>
+            </article>
                 
                 
 
@@ -242,11 +254,12 @@
 	                </ul>
                 <% } else { %>
                 
+                
                 	<% for(Board b : list) { %>
 	                	<ul id="list-item">
 	                		<li><%= b.getBoardNo() %></li>
 	                		<li><%= b.getFileNo() %></li>
-	                		<li><a href="<%= contextPath %>/detail.bo?bno=<%= b.getBoardNo()%>"><%= b.getBoardTitle() %></a></li>
+	                		<li><%= b.getBoardTitle() %></li>
 	                		<li><%= b.getUserNo() %></li>
 	                		<li><%= b.getBoardViews() %></li>
 	                		<li><%= b.getBoardCreateDate() %></li>
@@ -260,24 +273,17 @@
             </article>
         </section>
 
-        <script>
-
+           <script>
             $(function(){
-            	
-                $('.content-area > tbody > tr').click(function(){
+                //<a href="%= contextPath %/detail.bo?bno=%= b.getBoardNo()%"
+
+                //content-item아래 ul의 자식들(== li들) 중 첫번째(== eq(0))의 text값
+                $('#content-item > ul').click(function(){
                     location.href = '<%=contextPath%>/detail.bo?bno=' + $(this).children().eq(0).text();
                 });
-                
-                $('.content-reply').html('댓글[' + ']');
 
-                $('.content-view').html('조회수[' + ']');
 
-                $('.content').click(function(){
-                    
-                });
-
-            });
-
+            })
         </script>
             
 

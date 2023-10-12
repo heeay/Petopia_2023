@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <!-- User user = (User)request.getAttribute("user");
-Board b = (Board)request.getAttribute("b"); -->
-<%@ page import="petopia.com.kh.jsp.board.model.vo.*" %>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.*, petopia.com.kh.jsp.info.model.vo.*" %>
+<%  User user = (User)request.getAttribute("user");
+    Board b = (Board)request.getAttribute("b"); 
+    ArrayList<InfoCategory> list = (ArrayList<InfoCategory>)request.getAttribute("list");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,115 +120,51 @@ Board b = (Board)request.getAttribute("b"); -->
     <p>게시글 작성</p>
 
     <section id="option-area">
-
-        <table id="detail-area" align="center" border="1">
-            <tr>
-                <th width="100">카테고리</th>
-                <td width="150">?</td>
-                <th width="100">제목</th>
-                <td width="400">?</td>
-            </tr>
-            <tr>
-                <th>작성자</th>
-                <td>?</td>
-                <th>작성일</th>
-                <td>?</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td colspan="3">
-                    <p style="height:400px;">?</p>
-                </td>
-            </tr>
-            <tr>
-                <th>첨부파일</th>
-                <td colspan="3">
-                	<% if(b.getFileNo() == null) { %>
-                    <!-- 첨부파일이 없을 경우 -->
-                        	첨부파일 없어요 ~
-                    <% } else {%>
-                    <!-- 첨부파일이 있을 경우 -->
-                    <!-- /jsp/resources/board_upfiles/changeName -->
-                        <a href="#" download="#"></a>
-                    <% } %>
-                </td>
-            </tr>
-        </table>
-
         <br>
-
-        <div align="center">
-            <a href="#" class="btn btn-sm btn-info">목록으로</a>
-            
-            <% if(user != null && user.getUserNo().equals(b.getBoardWriter())) { %>
-	            <a href="#" class="btn btn-sm btn-warning">수정하기</a>
-	            <a href="#">삭제하기</a>
-            <% } %>
-            
-        </div>
+        <h2 align="center">게시글 작성하기!</h2>
         <br><br>
-	    <!-- <div id="reply-area">
-			
-			<table border="1" align="center">
-				<thead>
-					<tr>
-						<th>댓글작성</th>
-						<% if(user != null) { %>
-							<td>
-								<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
-							</td>
-							<td><button onclick="insertReply();">댓글등록</button></td>
-						<% } else { %>
-							<td>
-								<textarea readonly cols="50" rows="3" style="resize:none;">로그인 후 이용가능한 서비스입니다.</textarea>
-							</td>
-							<td><button>댓글등록</button></td>
-						<% } %>
-					</tr>
-				</thead>
-				<tbody>
-				
-				</tbody> -->
-			</table>
-    
-        
-            <span class="option-name">제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <input class="option-list" type="text" id="option-title" placeholder="제목을 입력하세요">
-        
-          
-            <span class="option-name">내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <textarea name="" id="option-content" placeholder="내용을 입력하세요"></textarea>
-    
-        
-      
+
+
+		<!--파일을 첨부하는 요청을 할 때는 반드시 form태그에 enctype="multipart/form-data" 를 추가해줘야함!!-->
+        <form enctype="multipart/form-data" action="<%=contextPath%>/insert.bo" id="enroll-form" method="post">
+            <!-- 제목*, 내용*, 카테고리*, 글쓴이*, 첨부파일*, 제출버튼* -->
+
+            <!-- 작성자의 회원번호를 hidden으로 같이 넘겨서 board테이블에 INSERT--> <!-- loginUser는 어디서 왔지> -->
+            <input type="hidden" name="userNo" value="<%=user.getUserNo()%>">
+
+            <table align="center">
+                <tr>
+                    <th width="150">카테고리</th>
+                    <td width="600">
+                        <select name="category">
+                            <% for(InfoCategory c : list) { %>
+								<option value="<%= c.getCategoryNo() %>">
+									<%= c.getCategoryName() %>
+								</option>                            
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td><input type="text" name="title" required></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td><textarea name="content" style="resize:none;" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <th>첨부파일</th>
+                    <td><input type="file" name="upfile"></td>
+                </tr>
+            </table>
+            <br><br>
+            <div align="center">
+                <button type="submit" class="btn btn-sm btn-info">글작성</button>
+            </div>
+
         </form>
-
-    </section>
-
-
-    <section id="upload-area">
-
-        <ul>
-            <li>
-                <span class="option-name">사진 업로드&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <button type="button" id="upload-picture">사진첨부</button>
-                <span class="upload-file">선택된 파일 없음</span>
-            </li>
-            <li>
-                <span class="option-name">동영상 업로드</span>
-                <button type="button" id="upload-video">동영상첨부</button>
-                <span class="upload-file">선택된 파일 없음</span>
-            </li>
-        </ul>
-   
-    <div id="upload-admin">
-        <button type="submit">글등록</button>
-        <button>취소</button>
-    </div>
-
-   
-       
-    </section>
+		<br><br><br>
 
     
 </div>

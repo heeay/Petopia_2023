@@ -120,18 +120,19 @@ public class BoardDao {
 		
 	}
 	
-	public int increaseViewsCount(Connection conn, int boardNo) {
+	public int increaseViewsCount(Connection conn, int bno) {
 		
 		int increaseCount = 0;
 		PreparedStatement pstmt = null;
-		Board b = new Board();
+
 		
 		String sql = prop.getProperty("increaseViewsCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, b.getBoardNo());
+			// 여기가 문제였음 : 파라미터로 bno가져왔으면 PSTMT에 bno 셋팅하기
+			pstmt.setInt(1, bno);
 			
 			increaseCount = pstmt.executeUpdate();
 			
@@ -148,7 +149,7 @@ public class BoardDao {
 	}
 	
 	
-	public Board selectBoard(Connection conn, int boardNo) {
+	public Board selectBoard(Connection conn, int bno) {
 		
 		Board b = new Board();
 		PreparedStatement pstmt = null;
@@ -159,20 +160,22 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 		
-			pstmt.setInt(1, boardNo);
+			pstmt.setInt(1, bno);
 			
 			rset = pstmt.executeQuery();
 			
-		
+			if(rset.next()) {
+			b.setBoardNo(rset.getInt("BOARD_NO"));
 			b.setBoardTitle(rset.getString("BOARD_TITLE"));
 			b.setBoardContent(rset.getString("BOARD_CONTENT"));
 			b.setBoardViews(rset.getInt("BOARD_VIEWS"));
 			b.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+			b.setBoardUpdateDate(rset.getDate("BOARD_UPDATE_DATE"));
 			b.setUserNo(rset.getInt("USER_NO"));
 			b.setFileNo(rset.getInt("FILE_NO"));
 			b.setCtgNo(rset.getInt("CTG_NO"));
 			b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
-			
+			}
 			
 			
 		} catch (SQLException e) {

@@ -34,18 +34,20 @@ public class DetailBoardController extends HttpServlet {
 		// mainBoard의 boardTitle을 클릭하면 detail.bo로 이동
 		// 1. 인코딩 생략
 		// 2. 값 뽑아내기 : PK인 boardNo만 뽑기 = 식별가능
-		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
 		BoardService bs = new BoardService();
 		
 		// 3. 기능 : 조회수 증가 : DML
 		
-		 int increaseCount = bs.increaseViewsCount(boardNo);
+		 int increaseCount = bs.increaseViewsCount(bno);
+		 System.out.println(increaseCount);
+		 
 		 
 		 // 서비스 갔다온 뒤 결과
 		 if(increaseCount > 0) {
 			 // 테이블 조회 파일 조회도 같이
-			 Board b = bs.selectBoard(boardNo);
+			 Board b = bs.selectBoard(bno);
 		
 			 // 조회한 결과 담기
 			 request.setAttribute("b", b);
