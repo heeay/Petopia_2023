@@ -32,7 +32,6 @@
 		      TB_FILE
 		      (
 		      FILE_NO,
-		      REF_BNO,
 		      ORIGINAL_NAME,
 		      UPLOAD_NAME,
 		      FILE_PATH,
@@ -40,8 +39,7 @@
 		      )
 		VALUES
 			  (
-			  SEQ_FNO.NEXTVAL,
-			  SEQ_BNO.CURRVAL,
+			  SEQ_FILE_NUMBER.NEXTVAL,
 			  ?,
 			  ?,
 			  ?,

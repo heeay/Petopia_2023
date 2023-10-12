@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -348,12 +349,10 @@
                     <button type="button" class="btn btn-dark">5</button>
                     <button type="button" class="btn btn-dark">></button>
                 </div>
-
                 
         <div id="write-button">
             <a href="<%=contextPath%>/enroller.pb" class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기     </a>     
         </div>
-
             </div>
         </div>
 
