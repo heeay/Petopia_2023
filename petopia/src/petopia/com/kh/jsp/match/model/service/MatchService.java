@@ -24,13 +24,10 @@ import petopia.com.kh.jsp.info.model.vo.InfoFile;
 public class MatchService {
 
 	public int insertThumbnailBoard(Match m, ArrayList<File> list) {
-		System.out.println("넘어감");
 
 		Connection conn = getConnection();
-		System.out.println("넘어감");
 
 		int result1 = new MatchDao().insertThumbnailBoard(conn, m);
-		System.out.println("넘어감");
 		int result2 = new MatchDao().insertFileList(conn, list);
 		
 		

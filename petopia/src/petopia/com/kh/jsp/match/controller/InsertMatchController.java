@@ -86,7 +86,6 @@ public class InsertMatchController extends HttpServlet {
 				}
 				
 			}
-			
 			int result = new MatchService().insertThumbnailBoard(m, list);
 			
 			
