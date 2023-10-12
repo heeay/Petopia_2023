@@ -94,24 +94,11 @@
                 const geocoder = new kakao.maps.services.Geocoder();
                 var transCoordCB = function(result, status){
                     if (status === kakao.maps.services.Status.OK) {
-                        var markerPosition  = new kakao.maps.LatLng(result[0].x, result[0].y);
-                        var marker = new kakao.maps.Marker({
-                            position: markerPosition
-                        });
-                        marker.setMap(map);
-                        console.log(markerPosition);
+                        markerList.push({latlng: new kakao.maps.LatLng(result[0].x, result[0].y)});
                     }
                 }
 
-                var markerPosition  = new kakao.maps.LatLng(37.56633, 126.97917);
-
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                    position: markerPosition
-                });
-
-                // 마커가 지도 위에 표시되도록 설정합니다
-                marker.setMap(map);
+                let markerList = [];
 
 	        	// 지도 영역 변화 이벤트를 등록한다
 	        	kakao.maps.event.addListener(map, 'bounds_changed', function () {
@@ -145,12 +132,18 @@
                         },
                         success : function(result){
                             console.log(result[0]);
-                            for(let i=0; i<10;i++){
+                            for(var i=0; i<10;i++){
                                 geocoder.transCoord(result[0]["posX"], result[0]["posY"], transCoordCB, {
                                     input_coord : kakao.maps.services.Coords.WTM,
                                     output_coord : kakao.maps.services.Coords.WGS84
                                 });
                             }
+                            console.log(markerList)
+                            for(var i =0; i<markerList.length;i++)
+                            var marker = new kakao.maps.Marker({
+                                map: map, // 마커를 표시할 지도
+                                position: markerList[i].latlng, // 마커를 표시할 위치
+                            });
                         },
                         error : function(error){
                             console.log(error);
