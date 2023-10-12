@@ -24,9 +24,12 @@
         margin: auto;
         position: relative;
 	}
+	
+	div{
+		border : 1px solid red;
+	}
 
     #wrap{
-        border : 1px solid red;
         width: 780px;
         height: 90%;
         margin-top : 20px;
@@ -44,6 +47,8 @@
     }
 
     .info-list{
+        border-collapse: separate;
+        border-spacing: 0px 20px;
         display: flex;
         justify-content: center;
     }
@@ -69,6 +74,10 @@
         line-height: 15px;
         border : 0px;
     }
+    
+    .click-area:hover{cursor : pointer;}
+    
+    #info-no{display : none;}
 </style>
 </head>
 <body>
@@ -95,16 +104,17 @@
             <% } else { %>
 
                 <% for(Info in : list) { %>
-                    <tr>
+                    <tr class="click-area">
+                    	<!-- 각 게시글 번호를 알아내기 위한 td (css영역에서 display:none으로 안 보이게 함) -->
+                    	<td id="info-no"><%= in.getInfoNo() %></td>
                         <td rowspan="2" width="400px" height="150px"><img src="<%= in.getTitleImg() %>"></td>
                         <td width="600px"><%= in.getInfoTitle() %></td>
                     </tr>
 	                <tr>
 	                    <td><%= in.getInfoContent() %></td>
 	                </tr>
-                    <tr height="20px"></tr>
                 <% } %>
-                
+        
             <% } %>
 			
 			<!--
@@ -119,33 +129,40 @@
             -->
             
         </table>
-        
     </div>
 
-        <div class="pagin-area" align="center">
+    <div class="pagin-area" align="center">
         
-        	<% if(list.isEmpty()) { %>
-            	<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">1</button>
+        <% if(list.isEmpty()) { %>
+            <button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">1</button>
             
-            <% } else { %>
-				<% if(currentPage != 1) { %>
-					<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage - 1 %>'" class="share-btn">&lt;</button>
+        <% } else { %>
+			<% if(currentPage != 1) { %>
+				<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage - 1 %>'" class="share-btn">&lt;</button>
+			<% } %>
+			
+			<% for(int i = startPage; i <= endPage; i++) { %>
+				<% if(currentPage != i) { %>
+					<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= i %>'" class="share-btn"><%= i %></button>
+				<% } else { %>
+					<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)"><%= i %></button>
 				<% } %>
-				
-				<% for(int i = startPage; i <= endPage; i++) { %>
-					<% if(currentPage != i) { %>
-						<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= i %>'" class="share-btn"><%= i %></button>
-					<% } else { %>
-						<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)"><%= i %></button>
-					<% } %>
-				<% } %>
-	
-				<% if(currentPage != maxPage) { %>
-	            	<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage + 1 %>'" class="share-btn">&gt;</button>
-	            <% } %>
+			<% } %>
+			
+			<% if(currentPage != maxPage) { %>
+	            <button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage + 1 %>'" class="share-btn">&gt;</button>
 	        <% } %>
-            
-        </div>
+	    <% } %>
+        
+    </div>
+    
+    <script>
+    	$(function() {
+    		$('.click-area').click(function(){
+    			location.href = '<%= contextPath %>/detailShare.in?ino=' + $(this).children().eq(0).text();
+    		});
+    	});
+    </script>
     
     </section>
     

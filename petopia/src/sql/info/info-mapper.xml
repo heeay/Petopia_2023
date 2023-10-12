@@ -99,6 +99,7 @@
 		SELECT *
 		  FROM (SELECT ROWNUM RNUM, A.*
 		  		  FROM (SELECT
+		  		  			   BOARD_NO,
 		  		  			   BOARD_TITLE,
 		  		  			   CASE WHEN LENGTH(BOARD_CONTENT) > 30 THEN SUBSTR(BOARD_CONTENT, 1, 30)||'...'
 		  		  			   		ELSE SUBSTR(BOARD_CONTENT, 1, 30)
