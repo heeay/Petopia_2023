@@ -122,7 +122,8 @@
     <%@include file="../common/header.jsp" %>
 
 
-    <section id="main">
+    <section>
+    <div id="main">
         <div id="side-menu-wrap">
             <div id="side-menu">
                 <ul id="category">
@@ -248,9 +249,7 @@
             <button type="button" class="btn btn-dark">></button>
         </div>
         </section>
-
-
-
+    </div>
     </section>
     <%@include file="../common/footer.jsp" %>
 
