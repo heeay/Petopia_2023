@@ -80,10 +80,10 @@
         float: right;
     }
     
-    #img{
+    /* class가 img인 요소 중 첫번째 요소를 제외한 나머지 선택해서 display:none 적용 */
+    .img:not(:first-child){
         display : none;
     }
-
 </style>
 </head>
 <body>
@@ -105,9 +105,9 @@
            <div id="content">
                 
                 <div id="photo-content">
-                    <img src="<%= contextPath %>/<%= list.get(0).getFilePath() %>/<%= list.get(0).getUploadName() %>" id="titleImg" alt="대표이미지">
-                    <% for(int i = 1; i < list.size(); i++) { %>
-                    	<img src="<%= contextPath %>/<%= list.get(i).getFilePath() %>/<%= list.get(i).getUploadName() %>" id="img" alt="이미지">
+                    
+                    <% for(int i = 0; i < list.size(); i++) { %>
+                    	<img src="<%= contextPath %>/<%= list.get(i).getFilePath() %>/<%= list.get(i).getUploadName() %>" class="img" alt="이미지">
                     <% } %>
                     
                     <button id="before-btn" class="btn btn-sm btn-secondary"> < </button>
@@ -168,9 +168,26 @@
                     }
                 });
                 
+                // 클래스로 접근해서 img들이 있는 images 배열을 만듦
+                let images = document.getElementsByClassName('img');
+                // 사진의 인덱스에 접근할 i
+                let i = 0;
+                // console.log(images.length); -> 사진이 두 개일 때 2
+                
                 $('#next-btn').click(function(){
-                	$('#img').show();
-                	$('#titleImg').hide();
+                	
+					if(i == (images.length - 1)) { // i값이 배열의 길이 - 1일 때 (= 배열의 마지막 요소의 인덱스와 같을 때, 배열의 길이가 2이면 배열의 인덱스는 0, 1이기 때문에 -1 함)
+						$(images[0]).css('display', 'block'); // 처음 요소 다시 보여지게 함
+						for(i = (images.length - 1); i > 0; i--) { // 배열의 마지막 요소부터 1번째 요소까지
+							$(images[i]).css('display', 'none'); // 이미지 안 보이게 함
+						}
+						i = 0; // i가 0이 되어야 다시 클릭 이벤트에 접근할 수 있음
+					}
+					else {
+						i++; // i에 다음 인덱스 저장
+                		$(images[i]).css('display', 'block');
+                		$(images[i - 1]).css('display', 'none'); // 이전 인덱스 안 보이게 함
+					}
                 });
             });
         </script>
