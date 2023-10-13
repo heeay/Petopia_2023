@@ -26,11 +26,12 @@ public class UserInfoUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("userInfo")==null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		
-		if(request.getSession().getAttribute("userInfo")!=null)
-			request.getRequestDispatcher("/views/mypage/userInfoUpdateView.jsp").forward(request, response);
-		else
-			response.sendRedirect(request.getContextPath());
+		request.getRequestDispatcher("/views/mypage/userInfoUpdateView.jsp").forward(request, response);
 	}
 
 	/**

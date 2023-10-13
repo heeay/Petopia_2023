@@ -155,7 +155,14 @@
                         	<% if(userInfo.getFileMypageNo().equals("/")) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px">
                         	<% } else {%>
-                        		<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px">
+                        	<%
+                			String url = userInfo.getFileMypageNo();
+                			if(!url.substring(0, url.indexOf('/')).equals("https:")){
+                			%>
+                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                			<%} else { %>
+                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                			<%} %>
                         	<% } %>
                         </div>
                         
