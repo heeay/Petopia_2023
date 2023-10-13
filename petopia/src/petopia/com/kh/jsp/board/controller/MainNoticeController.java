@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class NoticeListController
  */
-@WebServlet("/noticeList.bo")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/main.no")
+public class MainNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListController() {
+    public MainNoticeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class NoticeListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		request.getRequestDispatcher("views/board/noticeListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/mainNoticeView.jsp").forward(request, response);
 
 		
 	}

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.*, petopia.com.kh.jsp.info.model.vo.*" %>
-<%  User user = (User)request.getAttribute("user");
-    Board b = (Board)request.getAttribute("b"); 
-    ArrayList<InfoCategory> list = (ArrayList<InfoCategory>)request.getAttribute("list");
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.user.model.vo.*"  %>
+<%  User user = (User)request.getAttribute("userInfo");
+
+    ArrayList<Info> list = (ArrayList<Info>)request.getAttribute("list");
 %>
 
 <!DOCTYPE html>
@@ -27,16 +27,16 @@
         width: 1100px;
         height: 800px;
         margin: auto;
-        /* border : 1px solid black; */
+        border : 1px solid black;
         box-sizing: border-box;
         background-color: rgb(255, 248, 240);
     }
 
-    #option-area{
+    #content-area{
         box-sizing: border-box;
         width  : 1100px;
         height : 70%;
-        
+        border : 1px solid black;
         
     }
     
@@ -44,6 +44,7 @@
         width : 1100px;
         height : 15%;
         box-sizing: border-box;
+        
     }
 
     p {
@@ -56,35 +57,35 @@
 
 </style>
 
-<!-- option -->
+<!-- content -->
 <style>
-    #option{
+    #content{
        
     }
-    .option-list{
+    .content-list{
         display : flex;
 
         margin : 10px 0px;
        
     }
-    .option-name{
+    .content-name{
         margin-right : 20px;
        
     }
 
-    #option-board{
+    #content-board{
         
     }
-    #option-animal{
+    #content-animal{
 
     }
-    #option-detail{
+    #content-detail{
         
     }
-    #option-title{
+    #content-title{
         width : 900px;
     }
-    #option-content{
+    #content-content{
         width : 900px;
         height : 300px;
         resize:none;
@@ -119,53 +120,108 @@
     
     <p>게시글 작성</p>
 
-    <section id="option-area">
+    <section id="content-area">
         <br>
         <h2 align="center">게시글 작성하기!</h2>
         <br><br>
 
 
 		<!--파일을 첨부하는 요청을 할 때는 반드시 form태그에 enctype="multipart/form-data" 를 추가해줘야함!!-->
-        <form enctype="multipart/form-data" action="<%=contextPath%>/insert.bo" id="enroll-form" method="post">
+        <form enctype="multipart/form-data" action="<%=contextPath%>/insert.bo" id="insert-form" method="post">
             <!-- 제목*, 내용*, 카테고리*, 글쓴이*, 첨부파일*, 제출버튼* -->
 
             <!-- 작성자의 회원번호를 hidden으로 같이 넘겨서 board테이블에 INSERT--> <!-- loginUser는 어디서 왔지> -->
             <input type="hidden" name="userNo" value="<%=user.getUserNo()%>">
 
-            <table align="center">
-                <tr>
-                    <th width="150">카테고리</th>
-                    <td width="600">
-                        <select name="category">
-                            <% for(InfoCategory c : list) { %>
+            <table id="content-items" align="center">
+                <tr class="content-item">
+                    <th class="content-item-title">카테고리</th>
+                    <td class="content-item-content">
+                        <select id="category" name="category">
+                            <!---->
+                            <% for(Info c : list) { %>
 								<option value="<%= c.getCategoryNo() %>">
-									<%= c.getCategoryName() %>
+									<%= c.getCategory() %>
 								</option>                            
                             <% } %>
                         </select>
                     </td>
                 </tr>
-                <tr>
-                    <th>제목</th>
-                    <td><input type="text" name="title" required></td>
+                <tr class="content-item">
+                    <th class="content-item-title">제목</th>
+                    <td class="content-item-content">
+                        <input id="title" type="text" name="title" required>
+                    </td>
                 </tr>
-                <tr>
-                    <th>내용</th>
-                    <td><textarea name="content" style="resize:none;" rows="10"></textarea></td>
+                <tr class="content-item">
+                    <th class="content-item-title">내용</th>
+                    <td class="content-item-content">
+                        <textarea id="content" name="content" style="resize:none;" rows="10"></textarea>
+                    </td>
                 </tr>
-                <tr>
-                    <th>첨부파일</th>
-                    <td><input type="file" name="upfile"></td>
+                <tr class="content-item">
+                    <th class="content-item-title">첨부파일</th>
+                    <td class="content-item-content"><label id="fileUpload">File🖼️<input type="file" name="upfile" id="upfile"></label></td>
                 </tr>
             </table>
             <br><br>
             <div align="center">
-                <button type="submit" class="btn btn-sm btn-info">글작성</button>
+                <button type="submit" id="insert-btn" class="btn btn-sm btn-info">글작성</button>
             </div>
 
         </form>
 		<br><br><br>
 
+        <style>
+            #content-items{
+                width : 90%;
+            }
+            .content-item{
+
+            }
+            .content-item-title{
+                width : 10%;
+                border : 1px solid black;
+            }
+            .content-item-content{
+                width : 70%;
+                
+                border : 1px solid black;
+            }
+            #category{
+                width : 100%;
+            }
+            #title{
+                width : 100%;
+            }
+            #content{
+                width : 100%;
+            }
+            #upfile {
+                position: absolute;
+                width: 0;
+                height: 0;
+                padding: 0;
+                overflow: hidden;
+                border: 0;
+                
+            }
+            #fileUpload {
+                color : black;
+                background-color: rgb(247, 189, 96);
+                width : 60px;
+                height : 30px;
+                
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+          
+            }
+            #insert-btn{
+                background-color: burlywood;
+            }
+        </style>
     
 </div>
 

@@ -20,7 +20,7 @@
 	}
 
     div{
-        border : 1px solid red;
+       border : 1px solid red; 
     }
 
     #wrap{
@@ -31,7 +31,6 @@
 
     #content{
     	background-color : rgb(255, 248, 240);
-    	border : 1px solid black;
         width: 100%;
         height: 60%;
     }
@@ -43,7 +42,6 @@
     
     #back{
     	width : 100%;
-
     	display: flex;
         justify-content: center;
     }
@@ -72,12 +70,20 @@
     }
 
     #photo-content > img{
+    	position : relative;
         width: 100%;
-        height: 95%;
+        height: 94%;
     }
-
-    #next-btn {
-        float: right;
+	/* 부모 요소를 relative로 설정하고 해당 요소를 absolute로 설정해서 띄움 */
+	#before-btn{
+		position : absolute;
+		top : 420px;
+		left : 0px;
+	}
+    #next-btn{
+    	position : absolute;
+        top: 420px;
+        left : 362px;
     }
     
     /* class가 img인 요소 중 첫번째 요소를 제외한 나머지 선택해서 display:none 적용 */
@@ -119,7 +125,12 @@
                             <td width="500px"><%= in.getInfoTitle() %></td>
                         </tr>
                         <tr>
-                            <td><%= in.getStarScore() %></td>
+                            <td id="stars">
+                            <!-- 별점을 DB에 보낼 때 클릭한 인덱스 + 1로 했으니까 받아올 때는 별점 수 - 1로 보여주기 -->
+                            <% for(int i = 0; i <in.getStarScore(); i++) { %>
+	                            <a class="star">⭐</a> <!-- 노란 별 -->
+	                        <% } %>
+                            </td>
                         </tr>
                         <tr>
                             <td><%= in.getInfoWriter() %></td>
@@ -128,7 +139,7 @@
                             <td><%= in.getInfoCreateDate() %></td>
                         </tr>
                         <tr>
-                            <td height="350px;">
+                            <td height="390px">
                                 	<%= in.getInfoContent() %>
                             </td>
                         </tr>
