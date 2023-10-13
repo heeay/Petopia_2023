@@ -235,6 +235,7 @@ public class InfoDao {
 				in.setInfoCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 				in.setInfoWriter(rset.getString("USER_NICKNAME"));
 				in.setStarScore(rset.getInt("STAR_SCORE"));
+				in.setCategory(rset.getString("CTG_NAME"));
 			}
 			
 		} catch (SQLException e) {

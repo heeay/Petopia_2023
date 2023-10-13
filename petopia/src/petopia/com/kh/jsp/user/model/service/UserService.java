@@ -152,11 +152,27 @@ public class UserService {
 		
 		User user = new UserDao().loginSimpleAuth(conn, u);
 		if(user == null) {
-			if(new UserDao().insertKakaoUser(conn, u)>0) {
-				JDBCTemplate.commit(conn);
-				user = new UserDao().loginSimpleAuth(conn, u);
+			String profile = u.getFileMypageNo();
+			if(profile==null) {
+				if(new UserDao().insertKakaoUser(conn, u)>0) {
+					JDBCTemplate.commit(conn);
+					user = new UserDao().loginSimpleAuth(conn, u);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
 			} else {
-				JDBCTemplate.rollback(conn);
+				PetFile pf = new PetFile();
+				int index = profile.lastIndexOf("/");
+				pf.setFilePath(profile.substring(0, index));
+				pf.setUploadName(profile.substring(index+1));
+				u.setFileMypageNo(String.valueOf(new UserService().insertOAuthProfile(pf)));
+				
+				if(new UserDao().insertKakaoUserAndProfile(conn, u)>0) {
+					JDBCTemplate.commit(conn);
+					user = new UserDao().loginSimpleAuth(conn, u);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
 			}
 		}
 		

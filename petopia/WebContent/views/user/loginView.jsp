@@ -317,7 +317,10 @@ if(cookies!=null){
                       console.log(response)
                       console.log(response["id"]);
                       console.log(response["kakao_account"]["email"]);
-                      location.href="<%= contextPath %>/kakaoLogin?email="+response["kakao_account"]["email"]+"&id="+response["id"];
+                      console.log(response["kakao_account"]["profile"]["profile_image_url"]);
+                      location.href="<%= contextPath %>/kakaoLogin?email="+response["kakao_account"]["email"]+
+                    		  "&id="+response["id"]+
+                    		  "&profile="+response["kakao_account"]["profile"]["profile_image_url"];
                       
                   },
                   fail: function (error) {
