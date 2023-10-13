@@ -29,6 +29,12 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0px;
             box-sizing: border-box;
         }
+        body{
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none
+        }
         a{
             text-decoration: none;
         }
@@ -225,6 +231,14 @@ User userInfo = (User)session.getAttribute("userInfo");
             font-family: 'Nanum Pen Script', cursive;
             color: rgba(0, 0, 0, 0.8);
         }
+        #typo2{
+            font-size: 56px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Nanum Pen Script', cursive;
+        }
         #typo3{
             font-size: 56px;
             letter-spacing: 4px;
@@ -234,16 +248,32 @@ User userInfo = (User)session.getAttribute("userInfo");
             font-family: 'Nanum Pen Script', cursive;
             color: rgba(0, 0, 0, 0.70);
         }
-        #typo2{
+        #typo4-1{
             font-size: 56px;
+            letter-spacing: 4px;
+            text-align: right;
             position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 130px;
+            left: 110px;
             font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        #typo4-2{
+            font-size: 56px;
+            letter-spacing: 4px;
+            text-align: right;
+            position: absolute;
+            top: 190px;
+            left: 770px;
+            font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.8);
         }
     </style>
-    
+    <script>
+        $(document).ready(function(){
+            $(document).bind("dragstart", function(){return false});
+        })
+    </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //네이버 로그아웃
@@ -296,10 +326,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
                     <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                    <li class="user-navi-item"><a 
-                        <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                        else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                        href="<%=contextPath %>/logout">로그아웃</a></li>
+                    <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                 <%} %>
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -308,7 +335,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
                     </form>
                 </li>
-                <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
             </ul>
         </div>
     </div>
@@ -357,7 +384,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/07/31/11/42/bordeaux-868991_1280.jpg"><div id="typo1">펫들의 유토피아!<br>펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/01/15/16/48/winter-1142029_1280.jpg"><div id="typo2">펫토피아에 오신 것을 환영합니다!</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg"><div id="typo3">펫들의 유토피아!<br>펫토피아</div></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/05/09/23/02/dog-2299480_1280.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/05/09/23/02/dog-2299480_1280.jpg"><div id="typo4-1">펫들의 유토피아!</div><div id="typo4-2">펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/06/04/21/30/swans-1436266_1280.jpg"></div>
                     </div>
             

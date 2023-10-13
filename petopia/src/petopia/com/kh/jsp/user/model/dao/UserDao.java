@@ -58,14 +58,14 @@ public class UserDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		System.out.println(user);
+		
 		return user;
 	}
-	public User updateUser(Connection conn, int userNo) {
+	public User reloadUser(Connection conn, int userNo) {
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("updateUser");
+		String sql = prop.getProperty("reloadUser");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -172,6 +172,26 @@ public class UserDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nickname);
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return isThere;
+	}
+	public boolean checkUserNickname(Connection conn, String nickname, int userNo) {
+		boolean isThere = true;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkUserNicknameUserNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			isThere = rset.next();
 		} catch (SQLException e) {
@@ -309,6 +329,7 @@ public class UserDao {
 				user.setUserCreateDate(rset.getDate("USER_CREATE_DATE"));
 				user.setUserUpdateDate(rset.getDate("USER_UPDATE_DATE"));
 				user.setUserEnableState(rset.getString("USER_ENABLE_STATE"));
+				user.setFileMypageNo(rset.getString("PATH"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,8 +376,64 @@ public class UserDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
-		System.out.println(result);
+		return result;
+	}
+	
+	public int updateUserInfo(Connection conn, User u) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUserInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getUserNickname());
+			pstmt.setString(2, u.getUserPhone());
+			pstmt.setInt(3, u.getUserNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int deleteUser(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteOAuthUser(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteOAuthUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
 		return result;
 	}
 }

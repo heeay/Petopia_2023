@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.user.controller;
+package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UpdateUserInfoController
+ * Servlet implementation class NoticeListController
  */
-@WebServlet("/updateInfo")
-public class UpdateUserInfoController extends HttpServlet {
+@WebServlet("/main.no")
+public class MainNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserInfoController() {
+    public MainNoticeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,10 @@ public class UpdateUserInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname = request.getParameter("nickname");
-		String phone = request.getParameter("phone");
 		
+		
+		request.getRequestDispatcher("views/board/mainNoticeView.jsp").forward(request, response);
+
 		
 	}
 

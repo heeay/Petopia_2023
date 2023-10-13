@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import petopia.com.kh.jsp.board.model.dao.BoardDao;
 import petopia.com.kh.jsp.board.model.vo.Board;
+import petopia.com.kh.jsp.board.model.vo.Category;
+
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
@@ -55,6 +57,15 @@ public class BoardService {
 		close(conn);
 		
 		return b;
+	}
+	
+	public void selectCtgList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Category> clist = new BoardDao().selectCtgList(conn);
+		
+		close(conn);
 	}
 	
 	

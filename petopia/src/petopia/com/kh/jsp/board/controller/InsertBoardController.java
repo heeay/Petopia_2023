@@ -60,14 +60,15 @@ public class InsertBoardController extends HttpServlet {
 			 */
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+//			userInfo.getter
 			// 3. 이제서야 값 뽑기
 			// : 카테고리
 			
 		}
 		
 		
-		
-		request.getRequestDispatcher("views/board/insertBoard.jsp").forward(request, response);
+		// 트랜잭션이 끝난뒤 결과값을 main.bo에 되돌려준다.
+		response.sendRedirect(request.getContextPath() + "/main.bo");
 
 	}
 

@@ -15,10 +15,10 @@ public class UserService {
 		
 		return user;
 	}
-	public User updateUser(int userNo) {
+	public User reloadUser(int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		User user = new UserDao().updateUser(conn, userNo);
+		User user = new UserDao().reloadUser(conn, userNo);
 		JDBCTemplate.close(conn);
 		
 		return user;
@@ -54,10 +54,16 @@ public class UserService {
 		
 		return userNo;
 	}
-	public boolean checkUserNickname(String nickname) {
+	public boolean checkUserNickname(String nickname, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		boolean isThere = new UserDao().checkUserNickname(conn, nickname);
+		boolean isThere = true;
+		System.out.println(userNo);
+		if(userNo==0) {
+			isThere = new UserDao().checkUserNickname(conn, nickname);
+		} else {
+			isThere = new UserDao().checkUserNickname(conn, nickname, userNo);
+		}
 		JDBCTemplate.close(conn);
 		
 		return isThere;
@@ -119,9 +125,9 @@ public class UserService {
 				JDBCTemplate.rollback(conn);
 			}
 		}
-		
 		JDBCTemplate.close(conn);
 		
+		System.out.println(user);
 		return user;
 	}
 	public User simpleKakaoAuth(User u) {
@@ -146,15 +152,44 @@ public class UserService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new UserDao().updateUserPw(conn, user);
-		if(result>0) {
+		if(result>0)
 			JDBCTemplate.commit(conn);
-		}
-		else {
+		else
 			JDBCTemplate.rollback(conn);
-		}
 		
 		JDBCTemplate.close(conn);
 		
+		return result;
+	}
+	
+	public int updateUserInfo(User u) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().updateUserInfo(conn, u);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteUser(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().deleteUser(conn, userNo);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteOAuthUser(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().deleteOAuthUser(conn, userNo);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
 		return result;
 	}
 }

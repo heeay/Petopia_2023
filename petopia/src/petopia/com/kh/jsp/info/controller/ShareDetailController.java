@@ -33,10 +33,10 @@ public class ShareDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int iNo = Integer.parseInt(request.getParameter("ino"));
+		int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
-		Info in = new InfoService().selectShare(iNo);
-		ArrayList<InfoFile> list = new InfoService().selectInfoFileList(iNo);
+		Info in = new InfoService().selectShare(infoNo);
+		ArrayList<InfoFile> list = new InfoService().selectInfoFileList(infoNo);
 		
 		request.setAttribute("in", in);
 		request.setAttribute("list", list);

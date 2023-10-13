@@ -1,27 +1,23 @@
-package petopia.com.kh.jsp.user.controller;
+package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
-import petopia.com.kh.jsp.user.model.vo.User;
-
 /**
- * Servlet implementation class AjaxCheckNicknameController
+ * Servlet implementation class UserInfoUpdateFormController
  */
-@WebServlet("/nicknameCheck")
-public class AjaxCheckNicknameController extends HttpServlet {
+@WebServlet("/change.my")
+public class UserInfoUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckNicknameController() {
+    public UserInfoUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,21 +26,11 @@ public class AjaxCheckNicknameController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		
-		String nickname = request.getParameter("nickname");
-		
-		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
-		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
-		
-		boolean isThere = new UserService().checkUserNickname(nickname, userNo);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		if(isThere) {
-			response.getWriter().print("N");
-		} else {
-			response.getWriter().print("Y");
-		}
+		if(request.getSession().getAttribute("userInfo")!=null)
+			request.getRequestDispatcher("/views/mypage/userInfoUpdateView.jsp").forward(request, response);
+		else
+			response.sendRedirect(request.getContextPath());
 	}
 
 	/**

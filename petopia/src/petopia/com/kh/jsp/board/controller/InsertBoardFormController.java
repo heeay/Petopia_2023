@@ -1,11 +1,17 @@
 package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import petopia.com.kh.jsp.board.model.service.BoardService;
+import petopia.com.kh.jsp.board.model.vo.Category;
+import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 
 /**
  * Servlet implementation class InsertBoardFormController
@@ -27,8 +33,14 @@ public class InsertBoardFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		request.setCharacterEncoding("UTF-8");
+		// 카테고리 데이터 넣어주기 작업 후 form으로 이동합니다.
+		
+		ArrayList<Category> ctgList = new BoardService().selectCtgList();
+		
+		request.setAttribute("ctglist", ctgList);
+		
+		
 		request.getRequestDispatcher("views/board/insertBoardForm.jsp").forward(request, response);
 	}
 

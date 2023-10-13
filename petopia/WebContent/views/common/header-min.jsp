@@ -4,6 +4,7 @@
 <%
 String contextPath = request.getContextPath();
 User userInfo = (User)session.getAttribute("userInfo");
+String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,6 +21,12 @@ User userInfo = (User)session.getAttribute("userInfo");
             padding: 0px;
             margin: 0px;
             box-sizing: border-box;
+        }
+        body{
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none
         }
         a{
             text-decoration: none;
@@ -180,7 +187,18 @@ User userInfo = (User)session.getAttribute("userInfo");
             box-shadow: -4px 5px 5px -4px black;
         }
     </style>
-
+    <script>
+        $(document).ready(function(){
+            $(document).bind("dragstart", function(){return false});
+            $(document).bind("", function(){return false});
+            
+            const msg = '<%= alertMsg %>';
+            if(msg != 'null') {
+            	alert(msg);
+            	<% session.removeAttribute("alertMsg"); %>
+            }
+        })
+    </script>
 <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
     //네이버 로그아웃
@@ -228,17 +246,14 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="<%=contextPath %>/views/match/matchListView">매칭</a></li>
+                    <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
                 	<%if(userInfo == null){ %>
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
                     	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                    	<li class="user-navi-item"><a 
-                            <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                            else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                            href="<%=contextPath %>/logout">로그아웃</a></li>
+                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                     <%} %>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -247,7 +262,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                             <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
                         </form>
                     </li>
-                    <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                    <li class="user-navi-icon-btn"><button class="header-tool" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
                 </ul>
             </div>
         </div>
@@ -261,17 +276,14 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                         <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
                         <li class="header-navi-item"><a href="#">행사</a></li>
-                        <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp">매칭</a></li>
+                        <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                     </ul>
                     <ul class="header-navi user-navi">
                         <%if(userInfo == null){ %>
                             <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                         <%} else { %>
                             <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                            <li class="user-navi-item"><a 
-                                <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                                else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                                href="<%=contextPath %>/logout">로그아웃</a></li>
+                            <li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                         <%} %>
                         <li class="user-navi-icon-btn">
                             <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -280,7 +292,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                                 <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
                             </form>
                         </li>
-                        <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                        <li class="user-navi-icon-btn"><button class="header-tool" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,7 @@
-package petopia.com.kh.jsp.user.controller;
+package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class AjaxCheckNicknameController
+ * Servlet implementation class UserInfoUpdateController
  */
-@WebServlet("/nicknameCheck")
-public class AjaxCheckNicknameController extends HttpServlet {
+@WebServlet("/mypage.userUpdate")
+public class AjaxUserInfoUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckNicknameController() {
+    public AjaxUserInfoUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +35,26 @@ public class AjaxCheckNicknameController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		int userNo = ((User)request.getSession().getAttribute("userInfo")).getUserNo();
 		String nickname = request.getParameter("nickname");
+		String phone = request.getParameter("phone");
 		
-		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
-		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
-		
-		boolean isThere = new UserService().checkUserNickname(nickname, userNo);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		if(isThere) {
-			response.getWriter().print("N");
-		} else {
-			response.getWriter().print("Y");
+		User u = new User();
+		u.setUserNo(userNo);
+		u.setUserNickname(nickname);
+		u.setUserPhone(phone);
+		int result = new UserService().updateUserInfo(u);
+		User user = new UserService().reloadUser(userNo);
+		if(result>0) {
+			request.getSession().setAttribute("userInfo", user);
 		}
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("code", String.valueOf(result));
+		map.put("nickname", user.getUserNickname());
+		map.put("phone", user.getUserPhone());
+		JSONObject jObject = new JSONObject(map);
+		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().print(jObject);
 	}
 
 	/**

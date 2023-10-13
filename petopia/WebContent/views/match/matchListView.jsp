@@ -17,6 +17,7 @@
             height: 2000px;
             margin: auto;
             position: relative;
+            padding: 10px 0px;
         }
 
     #side-menu-wrap{
@@ -50,7 +51,6 @@
     width: 800px;
     height: 1000px;
     margin: auto;
-    margin-top : 10px;
     border : 1px solid black;
     
 

@@ -16,6 +16,7 @@
             height: 2000px;
             margin: auto;
             position: relative;
+            
         }
 
     #side-menu-wrap{
@@ -31,6 +32,7 @@
         font-size: 18px;
         font-weight: 500;
         position: sticky;
+        z-index: 10;
         top: 120px;
         background-color: rgb(228, 156, 92);
     }
@@ -89,7 +91,9 @@
 
     <%@include file="../common/header.jsp" %>
 
-    <section id="main">
+    <section>
+    <div id="main">
+
         <div id="side-menu-wrap">
         <div id="side-menu">
             <ul id="category">
@@ -99,8 +103,8 @@
                 <li><a>보낸후기</a></li>
             </ul>
         </div>
-    </div>
-            <form action="<%=contextPath%>/main.pb" id="write" method="post" enctype="multipart/form-data">
+        </div>
+        <form action="<%=contextPath%>/main.pb" id="write" method="post" enctype="multipart/form-data">
 
                 
             <section id="pet-img">
@@ -137,7 +141,7 @@
             </div>
             </div>
             </div>
-            
+        
             
             
             <script>
@@ -179,9 +183,7 @@
                     })
                 })
             </script>
-
-
-    
+    </div>
 	</section>
     <%@include file="../common/footer.jsp" %>
 

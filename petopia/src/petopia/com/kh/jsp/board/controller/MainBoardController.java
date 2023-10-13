@@ -208,7 +208,7 @@ public class MainBoardController extends HttpServlet {
 		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
 		request.setAttribute("pi", pi);  // 아래 페이지바 
 //		response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
-		request.getRequestDispatcher("views/board/mainBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/mainBoardView.jsp").forward(request, response);
 		
 	}
 
