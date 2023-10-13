@@ -241,8 +241,7 @@
 	</entry>
 	
 	<entry key="selectHosList">
-		 SELECT *
-  		   FROM (SELECT ROWNUM RNUM, A.* 
+		 SELECT * 
   		   		   FROM (SELECT *
           		  		   FROM (SELECT 
 		          		  				ROWNUM IND,
@@ -256,8 +255,8 @@
 								  WHERE 
 								  		USER_NO = ? 
 								  ORDER BY HOS_DATE)
-						  ORDER BY IND DESC) A)
-		  WHERE RNUM BETWEEN ? AND ?
+						  ORDER BY IND DESC)
+		  WHERE IND BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectPetName">

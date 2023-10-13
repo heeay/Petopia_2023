@@ -195,17 +195,38 @@ public class BoardDao {
 	}
 	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
-	public void selectCtgList(Connection conn) {
+	public ArrayList<Category> selectCtgList(Connection conn) {
 		
-		ArrayList<Category> clist = new ArrayList();
+		ArrayList<Category> ctgList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectCtgList");
 		
-		pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Category c = new Category();
+				
+				c.setCtgNo(rset.getInt("CTG_NO"));
+				c.setCtgName(rset.getString("CTG_NAME"));
+				
+				ctgList.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			close(rset);
+			close(pstmt);
+		}
+
+		System.out.println(ctgList);
+		return ctgList;
 		
-		
-		return clist;
 	}
 	
 	

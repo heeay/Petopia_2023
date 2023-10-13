@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.user.model.vo.*"  %>
-<%  User user = (User)request.getAttribute("userInfo");
-
-    ArrayList<Info> list = (ArrayList<Info>)request.getAttribute("list");
+<%  
+	User userInfo = (User)request.getAttribute("userInfo");
+    ArrayList<Category> ctgList = (ArrayList<Category>)request.getAttribute("ctgList");
 %>
 
 <!DOCTYPE html>
@@ -102,12 +102,8 @@
 </style>
 
 <!-- button -->
-<style>
-
-</style>
 
 
-</style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 <body>
@@ -129,19 +125,18 @@
 		<!--파일을 첨부하는 요청을 할 때는 반드시 form태그에 enctype="multipart/form-data" 를 추가해줘야함!!-->
         <form enctype="multipart/form-data" action="<%=contextPath%>/insert.bo" id="insert-form" method="post">
             <!-- 제목*, 내용*, 카테고리*, 글쓴이*, 첨부파일*, 제출버튼* -->
-
-            <!-- 작성자의 회원번호를 hidden으로 같이 넘겨서 board테이블에 INSERT--> <!-- loginUser는 어디서 왔지> -->
-            <input type="hidden" name="userNo" value="<%=user.getUserNo()%>">
-
+			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo()%>">
+            <!-- 작성자의 회원번호를 hidden으로 같이 넘겨서 board테이블에 INSERT--> 
             <table id="content-items" align="center">
+                
                 <tr class="content-item">
                     <th class="content-item-title">카테고리</th>
                     <td class="content-item-content">
                         <select id="category" name="category">
                             <!---->
-                            <% for(Info c : list) { %>
-								<option value="<%= c.getCategoryNo() %>">
-									<%= c.getCategory() %>
+                            <% for(Category c : ctgList) { %>
+								<option value="<%= c.getCtgNo() %>">
+									<%= c.getCtgName() %>
 								</option>                            
                             <% } %>
                         </select>
@@ -165,10 +160,11 @@
                 </tr>
             </table>
             <br><br>
+            
             <div align="center">
                 <button type="submit" id="insert-btn" class="btn btn-sm btn-info">글작성</button>
             </div>
-
+   
         </form>
 		<br><br><br>
 

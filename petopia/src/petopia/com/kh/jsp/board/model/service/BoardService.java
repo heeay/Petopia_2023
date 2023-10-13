@@ -59,13 +59,16 @@ public class BoardService {
 		return b;
 	}
 	
-	public void selectCtgList() {
+	public ArrayList<Category> selectCtgList() {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Category> clist = new BoardDao().selectCtgList(conn);
+		ArrayList<Category> ctgList = new BoardDao().selectCtgList(conn);
+		System.out.println(ctgList);
 		
 		close(conn);
+		
+		return ctgList;
 	}
 	
 	

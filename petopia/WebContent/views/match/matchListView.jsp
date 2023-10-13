@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
+ <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet ,java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
+
+<%
+	User user = (User)request.getAttribute("userInfo");
+	Pet p = (Pet)request.getAttribute("p");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,8 +270,11 @@
                     </div>
                 
             </div>
+            
+            
             <div id="content-area">
                 <div class="content-box">
+                
                     <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
@@ -350,9 +358,11 @@
                     <button type="button" class="btn btn-dark">></button>
                 </div>
                 
+                <% if(userInfo != null) { %>
         <div id="write-button">
             <a href="<%=contextPath%>/enroller.pb" class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기     </a>     
         </div>
+      		    <% } %>
             </div>
         </div>
     </div>

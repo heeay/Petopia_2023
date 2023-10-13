@@ -120,21 +120,6 @@
 		  		  	     	   BOARD_NO DESC) A)
 				 WHERE RNUM BETWEEN ? AND ?		  		
 	</entry>
-
-	<entry key="selectMapData">
-	SELECT
-		HOSPITAL_NAME,
-		POS_X,
-		POS_Y
-	FROM
-    	TB_HOSPITAL_DATA
-	WHERE
-		STATE='정상'
-	AND
-    	POS_X IS NOT NULL
-	OR
-    	POS_Y IS NOT NULL
-    </entry>
 	
 	<entry key="selectShare">
 		SELECT
@@ -144,13 +129,16 @@
 			   BOARD_CONTENT,
 			   BOARD_CREATE_DATE,
 			   USER_NICKNAME,
-			   STAR_SCORE
+			   STAR_SCORE,
+			   CTG_NAME
 		  FROM 
 		  	   TB_BOARD
 		  JOIN
 		  	   TB_USER USING(USER_NO)
 		  JOIN 
 		  	   TB_STAR USING(BOARD_NO)
+		  JOIN
+		  	   TB_CATEGORY USING(CTG_NO)
 		 WHERE 
 		 	   BOARD_NO = ?
 		   AND 
@@ -169,8 +157,7 @@
 		 	   REF_BNO = ?
 		 ORDER
 		 	BY
-		 	   FILE_NO ASC  
-
+		 	   FILE_NO ASC
 	</entry>
 	
 	<entry key="deleteShare">

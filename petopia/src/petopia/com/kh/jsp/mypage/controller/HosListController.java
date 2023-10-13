@@ -56,7 +56,7 @@ public class HosListController extends HttpServlet {
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
-		System.out.println(currentPage);
+		//System.out.println(currentPage);
 		
 		pageLimit = 10;
 		boardLimit = 8;
@@ -72,9 +72,12 @@ public class HosListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								boardLimit, maxPage, startPage, endPage);
-		
+		System.out.println(loginUser.getUserNo());
 		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser, startDate, endDate);
-		
+		//System.out.println(pi);
+		//System.out.println(hosList);
+
+
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
 		
