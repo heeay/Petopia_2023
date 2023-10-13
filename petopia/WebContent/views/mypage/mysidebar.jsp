@@ -15,7 +15,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <style>
+        body{
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none
+        }
+    </style>
     <style>
         #sidemenu{
             margin-top: 120px;
@@ -118,6 +125,7 @@
             float: left;
         }
         .header-navi a{
+            text-decoration: none;
             display: block;
             width: 100%;
             height: 100%;
@@ -157,7 +165,12 @@
             padding-right: 80px;
         }
     </style>
-
+    <script>
+        $(document).ready(function(){
+            $(document).bind("dragstart", function(){return false});
+            $(document).bind("", function(){return false});
+        })
+    </script>
 
 </head>
 <body>
@@ -166,13 +179,13 @@
             <div id="header-bar-wrap">
                     
                 <ul class="header-navi">
-                    <li class="header-navi-item"><a href="<%= contextPath %>/views/board/mainBoard.jsp"">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in">정보</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
                     <li class="header-navi-item"><a href="#">행사</a></li>
-                    <li class="header-navi-item"><a href="<%=contextPath %>/views/chat/chattingList.jsp"">매칭</a></li>
+                    <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                    <li class="user-navi-item"><a href="<%=contextPath %>/logout">로그아웃</a></li>
+                    <li class="user-navi-icon-btn"><a href="<%=contextPath %>/logout"><span class="material-symbols-outlined icon-size">logout</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">search</span></a></li>
                     <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
                 </ul>

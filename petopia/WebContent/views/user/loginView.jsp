@@ -165,7 +165,7 @@ if(cookies!=null){
         }
     </style>
 </head>
-<body ondragstart="return false;">
+<body>
 	<%@include file="../common/header-min.jsp" %>
     <script>
         $(document).ready(function(){

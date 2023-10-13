@@ -58,7 +58,7 @@ public class UserDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
-		System.out.println(user);
+		
 		return user;
 	}
 	public User updateUser(Connection conn, int userNo) {

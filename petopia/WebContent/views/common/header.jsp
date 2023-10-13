@@ -29,6 +29,12 @@ User userInfo = (User)session.getAttribute("userInfo");
             margin: 0px;
             box-sizing: border-box;
         }
+        body{
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none
+        }
         a{
             text-decoration: none;
         }
@@ -243,7 +249,11 @@ User userInfo = (User)session.getAttribute("userInfo");
             font-family: 'Nanum Pen Script', cursive;
         }
     </style>
-    
+    <script>
+        $(document).ready(function(){
+            $(document).bind("dragstart", function(){return false});
+        })
+    </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         //네이버 로그아웃
@@ -296,10 +306,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
                     <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
-                    <li class="user-navi-item"><a 
-                        <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                        else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                        href="<%=contextPath %>/logout">로그아웃</a></li>
+                    <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                 <%} %>
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
@@ -308,7 +315,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
                     </form>
                 </li>
-                <li class="user-navi-icon-btn"><a href="#"><span class="material-symbols-outlined icon-size">menu</span></a></li>
+                <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
             </ul>
         </div>
     </div>
