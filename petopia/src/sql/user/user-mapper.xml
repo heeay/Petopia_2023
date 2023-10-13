@@ -28,7 +28,7 @@ AND
 AND
 	USER_ENABLE_STATE = 'Y'
 </entry>
-<entry key="updateUser">
+<entry key="reloadUser">
 SELECT
 	USER_NO,
 	USER_METHOD,
@@ -192,6 +192,15 @@ UPDATE
 	TB_USER
 SET
 	USER_PASS = ?
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="updateUserInfo">
+UPDATE
+	TB_USER
+SET
+	USER_NICKNAME = ?,
+	USER_PHONE = ?
 WHERE
 	USER_NO = ?
 </entry>

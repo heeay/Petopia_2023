@@ -59,7 +59,14 @@
         color:#f53636;
         font-size: 13px;
         font-weight: bold;
-        font-size: 12px;
+    }
+    .log-wrap{
+        width: 350px;
+        margin: auto;
+        margin-bottom: 5px;
+        color:#1bd659;
+        font-size: 13px;
+        font-weight: bold;
     }
 </style>
 </head>
@@ -69,28 +76,32 @@
         <div class="sub-title">
             내 정보수정 및 회원탈퇴
         </div>
-        <form id="update-form" action="#" method="post">
-            <div class="input-wrap">
-                <label class="input-label" for="nickname">닉네임</label>
-                <input id="nickname" type="text" name="nickname" placeholder="닉네임" autocomplete="off" value="<%=userInfo.getUserNickname()%>">
-                <div class="error-wrap" id="err-nickname" style="display: none;">
-                    <!--닉네임을 입력해 주세요.-->
-                </div>
+        <div class="log-wrap" id="log-success" style="display: none;">
+            사용자 정보가 수정 되었습니다.
+        </div>
+        <div class="error-wrap" id="log-fail" style="display: none;">
+            수정이 실패했습니다. 관리자에게 문의해 주세요
+        </div>
+        <div class="input-wrap">
+            <label class="input-label" for="nickname">닉네임</label>
+            <input id="nickname" type="text" name="nickname" placeholder="닉네임" autocomplete="off" value="<%=userInfo.getUserNickname()%>">
+            <div class="error-wrap" id="err-nickname" style="display: none;">
+                <!--닉네임을 입력해 주세요.-->
             </div>
-            <div class="input-wrap">
-                <label class="input-label" for="phone">전화번호</label>
-                <input id="phone" type="text" name="phone" placeholder="전화번호" autocomplete="off" value="<%=userInfo.getUserPhone()%>">
-                <div class="error-wrap" id="err-phone" style="display: none;">
-                    <!--전화번호를 입력해 주세요.-->
-                </div>
+        </div>
+        <div class="input-wrap">
+            <label class="input-label" for="phone">전화번호</label>
+            <input id="phone" type="text" name="phone" placeholder="전화번호" autocomplete="off" value="<%=userInfo.getUserPhone()%>">
+            <div class="error-wrap" id="err-phone" style="display: none;">
+                <!--전화번호를 입력해 주세요.-->
             </div>
-            <div class="button-wrap">
-                <button id="update-submit" type="button">수정</button>
-            </div>
-            <div class="button-wrap">
-                <button id="delete-submit" type="button">회원 탈퇴</button>
-            </div>
-        </form>
+        </div>
+        <div class="button-wrap">
+            <button id="update-submit" type="button">수정</button>
+        </div>
+        <div class="button-wrap">
+            <button id="delete-submit" type="button">회원 탈퇴</button>
+        </div>
     </section>
     <script>
         let nicknameFlag = false;
@@ -101,7 +112,34 @@
                 checkNickname();
 
                 if(nicknameFlag && phoneFlag){
-                    $("#update-form").submit();
+                    $.ajax({
+                        url : "mypage.userUpdate",
+                        type : "post",
+                        data : {
+                            "nickname" : $("#nickname").val(),
+                            "phone" : $("#phone").val()
+                        },
+                        success : function(result){
+                            console.log(result);
+                            const logSuccess = document.getElementById("log-success");
+                            const logFail = document.getElementById("log-fail");
+                            if(result["code"] == "1"){
+                                document.getElementById("nickname").value = result["nickname"];
+                                document.getElementById("profil-name").innerHTML = "<b>"+result["nickname"]+" 님</b>";
+                                document.getElementById("phone").value = result["phone"];
+                                logSuccess.style.display="block";
+                                logFail.style.display="none";
+                            } else{
+                                document.getElementById("nickname").value = result["nickname"];
+                                document.getElementById("phone").value = result["phone"];
+                                logSuccess.style.display="none";
+                                logFail.style.display="block";
+                            }
+                        },
+                        error : function(e){
+                            console.log(e)
+                        }
+                    })
                 }
             })
             $("#nickname").focusout(function(){
@@ -129,6 +167,8 @@
         function checkNickname(){
             const nickname = document.getElementById("nickname");
             const errNickname = document.getElementById("err-nickname");
+            document.getElementById("log-success").style.display="none";
+            document.getElementById("log-fail").style.display="none";
             if(nickname.value==""){
                 errNickname.style.display="block";
                 errNickname.innerText = "닉네임을 입력해 주세요.";
@@ -162,6 +202,8 @@
             const phone = document.getElementById("phone");
             const errPhone = document.getElementById("err-phone");
             const regExpPhone = /\d{3}-\d{3,4}-\d{4}/;
+            document.getElementById("log-success").style.display="none";
+            document.getElementById("log-fail").style.display="none";
             if(phone.value==""){
                 errPhone.style.display="block";
                 errPhone.innerText = "전화번호를 입력해 주세요.";

@@ -15,10 +15,10 @@ public class UserService {
 		
 		return user;
 	}
-	public User updateUser(int userNo) {
+	public User reloadUser(int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		User user = new UserDao().updateUser(conn, userNo);
+		User user = new UserDao().reloadUser(conn, userNo);
 		JDBCTemplate.close(conn);
 		
 		return user;
@@ -146,15 +146,24 @@ public class UserService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new UserDao().updateUserPw(conn, user);
-		if(result>0) {
+		if(result>0)
 			JDBCTemplate.commit(conn);
-		}
-		else {
+		else
 			JDBCTemplate.rollback(conn);
-		}
 		
 		JDBCTemplate.close(conn);
 		
+		return result;
+	}
+	
+	public int updateUserInfo(User u) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().updateUserInfo(conn, u);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
 		return result;
 	}
 }

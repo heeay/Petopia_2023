@@ -45,13 +45,13 @@ public class GoogleLoginController extends HttpServlet {
 		//&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid
 		//&authuser=0
 		//&prompt=consent
-		String code = request.getParameter("code");
-		String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
-		String clientSecret = "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";
-		String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
+		//String code = request.getParameter("code");
+		//String clientId = "572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com";
+		//String clientSecret = "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";
+		//String redirectURI = URLEncoder.encode("http://localhost/petopia/google-callback","UTF-8");
 		//String apiURL = "https://oauth2.googleapis.com/token";
 		String access_token = request.getParameter("access_token");
-		String id_token = "";
+		//String id_token = "";
 		String apiURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_token;
 		/*
 		Map<String,String> params = new HashMap<String, String>();
@@ -107,7 +107,6 @@ public class GoogleLoginController extends HttpServlet {
 				id = (String)jObj.get("id");
 				email = (String)jObj.get("email");
 				name = (String)jObj.get("name");
-				id_token = (String)jObj.get("id_token");
 				System.out.println(id);
 				System.out.println(email);
 				System.out.println(name);

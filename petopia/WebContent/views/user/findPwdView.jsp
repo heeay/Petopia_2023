@@ -55,7 +55,6 @@
             color:#f53636;
             font-size: 13px;
             font-weight: bold;
-            font-size: 12px;
         }
         .find-pwd-log-wrap{
             width: 350px;
@@ -64,7 +63,6 @@
             color:#1bd659;
             font-size: 13px;
             font-weight: bold;
-            font-size: 12px;
         }
     </style>
 </head>

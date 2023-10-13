@@ -61,11 +61,11 @@ public class UserDao {
 		
 		return user;
 	}
-	public User updateUser(Connection conn, int userNo) {
+	public User reloadUser(Connection conn, int userNo) {
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("updateUser");
+		String sql = prop.getProperty("reloadUser");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -356,7 +356,24 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
+		return result;
+	}
+	
+	public int updateUserInfo(Connection conn, User u) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUserInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getUserNickname());
+			pstmt.setString(2, u.getUserPhone());
+			pstmt.setInt(3, u.getUserNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 }
