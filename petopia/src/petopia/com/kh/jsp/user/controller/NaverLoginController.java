@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
@@ -112,6 +113,7 @@ public class NaverLoginController extends HttpServlet {
 			String email = "";
 			String nickname = "";
 			String phone = "";
+			String profile = "";
 			//System.out.println();
 			//System.out.println("===========유저프로필===========");
 			//System.out.println(responseBody);
@@ -123,10 +125,12 @@ public class NaverLoginController extends HttpServlet {
 				email = (String)responseJObj.get("email");
 				nickname = (String)responseJObj.get("nickname");
 				phone = (String)responseJObj.get("mobile");
+				profile = (String)responseJObj.get("profile_image");
 				//System.out.println(id);
 				//System.out.println(email);
 				//System.out.println(nickname);
 				//System.out.println(phone);
+				//System.out.println(profile);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -151,6 +155,8 @@ public class NaverLoginController extends HttpServlet {
 			u.setUserPass(id);
 			u.setUserNickname(nickname);
 			u.setUserPhone(phone);
+			u.setFileMypageNo(profile);
+			
 			User user = new UserService().simpleAuth(u);
 			
 			if(user == null) {

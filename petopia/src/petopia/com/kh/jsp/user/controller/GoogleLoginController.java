@@ -72,6 +72,7 @@ public class GoogleLoginController extends HttpServlet {
 		String id = "";
 		String email = "";
 		String name = "";
+		String picture = "";
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -107,9 +108,11 @@ public class GoogleLoginController extends HttpServlet {
 				id = (String)jObj.get("id");
 				email = (String)jObj.get("email");
 				name = (String)jObj.get("name");
+				picture = (String)jObj.get("picture");
 				//System.out.println(id);
 				//System.out.println(email);
 				//System.out.println(name);
+				//System.out.println(picture);
 			} else {
 				System.out.println(res.toString());
 			}
@@ -135,6 +138,7 @@ public class GoogleLoginController extends HttpServlet {
 		u.setUserEmail(email);
 		u.setUserPass(id);
 		u.setUserNickname(name);
+		u.setFileMypageNo(picture);
 		u.setUserPhone("");
 		u.setUserMethod(3);
 

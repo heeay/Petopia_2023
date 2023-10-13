@@ -69,6 +69,27 @@ VALUES(
 	?
 )
 </entry>
+<entry key="insertUserAndProfile">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+)
+</entry>
 <entry key="checkUserNo">
 SELECT
 	USER_EMAIL
@@ -198,6 +219,27 @@ VALUES(
 	?,
 	?||SEQ_USER_NO.CURRVAL
 )
+</entry>
+<entry key="insertOAuthProfile">
+INSERT INTO 
+TB_MYPAGE_FILE(
+	FILE_MYPAGE_NO,
+	ORIGINAL_NAME,
+	UPLOAD_NAME,
+	FILE_PATH
+)
+VALUES(
+	SEQ_MYPAGE_FILE_NO.NEXTVAL,
+	'인터넷이미지', 
+	?,
+	?
+)
+</entry>
+<entry key="currProfileNo">
+SELECT
+	SEQ_MYPAGE_FILE_NO.CURRVAL
+FROM
+	DUAL
 </entry>
 <entry key="updateUserPw">
 UPDATE
