@@ -113,22 +113,22 @@ User userInfo = (User)session.getAttribute("userInfo");
             float: right;
         }
         .user-navi-item{
-            width: 80px;
+            width: 200px;
             height: 100%;
             float: left;
         }
         .user-nickname{
-            width: 160px;
+            width: 220px;
             text-align: right;
             padding: 0 5px;
         }
         .user-nickname > span{
             display: inline-block;
-            width: 130px;
+            width: 180px;
             height: 100%;
             padding: 0 5px;
         }
-        .user-nickname a{
+        .user-navi-item a{
             text-align: right;
         }
         .user-navi-icon-btn{
@@ -200,6 +200,13 @@ User userInfo = (User)session.getAttribute("userInfo");
             box-sizing: border-box;
             float: left;
             box-shadow: -4px 5px 5px -4px black;
+        }
+        #file-area{
+            display: inline-block;
+        }
+        .rounded-circle{
+            width: 28px;
+            height: 28px;
         }
     </style>
     <style>
@@ -325,7 +332,23 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <%if(userInfo == null){ %>
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
+                        <div style="width: 50px;" id="file-area">
+                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
+                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+                        	<% } else {%>
+                        	<%
+                			String url = userInfo.getFileMypageNo();
+                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
+                			%>
+                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
+                			<%} else { %>
+                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
+                			<%} %>
+                        	<% } %>
+                        </div>
+                        <%=userInfo.getUserNickname() %>
+                    </a></span>님</li>
                     <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                 <%} %>
                 <li class="user-navi-icon-btn">
