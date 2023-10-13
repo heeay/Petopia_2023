@@ -126,6 +126,7 @@
                         </tr>
                         <tr>
                             <td id="stars">
+                            <!-- 별점을 DB에 보낼 때 클릭한 인덱스 + 1로 했으니까 받아올 때는 별점 수 - 1로 보여주기 -->
                             <% for(int i = 0; i <in.getStarScore(); i++) { %>
 	                            <a class="star">⭐</a> <!-- 노란 별 -->
 	                        <% } %>
