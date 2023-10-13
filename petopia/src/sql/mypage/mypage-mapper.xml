@@ -274,7 +274,7 @@
 	<entry key="selectHosContent">
 		 SELECT 
 		 		HOS_NO,
-                HOS_DATE,
+                TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
                 HOS_VACCINATION,
                 HOS_ILLNESS,
                 HOS_MEDICINE,
@@ -284,6 +284,24 @@
 		   		TB_HOS_RECORDS 
 		  WHERE 
 		  		HOS_NO=?
+	</entry>
+	
+	<entry key="selectHosMain">
+		SELECT  
+                HOS_NO,
+                TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+                HOS_VACCINATION,
+                HOS_ILLNESS,
+                HOS_MEDICINE,
+                HOS_CONTENT,
+                PET_NO
+		   FROM 
+		   		TB_HOS_RECORDS
+           JOIN TB_PET USING(PET_NO)
+           JOIN TB_USER USING(USER_NO)
+		  WHERE 
+		  		USER_NO = ?
+            AND HOS_NO = (SELECT MAX(HOS_NO) FROM TB_HOS_RECORDS)
 	</entry>
 	
 </properties>

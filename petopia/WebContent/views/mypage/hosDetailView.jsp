@@ -10,8 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>병원기록</title>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<style>
         /*div{border: 1px solid black;}*/
         .content-area{
@@ -102,15 +103,18 @@
 
                         <div class="contentSize">
                             <div class="float-left">일자</div>
-                            <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"></div>
+                            <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"><%=hr.getHosDate() %></div>
                         </div>
-                        
                         <script>
+                            
                              $(function () {
 
-                                $("#getDate").datepicker();
-                                $("#getDate").datepicker('setDate', '2018-12-25');
-                                
+                                const dateControl = document.querySelector('input[type="date"]')
+                                dateControl.value = '<%=hr.getHosDate()%>'
+                                console.log(dateControl.value)
+                                console.log(dateControl.valueAsNumber)
+
+
                                 });
                         </script>
 

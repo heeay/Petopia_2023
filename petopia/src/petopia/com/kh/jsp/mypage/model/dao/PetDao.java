@@ -463,6 +463,35 @@ public class PetDao {
 		}
 		return hr;
 	}
+	public HosRecords selectHosMain(Connection conn, User loginUser) {
+		HosRecords hr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHosMain");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  loginUser.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hr = new HosRecords();
+				hr.setHosNo(rset.getInt("HOS_NO"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
+				hr.setHosVaccination(rset.getString("HOS_VACCINATION"));
+				hr.setHosIllness(rset.getString("HOS_ILLNESS"));
+				hr.setHosMedicine(rset.getString("HOS_MEDICINE"));
+				hr.setHosContent(rset.getString("HOS_CONTENT"));
+				hr.setPetNo(rset.getInt("PET_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hr;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;

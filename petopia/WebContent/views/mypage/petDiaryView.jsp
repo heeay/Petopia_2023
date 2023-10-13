@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+    HosRecords hr = (HosRecords)request.getAttribute("hr");
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,7 +128,7 @@
                                 <div class="hos-text">
                                     <div class="content-top"></div>
                                     <div class="content-top"></div>
-                                    <div class="text-hidden">이름 : </div>
+                                    <div class="text-hidden">이름 : <%=hr.getPetName() %></div>
                                     <div>일자 : </div>
                                     <div class="content-top"></div>
                                     <div class="text-hidden">예방접종 종류 :</div>

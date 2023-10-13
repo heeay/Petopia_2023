@@ -163,5 +163,12 @@ public class PetService {
 		return hr;
 	}
 
+	public HosRecords selectHosMain(User loginUser) {
+		Connection conn = getConnection();
+		HosRecords hr = new PetDao().selectHosMain(conn, loginUser);
+		close(conn);
+		return null;
+	}
+
 	
 }
