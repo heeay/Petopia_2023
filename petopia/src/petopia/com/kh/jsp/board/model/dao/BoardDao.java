@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
+import petopia.com.kh.jsp.board.model.vo.Category;
+
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
@@ -192,7 +194,20 @@ public class BoardDao {
 		return b;
 	}
 	
+	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
+	public void selectCtgList(Connection conn) {
+		
+		ArrayList<Category> clist = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCtgList");
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		
+		return clist;
+	}
 	
 	
 	
-}
+}//class
