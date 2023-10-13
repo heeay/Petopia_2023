@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
 <%
+	
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 
@@ -102,8 +103,8 @@
             </article>
 
             <article id="search-count">
-                <div id="search-count-default">
-                    <a href="#">4개씩 보기</a>
+                <div id="search-count-toggle">
+                    <a href="#">게시글 보기 갯수</a>
                 </div>
                 <ul id="search-count-list">
                     <li class="search-count">
@@ -118,13 +119,35 @@
                 </ul>
                 
             </article>
+            <script>
+                $(function(){
+                    // $('.search-count:nth-child[0]').add('id', 'two');
+
+                    // $('.search-count:nth-child[0]').on('click', function(){
+                    //     $('.search-count:nth-child[0]').attr('id','two');
+                    // });
+                    // $('.search-count:nth-child[1]').on('click', function(){
+                    //     $('.search-count:nth-child[1]').attr('id','four');
+                    // });
+                    $('.search-count:nth-child[2]').on('click', function(){
+                        $('.search-count:nth-child[2]').attr('id','nine');
+                    });
+                })
+            </script>
                 
                  <!-- 한 페이지에 form태그 여러개 상관없음! -->
-			<article>
-			<!-- button안에 a태그는 지양 -->
-                <div id="insert-board-btn" class="btn btn-sm btn-info"><a href="<%=contextPath%>/insertForm.bo">글쓰기</a></div>
-            </article>
+                 <!-- 로그인한 유저가 있을 때만 보여주기 -->
+                  
 
+            
+			<article>
+                <% if(userInfo != null) { %>
+			<!-- button안에 a태그는 지양 -->
+               <div id="insert-board-btn" class="btn btn-sm btn-info"><a href="<%= contextPath %>/insertForm.bo">글쓰기</a></div>
+                <% } %>
+            </article>
+       
+ 		
         </section>
 
 
@@ -216,14 +239,12 @@
 <script>
 
         $(document).ready(function(){
-            $("#search-count-default").click(function(){
-                const subCount = $("#search-count-list");
-                if(subCount.css("display") == 'none'){
-                    subCount.slideDown(100);
-                }
-                else{
-                    subCount.slideUp(100);
-                }
+            $("#search-count-toggle").on("click", function(){
+                $("#search-count-list").slideToggle("fast");
+            });
+            
+            $('#insert-board-btn').on('click', function(){
+            	location.href  = "<%=contextPath%>/insertForm.bo";
             });
            
         });
@@ -270,24 +291,19 @@
        
         </section>
 
+
+
         <!-- content -->
         <style>
-       
-            #content-items{
+            /* style안에 scriptlet못 쓰넹 */
+          
+            /* #content-items{ */
                 
                 /* 2차원 flex */
-                display : grid;
-                justify-content: center;
-                
-                grid-template-rows : 300px 300px;
-                grid-template-columns : 400px 400px;
-                
-                row-gap : 35px;
-                column-gap : 150px;
 
-                grid-auto-rows: minmax(200px, auto);
-                grid-auto-columns: minmax(300px, auto);
-            }
+       
+            
+  
             .content-item{
                 border : 1px solid black;
                 
@@ -324,10 +340,62 @@
             }
 
         </style>
+
+        <!-- 미디어 쿼리 혹은 사용자정의CSS -->
+        <!-- boardLimit이 9일때 -->
+        <style>
+       
+            #two{
+                display : grid;
+                 justify-content: center;
+                 
+                 grid-template-rows : 100px;
+                 grid-template-columns : 100px 100px;
+                 
+                 row-gap : 35px;
+                 column-gap : 100px;
+ 
+                 /* grid-auto-rows: minmax(200px, auto);
+                 grid-auto-columns: minmax(300px, auto); */
+            }
+
+            #four{
+                display : grid;
+                 justify-content: center;
+                 
+                 grid-template-rows : 100px 100px;
+                 grid-template-columns : 100px 100px;
+                 
+                 row-gap : 35px;
+                 column-gap : 200px;
+ 
+                 /* grid-auto-rows: minmax(200px, auto);
+                 grid-auto-columns: minmax(300px, auto); */
+            }
+
+            #nine{
+                 
+                 display : grid;
+                 justify-content: center;
+                 
+                 grid-template-rows : 100px 100px 100px;
+                 grid-template-columns : 100px 100px 100px;
+                 
+                 row-gap : 35px;
+                 column-gap : 70px;
+ 
+                 /* grid-auto-rows: minmax(200px, auto);
+                 grid-auto-columns: minmax(300px, auto); */
+             }
+ 
+        </style>
+        
+
+
         <script>
             $(function(){
-                //<a href="%= contextPath %/detail.bo?bno=%= b.getBoardNo()%"
-
+              
+          
   
              
 

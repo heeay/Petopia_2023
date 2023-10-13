@@ -99,6 +99,14 @@
 
 </entry>
 
+<entry key="selectCtgList">
+			SELECT 
+							CTG_NO,
+							CTG_NAME
+			FROM
+							TB_CATEGORY
+	
+</entry>
 
 
 
