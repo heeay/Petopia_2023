@@ -44,6 +44,7 @@
             font-size: 18px;
             font-weight: 500;
             position: sticky;
+            z-index: 10;
             top: 120px;
             background-color: rgb(228, 156, 92);
         }
@@ -178,7 +179,7 @@
                 }
 	        </script>
 
-            
+
 
             <div class="board-item">
                 <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
