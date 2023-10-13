@@ -125,7 +125,11 @@
                             <td width="500px"><%= in.getInfoTitle() %></td>
                         </tr>
                         <tr>
-                            <td><%= in.getStarScore() %></td>
+                            <td id="stars">
+                            <% for(int i = 0; i <in.getStarScore(); i++) { %>
+	                            <a class="star">⭐</a> <!-- 노란 별 -->
+	                        <% } %>
+                            </td>
                         </tr>
                         <tr>
                             <td><%= in.getInfoWriter() %></td>
