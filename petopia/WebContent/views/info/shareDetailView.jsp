@@ -56,30 +56,28 @@
         padding-bottom: 10px;
     }
 
-    #edit > h4:hover{
-        cursor: pointer;
-    }
+    #edit > h4:hover{cursor: pointer;}
 
     #edit-option a, #text-content a{
         color: black;
         text-decoration: none;
     }
 
-    #edit-option a:hover{
-        color:gray;
-    }
+    #edit-option a:hover{color:gray;}
 
     #photo-content > img{
     	position : relative;
         width: 100%;
         height: 94%;
     }
+    
 	/* 부모 요소를 relative로 설정하고 해당 요소를 absolute로 설정해서 띄움 */
 	#before-btn{
 		position : absolute;
 		top : 420px;
 		left : 0px;
 	}
+	
     #next-btn{
     	position : absolute;
         top: 420px;
@@ -103,8 +101,10 @@
            <div id="edit" align="right">
                 <h4>⋮</h4>
                 <div id="edit-option" style="display:none">
+                <% if(userInfo != null && userInfo.getUserNickname().equals(in.getInfoWriter())) { %>
                     <a href="#">수정</a>
-                    <a href="#">삭제</a>
+                    <a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
+                <% } %>
                     <a href="#">신고</a>
                 </div>
            </div>
