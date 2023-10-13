@@ -139,6 +139,7 @@
 	<entry key="selectShare">
 		SELECT
 			   BOARD_NO,
+			   CTG_NO,
 			   BOARD_TITLE,
 			   BOARD_CONTENT,
 			   BOARD_CREATE_DATE,
@@ -171,5 +172,18 @@
 		 	   FILE_NO ASC  
 
 	</entry>
+	
+	<entry key="deleteShare">
+		UPDATE
+			   TB_BOARD
+		   SET 
+		   	   BOARD_STATUS = 'N'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	
 
 </properties>

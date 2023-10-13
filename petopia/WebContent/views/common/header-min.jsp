@@ -4,6 +4,7 @@
 <%
 String contextPath = request.getContextPath();
 User userInfo = (User)session.getAttribute("userInfo");
+String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html lang="ko">
