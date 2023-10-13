@@ -133,6 +133,7 @@ public class PetService {
 	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser, String startDate, String endDate) {
 		Connection conn = getConnection();
 		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi, loginUser, startDate, endDate);
+		System.out.println(hosList);
 		close(conn);
 		return hosList;
 	}
