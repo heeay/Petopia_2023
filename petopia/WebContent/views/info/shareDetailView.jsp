@@ -101,11 +101,15 @@
            <div id="edit" align="right">
                 <h4>⋮</h4>
                 <div id="edit-option" style="display:none">
-                <% if(userInfo != null && userInfo.getUserNickname().equals(in.getInfoWriter())) { %>
-                    <a href="#">수정</a>
-                    <a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
+                <!-- 로그인 안 하면 아무것도 안 보임 / 내 글 : 수정, 삭제 / 다른 사람 글 : 신고 -->
+                <% if(userInfo != null) { %>
+                	<% if(userInfo.getUserNickname().equals(in.getInfoWriter())) {  %>
+                    	<a href="#">수정</a>
+                    	<a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
+                	<% } else {%>
+                    	<a href="#">신고</a>
+                    <% } %>
                 <% } %>
-                    <a href="#">신고</a>
                 </div>
            </div>
            <div id="content">
