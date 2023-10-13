@@ -13,13 +13,15 @@ public class HosRecords {
 	private	int petNo;				//PET_NO	NUMBER
 	private String petName;
 	private int rowNum;
+	private String startDate;
+	private String endDate;
 	
 	public HosRecords() {
 		super();
 	}
 	
 	public HosRecords(int hosNo, String hosDate, String hosVaccination, String hosIllness, String hosMedicine,
-			String hosContent, int petNo, String petName, int rowNum) {
+			String hosContent, int petNo, String petName, int rowNum, String startDate, String endDate) {
 		super();
 		this.hosNo = hosNo;
 		this.hosDate = hosDate;
@@ -30,8 +32,22 @@ public class HosRecords {
 		this.petNo = petNo;
 		this.petName = petName;
 		this.rowNum = rowNum;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	public String getHosMedicine() {
 		return hosMedicine;
 	}
@@ -91,7 +107,8 @@ public class HosRecords {
 	public String toString() {
 		return "HosRecords [hosNo=" + hosNo + ", hosDate=" + hosDate + ", hosVaccination=" + hosVaccination
 				+ ", hosIllness=" + hosIllness + ", hosMedicine=" + hosMedicine + ", hosContent=" + hosContent
-				+ ", petNo=" + petNo + ", petName=" + petName + ", rowNum=" + rowNum + "]";
+				+ ", petNo=" + petNo + ", petName=" + petName + ", rowNum=" + rowNum + ", startDate=" + startDate
+				+ ", endDate=" + endDate + "]";
 	}
 
 }
