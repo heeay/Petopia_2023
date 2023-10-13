@@ -182,4 +182,14 @@ public class UserService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int deleteOAuthUser(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().deleteOAuthUser(conn, userNo);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

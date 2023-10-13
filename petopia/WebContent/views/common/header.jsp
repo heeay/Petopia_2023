@@ -231,6 +231,14 @@ User userInfo = (User)session.getAttribute("userInfo");
             font-family: 'Nanum Pen Script', cursive;
             color: rgba(0, 0, 0, 0.8);
         }
+        #typo2{
+            font-size: 56px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Nanum Pen Script', cursive;
+        }
         #typo3{
             font-size: 56px;
             letter-spacing: 4px;
@@ -240,13 +248,25 @@ User userInfo = (User)session.getAttribute("userInfo");
             font-family: 'Nanum Pen Script', cursive;
             color: rgba(0, 0, 0, 0.70);
         }
-        #typo2{
+        #typo4-1{
             font-size: 56px;
+            letter-spacing: 4px;
+            text-align: right;
             position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 130px;
+            left: 110px;
             font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        #typo4-2{
+            font-size: 56px;
+            letter-spacing: 4px;
+            text-align: right;
+            position: absolute;
+            top: 190px;
+            left: 770px;
+            font-family: 'Nanum Pen Script', cursive;
+            color: rgba(0, 0, 0, 0.8);
         }
     </style>
     <script>
@@ -364,7 +384,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2015/07/31/11/42/bordeaux-868991_1280.jpg"><div id="typo1">펫들의 유토피아!<br>펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/01/15/16/48/winter-1142029_1280.jpg"><div id="typo2">펫토피아에 오신 것을 환영합니다!</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg"><div id="typo3">펫들의 유토피아!<br>펫토피아</div></div>
-                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/05/09/23/02/dog-2299480_1280.jpg"></div>
+                        <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2017/05/09/23/02/dog-2299480_1280.jpg"><div id="typo4-1">펫들의 유토피아!</div><div id="typo4-2">펫토피아</div></div>
                         <div class="swiper-slide"><img src="https://cdn.pixabay.com/photo/2016/06/04/21/30/swans-1436266_1280.jpg"></div>
                     </div>
             

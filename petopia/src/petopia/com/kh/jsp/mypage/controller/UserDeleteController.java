@@ -31,8 +31,14 @@ public class UserDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
 		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
+		int userMethod = userInfo!=null ? userInfo.getUserMethod() : 0;
 		
-		int result = new UserService().deleteUser(userNo);
+		int result = 0;
+		if(userMethod == 0) {
+			result = new UserService().deleteUser(userNo);
+		} else {
+			result = new UserService().deleteOAuthUser(userNo);
+		}
 		
 		if(result>0) {
 			response.sendRedirect(request.getContextPath()+"/logout");

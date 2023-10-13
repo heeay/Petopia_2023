@@ -48,8 +48,6 @@ LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
 WHERE
 	USER_NO = ?
 AND
-	USER_METHOD = 0
-AND
 	USER_ENABLE_STATE = 'Y'
 </entry>
 <entry key="insertUser">
@@ -226,6 +224,12 @@ UPDATE
 SET
 	USER_ENABLE_STATE = 'N',
 	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="deleteOAuthUser">
+DELETE FROM
+	TB_USER
 WHERE
 	USER_NO = ?
 </entry>
