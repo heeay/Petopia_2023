@@ -1,4 +1,4 @@
-package petopia.com.kh.jsp.user.controller;
+package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.vo.User;
+
 /**
- * Servlet implementation class UpdateUserInfoController
+ * Servlet implementation class UserDeleteController
  */
-@WebServlet("/updateInfo")
-public class UpdateUserInfoController extends HttpServlet {
+@WebServlet("/mypage.userDelete")
+public class UserDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserInfoController() {
+    public UserDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +29,17 @@ public class UpdateUserInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname = request.getParameter("nickname");
-		String phone = request.getParameter("phone");
+		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
+		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
 		
+		int result = new UserService().deleteUser(userNo);
 		
+		if(result>0) {
+			response.sendRedirect(request.getContextPath()+"/logout");
+		} else {
+			request.setAttribute("errorMsg", "회원 탈퇴 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

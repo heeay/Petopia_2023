@@ -329,6 +329,7 @@ public class UserDao {
 				user.setUserCreateDate(rset.getDate("USER_CREATE_DATE"));
 				user.setUserUpdateDate(rset.getDate("USER_UPDATE_DATE"));
 				user.setUserEnableState(rset.getString("USER_ENABLE_STATE"));
+				user.setFileMypageNo(rset.getString("PATH"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -375,6 +376,8 @@ public class UserDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result;
 	}
@@ -393,6 +396,25 @@ public class UserDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int deleteUser(Connection conn, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result;
 	}

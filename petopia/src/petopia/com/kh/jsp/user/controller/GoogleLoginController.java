@@ -66,9 +66,9 @@ public class GoogleLoginController extends HttpServlet {
 		String access_token = "";`
 		String id_token = "";
 		 */
-		System.out.println();
-		System.out.println("apiURL="+apiURL);
-		System.out.println(request.getRequestURI());
+		//System.out.println();
+		//System.out.println("apiURL="+apiURL);
+		//System.out.println(request.getRequestURI());
 		String id = "";
 		String email = "";
 		String name = "";
@@ -87,7 +87,7 @@ public class GoogleLoginController extends HttpServlet {
 			conn.connect();*/
 			int responseCode = conn.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode="+responseCode);
+			//System.out.println("responseCode="+responseCode);
 			if(responseCode==200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			} else {  // 에러 발생
@@ -100,16 +100,16 @@ public class GoogleLoginController extends HttpServlet {
 			}
 			br.close();
 			if(responseCode==200) {
-				System.out.println("===========유저프로필===========");
-				System.out.println(res.toString());
+				//System.out.println("===========유저프로필===========");
+				//System.out.println(res.toString());
 				JSONParser parser = new JSONParser();
 				JSONObject jObj = (JSONObject)parser.parse(res.toString());
 				id = (String)jObj.get("id");
 				email = (String)jObj.get("email");
 				name = (String)jObj.get("name");
-				System.out.println(id);
-				System.out.println(email);
-				System.out.println(name);
+				//System.out.println(id);
+				//System.out.println(email);
+				//System.out.println(name);
 			} else {
 				System.out.println(res.toString());
 			}

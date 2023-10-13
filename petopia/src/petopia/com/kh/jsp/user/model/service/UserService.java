@@ -125,9 +125,9 @@ public class UserService {
 				JDBCTemplate.rollback(conn);
 			}
 		}
-		
 		JDBCTemplate.close(conn);
 		
+		System.out.println(user);
 		return user;
 	}
 	public User simpleKakaoAuth(User u) {
@@ -165,6 +165,16 @@ public class UserService {
 	public int updateUserInfo(User u) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new UserDao().updateUserInfo(conn, u);
+		if(result>0)
+			JDBCTemplate.commit(conn);
+		else
+			JDBCTemplate.rollback(conn);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteUser(int userNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().deleteUser(conn, userNo);
 		if(result>0)
 			JDBCTemplate.commit(conn);
 		else

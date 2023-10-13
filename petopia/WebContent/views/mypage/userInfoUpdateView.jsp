@@ -100,7 +100,38 @@
             <button id="update-submit" type="button">수정</button>
         </div>
         <div class="button-wrap">
+            <%if(!userInfo.getRoleId().equals("관리자")){ %>
+            <button id="delete-submit" type="button" data-toggle="modal" data-target="#askModal">회원 탈퇴</button>
+            <%} else { %>
             <button id="delete-submit" type="button">회원 탈퇴</button>
+            <div class="toast">
+                <div class="toast-header">
+                    <b>당신은 관리자 입니다!</b>
+                </div>
+                <div class="toast-body" style="background-color: #000000; color:#f5e236;">
+                    관리자는 회원 탈퇴가 불가능 합니다.
+                </div>
+            </div>
+            <style>
+                .toast{border: 2px solid #f5e236;}
+                .toast-header{
+                    border-color: #f5e236;
+                    background-color: #000000;
+                    color: #f5e236;
+                }
+                .toast-body{
+                    background-color: #000000;
+                    color: #f5e236;
+                }
+            </style>
+            <script>
+                $(document).ready(function(){
+                  $("#delete-submit").click(function(){
+                    $('.toast').toast('show');
+                  });
+                });
+            </script>
+            <%} %>
         </div>
     </section>
     <script>
@@ -225,5 +256,30 @@
             }
         }
     </script>
+    <!-- The Modal -->
+    <div class="modal fade" id="askModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">정말 회원 탈퇴를 진행하시겠습니까?</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <br>
+                    회원 탈퇴 시 계정 관련 데이터를 <b style="color:#f53636">복구할 수 없습니다.</b>
+                    <br>
+                    <br>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="location.href='<%=contextPath%>/mypage.userDelete'";>예</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">아니오</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

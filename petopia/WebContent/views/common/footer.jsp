@@ -44,8 +44,8 @@
                 <div><span data-toggle="modal" data-target="#partnership">제휴제안</span> | <span data-toggle="modal" data-target="#privacy-policy">개인정보처리방침</span></div>
             </p>
         </div>
-        <div class="modal" id="privacy-policy">
-            <div class="modal-dialog">
+        <div class="modal fade" id="privacy-policy">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
@@ -100,8 +100,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="partnership">
-            <div class="modal-dialog">
+        <div class="modal fade" id="partnership">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">

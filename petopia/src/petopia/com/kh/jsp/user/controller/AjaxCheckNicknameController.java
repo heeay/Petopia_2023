@@ -34,7 +34,8 @@ public class AjaxCheckNicknameController extends HttpServlet {
 		
 		String nickname = request.getParameter("nickname");
 		
-		int userNo = request.getSession().getAttribute("userInfo")!=null ? ((User)request.getSession().getAttribute("userInfo")).getUserNo() : 0;
+		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
+		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
 		
 		boolean isThere = new UserService().checkUserNickname(nickname, userNo);
 		

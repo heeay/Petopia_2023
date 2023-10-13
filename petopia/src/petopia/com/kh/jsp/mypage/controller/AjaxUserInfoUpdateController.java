@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
-
 import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
