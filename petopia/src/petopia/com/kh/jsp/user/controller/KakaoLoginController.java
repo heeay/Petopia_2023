@@ -36,6 +36,7 @@ public class KakaoLoginController extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		String id = request.getParameter("id");
+		String profile = request.getParameter("profile");
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -55,6 +56,8 @@ public class KakaoLoginController extends HttpServlet {
 		u.setUserMethod(2);
 		u.setUserEmail(email);
 		u.setUserPass(id);
+		u.setFileMypageNo(profile);
+		System.out.println(profile);
 		
 		User user = new UserService().simpleKakaoAuth(u);
 		

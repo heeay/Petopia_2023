@@ -220,6 +220,25 @@ VALUES(
 	?||SEQ_USER_NO.CURRVAL
 )
 </entry>
+<entry key="insertKakaoUserAndProfile">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?||SEQ_USER_NO.CURRVAL,
+	?
+)
+</entry>
 <entry key="insertOAuthProfile">
 INSERT INTO 
 TB_MYPAGE_FILE(

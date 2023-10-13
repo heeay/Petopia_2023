@@ -157,7 +157,7 @@
                         	<% } else {%>
                         	<%
                 			String url = userInfo.getFileMypageNo();
-                			if(!url.substring(0, url.indexOf('/')).equals("https:")){
+                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
                 			%>
                 				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
                 			<%} else { %>

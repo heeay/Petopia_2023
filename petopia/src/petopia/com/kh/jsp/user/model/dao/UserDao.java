@@ -387,6 +387,29 @@ public class UserDao {
 		
 		return result;
 	}
+	public int insertKakaoUserAndProfile(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertKakaoUserAndProfile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user.getUserMethod());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserPass());
+			pstmt.setString(4, "KakaoUser");
+			pstmt.setInt(5, Integer.parseInt(user.getFileMypageNo()));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	public int insertOAuthProfile(Connection conn, PetFile pf) {
 		int result = 0;
