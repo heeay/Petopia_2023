@@ -1,31 +1,26 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import petopia.com.kh.jsp.mypage.model.service.PetService;
-import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
-import petopia.com.kh.jsp.mypage.model.vo.Pet;
-import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class HosMainViewController
+ * Servlet implementation class HosDeleteController
  */
-@WebServlet("/hosMain.my")
-public class PetDiaryMainViewController extends HttpServlet {
+@WebServlet("/deleteHos.my")
+public class HosDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetDiaryMainViewController() {
+    public HosDeleteController() {
         super();
     }
 
@@ -33,18 +28,20 @@ public class PetDiaryMainViewController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		User loginUser = ((User)session.getAttribute("userInfo"));
 		
-		HosRecords hr = new PetService().selectHosMain(loginUser);
-		ArrayList<Pet> petList = new PetService().selectPetName(loginUser);
+		int hosNo = Integer.parseInt(request.getParameter("hno"));
 		
-		request.setAttribute("hr", hr);
-		//System.out.println(hr);
+		int result = new PetService().deleteHos(hosNo);
 		
-		request.getRequestDispatcher("views/mypage/petDiaryView.jsp").forward(request, response);
+		
+		if(result>0) {
+			request.getSession().setAttribute("alertMsg", "프로필 삭제 성공");
+			response.sendRedirect(request.getContextPath()+"/hosList.my?cpage=1");
+		} else {
+			request.setAttribute("errorMsg", "프로필 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

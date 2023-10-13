@@ -258,6 +258,7 @@
 								  ORDER BY HOS_DATE)
 						  ORDER BY IND DESC) A)
 		  WHERE RNUM BETWEEN ? AND ?
+
 	</entry>
 	
 	<entry key="selectPetName">
@@ -294,7 +295,8 @@
                 HOS_ILLNESS,
                 HOS_MEDICINE,
                 HOS_CONTENT,
-                PET_NO
+                PET_NO,
+                PET_NAME
 		   FROM 
 		   		TB_HOS_RECORDS
            JOIN TB_PET USING(PET_NO)
@@ -302,6 +304,29 @@
 		  WHERE 
 		  		USER_NO = ?
             AND HOS_NO = (SELECT MAX(HOS_NO) FROM TB_HOS_RECORDS)
+            
+	</entry>
+	
+	<entry key="updateHos">
+		UPDATE
+		 		TB_HOS_RECORDS
+		 	SET 
+				PET_NO = ?,
+                HOS_DATE = ?,
+                HOS_VACCINATION = ?,
+                HOS_ILLNESS = ?,
+                HOS_MEDICINE = ?,
+                HOS_CONTENT = ?
+		  WHERE 
+		  		HOS_NO = ?
+	</entry>
+	
+	<entry key="deleteHos">
+		 DELETE 
+		   FROM 
+		   		TB_HOS_RECORDS 
+    	  WHERE 
+    	  		Hos_NO=? 
 	</entry>
 	
 </properties>

@@ -79,7 +79,7 @@
 	<div class="content-area">
 
         <form action="<%=contextPath%>/hosUpdate.my" method="post">
-        
+            <input type="hidden" name="hno" value="<%=hr.getHosNo() %>">
             <div id="sug-content">
 
                 <div>
@@ -93,7 +93,7 @@
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
-                                <select class="input-width" name="petNo" style="border: none;">
+                                <select class="input-width" id="selectPetName" name="petNo" style="border: none;">
                                 	<% for(Pet p : petList) {%>
                                     	<option value="<%=p.getPetNo()%>"><%=p.getPetName() %></option>
                                     <% } %>
@@ -101,9 +101,13 @@
                             </div>
                         </div>
 
+                        <script>
+                            $("#selectPetName").val("<%=hr.getPetNo() %>").prop("selected", true);
+                        </script>
+
                         <div class="contentSize">
                             <div class="float-left">일자</div>
-                            <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"><%=hr.getHosDate() %></div>
+                            <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"></div>
                         </div>
                         <script>
                             
@@ -111,9 +115,7 @@
 
                                 const dateControl = document.querySelector('input[type="date"]')
                                 dateControl.value = '<%=hr.getHosDate()%>'
-                                console.log(dateControl.value)
-                                console.log(dateControl.valueAsNumber)
-
+                                //console.log(dateControl.value)
 
                                 });
                         </script>
