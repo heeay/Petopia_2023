@@ -191,6 +191,12 @@ String alertMsg = (String)session.getAttribute("alertMsg");
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
             $(document).bind("", function(){return false});
+            
+            const msg = '<%= alertMsg %>';
+            if(msg != 'null') {
+            	alert(msg);
+            	<% session.removeAttribute("alertMsg"); %>
+            }
         })
     </script>
 <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
