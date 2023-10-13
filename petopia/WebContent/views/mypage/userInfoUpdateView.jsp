@@ -162,13 +162,19 @@
                 }
                 checkPhone();
             });
+            $("#nickname").change(function(){
+                document.getElementById("log-success").style.display="none";
+                document.getElementById("log-fail").style.display="none";
+            })
+            $("#phone").change(function(){
+                document.getElementById("log-success").style.display="none";
+                document.getElementById("log-fail").style.display="none";
+            })
         })
 
         function checkNickname(){
             const nickname = document.getElementById("nickname");
             const errNickname = document.getElementById("err-nickname");
-            document.getElementById("log-success").style.display="none";
-            document.getElementById("log-fail").style.display="none";
             if(nickname.value==""){
                 errNickname.style.display="block";
                 errNickname.innerText = "닉네임을 입력해 주세요.";
@@ -202,8 +208,6 @@
             const phone = document.getElementById("phone");
             const errPhone = document.getElementById("err-phone");
             const regExpPhone = /\d{3}-\d{3,4}-\d{4}/;
-            document.getElementById("log-success").style.display="none";
-            document.getElementById("log-fail").style.display="none";
             if(phone.value==""){
                 errPhone.style.display="block";
                 errPhone.innerText = "전화번호를 입력해 주세요.";

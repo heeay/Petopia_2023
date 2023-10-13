@@ -182,6 +182,26 @@ public class UserDao {
 		}
 		return isThere;
 	}
+	public boolean checkUserNickname(Connection conn, String nickname, int userNo) {
+		boolean isThere = true;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkUserNicknameUserNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			isThere = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return isThere;
+	}
 	
 	public int updateEmailAuth(Connection conn, String toEmail, String cNumber){
 		int result = 0;

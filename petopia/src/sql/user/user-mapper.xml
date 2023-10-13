@@ -101,6 +101,18 @@ WHERE
 AND
 	USER_METHOD = 0
 </entry>
+<entry key="checkUserNicknameUserNo">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_NICKNAME = ?
+AND
+	USER_METHOD = 0
+AND
+	USER_NO != ?
+</entry>
 <entry key="updateEmailAuth">
 UPDATE
 	TB_EMAIL_AUTH
