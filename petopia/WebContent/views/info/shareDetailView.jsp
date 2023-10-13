@@ -189,6 +189,22 @@
                 		$(images[i - 1]).css('display', 'none'); // 이전 인덱스 안 보이게 함
 					}
                 });
+                
+                $('#before-btn').click(function(){
+                	
+                	if(i == 0) { // i의 값이 0일 때 (처음 사진일 때)
+						$(images[images.length - 1]).css('display', 'block'); // 배열의 마지막 요소 나오게 함
+						for(i = 0; i < images.length - 1; i++) { // 배열의 처음 요소부터 마지막 요소 전까지
+							$(images[i]).css('display', 'none'); // 이미지 안 보이게 함
+						}
+						i = images.length - 1;
+					}
+					else {
+						i--; // i에 이전 인덱스 저장
+                		$(images[i]).css('display', 'block');
+                		$(images[i + 1]).css('display', 'none'); // 다음 인덱스 안 보이게 함
+					}
+                });
             });
         </script>
 
