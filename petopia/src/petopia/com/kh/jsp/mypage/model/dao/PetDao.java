@@ -359,23 +359,29 @@ public class PetDao {
 		
 		String sql = prop.getProperty("selectHosList");
 		String hosDate = "AND HOS_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
-		if(hosDate != null) {
+		if(startDate != null) {
 			sql += hosDate;
 		}
 		try {
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
 			
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 			int endrow = startRow+pi.getBoardLimit()-1;
+			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setInt(1, loginUser.getUserNo());
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endrow);
+			//System.out.println(loginUser.getUserNo());
+			//System.out.println(startRow);
+			//System.out.println(endrow);
+			//System.out.println(pstmt);
 			
-			pstmt.setString(4, startDate);
-			pstmt.setString(5, endDate);
-			
+			if(startDate != null) {
+				pstmt.setString(4, startDate);
+				pstmt.setString(5, endDate);
+			}
+			System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -393,6 +399,7 @@ public class PetDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(hosList);
 		return hosList;
 	}
 	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
