@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import petopia.com.kh.jsp.common.JDBCTemplate;
+import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public class UserDao {
@@ -109,6 +110,30 @@ public class UserDao {
 			pstmt.setString(3, user.getUserPass());
 			pstmt.setString(4, user.getUserNickname());
 			pstmt.setString(5, user.getUserPhone());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertUserAndProfile(Connection conn, User user) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertUserAndProfile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user.getUserMethod());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserPass());
+			pstmt.setString(4, user.getUserNickname());
+			pstmt.setString(5, user.getUserPhone());
+			pstmt.setInt(6, Integer.parseInt(user.getFileMypageNo()));
 			
 			result = pstmt.executeUpdate();
 			
@@ -361,6 +386,46 @@ public class UserDao {
 		}
 		
 		return result;
+	}
+	
+	public int insertOAuthProfile(Connection conn, PetFile pf) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertOAuthProfile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pf.getUploadName());
+			pstmt.setString(2, pf.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	public int currProfileNo(Connection conn) {
+		int fileNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("currProfileNo");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				fileNo = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return fileNo;
 	}
 	
 	public int updateUserPw(Connection conn, User user) {

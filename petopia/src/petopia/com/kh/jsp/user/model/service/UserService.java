@@ -3,6 +3,8 @@ package petopia.com.kh.jsp.user.model.service;
 import java.sql.Connection;
 
 import petopia.com.kh.jsp.common.JDBCTemplate;
+import petopia.com.kh.jsp.mypage.model.dao.PetDao;
+import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.dao.UserDao;
 import petopia.com.kh.jsp.user.model.vo.User;
 
@@ -118,16 +120,31 @@ public class UserService {
 		
 		User user = new UserDao().loginSimpleAuth(conn, u);
 		if(user == null) {
-			if(new UserDao().insertUser(conn, u)>0) {
-				JDBCTemplate.commit(conn);
-				user = new UserDao().loginSimpleAuth(conn, u);
+			String profile = u.getFileMypageNo();
+			if(profile==null) {
+				if(new UserDao().insertUser(conn, u)>0) {
+					JDBCTemplate.commit(conn);
+					user = new UserDao().loginSimpleAuth(conn, u);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
 			} else {
-				JDBCTemplate.rollback(conn);
+				PetFile pf = new PetFile();
+				int index = profile.lastIndexOf("/");
+				pf.setFilePath(profile.substring(0, index));
+				pf.setUploadName(profile.substring(index+1));
+				u.setFileMypageNo(String.valueOf(new UserService().insertOAuthProfile(pf)));
+				
+				if(new UserDao().insertUserAndProfile(conn, u)>0) {
+					JDBCTemplate.commit(conn);
+					user = new UserDao().loginSimpleAuth(conn, u);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
 			}
 		}
 		JDBCTemplate.close(conn);
 		
-		System.out.println(user);
 		return user;
 	}
 	public User simpleKakaoAuth(User u) {
@@ -146,6 +163,19 @@ public class UserService {
 		JDBCTemplate.close(conn);
 		
 		return user;
+	}
+	public int insertOAuthProfile(PetFile pf) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new UserDao().insertOAuthProfile(conn, pf);
+		int fileNo = 0;
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+			fileNo = new UserDao().currProfileNo(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return fileNo;
 	}
 	
 	public int updateUserPw(User user) {
