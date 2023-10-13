@@ -104,7 +104,7 @@
                 <!-- 로그인 안 하면 아무것도 안 보임 / 내 글 : 수정, 삭제 / 다른 사람 글 : 신고 -->
                 <% if(userInfo != null) { %>
                 	<% if(userInfo.getUserNickname().equals(in.getInfoWriter())) {  %>
-                    	<a href="#">수정</a>
+                    	<a href="<%= contextPath %>/updateForm.in?ino=<%= in.getInfoNo() %>">수정</a>
                     	<a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
                 	<% } else {%>
                     	<a href="#">신고</a>
@@ -134,6 +134,10 @@
                             <% for(int i = 0; i <in.getStarScore(); i++) { %>
 	                            <a class="star">⭐</a> <!-- 노란 별 -->
 	                        <% } %>
+	                        <!-- 총 별의 개수(5) - 사용자가 클릭한 별의 개수 -->
+	                    	<% for(int i = 0; i < 5 - in.getStarScore(); i++) { %>
+	                    		<a class="star">☆</a>
+	                    	<% } %>
                             </td>
                         </tr>
                         <tr>
