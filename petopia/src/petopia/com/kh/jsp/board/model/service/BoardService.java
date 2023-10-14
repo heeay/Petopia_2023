@@ -8,6 +8,8 @@ import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.board.model.vo.Category;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
+
+import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
 public class BoardService {
@@ -60,15 +62,40 @@ public class BoardService {
 	}
 	
 	public ArrayList<Category> selectCtgList() {
-		
+	
 		Connection conn = getConnection();
-		
+	
 		ArrayList<Category> ctgList = new BoardDao().selectCtgList(conn);
 		System.out.println(ctgList);
 		
 		close(conn);
 		
-		return ctgList;
+	return ctgList;
+}
+	
+	public ArrayList<File>  selectFile(int bno) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<File> fList = new BoardDao().selectFile(conn, bno);
+		
+		close(conn);
+		
+		return fList;
+		
+	}
+	
+	public int countLike(int bno) {
+		
+		Connection conn = getConnection();
+		
+		int likeCount =  new BoardDao().countLike(conn, bno);
+		
+//		int로 받긴 했지만 insert나 update가 아니기에 commit하지 않음
+		close(conn);
+		
+		return likeCount;
+		
 	}
 	
 	

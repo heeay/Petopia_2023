@@ -11,8 +11,11 @@ import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.board.model.vo.Category;
+import petopia.com.kh.jsp.board.model.vo.Like;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
+
+import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
 public class BoardDao {
@@ -90,7 +93,7 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
-				System.out.println("내가보인다면 reset은 null도, []도 아니야");
+
 				Board b = new Board();
 				
 				// 메인게시판에 보여줄 컬럼은 총 8개 // board 필드는 총 11개  // sql은 8개 + rownum = 9개
@@ -194,6 +197,7 @@ public class BoardDao {
 		return b;
 	}
 	
+ //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
 	public ArrayList<Category> selectCtgList(Connection conn) {
 		
@@ -229,6 +233,77 @@ public class BoardDao {
 		
 	}
 	
+	public ArrayList<File> selectFile(Connection conn, int bno) {
+		
+		ArrayList<File> fList = null; // new File이라고 하면 null값이 아닐 수도 있기에 안됨... ???
+		PreparedStatement pstmt = null;
+		ResultSet  rset = null;
+		String sql = prop.getProperty("selectFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// file을 새 객체에 담고
+				File f = new File();
+				
+				// 값을 넣은 다음
+				f.setFileNo(rset.getInt("FILE_NO"));
+				f.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				f.setUploadName(rset.getString("UPLOAD_NAME"));
+				f.setFilePath(rset.getString("FILE_PATH"));
+				
+				// 리스트에 담고
+				fList.add(f);
+			} // 이 사이클을 계속 반복
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	finally {
+			close(rset);
+			close(pstmt);
+		}
 	
+			return fList;
+	}
+	
+	public  int countLike(Connection conn, int bno) {
+	
+		int likeCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet  rset = null;
+		String sql = prop.getProperty("selectLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				likeCount = rset.getInt("COUNT(*)");
+				
+			}
+			
+			System.out.println(rset);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return likeCount;
+	}
 	
 }//class

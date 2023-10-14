@@ -72,6 +72,7 @@
 		                  JOIN
 		                        TB_USER
 		                        		USING(USER_NO) 
+		                   <!-- 이건 없어도 되나? 파일테이블에서 또 조회하니깐... -->
 		                  JOIN
 		                        TB_FILE
 		                        		USING(FILE_NO) 
@@ -108,6 +109,38 @@
 	
 </entry>
 
+<entry key="selectFile">
+			SELECT
+							FILE_NO,
+							ORIGINAL_NAME,
+							UPLOAD_NAME,
+							FILE_PATH
+							<!-- 왜 FILE_LEVEL은 안 해? -->
+			FROM
+							TB_FILE
+			WHERE
+							REF_BNO = ?
+			ORDER
+				BY
+							FILE_NO ASC
 
+
+</entry>
+
+
+<entry key="countLike">
+			SELECT
+			<!-- USER_NO를 카운트해도 됨 -->
+							COUNT(*)
+			FROM
+							TB_LIKE
+			WHERE
+							BOARD_NO = ?
+				AND 
+							BOARD_STATE = 'Y'
+			 	AND
+			 				LIKE_YN = 'Y'
+	
+</entry>
 
 </properties>
