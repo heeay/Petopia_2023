@@ -50,7 +50,6 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 		String password = "ekbc gagq amwi gquu";
 		String fromUsername = "펫토피아";
 		
-		//werewrwerwer
 		String filePath = AjaxRegisterEmailAuthController.class.getResource("/sql/properties/email.properties").getPath();
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(filePath));
