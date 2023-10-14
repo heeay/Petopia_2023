@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.vo.User;
+
 /**
- * Servlet implementation class UserInfoUpdateController
+ * Servlet implementation class UserDeleteController
  */
-@WebServlet("/mypage.userUpdate")
-public class UserInfoUpdateController extends HttpServlet {
+@WebServlet("/mypage.userDelete")
+public class UserDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInfoUpdateController() {
+    public UserDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +29,23 @@ public class UserInfoUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
+		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
+		int userMethod = userInfo!=null ? userInfo.getUserMethod() : 0;
+		
+		int result = 0;
+		if(userMethod == 0) {
+			result = new UserService().deleteUser(userNo);
+		} else {
+			result = new UserService().deleteOAuthUser(userNo);
+		}
+		
+		if(result>0) {
+			response.sendRedirect(request.getContextPath()+"/logout");
+		} else {
+			request.setAttribute("errorMsg", "회원 탈퇴 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

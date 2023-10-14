@@ -130,9 +130,10 @@ public class PetService {
 		return hosListCount;
 	}
 
-	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser) {
+	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser, String startDate, String endDate) {
 		Connection conn = getConnection();
-		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi,loginUser);
+		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi, loginUser, startDate, endDate);
+		System.out.println(hosList);
 		close(conn);
 		return hosList;
 	}
@@ -162,6 +163,38 @@ public class PetService {
 		close(conn);
 		return hr;
 	}
+
+	public HosRecords selectHosMain(User loginUser) {
+		Connection conn = getConnection();
+		HosRecords hr = new PetDao().selectHosMain(conn, loginUser);
+		close(conn);
+		return hr;
+	}
+
+	public int updateHos(HosRecords hr) {
+		Connection conn = getConnection();
+		int result = new PetDao().updateHos(conn, hr);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int deleteHos(int hosNo) {
+		Connection conn = getConnection();
+		int result = new PetDao().deleteHos(conn, hosNo);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 
 	
 }

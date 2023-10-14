@@ -59,7 +59,6 @@ String key = (String)request.getAttribute("key");
         color:#f53636;
         font-size: 13px;
         font-weight: bold;
-        font-size: 12px;
     }
 </style>
 </head>

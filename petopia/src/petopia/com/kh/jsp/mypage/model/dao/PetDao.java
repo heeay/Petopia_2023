@@ -352,22 +352,36 @@ public class PetDao {
 		}
 		return hosListCount;
 	}
-	public ArrayList<HosRecords> selectHosList(Connection conn, PageInfo pi, User loginUser) {
+	public ArrayList<HosRecords> selectHosList(Connection conn, PageInfo pi, User loginUser, String startDate, String endDate) {
 		ArrayList<HosRecords> hosList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectHosList");
+		String hosDate = "AND HOS_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
+		if(startDate != null) {
+			sql += hosDate;
+		}
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
+			
 			
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 			int endrow = startRow+pi.getBoardLimit()-1;
+			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setInt(1, loginUser.getUserNo());
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endrow);
+			//System.out.println(loginUser.getUserNo());
+			//System.out.println(startRow);
+			//System.out.println(endrow);
+			//System.out.println(pstmt);
 			
+			if(startDate != null) {
+				pstmt.setString(4, startDate);
+				pstmt.setString(5, endDate);
+			}
+			System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -385,6 +399,7 @@ public class PetDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(hosList);
 		return hosList;
 	}
 	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
@@ -420,9 +435,9 @@ public class PetDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, hr.getHosDate());
 			pstmt.setString(2, hr.getHosVaccination());
-			pstmt.setString(3, hr.getHosMedicine());
-			pstmt.setString(4, hr.getHosContent());
-			pstmt.setString(5, hr.getHosIllness());
+			pstmt.setString(3, hr.getHosIllness());
+			pstmt.setString(4, hr.getHosMedicine());
+			pstmt.setString(5, hr.getHosContent());
 			pstmt.setInt(6, hr.getPetNo());
 			
 			result=pstmt.executeUpdate();
@@ -431,6 +446,7 @@ public class PetDao {
 		}finally {
 			close(pstmt);
 		}
+		//System.out.println(hr.getHosIllness());
 		return result;
 	}
 	public HosRecords selectHosContent(Connection conn, int hosNo) {
@@ -462,6 +478,75 @@ public class PetDao {
 			close(pstmt);
 		}
 		return hr;
+	}
+	public HosRecords selectHosMain(Connection conn, User loginUser) {
+		HosRecords hr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectHosMain");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  loginUser.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hr = new HosRecords();
+				hr.setHosNo(rset.getInt("HOS_NO"));
+				hr.setHosDate(rset.getString("HOS_DATE"));
+				hr.setHosVaccination(rset.getString("HOS_VACCINATION"));
+				hr.setHosIllness(rset.getString("HOS_ILLNESS"));
+				hr.setHosMedicine(rset.getString("HOS_MEDICINE"));
+				hr.setHosContent(rset.getString("HOS_CONTENT"));
+				hr.setPetNo(rset.getInt("PET_NO"));
+				hr.setPetName(rset.getString("PET_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hr;
+	}
+	public int updateHos(Connection conn, HosRecords hr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateHos");
+		
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1, hr.getPetNo());
+			pstmt.setString(2, hr.getHosDate());
+			pstmt.setString(3, hr.getHosVaccination());
+			pstmt.setString(4, hr.getHosIllness());
+			pstmt.setString(5, hr.getHosMedicine());
+			pstmt.setString(6, hr.getHosContent());
+			pstmt.setInt(7, hr.getHosNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int deleteHos(Connection conn, int hosNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteHos");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hosNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

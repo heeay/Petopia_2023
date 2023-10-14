@@ -1,29 +1,23 @@
 package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.board.model.service.BoardService;
-import petopia.com.kh.jsp.board.model.vo.Category;
-
-
 /**
- * Servlet implementation class InsertBoardFormController
+ * Servlet implementation class NoticeListController
  */
-@WebServlet("/insertForm.bo")
-public class InsertBoardFormController extends HttpServlet {
+@WebServlet("/main.no")
+public class MainNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardFormController() {
+    public MainNoticeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +27,10 @@ public class InsertBoardFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		// 카테고리 데이터 넣어주기 작업 후 form으로 이동합니다.
 		
-		ArrayList<Category> ctgList = new BoardService().selectCtgList();
-		System.out.println(ctgList);
+		request.getRequestDispatcher("views/board/mainNoticeView.jsp").forward(request, response);
+
 		
-		request.setAttribute("ctgList", ctgList);
-		
-		
-		request.getRequestDispatcher("views/board/insertBoardForm.jsp").forward(request, response);
 	}
 
 	/**

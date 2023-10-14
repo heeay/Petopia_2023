@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet, java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
+
+<%
+	Pet p = (Pet)session.getAttribute("p");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +21,7 @@
             height: 2000px;
             margin: auto;
             position: relative;
+            
         }
 
     #side-menu-wrap{
@@ -31,6 +37,7 @@
         font-size: 18px;
         font-weight: 500;
         position: sticky;
+        z-index: 10;
         top: 120px;
         background-color: rgb(228, 156, 92);
     }
@@ -89,7 +96,9 @@
 
     <%@include file="../common/header.jsp" %>
 
-    <section id="main">
+    <section>
+    <div id="main">
+
         <div id="side-menu-wrap">
         <div id="side-menu">
             <ul id="category">
@@ -99,10 +108,11 @@
                 <li><a>보낸후기</a></li>
             </ul>
         </div>
-    </div>
-            <form action="<%=contextPath%>/main.pb" id="write" method="post" enctype="multipart/form-data">
+        </div>
+        <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
-                
+			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
+            <input type="hidden" name="petNo" value="<%= p.getPetNo() %>">
             <section id="pet-img">
                 <div>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg" width="130" height="170">
@@ -131,13 +141,15 @@
             </div>
             </form> 
  
+ 
             <div id="file-area">
                 <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1);">
                 <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
             </div>
-            </div>
-            </div>
             
+          </div>
+        </div>
+        
             
             
             <script>
@@ -179,9 +191,7 @@
                     })
                 })
             </script>
-
-
-    
+    </div>
 	</section>
     <%@include file="../common/footer.jsp" %>
 

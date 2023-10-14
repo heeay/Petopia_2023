@@ -10,8 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>병원기록</title>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<style>
         /*div{border: 1px solid black;}*/
         .content-area{
@@ -78,7 +79,7 @@
 	<div class="content-area">
 
         <form action="<%=contextPath%>/hosUpdate.my" method="post">
-        
+            <input type="hidden" name="hno" value="<%=hr.getHosNo() %>">
             <div id="sug-content">
 
                 <div>
@@ -92,7 +93,7 @@
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
-                                <select class="input-width" name="petNo" style="border: none;">
+                                <select class="input-width" id="selectPetName" name="petNo" style="border: none;">
                                 	<% for(Pet p : petList) {%>
                                     	<option value="<%=p.getPetNo()%>"><%=p.getPetName() %></option>
                                     <% } %>
@@ -100,17 +101,22 @@
                             </div>
                         </div>
 
+                        <script>
+                            $("#selectPetName").val("<%=hr.getPetNo() %>").prop("selected", true);
+                        </script>
+
                         <div class="contentSize">
                             <div class="float-left">일자</div>
                             <div class="float-right"><input type="date" class="input-width" name="hosDate" id="getDate"></div>
                         </div>
-                        
                         <script>
+                            
                              $(function () {
 
-                                $("#getDate").datepicker();
-                                $("#getDate").datepicker('setDate', '2018-12-25');
-                                
+                                const dateControl = document.querySelector('input[type="date"]')
+                                dateControl.value = '<%=hr.getHosDate()%>'
+                                //console.log(dateControl.value)
+
                                 });
                         </script>
 

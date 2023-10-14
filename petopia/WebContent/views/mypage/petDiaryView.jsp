@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+    HosRecords hr = (HosRecords)request.getAttribute("hr");
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,31 +122,63 @@
                     <div class="content-title">병원기록</div>
 
                     <div  class="content">
-                        <form action="">
 
                             <div>
                                 <div class="hos-text">
+                                	<% if(hr != null) {%>
+	                                    <div class="content-top"></div>
+	                                    <div class="content-top"></div>
+	                                    <div class="text-hidden">이름 : <%=hr.getPetName() %></div>
+	                                    
+	                                    <div>일자 : <%=hr.getHosDate() %></div>
+	                                    
+	                                    <div class="content-top"></div>
+	                                    
+	                                    <% if(hr.getHosVaccination() != null) {%>
+	                                    <div class="text-hidden">예방접종 종류 : <%=hr.getHosVaccination() %></div>
+	                                    <% }else { %>
+	                                    <div class="text-hidden">예방접종 종류 : 작성하지않음</div>
+	                                    <% } %>
+	                                    
+	                                    <% if(hr.getHosIllness() != null) { %>
+	                                    <div class="text-hidden">질병 여부 : <%=hr.getHosIllness() %></div>
+	                                    <% }else { %>
+	                                    <div class="text-hidden">질병 여부 : 작성하지않음</div>
+	                                    <% } %>
+	                                    
+	                                    <% if(hr.getHosMedicine() != null) {%>
+	                                    <div class="text-hidden">약 복용기록 : <%=hr.getHosMedicine() %></div>
+	                                    <% }else { %>
+	                                    <div class="text-hidden">약 복용기록 : 작성하지않음</div>
+	                                     <% } %>
+	                                     
+	                                    <div class="content-top"></div>
+	                                    <% if(hr.getHosContent() != null) {%>
+	                                    <div>기타사항</div>
+	                                    <div class="content-inblock hos-box text-auto">
+	                                        <p><%=hr.getHosContent() %></p>
+	                                    </div>
+	                                    <% }else { %>
+	                                    <div>기타사항</div>
+	                                    <div class="content-inblock hos-box text-auto">
+	                                        <p>작성하지않음</p>
+	                                    </div>
+	                                    <% } %>
+	                                    
+                                    <% } else { %>
+                                    <div>
                                     <div class="content-top"></div>
                                     <div class="content-top"></div>
-                                    <div class="text-hidden">이름 : </div>
-                                    <div>일자 : </div>
-                                    <div class="content-top"></div>
-                                    <div class="text-hidden">예방접종 종류 :</div>
-                                    <div class="text-hidden">질병 여부 : </div>
-                                    <div class="text-hidden">약 복용기록 : </div>
-                                    <div class="content-top"></div>
-                                    <div>기타사항</div>
-                                    <div class="content-inblock hos-box text-auto">
-                                        <p>기타사항내용</p>
+                                    <div class="content-inblock hos-box text-auto">내용을 작성해 주세요</div>
                                     </div>
+                                    <% } %>
                                 </div>
-                            </div>
-
-                        </form>
-
+                                
                         <div class="btn-right">
                             <a href="<%=contextPath %>/hosList.my?cpage=1" class="btn btn-sm btn-secondary">more</a>
                         </div>
+                            </div>
+                            
 
                     </div>
                 </div>

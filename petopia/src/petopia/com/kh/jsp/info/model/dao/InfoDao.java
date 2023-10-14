@@ -214,7 +214,7 @@ public class InfoDao {
 		return list;
 	}
 	
-	public Info selectShare(Connection conn, int iNo) {
+	public Info selectShare(Connection conn, int infoNo) {
 		
 		Info in = null;
 		PreparedStatement pstmt = null;
@@ -223,17 +223,19 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, iNo);
+			pstmt.setInt(1, infoNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				in = new Info();
 				in.setInfoNo(rset.getInt("BOARD_NO"));
+				in.setCategoryNo(rset.getInt("CTG_NO"));
 				in.setInfoTitle(rset.getString("BOARD_TITLE"));
 				in.setInfoContent(rset.getString("BOARD_CONTENT"));
 				in.setInfoCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 				in.setInfoWriter(rset.getString("USER_NICKNAME"));
 				in.setStarScore(rset.getInt("STAR_SCORE"));
+				in.setCategory(rset.getString("CTG_NAME"));
 			}
 			
 		} catch (SQLException e) {
@@ -245,7 +247,7 @@ public class InfoDao {
 		return in;
 	}
 	
-	public ArrayList<InfoFile> selectInfoFileList(Connection conn, int iNo) {
+	public ArrayList<InfoFile> selectInfoFileList(Connection conn, int infoNo) {
 		
 		ArrayList<InfoFile> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -254,7 +256,7 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, iNo);
+			pstmt.setInt(1, infoNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -273,5 +275,26 @@ public class InfoDao {
 		}
 		return list;
 	}
+	
+	public int deleteShare(Connection conn, int infoNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteShare");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, infoNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
+	
+	
 }

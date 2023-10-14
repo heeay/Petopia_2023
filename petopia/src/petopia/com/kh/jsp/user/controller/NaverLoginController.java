@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
@@ -64,8 +65,8 @@ public class NaverLoginController extends HttpServlet {
 		apiURL += "&state=" + state;
 		String access_token = "";
 		String refresh_token = "";
-		System.out.println();
-		System.out.println("apiURL="+apiURL);
+		//System.out.println();
+		//System.out.println("apiURL="+apiURL);
 
 		try {
 			URL url = new URL(apiURL);
@@ -73,7 +74,7 @@ public class NaverLoginController extends HttpServlet {
 			con.setRequestMethod("GET");
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			System.out.println("responseCode="+responseCode);
+			//System.out.println("responseCode="+responseCode);
 			if(responseCode==200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {  // 에러 발생
@@ -86,14 +87,16 @@ public class NaverLoginController extends HttpServlet {
 			}
 			br.close();
 			if(responseCode==200) {
-				System.out.println("===========인증토큰===========");
-				System.out.println(res.toString());
+				//System.out.println("===========인증토큰===========");
+				//System.out.println(res.toString());
 				JSONParser parser = new JSONParser();
 				JSONObject jObj = (JSONObject)parser.parse(res.toString());
 				access_token = (String)jObj.get("access_token");
 				refresh_token = (String)jObj.get("refresh_token");
-				System.out.println(access_token);
-				System.out.println(refresh_token);
+				//System.out.println(access_token);
+				//System.out.println(refresh_token);
+			} else {
+				System.out.println(res.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,9 +113,10 @@ public class NaverLoginController extends HttpServlet {
 			String email = "";
 			String nickname = "";
 			String phone = "";
-			System.out.println();
-			System.out.println("===========유저프로필===========");
-			System.out.println(responseBody);
+			String profile = "";
+			//System.out.println();
+			//System.out.println("===========유저프로필===========");
+			//System.out.println(responseBody);
 			try {
 				JSONParser parser = new JSONParser();
 				JSONObject jObj = (JSONObject)parser.parse(responseBody);
@@ -121,10 +125,12 @@ public class NaverLoginController extends HttpServlet {
 				email = (String)responseJObj.get("email");
 				nickname = (String)responseJObj.get("nickname");
 				phone = (String)responseJObj.get("mobile");
-				System.out.println(id);
-				System.out.println(email);
-				System.out.println(nickname);
-				System.out.println(phone);
+				profile = (String)responseJObj.get("profile_image");
+				//System.out.println(id);
+				//System.out.println(email);
+				//System.out.println(nickname);
+				//System.out.println(phone);
+				//System.out.println(profile);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -149,6 +155,8 @@ public class NaverLoginController extends HttpServlet {
 			u.setUserPass(id);
 			u.setUserNickname(nickname);
 			u.setUserPhone(phone);
+			u.setFileMypageNo(profile);
+			
 			User user = new UserService().simpleAuth(u);
 			
 			if(user == null) {

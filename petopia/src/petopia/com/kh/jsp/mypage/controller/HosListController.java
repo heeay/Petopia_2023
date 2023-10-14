@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
-import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -38,6 +37,12 @@ public class HosListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		
+		//System.out.println(startDate);
+		//System.out.println(endDate);
+		
 		int listCount;		// 현재 일반게시판의 게시글 총 개수
 		int currentPage;	// 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
 		int pageLimit;		// 페이지 하단에 보여질 페이징바의 최대 개수
@@ -50,6 +55,8 @@ public class HosListController extends HttpServlet {
 		listCount = new PetService().selectHosListCount(loginUser);
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		
+		//System.out.println(currentPage);
 		
 		pageLimit = 10;
 		boardLimit = 8;
@@ -65,9 +72,12 @@ public class HosListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								boardLimit, maxPage, startPage, endPage);
-		
-		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser);
-		
+		System.out.println(loginUser.getUserNo());
+		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser, startDate, endDate);
+		//System.out.println(pi);
+		//System.out.println(hosList);
+
+
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
 		

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
+import petopia.com.kh.jsp.board.model.vo.Category;
+
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
@@ -81,6 +83,9 @@ public class BoardDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			
+			System.out.println("startRow:" + startRow);
+			System.out.println("endRow:" +endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -189,7 +194,41 @@ public class BoardDao {
 		return b;
 	}
 	
+	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
+	public ArrayList<Category> selectCtgList(Connection conn) {
+		
+		ArrayList<Category> ctgList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCtgList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Category c = new Category();
+				
+				c.setCtgNo(rset.getInt("CTG_NO"));
+				c.setCtgName(rset.getString("CTG_NAME"));
+				
+				ctgList.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			close(rset);
+			close(pstmt);
+		}
+
+		System.out.println(ctgList);
+		return ctgList;
+		
+	}
 	
 	
 	
-}
+}//class

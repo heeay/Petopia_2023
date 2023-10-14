@@ -34,6 +34,7 @@ public class HosDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		// petopia/hosDetail.my?hno=XXX
@@ -49,7 +50,6 @@ public class HosDetailController extends HttpServlet {
 		request.setAttribute("petList", petList);
 		
 		request.getRequestDispatcher("views/mypage/hosDetailView.jsp").forward(request, response);
-		
 	}
 
 	/**

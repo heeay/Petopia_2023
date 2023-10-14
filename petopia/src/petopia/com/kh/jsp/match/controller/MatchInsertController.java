@@ -22,13 +22,13 @@ import petopia.com.kh.jsp.match.model.vo.Match;
  * Servlet implementation class InsertMatchController
  */
 @WebServlet("/insert.pb")
-public class InsertMatchController extends HttpServlet {
+public class MatchInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMatchController() {
+    public MatchInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }

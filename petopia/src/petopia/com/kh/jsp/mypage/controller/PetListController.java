@@ -35,7 +35,9 @@ public class PetListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
 		User loginUser = ((User)session.getAttribute("userInfo"));
+		
 		
 		int listCount;		// 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용 (STATUS='Y')해서 조회
 		int currentPage;	// 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")

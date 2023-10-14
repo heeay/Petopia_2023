@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.info.model.service.InfoService;
 import petopia.com.kh.jsp.info.model.vo.Info;
+import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
 /**
- * Servlet implementation class ShareDetailController
+ * Servlet implementation class ShareUpdateFormController
  */
-@WebServlet("/detailShare.in")
-public class ShareDetailController extends HttpServlet {
+@WebServlet("/updateForm.in")
+public class ShareUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShareDetailController() {
+    public ShareUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +34,24 @@ public class ShareDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		ArrayList<InfoCategory> ctgList = new InfoService().selectInfoCategory();
+		
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
 		Info in = new InfoService().selectShare(infoNo);
-		ArrayList<InfoFile> list = new InfoService().selectInfoFileList(infoNo);
 		
+		ArrayList<InfoFile> fileList = new InfoService().selectInfoFileList(infoNo);
+		
+		// System.out.println(ctgList);
+		// System.out.println(infoNo);
+		// System.out.println(in);
+		// System.out.println(fileList);
+		
+		request.setAttribute("ctgList", ctgList);
 		request.setAttribute("in", in);
-		request.setAttribute("list", list);
+		request.setAttribute("fileList", fileList);
 		
-		request.getRequestDispatcher("views/info/shareDetailView.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/info/shareUpdateForm.jsp").forward(request, response);
 	}
 
 	/**

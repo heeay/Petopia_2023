@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
 <%
 	ArrayList<HosRecords> hosList = (ArrayList<HosRecords>)request.getAttribute("hosList");
+
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
@@ -16,10 +17,9 @@
 <meta charset="UTF-8">
 <title>병원기록</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	<style>
         /*div{border: 1px solid black;}*/
@@ -68,18 +68,24 @@
 
                 <div class="btn-right"><a href="<%=contextPath %>/hosEnrollForm.my" class="btn btn-secondary">글작성</a></div>
                 
+                <form action="<%=contextPath %>/hosList.my">
                 <div class="btn-right pad-top" style="border-top:none;">
-                    <input type="date" name="startday"> ~ <input type="date" name="lastday">
+                    <input type="date" name="startDate" id="getDate1" > ~ <input type="date" name="endDate" id="getDate2">
+                    <input type="hidden" name="cpage" value="<%=currentPage%>">
+                    <button type="submit">조회</button>
                 </div>
-
+                </form>
             </div>
             
+            <script>
+           </script>
+            
         </div>
-
+        
         <div class="container">
 
             <table class="table table-hover" id="list-area">
-
+		
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -91,18 +97,18 @@
                 <tbody>
                 	<% if(hosList.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
+                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 기록이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                       		<% for(int i=0; i<hosList.size(); i++){ %>
+                       		<% for(int i=hosList.size(); i>0; i--){ %>
                                 <tr>
-                                    <input type="hidden" name="hno" value="<%=hosList.get(i).getHosNo() %>">
+                                    <input type="hidden" name="hno" value="<%=hosList.get(i-1).getHosNo() %>">
                                     
-                                    <td><%=hosList.get(i).getRowNum()%></td>
-                                    <td><%=hosList.get(i).getHosDate() %></td>
-                                    <td><%=hosList.get(i).getPetName() %></td>
+                                    <td><%=i%></td>
+                                    <td><%=hosList.get(i-1).getHosDate() %></td>
+                                    <td><%=hosList.get(i-1).getPetName() %></td>
                                     <td style="width: 20px; border-top:none;">
-				                        <button type="button" class="btn btn-sm btn-secondary">—</button>
+				                        <a href="<%=contextPath%>/deleteHos.my?hno=<%=hosList.get(i-1).getHosNo() %>" class="btn btn-sm btn-secondary" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</button>
 				                    </td>
                         	    </tr>
                         	<% } %>
