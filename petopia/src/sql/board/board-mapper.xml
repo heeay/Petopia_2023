@@ -66,7 +66,8 @@
 		                       USER_NO,
 		                       FILE_NO,
 		                       CTG_NO,
-		                       PET_CTG_NO
+		                       PET_CTG_NO,
+		                       LIKE_COUNT
 		                  FROM
 		                       TB_BOARD
 		                  JOIN
@@ -82,6 +83,9 @@
 		                  JOIN 
 		                  		TB_PET_CATEGORY
 		                  				USING(PET_CTG_NO)
+		                  JOIN
+		                  		TB_LIKE
+		                  				USING(BOARD_NO)
 		                 WHERE
 		                       BOARD_STATUS = 'Y'
 		                 AND
@@ -99,6 +103,25 @@
 						BOARD_NO = ?
 
 </entry>
+
+
+<entry key="increaseLikeCount">
+			UPDATE
+							TB_BOARD 
+				JOIN
+							TB_LIKE 
+									USING(BOARD_NO) 
+			SET
+							LIKE_COUNT  = LIKE_COUNT + 1			
+			WHERE
+							BOARD_NO = ?	
+				<!-- TB_BOARD에 없는 컬럼인데 JOIN했으니 참조할 수 있나?? -->
+			 	AND
+			 				LIKE_YN = 'N'
+	
+
+</entry>
+
 
 <entry key="selectCtgList">
 			SELECT 
@@ -136,8 +159,7 @@
 							TB_LIKE
 			WHERE
 							BOARD_NO = ?
-				AND 
-							BOARD_STATE = 'Y'
+				
 			 	AND
 			 				LIKE_YN = 'Y'
 	

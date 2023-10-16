@@ -78,6 +78,7 @@
     <div id="title-area">
 
         <div class="title-info">
+            <div id="bno"><%=b.getBoardNo()%></div> 
             <div id="title"><%=b.getBoardTitle()%></div> 
             
         </div>
@@ -120,7 +121,7 @@
         </div>
 
         <div id="content-imgs">
-			<%= fList %>
+			<!-- <%= fList %> -->
         </div>
 
         <div id="content-like">
@@ -135,6 +136,7 @@
        
     </div>
     <!-- content-like -->
+    <!--  -->
     <script>
 
         $(function(){
@@ -144,16 +146,14 @@
 
                 $.ajax({
 
-                    url : "/petopia/detail.bo",
-                    type : "GET",
+                    url : "/petopia/increaseLike.bo",
+                    type : "get",
                     data : {
-                        boardNo : ${},
-                        userNo : ${}
-
+                        bno : $('#bno').val()
                     },
                     
                     success : function(){
-                        likeCount();
+                        countLike();
                     }
 
                 }),
@@ -162,19 +162,19 @@
 
         });
 
-        function likeCount(){
+        function countLike(){
 
             $.ajax({
 
                 url : "/petopia/detail.bo",
-                type : "GET",
+                type : "get",
                 data : {
            
-                    userNo : ${}
+                   likeCount : '<%= likeCount %>'
                 },
-                success : function(count){
+                success : function(likeCount){
 
-                    $("#likeCount").html(count);
+                    $("#likeCount").text(likeCount+1);
 
                 },
 
