@@ -19,10 +19,6 @@
         position: relative;
 	}
 
-    div{
-       border : 1px solid red; 
-    }
-
     #wrap{
         width: 780px;
         height: 100%;
@@ -88,6 +84,11 @@
     .img:not(:first-child){
         display : none;
     }
+    
+    /* 좋아요 버튼 */
+    .like{
+    	border : none;
+	}
 </style>
 </head>
 <body>
@@ -152,7 +153,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="center"><a href="#">❤</a>3</td>
+                        <% if(userInfo != null) { %>
+                            <td align="center">
+                            	<!-- 빈 하트 -->
+                            	<button id="like" class="like" onclick="insertLike();">🤍</button><span></span>
+                            </td>
+                        <% } else { %>
+                        	<td align="center">
+                        		<button class="like" disabled>🤍</button><span></span>
+                        	</td>
+                        <% } %>
                         </tr>
                     </table>
                 </div>
@@ -224,7 +234,73 @@
                 		$(images[i + 1]).css('display', 'none'); // 다음 인덱스 안 보이게 함
 					}
                 });
+                
             });
+        </script>
+        
+        <!-- 좋아요 클릭하면 숫자  + 1 -->
+        <script>
+     		// 1초마다 좋아요 수 새롭게 읽어옴
+    		$(function(){
+    			selectUser();
+    			
+    			countLike();
+    			
+    			setInterval(countLike, 1000);
+    		});
+        	
+        	// 좋아요 수를 읽어옴
+        	function countLike(){
+        		$.ajax({
+        			url : 'countLike.in',
+        			data : {ino : <%= in.getInfoNo() %>},
+        			success : function(count){
+        				// console.log(count);
+        				$('.like').next().html(count);
+        			},
+        			error : function(){
+        				console.log('실패');
+        			}
+        		})
+        	}
+        	
+        	// 하트를 클릭하면 좋아요 여부 = 'Y'로 INSERT
+        	function insertLike(){
+        		$.ajax({
+        			url : 'insertLike.in',
+        			type : 'get',
+        			data : {
+        				// 좋아요 클릭한 게시글 번호
+        				ino : <%= in.getInfoNo() %>,
+        			},
+        			success : function(){
+        				$('.like').html('❤'); // 빨간 하트로 바꿈
+        				countLike(); // 하트 수를 다시 count
+        			},
+        			error : function(){
+        				console.log('실패');
+        			}
+        		})
+        	}
+        	
+        	// 현재 로그인한 사용자가 이미 좋아요를 클릭한 사람인지 체크
+        	function selectUser(){
+        		$.ajax({
+        			url : 'selectUser.in',
+        			data : {ino : <%= in.getInfoNo() %>},
+        			success : function(countUser){
+        				console.log(countUser);
+        				if(countUser == 1) { // 이미 이 게시글의 좋아요를 클릭한 사용자라면
+        					$('.like').html('❤'); // 게시글을 나왔다 다시 들어가도 빨간 하트
+        				}
+        			},
+        			error : function(){
+        				console.log('실패');
+        			}
+        		})
+        	}
+        	
+        	
         </script>
 
 </body>

@@ -171,6 +171,45 @@
 		   	   BOARD_STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectUser">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+	</entry>
 	
+	<entry key="insertLike">
+		INSERT
+		  INTO
+		  	   TB_LIKE
+		  	   (
+		  	   BOARD_NO,
+		  	   USER_NO,
+		  	   LIKE_YN
+		  	   )
+		VALUES 
+			   (
+			   ?,
+			   ?,
+			   'Y'
+			   )
+	</entry>
+	
+	<entry key="countLike">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   LIKE_YN = 'Y'
+		   AND 
+		   	   BOARD_NO = ?
+	</entry>
+
+
 
 </properties>

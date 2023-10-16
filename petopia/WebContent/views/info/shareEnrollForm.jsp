@@ -19,10 +19,6 @@
         margin: auto;
         position: relative;
 	}
-	
-    div{
-        border : 1px solid red;
-    }
 
 	/* 전체 div */
     #wrap{
