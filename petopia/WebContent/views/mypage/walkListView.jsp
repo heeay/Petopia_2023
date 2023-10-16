@@ -103,7 +103,7 @@
                         <p class="walk-date">
                             <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                             <input type="hidden" name="cpage" value="<%=currentPage%>">
-                            <button type="submit">조회</button>
+                            <button type="submit" class="btn btn-sm btn-secondary">조회</button>
                         </p>
                     </form>
                 </div>

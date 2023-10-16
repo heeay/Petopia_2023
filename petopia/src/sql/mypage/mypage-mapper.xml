@@ -418,4 +418,12 @@
 		 WHERE USER_NO = ?
 		   AND WALK_NO = (SELECT MAX(WALK_NO) FROM TB_WALK_RECORDS)
 	</entry>
+	
+	<entry key="deleteWalk">
+		 DELETE 
+		   FROM 
+		   		TB_WALK_RECORDS 
+    	  WHERE 
+    	  		WALK_NO=?
+	</entry>
 </properties>

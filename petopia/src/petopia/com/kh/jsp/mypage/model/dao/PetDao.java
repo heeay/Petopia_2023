@@ -809,6 +809,22 @@ public class PetDao {
 		return wr;
 		
 	}
+	public int deleteWalk(Connection conn, int walkkNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteWalk");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, walkkNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;

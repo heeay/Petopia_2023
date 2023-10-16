@@ -1,7 +1,6 @@
-package petopia.com.kh.jsp.mypage.controller;
+package petopia.com.kh.jsp.mypage;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 
 /**
- * Servlet implementation class HosDeleteController
+ * Servlet implementation class WalkDeleteController
  */
-@WebServlet("/deleteHos.my")
-public class HosDeleteController extends HttpServlet {
+@WebServlet("/deleteWalk.my")
+public class WalkDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HosDeleteController() {
+    public WalkDeleteController() {
         super();
     }
 
@@ -35,16 +34,16 @@ public class HosDeleteController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int hosNo = Integer.parseInt(request.getParameter("hno"));
+		int walkkNo = Integer.parseInt(request.getParameter("wno"));
 		
-		int result = new PetService().deleteHos(hosNo);
+		int result = new PetService().deleteWalk(walkkNo);
 		
 		
 		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "병원기록 삭제 성공");
-			response.sendRedirect(request.getContextPath()+"/hosList.my?cpage=1");
+			request.getSession().setAttribute("alertMsg", "산책기록 삭제 성공");
+			response.sendRedirect(request.getContextPath()+"/walkList.my?cpage=1");
 		} else {
-			request.setAttribute("errorMsg", "병원기록 삭제 실패");
+			request.setAttribute("errorMsg", "산책기록 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

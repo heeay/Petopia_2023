@@ -270,5 +270,17 @@ public class PetService {
 		return wr;
 	}
 
+	public int deleteWalk(int walkkNo) {
+		Connection conn = getConnection();
+		int result = new PetDao().deleteWalk(conn, walkkNo);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
 	
 }
