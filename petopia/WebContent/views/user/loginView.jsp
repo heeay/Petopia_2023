@@ -185,7 +185,7 @@ if(cookies!=null){
                 const pw = document.getElementById("pw");
                 const errPw = document.getElementById("err-pw");
 
-                if(pw.value==""){
+                if(pw.value.trim()==""){
                     pw.focus();
                     errPw.style.display = "block";
                     errPw.innerText = "비밀번호를 작성해 주세요.";
@@ -196,7 +196,7 @@ if(cookies!=null){
                     errPw.innerText = "";
                     pwFlag = true;
                 }
-                if(email.value==""){
+                if(email.value.trim()==""){
                     email.focus();
                     errEmail.style.display = "block";
                     errEmail.innerText = "이메일을 작성해 주세요.";

@@ -9,7 +9,9 @@
         footer{
             width: 100%;
             height: 250px;
-            background-color: rgb(247, 222, 205);
+            background-color: rgb(145, 130, 120);
+            position: relative;
+            z-index: 1;
         }
         #footer-wrap{
             width: 1000px;

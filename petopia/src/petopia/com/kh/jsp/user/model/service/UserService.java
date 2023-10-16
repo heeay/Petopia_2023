@@ -1,9 +1,9 @@
 package petopia.com.kh.jsp.user.model.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 import petopia.com.kh.jsp.common.JDBCTemplate;
-import petopia.com.kh.jsp.mypage.model.dao.PetDao;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.dao.UserDao;
 import petopia.com.kh.jsp.user.model.vo.User;
@@ -89,11 +89,11 @@ public class UserService {
 		
 		return result;
 	}
-	public boolean selectEmailAuth(String email, String authCode) {
+	public Date selectEmailAuth(String email, String authCode) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		boolean result = new UserDao().selectEmailAuth(conn, email, authCode);
-		if(result) {
+		Date date = new UserDao().selectEmailAuth(conn, email, authCode);
+		if(date!=null) {
 			if(new UserDao().deleteEmailAuth(conn, email)>0){
 				JDBCTemplate.commit(conn);
 			} else {
@@ -103,7 +103,7 @@ public class UserService {
 		
 		JDBCTemplate.close(conn);
 		
-		return result;
+		return date;
 	}
 	public boolean selectToken(String token) {
 		Connection conn = JDBCTemplate.getConnection();

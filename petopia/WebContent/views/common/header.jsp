@@ -50,13 +50,13 @@ User userInfo = (User)session.getAttribute("userInfo");
         header{
             width: 100%;
             height: 500px;
-            background-color: rgb(54, 54, 54);
+            background-color: rgb(122, 105, 92);
             position: relative;
             z-index: 0;
         }
         section{
             width: 100%;
-            background-color: white;
+            background-color: rgb(255, 243, 224);
             position: relative;
             z-index: 1;
         }
@@ -80,7 +80,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             align-items: center;
             justify-content: center;
             margin-right: 50px;
-            background-color: rgb(247, 189, 96);
+            background-color: rgb(255, 205, 124);
         }
         .logo{
             width: 100px;
@@ -148,7 +148,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(245, 216, 190);
+            background-color: rgb(253, 232, 213);
         }
         .header-bar{
             width: 1100px;
@@ -202,6 +202,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             box-shadow: -4px 5px 5px -4px black;
         }
         #file-area{
+            width: 50px;
             display: inline-block;
         }
         .rounded-circle{
@@ -226,7 +227,13 @@ User userInfo = (User)session.getAttribute("userInfo");
         /* 화살표 버튼색 변경 (기본색은 파란색) */
         div[class^=swiper-button] {
             color : white;
-            /* display : none; */ /* 아니면 안보이게 숨기기도 가능 */
+            display : none; /* 아니면 안보이게 숨기기도 가능 */
+        }
+        .swiper-pagination{
+            display: none;
+        }
+        .swiper-scrollbar{
+            display: none;
         }
         #typo1{
             font-size: 56px;
@@ -333,7 +340,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
                     <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
-                        <div style="width: 50px;" id="file-area">
+                        <div id="file-area">
                         	<% if(userInfo.getFileMypageNo().equals("/")) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
                         	<% } else {%>
