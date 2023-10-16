@@ -72,7 +72,7 @@
             margin-top: 30px;
             padding: 20px;
             height: 500px;
-            border-radius: 10px 0px 10px 10px;
+            border-radius: 10px;
         }
         .walk-date{padding-top: 5px;}
         .walkcontent{
@@ -97,9 +97,6 @@
                 
                 <div class="walk"> 
                     
-                    <div class="delete">
-                        <button type="button" style="border: none; background-color: rgba(247, 222, 205, 0);">삭제하기</button>
-                    </div>
                     <p class="walk-title">산책기록</p>
 
                     <form action="<%=contextPath %>/walkList.my">  
@@ -120,10 +117,11 @@
                        		<% for(int i=0; i<walkList.size(); i++){ %>
                             <div class="walkcontent content1">
                                 <input type="hidden" name="wno" value="<%=walkList.get(i).getWalkNo() %>">
-                                <div>
-                                    <input type="checkbox" class="check" style="margin: 0;">
-                                </div>
         
+                                <div class="btn-right">
+                                    <a href="<%=contextPath%>/deleteWalk.my?wno=<%=walkList.get(i).getWalkNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+                                </div>
+
                                 <div>
                                     <img src="<%=contextPath%>/<%=walkList.get(i).getFileNo() %>" alt="산책기본" width="300" height="200">
                                 </div>

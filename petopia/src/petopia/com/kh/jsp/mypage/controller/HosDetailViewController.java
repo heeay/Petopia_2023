@@ -19,13 +19,13 @@ import petopia.com.kh.jsp.user.model.vo.User;
  * Servlet implementation class HosDetailController
  */
 @WebServlet("/hosDetail.my")
-public class HosDetailController extends HttpServlet {
+public class HosDetailViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HosDetailController() {
+    public HosDetailViewController() {
         super();
     }
 

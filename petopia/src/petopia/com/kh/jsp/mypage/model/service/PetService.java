@@ -263,5 +263,12 @@ public class PetService {
 		return (result1*result2);
 	}
 
+	public WalkRecords selectWalkMain(User loginUser) {
+		Connection conn = getConnection();
+		WalkRecords wr = new PetDao().selectWalkMain(conn, loginUser);
+		close(conn);
+		return wr;
+	}
+
 	
 }

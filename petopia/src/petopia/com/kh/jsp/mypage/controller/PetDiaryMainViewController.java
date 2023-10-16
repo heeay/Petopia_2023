@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
+import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -45,7 +46,12 @@ public class PetDiaryMainViewController extends HttpServlet {
 		HosRecords hr = new PetService().selectHosMain(loginUser);
 		ArrayList<Pet> petList = new PetService().selectPetName(loginUser);
 		
+		WalkRecords wr = new PetService().selectWalkMain(loginUser);
+		
+		
 		request.setAttribute("hr", hr);
+		request.setAttribute("wr", wr);
+		
 		//System.out.println(hr);
 		
 		request.getRequestDispatcher("views/mypage/petDiaryView.jsp").forward(request, response);
