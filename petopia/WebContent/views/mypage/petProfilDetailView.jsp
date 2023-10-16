@@ -27,6 +27,7 @@
             height: 80%;
             width: 80%;
         }
+        textarea{resize: none;}
     </style> 
     <style>
         .petImg{
@@ -198,9 +199,9 @@
                                         기타사항
                                         <div class="profil-align-right">
                                         <% if(p.getPetEtc() != null) { %>
-                                            <textarea name="petEtc" cols="35" rows="7" style="resize:none;"><%=p.getPetEtc()%></textarea>
+                                            <textarea name="petEtc" cols="35" rows="7"><%=p.getPetEtc()%></textarea>
                                         <% } else {%>
-                                            <textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
+                                            <textarea name="petEtc" cols="35" rows="7"></textarea>
                                         <% } %>
                                     </div>
                                 </div>

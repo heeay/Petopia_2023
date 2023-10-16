@@ -340,7 +340,6 @@
 	<entry key="selectWalkList">
 				 
 				 SELECT *
-          		   FROM (SELECT *
           		  		   FROM (SELECT 
 		          		  				ROWNUM IND,
 								 		WALK_NO,
@@ -354,9 +353,6 @@
 								   LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO) 
 								  WHERE 
 								  		USER_NO = ? 
-								  ORDER BY WALK_DATE)
-						ORDER BY IND DESC) 
-		  WHERE IND BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="insertWalk">
@@ -380,5 +376,34 @@
 	 			?,
 	 			SEQ_MYPAGE_FILE_NO.CURRVAL
 	 			)
+	</entry>
+	
+	<entry key="selectWalkContent">
+		SELECT WALK_NO,
+		       TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+		       WALK_CONTENT,
+		       WALK_TITLE,
+		       PET_NO
+		  FROM TB_WALK_RECORDS
+		 WHERE WALK_NO = ?
+	</entry>
+	
+	<entry key="selectWalkFile">
+		SELECT FILE_MYPAGE_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH 
+		FROM TB_MYPAGE_FILE 
+		JOIN TB_WALK_RECORDS USING(FILE_MYPAGE_NO) 
+		WHERE WALK_NO = ?
+	</entry>
+	
+	<entry key="updateWalk">
+		UPDATE TB_WALK_RECORDS
+		   SET WALK_DATE = SYSDATE,
+		       WALK_CONTENT = ?,
+		       WALK_TITLE = ?,
+		       PET_NO = ?
+		 WHERE WALK_NO= ?
 	</entry>
 </properties>

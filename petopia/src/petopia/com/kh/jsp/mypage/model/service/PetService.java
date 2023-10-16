@@ -230,5 +230,38 @@ public class PetService {
 		return (result1*result2);
 	}
 
+	public WalkRecords selectWalkContent(int walkNo) {
+		Connection conn = getConnection();
+		WalkRecords wr = new PetDao().selectWalkContent(conn, walkNo);
+		close(conn);
+		return wr;
+	}
+
+	public PetFile selectWalkFile(int walkNo) {
+		Connection conn = getConnection();
+		PetFile pf = new PetDao().selectWalkFile(conn, walkNo);
+		close(conn);
+		return pf;
+	}
+
+	public int updateWalk(WalkRecords wr, PetFile pf) {
+		Connection conn = getConnection();
+		
+		int result2 = 1;
+		
+		if(pf != null) {
+			result2 = new PetDao().updateWalkImg(conn, pf);
+		}
+		
+		int result1 = new PetDao().updateWalk(conn, wr);
+		
+		if((result1*result2)>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return (result1*result2);
+	}
+
 	
 }
