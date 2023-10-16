@@ -70,15 +70,13 @@
                 
                 <form action="<%=contextPath %>/hosList.my">
                 <div class="btn-right pad-top" style="border-top:none;">
-                    <input type="date" name="startDate" id="getDate1" > ~ <input type="date" name="endDate" id="getDate2">
+                    <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                     <input type="hidden" name="cpage" value="<%=currentPage%>">
                     <button type="submit">조회</button>
                 </div>
                 </form>
             </div>
             
-            <script>
-           </script>
             
         </div>
         
