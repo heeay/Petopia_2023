@@ -1,22 +1,40 @@
 package petopia.com.kh.jsp.match.model.vo;
 
+import java.sql.Date;
+
 public class Match {
 	
-	private String meetBoardNo; 
+	private int meetBoardNo; 
 	private String meetBoardTitle;
 	private String petInfo;
 	private String hopeActivity;
-	private String meetBoardViews;
-	private String meetBoardCreateDate;
-	private String meetBoardUpdateDate;
+	private int meetBoardViews;
+	private Date meetBoardCreateDate;
+	private Date meetBoardUpdateDate;
 	private String status;
-	private String userNo;
-	private String petNo;
+	private int userNo;
+	private int petNo;
+	private int fileNo;
+	private String titleImg;
+	private String userNickname;
+	
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+	public String getTitleImg() {
+		return titleImg;
+	}
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
 	public Match() {
 		super();
 	}
-	public Match(String meetBoardNo, String meetBoardTitle, String petInfo, String hopeActivity, String meetBoardViews,
-			String meetBoardCreateDate, String meetBoardUpdateDate, String status, String userNo, String petNo) {
+	public Match(int meetBoardNo, String meetBoardTitle, String petInfo, String hopeActivity, int meetBoardViews,
+			Date meetBoardCreateDate, Date meetBoardUpdateDate, String status, int userNo, int petNo, int fileNo) {
 		super();
 		this.meetBoardNo = meetBoardNo;
 		this.meetBoardTitle = meetBoardTitle;
@@ -28,12 +46,12 @@ public class Match {
 		this.status = status;
 		this.userNo = userNo;
 		this.petNo = petNo;
+		this.fileNo = fileNo;
 	}
-	
-	public String getMeetBoardNo() {
+	public int getMeetBoardNo() {
 		return meetBoardNo;
 	}
-	public void setMeetBoardNo(String meetBoardNo) {
+	public void setMeetBoardNo(int meetBoardNo) {
 		this.meetBoardNo = meetBoardNo;
 	}
 	public String getMeetBoardTitle() {
@@ -54,22 +72,22 @@ public class Match {
 	public void setHopeActivity(String hopeActivity) {
 		this.hopeActivity = hopeActivity;
 	}
-	public String getMeetBoardViews() {
+	public int getMeetBoardViews() {
 		return meetBoardViews;
 	}
-	public void setMeetBoardViews(String meetBoardViews) {
+	public void setMeetBoardViews(int meetBoardViews) {
 		this.meetBoardViews = meetBoardViews;
 	}
-	public String getMeetBoardCreateDate() {
+	public Date getMeetBoardCreateDate() {
 		return meetBoardCreateDate;
 	}
-	public void setMeetBoardCreateDate(String meetBoardCreateDate) {
+	public void setMeetBoardCreateDate(Date meetBoardCreateDate) {
 		this.meetBoardCreateDate = meetBoardCreateDate;
 	}
-	public String getMeetBoardUpdateDate() {
+	public Date getMeetBoardUpdateDate() {
 		return meetBoardUpdateDate;
 	}
-	public void setMeetBoardUpdateDate(String meetBoardUpdateDate) {
+	public void setMeetBoardUpdateDate(Date meetBoardUpdateDate) {
 		this.meetBoardUpdateDate = meetBoardUpdateDate;
 	}
 	public String getStatus() {
@@ -78,24 +96,30 @@ public class Match {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public String getPetNo() {
+	public int getPetNo() {
 		return petNo;
 	}
-	public void setPetNo(String petNo) {
+	public void setPetNo(int petNo) {
 		this.petNo = petNo;
+	}
+	public int getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
 	}
 	@Override
 	public String toString() {
-		return "Match [hopeActivity=" + hopeActivity + ", meetBoardCreateDate=" + meetBoardCreateDate + ", meetBoardNo="
-				+ meetBoardNo + ", meetBoardTitle=" + meetBoardTitle + ", meetBoardUpdateDate=" + meetBoardUpdateDate
-				+ ", meetBoardViews=" + meetBoardViews + ", petInfo=" + petInfo + ", petNo=" + petNo + ", status="
-				+ status + ", userNo=" + userNo + "]";
+		return "Match [meetBoardNo=" + meetBoardNo + ", meetBoardTitle=" + meetBoardTitle + ", petInfo=" + petInfo
+				+ ", hopeActivity=" + hopeActivity + ", meetBoardViews=" + meetBoardViews + ", meetBoardCreateDate="
+				+ meetBoardCreateDate + ", meetBoardUpdateDate=" + meetBoardUpdateDate + ", status=" + status
+				+ ", userNo=" + userNo + ", petNo=" + petNo + ", fileNo=" + fileNo + "]";
 	}
-	
+		
 }

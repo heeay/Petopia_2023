@@ -1,14 +1,17 @@
 package petopia.com.kh.jsp.match.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import petopia.com.kh.jsp.match.model.service.MatchService;
+import petopia.com.kh.jsp.match.model.vo.Match;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 
 /**
@@ -31,19 +34,23 @@ public class MatchEnrollerFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+		
+		
 		request.setCharacterEncoding("UTF-8");
 		
-
-		HttpSession session = request.getSession();
-		Pet p = (Pet)session.getAttribute("p");
+		ArrayList<Pet> petInfo = new MatchService().selectPetInfo();
 		
+		request.setAttribute("petInfo", petInfo);
 		
+		ArrayList<Match> list = new MatchService().selectMainList();
 		
+		request.setAttribute("list", list );
 		
 		request.getRequestDispatcher("views/match/matchEnrollerForm.jsp").forward(request, response);
-		
-	
 	}
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

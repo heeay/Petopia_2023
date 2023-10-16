@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet ,java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
+ <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet ,java.util.ArrayList, 
+ 	petopia.com.kh.jsp.match.model.vo.Match, petopia.com.kh.jsp.common.model.vo.PageInfo,
+	petopia.com.kh.jsp.user.model.vo.User" %>
 
 <%
-	User user = (User)request.getAttribute("userInfo");
-	Pet p = (Pet)request.getAttribute("p");
+
+    ArrayList<Pet> petInfo = (ArrayList<Pet>)request.getAttribute("petInfo");
+    ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
  %>
 <!DOCTYPE html>
 <html>
@@ -90,14 +93,14 @@
     }
     .content{
     margin : 50px;
-    width : 300px;
+    width : 250px;
     height : 300px;
     border : 1px solid black;
     
     }
     #img-thumbnail{
     width : 100%;
-    height : 80%;
+    height : 200px;
     }
     #img-writer{
     width : 10px;
@@ -127,7 +130,7 @@
 
 
     .fa-heart{
-        margin-left: -205px;
+
         margin-top : 2px;
         position: absolute;
 
@@ -216,6 +219,7 @@
 
     <%@include file="../common/header.jsp" %>
 
+	
     <section>
     <div id="main">
         <div id="side-menu-wrap">
@@ -275,23 +279,31 @@
             <div id="content-area">
                 <div class="content-box">
                 
+                	<% if(list.isEmpty()) { %>
+                	등록된 게시글이 없습니다. <br>
+                	<% } else { %>
+                		<% for(Match m : list) { %>
                     <div class="content">
-                        <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                        <h2 id="title">강아지 목욕 꿀팁!</h2>
+                        <div><img id="img-thumbnail" src="<%= m.getTitleImg() %>"></div>
+                        <h2 id="title"><%= m.getMeetBoardTitle() %></h2>
 
                     <div id="content-info">
                         <i class="far fa-heart fa-3x"></i>
                         <div class="info">
-                        <span id="pet-detail">13살 푸들 남자 |</span>
-                        <span id="user-detail">30대 남성</span>
+                        <span id="pet-detail"><%= petInfo.get(2).getPetName() %>|</span>
+                        <span id="user-detail"><%= m.getUserNickname() %></span>
                         </div>
                         <div class="info">
-                        <span id="review">조회수:3</span>
+                        <span id="review">조회수 : <%= m.getMeetBoardViews() %></span>
                         <span id="like">관심:30</span>
                         <span id="chatting">채팅:30</span>
                         </div>
                     </div>
                     </div>
+                    
+ 	                   <% } %>
+                    <% } %>
+                    <!-- 
                    <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
@@ -344,9 +356,9 @@
                         <span id="chatting">채팅:30</span>
                         </div>
                     </div>
+    	 -->
                     </div>
                 </div>                
-    
     
                 <div id="pasing-area">
                     <button type="button" class="btn btn-dark"><</button>

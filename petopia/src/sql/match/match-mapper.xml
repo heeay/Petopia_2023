@@ -47,5 +47,41 @@
 			  )
 		      
 	</entry>
+	
+	<entry key="selectPetInfo">
+		SELECT
+			  PET_NO,
+			  PET_NAME,
+			  PET_SPECIES,
+			  PET_GENDER
+	  	  FROM
+	  	      TB_PET
+	INNER JOIN 
+			  TB_USER ON TB_PET.USER_NO = TB_USER.USER_NO
+	  	 	  
+	</entry>
+	
+	<entry key="selectMainList">
+		SELECT
+			  MEET_BOARD_NO,
+			  MEET_BOARD_TITLE,
+			  PET_INFO,
+			  HOPE_ACTIVITY,
+			  MEET_BOARD_CREATE_DATE,
+			  USER_NICKNAME,
+			  PET_NO,
+			  MEET_BOARD_VIEWS,
+			  FILE_PATH
+		  FROM
+		  	  TB_MATCHING
+		  JOIN
+		  	  TB_FILE ON(MEET_BOARD_NO = REF_BNO)
+          JOIN
+              TB_USER USING(USER_NO)
+			  
+	     WHERE
+	     	  STATUS = 'Y'
+			  
+	</entry>
 
 </properties>
