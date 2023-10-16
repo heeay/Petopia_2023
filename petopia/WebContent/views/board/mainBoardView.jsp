@@ -3,14 +3,14 @@
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
 <%
 	
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-    int boardLimit = pi.getBoardLimit();
+	int currentPage = pageInfo.getCurrentPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+	int maxPage = pageInfo.getMaxPage();
+    int boardLimit = pageInfo.getBoardLimit();
 
 %>
 <!DOCTYPE html>
@@ -257,7 +257,7 @@
             <article id="content-items">
 
  
-                <% if(list.isEmpty()) { %>
+                <% if(bList.isEmpty()) { %>
 
 	                <div class="content-item">
 	                    조회된 게시글이 없습니다.
@@ -266,18 +266,18 @@
                 <% } else { %>
 
 
-                	<% for(Board b : list) { %>
+                	<% for(Board board : bList) { %>
 	                	
                         <div class="content-item">
 
                             
-                            <a href="<%=contextPath%>/detail.bo?bno=<%= b.getBoardNo() %>">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT-mvOOc2k0U6AIa0ym0C248tUmzPwZfhOKQ&usqp=CAU" alt="">
+                            <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>">
+                            <img src="<%= board.getFileImg() %>" alt="">
                             </a>
-                            <p><%= b.getBoardTitle() %></p>
-                            <span><%= b.getBoardViews() %></span>
-                            <span><%= b.getBoardCreateDate() %></span>
-                            <span><%= b.getUserNo() %></span>
+                            <p><%= board.getBoardTitle() %></p>
+                            <span><%= board.getBoardViews() %>|</span>
+                            <span><%= board.getBoardCreateDate() %>|</span>
+                            <span><%= board.getUserNo() %></span>
                         </div>
 
                 	<% } %>
@@ -286,8 +286,28 @@
              
             </article>
 
-            	
 
+          
+        
+            
+
+<!--  대신 이렇게 해도 됨 
+
+            <script>
+                $(function(){
+        
+                    $('.thumbnail').click(function(){
+        
+                        // 클릭할 때 마다 url요청 => location.href
+                        const bno = $(this).children().eq(0).val();
+        
+                        location.href = '<%=contextPath%>/detail.th?bno=' + bno;
+        
+                    })
+        
+                })
+            </script>
+-->
        
         </section>
 
@@ -295,8 +315,7 @@
 
         <!-- content -->
         <style>
-            /* style안에 scriptlet못 쓰넹 */
-          
+
             /* #content-items{ */
                 
                 /* 2차원 flex */
