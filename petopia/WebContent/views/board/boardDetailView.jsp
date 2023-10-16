@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
     <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
     <% 
-    	Board b = (Board)request.getAttribute("b");
-    	ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
+        ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
+    	Board board = (Board)request.getAttribute("board");
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -78,14 +79,14 @@
     <div id="title-area">
 
         <div class="title-info">
-            <div id="bno"><%=b.getBoardNo()%></div> 
-            <div id="title"><%=b.getBoardTitle()%></div> 
+            <div id="bno"><%=board.getBoardNo()%></div> 
+            <div id="title"><%=board.getBoardTitle()%></div> 
             
         </div>
 
         <div class="title-info">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoSkAEH1y2dT7rSK4fBEi3NOd8p9tR3si6w&usqp=CAU"  id="writer-img"><%=b.getUserNo()%>
-            <div id="create-date"><%=b.getBoardCreateDate()%></div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoSkAEH1y2dT7rSK4fBEi3NOd8p9tR3si6w&usqp=CAU"  id="writer-img"><%=board.getUserNo()%>
+            <div id="create-date"><%=board.getBoardCreateDate()%></div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
 
@@ -117,16 +118,21 @@
     <div id="content-area">
 
         <div id="content-text">  
-           <%= b.getBoardContent()%>
+           <%= board.getBoardContent()%>
         </div>
 
         <div id="content-imgs">
-			<!-- <%= fList %> -->
+			<% for(int i = 1; i < fList.size(); i++){ %>
+	            
+	                <div>상세이미지-<%= i %></div>
+	                <div><img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180"></div>
+	            
+            <% } %>
         </div>
 
         <div id="content-like">
             <div>
-            <img  id="like-icon"src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/200px-Bot%C3%B3n_Me_gusta.svg.png" alt="">
+            <p id="like-icon">👍</p>
             <p id="likeCount">
          		<%= likeCount %>
             </p>
@@ -137,8 +143,8 @@
     </div>
     <!-- content-like -->
     <!--  -->
-    <script>
-
+    
+<!-- 
         $(function(){
 
             // 좋아요아이콘 클릭시 이벤트
@@ -181,10 +187,10 @@
             });
 
 
-        };
+        }; -->
 
 
-    </script>
+
     <!-- content -->
     <style>
  

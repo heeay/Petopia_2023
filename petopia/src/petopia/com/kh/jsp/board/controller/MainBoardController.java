@@ -195,11 +195,12 @@ public class MainBoardController extends HttpServlet {
 		
 		// 여기까지 총 7개의 변수를 만들었음!
 		// 3) VO로 가공
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
+		PageInfo pageInfo = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
 		 System.out.println(pi);
 		
+<<<<<<< Updated upstream
 		// 4) Service로 가자~
 		ArrayList<Board> list = new BoardService().selectList(pi);
 		
@@ -208,6 +209,25 @@ public class MainBoardController extends HttpServlet {
 		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
 		request.setAttribute("pi", pi);  // 아래 페이지바 
 //		response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
+=======
+		// 4) Service로 가자~ // pageInfo를 넘기는 이유 : select할 때 pageInfo이용하니까
+		ArrayList<Board> bList = new BoardService().selectList(pageInfo);
+		
+		//System.out.println(list);
+		
+		// 5) 응답화면 지정
+		
+		/* 이거는 view에서 할 것
+		if(bList != null) {
+			
+		} else {
+			request.getParameter()
+		}
+		*/
+		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("bList", bList);
+		
+>>>>>>> Stashed changes
 		request.getRequestDispatcher("views/board/mainBoardView.jsp").forward(request, response);
 		
 	}

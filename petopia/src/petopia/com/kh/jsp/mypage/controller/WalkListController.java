@@ -61,7 +61,7 @@ public class WalkListController extends HttpServlet {
 		pageLimit = 10;
 		boardLimit = 3;
 		
-		maxPage = (int)Math.ceil((double)listCount/pageLimit);
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		
 		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
 		endPage = startPage + pageLimit -1;
@@ -74,6 +74,20 @@ public class WalkListController extends HttpServlet {
 								boardLimit, maxPage, startPage, endPage);
 		
 		ArrayList<WalkRecords> walkList = new PetService().selectWalkList(pi, loginUser, startDate, endDate);
+		
+		
+		//System.out.println(listCount);
+		//System.out.println(currentPage);
+		//System.out.println(pageLimit);
+		//System.out.println(maxPage);
+		//System.out.println(startPage);
+		//System.out.println(endPage);
+		
+		//System.out.println(startDate);
+		//System.out.println(endDate);
+		//System.out.println(walkList);
+	
+		
 		
 		request.setAttribute("walkList", walkList);
 		request.setAttribute("pi", pi);

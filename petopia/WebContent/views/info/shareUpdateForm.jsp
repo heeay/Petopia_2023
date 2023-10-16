@@ -74,6 +74,7 @@
 			<!-- 매핑값 : update.in / 이미지 파일을 무조건 한 개는 넘겨야 하기에 post 방식 선택 -->
             <form action="<%= contextPath %>/update.in" enctype="multipart/form-data" name="update" id="update-form" method="post">
 			
+				<!-- 게시글 번호를 넘김 -->
 				<input type="hidden" name="infoNo" value="<%= in.getInfoNo() %>">
 				<!-- 자바스크립트 영역의 starNum에 담긴 값을 value로 받아서 hidden으로 넘김 -->
 				<input type="hidden" name="star" value="">
@@ -125,17 +126,21 @@
                     </tr>
                 </table>
                 
-                <!-- 고쳐야 됨 -->
                 <div id="file-area">
+                	기존 파일 : 
                 	<% for(int i = 0; i < fileList.size(); i++) { %>
-                		<%= fileList.get(i).getOriginalName() %> <br>
-                		<input type="hidden" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
-                		<input type="hidden" name="originalFileName" value="<%= fileList.get(i).getUploadName() %>">
+                		<%= fileList.get(i).getOriginalName() %>
+                		<input type="text" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
+                		<input type="text" name="originalFileName" value="<%= fileList.get(i).getUploadName() %>">
                 	<% } %>
+                	<br>
                 	
-                	<% for(int i = 0; i < 5 - fileList.size(); i++) { %>
-                		<input type="file" name="file">
-                	<% } %>
+                	<!-- 새로 올릴 파일(게시글 수정 시 기존 파일 삭제하고 이 파일들로 바꿀 것) -->
+                	<input type="file" name="reUpFile1" id="reUpFile1" required>
+                    <input type="file" name="reUpFile2" id="reUpFile2">
+                    <input type="file" name="reUpFile3" id="reUpFile3">
+                    <input type="file" name="reUpFile4" id="reUpFile4">
+                    <input type="file" name="reUpFile5" id="reUpFile5">
                     
                 </div>
                  
@@ -174,7 +179,7 @@
     			// DB로 넘길 별점 개수 (1 ~ 5) => 위에 hidden을 만들어서 value에 담기
     			let starNum = ($(this).text('⭐').last().index()) + 1; // 현재 클릭한 요소의 텍스트가 노란별인 요소의 마지막 요소의 인덱스 -> 0 ~ 4
     			// console.log(starNum);
-    			document.enroll.star.value = starNum; // 이 문서 중에서 name이 enroll인 요소 중 name이 star인 요소의 value값에 starNum을 담음
+    			document.update.star.value = starNum; // 이 문서 중에서 name이 update인 요소 중 name이 star인 요소의 value값에 starNum을 담음
     		});
     	});
 

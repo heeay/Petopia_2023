@@ -104,36 +104,36 @@
 
                     <form action="<%=contextPath %>/walkList.my">  
                         <p class="walk-date">
-                            <input type="date" name="startDay"> ~ <input type="date" name="endDate">
+                            <input type="date" name="startDate"> ~ <input type="date" name="endDate">
+                            <input type="hidden" name="cpage" value="<%=currentPage%>">
                             <button type="submit">조회</button>
                         </p>
                     </form>
                 </div>
 
-                <div class="walk-list">
+                <div class="walk-list" id="list-area">
                     <% if(walkList.isEmpty()) { %>
                         	<div>
                         		<div align="center">등록된 기록이 없습니다.</div>
                         	</div>
                         <% }else { %>
                        		<% for(int i=0; i<walkList.size(); i++){ %>
-                                <div class="walkcontent content1">
-
-                                    <div>
-                                        <input type="checkbox" class="check" style="margin: 0;">
-                                    </div>
-        
-                                    <div>
-                                        <img src="<%=contextPath%>/<%=walkList.get(i).getFileNo() %>" alt="산책기본" width="300" height="200">
-                                    </div>
-        
-                                    <div>
-                                    	<input type="hidden" name="hno" value="<%=walkList.get(i).getWalkNo() %>">
-                                        <p class="walk-1"><%=walkList.get(i).getWalkTitle() %></p>
-                                        <p class="walk-2"><%=walkList.get(i).getWalkDate() %></p>
-                                    </div>
-        
+                            <div class="walkcontent content1">
+                                <input type="hidden" name="wno" value="<%=walkList.get(i).getWalkNo() %>">
+                                <div>
+                                    <input type="checkbox" class="check" style="margin: 0;">
                                 </div>
+        
+                                <div>
+                                    <img src="<%=contextPath%>/<%=walkList.get(i).getFileNo() %>" alt="산책기본" width="300" height="200">
+                                </div>
+
+                                <div>
+                                    <p class="walk-1"><%=walkList.get(i).getWalkTitle() %></p>
+                                    <p class="walk-2"><%=walkList.get(i).getWalkDate() %></p>
+                                </div>
+        
+                            </div>
                             <% } %>
                         <% } %>    
                         <!--
@@ -192,6 +192,15 @@
                     <div class="btn btn-sm btn-secondary btn-right"><a href="<%=contextPath %>/walkEnroll.my" class="color-black">작성하기</a></div>
                 </div>
 
+                <script>
+                    $(function(){
+                        $('#list-area>div').click(function(){
+                            location.href="<%= contextPath %>/walkDetail.my?wno=" + $(this).children().eq(0).val();
+                           
+                        });
+                    })
+    
+                </script>
                 
             </div>
 

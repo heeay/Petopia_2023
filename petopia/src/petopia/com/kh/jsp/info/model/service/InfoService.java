@@ -13,6 +13,7 @@ import petopia.com.kh.jsp.info.model.dao.InfoDao;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
+import petopia.com.kh.jsp.user.model.vo.User;
 
 public class InfoService {
 	
@@ -122,6 +123,44 @@ public class InfoService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public int selectUser(int infoNo, int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int countUser = new InfoDao().selectUser(conn, infoNo, userNo);
+		
+		close(conn);
+		
+		return countUser;
+	}
+	
+	public int insertLike(int infoNo, int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new InfoDao().insertLike(conn, infoNo, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int countLike(int infoNo) {
+		
+		Connection conn = getConnection();
+		
+		int count = new InfoDao().countLike(conn, infoNo);
+		
+		close(conn);
+		
+		return count;
 	}
 	
 	

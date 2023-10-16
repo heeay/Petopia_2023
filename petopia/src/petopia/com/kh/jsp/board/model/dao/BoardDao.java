@@ -70,17 +70,30 @@ public class BoardDao {
 		return listCount;
 	}
 	
+<<<<<<< Updated upstream
 	public ArrayList<Board> selectList(Connection conn, PageInfo pi) {
 		
 		ArrayList<Board> list = new ArrayList();
+=======
+	
+	
+	public ArrayList<Board> selectList(Connection conn, PageInfo pageInfo) {
+		
+		ArrayList<Board> bList = new ArrayList();
+>>>>>>> Stashed changes
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectList");
+<<<<<<< Updated upstream
+=======
+	
+		
+>>>>>>> Stashed changes
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
 			
+<<<<<<< Updated upstream
 			// 위치홀더는 sql값을 넣는 게 아니라 계산식을 변수에 담아서 그 변수를 넣기
 			int startRow = ((pi.getCurrentPage()) - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
@@ -90,23 +103,46 @@ public class BoardDao {
 			System.out.println("startRow:" + startRow);
 			System.out.println("endRow:" +endRow);
 			
+=======
+			int startRow = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit() + 1;
+			int endRow = startRow + pageInfo.getBoardLimit() - 1;
+			
+			// 원래 sql셋팅하고 실행하는 거야 
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			 
+		
+>>>>>>> Stashed changes
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
 
 				Board b = new Board();
 				
+<<<<<<< Updated upstream
 				// 메인게시판에 보여줄 컬럼은 총 8개 // board 필드는 총 11개  // sql은 8개 + rownum = 9개
+=======
+>>>>>>> Stashed changes
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardViews(rset.getInt("BOARD_VIEWS"));
 				b.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 				b.setUserNo(rset.getInt("USER_NO"));
+<<<<<<< Updated upstream
 				b.setFileNo(rset.getInt("FILE_NO"));
 				b.setCtgNo(rset.getInt("CTG_NO"));
 				b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
 			
 				list.add(b);
+=======
+				b.setFileImg(rset.getString("FILE_IMG"));
+				b.setCtgNo(rset.getInt("CTG_NO"));
+				b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+				
+				bList.add(b);
+>>>>>>> Stashed changes
 			}
 			System.out.println("나는 resultSet : " + rset);
 
@@ -122,6 +158,7 @@ public class BoardDao {
 			
 		}
 		
+<<<<<<< Updated upstream
 		System.out.println("난 리스트 : " + list);
 		return list;
 		
@@ -154,7 +191,163 @@ public class BoardDao {
 		
 		return increaseCount;
 		
+=======
+		return bList;
+		//int startRow = ((pi.getCurrentPage()) - 1) * pi.getBoardLimit() + 1;
+		//int endRow = startRow + pi.getBoardLimit() - 1;
+>>>>>>> Stashed changes
 	}
+	
+		public int increaseViewCount(Connection conn, int bno) {
+			int viewCount = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("increaseViewCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bno);
+				
+				viewCount =  pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				
+				close(pstmt);
+			}
+			
+			System.out.println("나는 viewCount : " +viewCount);
+			return viewCount;
+			
+		}
+	
+		public ArrayList<File> selectFile(Connection conn, int bno){
+			
+			ArrayList<File> fList = new ArrayList();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectFile");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bno);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					
+					File file = new File();
+					
+					file.setFileNo(rset.getInt("FILE_NO"));
+					file.setRefBno(rset.getInt("REF_BNO"));
+					file.setOriginalName(rset.getString("ORIGINAL_NAME"));
+					file.setUploadName(rset.getString("UPLOAD_NAME"));
+					file.setFilePath(rset.getString("FILE_PATH"));
+					file.setFileLevel(rset.getInt("FILE_LEVEL"));
+					
+					fList.add(file);
+				}
+				
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				
+				close(rset);
+				close(pstmt);
+			}
+			
+			System.out.println("나는 fList : " + fList);
+			return fList;
+			
+		}
+	
+	
+	
+	// 게시글 번호를 통해 그 게시글의 좋아요 수를 불러오는 메소드
+		public int selectLikeCount(Connection conn, int bno) {
+			
+			int likeCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectLikeCount");
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					likeCount = rset.getInt("COUNT(*)");
+				}
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			
+			} finally {
+				
+				close(rset);
+				close(pstmt);
+
+			}
+			
+			System.out.println("난 좋아요 총 개수 : " +likeCount);
+			return likeCount;
+		}
+		
+		
+		
+		
+		public Board selectBoard(Connection conn, int bno){
+			
+			// *** Board board = null;이라고 하면 객체를 생성하지 않았기 때문에 board.setBoardNo 등이 불가 => 그대로 board는 null
+			Board board = new Board();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectBoard");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					
+					board.setBoardNo(rset.getInt("BOARD_NO"));
+					board.setBoardTitle(rset.getString("BOARD_TITLE"));
+					board.setBoardContent(rset.getString("BOARD_CONTENT"));
+					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+					board.setUserNo(rset.getInt("USER_NO"));
+					board.setFileImg(rset.getString("FILE_IMG"));
+					board.setLikeCount(rset.getInt("LIKE_COUNT"));
+					
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			System.out.println("난 게시판 board객체야 : " + board);
+			return board;
+		}
 	
 	
 	

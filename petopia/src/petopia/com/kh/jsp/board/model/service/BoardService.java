@@ -14,6 +14,8 @@ import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
 public class BoardService {
 
+	// 여기서부터 boardList뽑기
+	// 게시글 수 아는방법
 	public int selectListCount() {
 		
 		Connection conn = getConnection();
@@ -24,6 +26,7 @@ public class BoardService {
 		
 		return listCount;
 	}
+<<<<<<< Updated upstream
 
 	public int increaseViewsCount(int bno) {
 		
@@ -44,6 +47,70 @@ public class BoardService {
 	
 	
 	
+=======
+	
+	// 게시글 리스트 뽑기
+	public ArrayList<Board> selectList(PageInfo pageInfo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> bList = new BoardDao().selectList(conn, pageInfo);
+		
+		 close(conn);
+		
+		 return bList;
+		
+	}
+	// boardDetail뽑기 '전'에 조회수 증가시키키!!!
+	public int increaseViewCount(int bno) {
+		
+		Connection conn = getConnection();
+		
+		int viewCount = new BoardDao().increaseViewCount(conn, bno);
+		
+		if(viewCount > 0)  close(conn); 
+		else  rollback(conn); 
+		
+		 return viewCount;
+	}
+	
+	// 여기서부터 boardDetail 뽑기
+
+	public ArrayList<File> selectFile(int bno){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<File> fList = new BoardDao().selectFile(conn, bno);
+		
+		 close(conn);
+		
+		 return fList;
+	}
+	
+	public int selectLikeCount(int bno){
+		
+		Connection conn = getConnection();
+		
+		int likeCount = new BoardDao().selectLikeCount(conn, bno);
+		
+		 close(conn);
+		
+		 return likeCount;
+	}
+	
+
+	
+	public Board selectBoard(int bno) {
+		
+		Connection conn = getConnection();
+		
+		Board board = new BoardDao().selectBoard(conn, bno);
+		
+		 close(conn);
+		
+		 return board;
+	}
+>>>>>>> Stashed changes
 	
 	
 }
