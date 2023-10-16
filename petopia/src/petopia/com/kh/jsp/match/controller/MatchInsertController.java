@@ -54,8 +54,8 @@ public class MatchInsertController extends HttpServlet {
 			String meetBoardTitle = multiRequest.getParameter("meetBoardTitle");
 			String hopeActivity = multiRequest.getParameter("hopeActivity");
 			String petInfo = multiRequest.getParameter("petInfo");
-			String userNo = multiRequest.getParameter("userNo");
-			String petNo = multiRequest.getParameter("petNo");
+			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
+			int petNo = Integer.parseInt(multiRequest.getParameter("petNo"));
 			
 			Match m = new Match();
 			m.setMeetBoardTitle(meetBoardTitle);

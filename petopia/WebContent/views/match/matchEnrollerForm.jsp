@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet, java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo, petopia.com.kh.jsp.user.model.vo.User" %>
+     <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet, java.util.ArrayList,
+      petopia.com.kh.jsp.match.model.vo.Match, petopia.com.kh.jsp.common.model.vo.PageInfo,
+       petopia.com.kh.jsp.user.model.vo.User" %>
 
-<%
-	Pet p = (Pet)session.getAttribute("p");
+<%   
+ArrayList<Pet> petInfo = (ArrayList<Pet>)request.getAttribute("petInfo");
+ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
  %>
 <!DOCTYPE html>
 <html>
@@ -112,7 +115,10 @@
         <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-            <input type="hidden" name="petNo" value="<%= p.getPetNo() %>">
+            <input type="hidden" name="petNo" value="<%= petInfo.get(2).getPetNo() %>">
+            
+
+
             <section id="pet-img">
                 <div>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg" width="130" height="170">

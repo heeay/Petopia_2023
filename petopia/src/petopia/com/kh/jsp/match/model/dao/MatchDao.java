@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.match.model.vo.Match;
+import petopia.com.kh.jsp.mypage.model.vo.Pet;
 
 public class MatchDao {
 
@@ -40,8 +41,8 @@ public class MatchDao {
 			pstmt.setString(1, m.getMeetBoardTitle());
 			pstmt.setString(2, m.getPetInfo());
 			pstmt.setString(3, m.getHopeActivity());
-			pstmt.setString(4, (m.getUserNo()));
-			pstmt.setString(5, (m.getPetNo()));
+			pstmt.setInt(4, (m.getUserNo()));
+			pstmt.setInt(5, (m.getPetNo()));
 			
 			result = pstmt.executeUpdate();
 			
@@ -78,4 +79,91 @@ public class MatchDao {
 		return list.size() == result ? 1 : 0;
 	}
 	
+	public ArrayList<Pet> selectPetInfo(Connection conn) {
+		
+		ArrayList<Pet> list = new ArrayList();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectPetInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Pet p = new Pet();
+				p.setPetNo(rset.getInt("PET_NO"));
+				p.setPetName(rset.getString("PET_NAME"));
+				p.setPetSpecies(rset.getString("PET_SPECIES"));
+				p.setPetGender(rset.getString("PET_GENDER"));
+
+				list.add(p);
+			}
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+		
+	}
+	
+	
+	public ArrayList<Match> selectMainList(Connection conn) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		ArrayList<Match> list = new ArrayList();
+		String sql = prop.getProperty("selectMainList");
+	
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Match m = new Match();
+				m.setMeetBoardNo(rset.getInt("MEET_BOARD_NO"));
+				m.setMeetBoardTitle(rset.getString("MEET_BOARD_TITLE"));
+				m.setPetInfo(rset.getString("PET_INFO"));
+				m.setHopeActivity(rset.getString("HOPE_ACTIVITY"));
+				m.setUserNickname(rset.getString("USER_NICKNAME"));
+				m.setPetNo(rset.getInt("PET_NO"));
+				m.setMeetBoardViews(rset.getInt("MEET_BOARD_VIEWS"));
+			    m.setTitleImg(rset.getString("FILE_PATH"));
+			
+		    
+				list.add(m);
+			
+		
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		} 
+		return list;
+		
+		
+	}
+		
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+

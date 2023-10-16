@@ -9,9 +9,11 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import petopia.com.kh.jsp.common.JDBCTemplate;
 import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.match.model.dao.MatchDao;
 import petopia.com.kh.jsp.match.model.vo.Match;
+import petopia.com.kh.jsp.mypage.model.vo.Pet;
 public class MatchService {
 
 	public int insertThumbnailBoard(Match m, ArrayList<File> list) {
@@ -33,5 +35,30 @@ public class MatchService {
 		return (result1 * result2);
 	}
 	
+	public ArrayList<Pet> selectPetInfo() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Pet> list = new MatchDao().selectPetInfo(conn);
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	public ArrayList<Match> selectMainList() {
+		
+	
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Match> list = new MatchDao().selectMainList(conn);
+
+
+		close(conn);
+		
+		return list;
+		
+	}
 	
 }
