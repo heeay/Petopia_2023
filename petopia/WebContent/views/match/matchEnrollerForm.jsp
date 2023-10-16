@@ -14,7 +14,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
 <meta charset="UTF-8">
 <title>매칭게시판 작성하기</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
@@ -115,17 +115,25 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
         <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-            <input type="hidden" name="petNo" value="<%= petInfo.get(2).getPetNo() %>">
             
 
 
             <section id="pet-img">
                 <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg" width="130" height="170">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg2" width="130" height="170">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="contentImg" width="130" height="170">
                 </div>
             </section>
    
+
+                <select name="petNo">
+                    <% for(Pet p : petInfo) { %>
+                    <option value="">
+                        <%= p.getPetName() %>
+                    </option>
+
+                        <% } %>
+                </select>
          
                 <div id="meetBoardTitle">
                     <h2>제목</h2>
@@ -148,7 +156,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
             </form> 
  
  
-            <div id="file-area">
+            <div id="file-area1">
                 <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1);">
                 <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
             </div>
@@ -166,36 +174,39 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
                         reader.onload = function(e){
 
                             switch(num) {
-                                case 1 : $('#titleImg').attr('src',e.target.result);break;
+                                case 1 : $('#titleImg2').attr('src',e.target.result);break;
                                 case 2 : $('#contentImg').attr('src',e.target.result);break;
                             }
 
 
                         }
 
-
-
                     } else {
                         const str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU"
                         switch(num) {
-                            case 1 : $('#titleImg').attr('src', str); break;
+                            case 1 : $('#titleImg2').attr('src', str); break;
                             case 2 : $('#contentImg').attr('src', str); break;
                         }
                     }
                 };
-
+                
+                
+                
+                
                 $(function(){
 
-                    $('#file-area').hide();
-
-                    $('#titleImg').click(function() {
+                    $('#file-area1').hide();
+		
+                    $('#titleImg2').click(function() {
                         $('#file1').click();
-                    })
+                    });
                     
                     $('#contentImg').click(function() {
                         $('#file2').click();
                     })
-                })
+                });
+
+                
             </script>
     </div>
 	</section>
