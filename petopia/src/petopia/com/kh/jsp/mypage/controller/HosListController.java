@@ -34,6 +34,11 @@ public class HosListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("userInfo")==null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		
@@ -76,7 +81,6 @@ public class HosListController extends HttpServlet {
 		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser, startDate, endDate);
 		//System.out.println(pi);
 		//System.out.println(hosList);
-
 
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
