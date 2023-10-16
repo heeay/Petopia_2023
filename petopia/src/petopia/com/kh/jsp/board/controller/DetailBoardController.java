@@ -31,6 +31,10 @@ public class DetailBoardController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    
+    
+ // boardDetail 조회시 board
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// mainBoard의 boardTitle을 클릭하면 detail.bo로 이동
@@ -42,7 +46,7 @@ public class DetailBoardController extends HttpServlet {
 		// 3. 기능 : 조회수 증가 : DML
 		
 		 int increaseCount = new BoardService().increaseViewsCount(bno);
-		 System.out.println(increaseCount);
+		 System.out.println("나는 조회수 증가" + increaseCount);
 		 
 		 
 		 // 서비스 갔다온 뒤 결과 조회수가 성공적으로 증가했다면 조회에 성공한 거임 이제 데이터 불러오면 됨
@@ -51,7 +55,7 @@ public class DetailBoardController extends HttpServlet {
 			 
 			// 1. 보드 조회
 			 Board b = new BoardService().selectBoard(bno);
-			  
+			
 			// 2. 파일 조회
 			 ArrayList<File> fList = new BoardService().selectFile(bno);
 			 
