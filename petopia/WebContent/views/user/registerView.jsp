@@ -436,16 +436,22 @@
                     },
                     success : function(result){
                         console.log(result);
-                        if(result == "true"){
+                        if(result == "200"){
                             $("#auth-code-wrap").css("display","none");
                             $("#email-auth-success").css("display","block");
                             emailAuthFlag = true;
                             $("#err-email-auth").css("display","none");
                             $("#err-email-auth").text("");
                         }
-                        else{
+                        else if(result == "404"){
                             $("#err-email-auth").css("display","block");
                             $("#err-email-auth").text("코드가 다릅니다. 코드를 확인해주세요.");
+                        } else {
+                            $("#email-auth-btn-wrap").css("display","block");
+                            $("#auth-code-wrap").css("display","none");
+                            $("#err-email-auth").css("display","block");
+                            $("#err-email-auth").css("display","block");
+                            $("#err-email-auth").text("이미 만료된 코드입니다.");
                         }
                     },
                     error : function(e){

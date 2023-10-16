@@ -89,10 +89,10 @@ public class UserService {
 		
 		return result;
 	}
-	public Date selectEmailAuth(String email, String authCode) {
+	public java.util.Date selectEmailAuth(String email, String authCode) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Date date = new UserDao().selectEmailAuth(conn, email, authCode);
+		java.util.Date date = new UserDao().selectEmailAuth(conn, email, authCode);
 		if(date!=null) {
 			if(new UserDao().deleteEmailAuth(conn, email)>0){
 				JDBCTemplate.commit(conn);
