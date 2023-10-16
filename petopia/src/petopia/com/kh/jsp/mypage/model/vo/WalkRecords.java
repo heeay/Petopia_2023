@@ -9,7 +9,7 @@ public class WalkRecords {
 	private String walkContent;	//WALK_CONTENT	VARCHAR2(4000 BYTE)
 	private String walkTitle;	//WALK_TITLE	VARCHAR2(300 BYTE)
 	private int petNo;			//PET_NO	NUMBER
-	private int fileNo;			//FILE_NO	NUMBER
+	private String fileNo;			//FILE_NO	NUMBER
 	
 	private String startDate;
 	private String endDate;
@@ -21,7 +21,7 @@ public class WalkRecords {
 		super();
 	}
 
-	public WalkRecords(int walkNo, String walkDate, String walkContent, String walkTitle, int petNo, int fileNo,
+	public WalkRecords(int walkNo, String walkDate, String walkContent, String walkTitle, int petNo, String fileNo,
 			String startDate, String endDate, int rowNum, String petName) {
 		super();
 		this.walkNo = walkNo;
@@ -91,10 +91,10 @@ public class WalkRecords {
 	public void setPetNo(int petNo) {
 		this.petNo = petNo;
 	}
-	public int getFileNo() {
+	public String getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(int fileNo) {
+	public void setFileNo(String fileNo) {
 		this.fileNo = fileNo;
 	}
 
