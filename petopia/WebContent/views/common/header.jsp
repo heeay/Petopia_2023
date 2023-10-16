@@ -287,6 +287,22 @@ User userInfo = (User)session.getAttribute("userInfo");
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
         })
+        /*window.addEventListener("beforeunload", function (e) {
+            var confirmationMessage = "\o/";
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Webkit, Safari, Chrome
+        });*/
+        //https://han288.tistory.com/49
+        window.addEventListener("beforeunload", function (e) {
+            if (closing_window) {
+                $.ajax({
+                    type: "POST",
+                    url: "/logout",
+                    async: false
+                });
+                return;
+            }
+        });
     </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>

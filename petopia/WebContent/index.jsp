@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="petopia.com.kh.jsp.user.controller.AccessSessionListener"%>
+<%
+int accessCount = application.getAttribute("accessCount")!=null ? (Integer)application.getAttribute("accessCount") : 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -180,7 +182,7 @@
                 }
 	        </script>
 
-            <div id="access-current">현재 접속자:<span id="access-cur-num"><%=AccessSessionListener.getCount() %></span></div>
+            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>

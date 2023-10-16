@@ -30,8 +30,18 @@ public class LogoutUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.invalidate();
-		//session.removeAttribute("userInfo");
+		session.removeAttribute("userInfo");
+		
+		ServletContext application = request.getSession().getServletContext();
+		
+		if(application.getAttribute("accessCount")==null) {
+			application.setAttribute("accessCount", 0);
+		} else {
+			int ac = (Integer)application.getAttribute("accessCount") - 1;
+			if(ac<0)
+                ac=0;
+			application.setAttribute("accessCount", ac);
+		}
 		
 		response.sendRedirect(request.getContextPath());
 	}
