@@ -33,10 +33,17 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		String email = request.getParameter("email");
 		String authCode = request.getParameter("authCode");
 		
+		Date curDate = new Date();
 		Date date = new UserService().selectEmailAuth(email, authCode);
 		
 		String result="";
-		//if(date)
+		if(date==null) {
+			result = "404";
+		} else if(curDate.getTime()-date.getTime()<60000) {
+			result = "200";
+		} else {
+			result = "400";
+		}
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);

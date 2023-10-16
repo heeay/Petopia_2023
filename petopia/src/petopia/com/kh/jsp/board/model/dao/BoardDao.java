@@ -11,7 +11,7 @@ import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.board.model.vo.Category;
-import petopia.com.kh.jsp.board.model.vo.Like;
+
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 
@@ -157,6 +157,7 @@ public class BoardDao {
 	}
 	
 	
+	
 	public Board selectBoard(Connection conn, int bno) {
 		
 		Board b = new Board();
@@ -183,6 +184,7 @@ public class BoardDao {
 			b.setFileNo(rset.getInt("FILE_NO"));
 			b.setCtgNo(rset.getInt("CTG_NO"));
 			b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+			b.setLikeCount(rset.getInt("LIKE_COUNT"));
 			}
 			
 			
@@ -199,111 +201,5 @@ public class BoardDao {
 	
  //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
-	public ArrayList<Category> selectCtgList(Connection conn) {
-		
-		ArrayList<Category> ctgList = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectCtgList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				
-				Category c = new Category();
-				
-				c.setCtgNo(rset.getInt("CTG_NO"));
-				c.setCtgName(rset.getString("CTG_NAME"));
-				
-				ctgList.add(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			
-			close(rset);
-			close(pstmt);
-		}
 
-		System.out.println(ctgList);
-		return ctgList;
-		
-	}
-	
-	public ArrayList<File> selectFile(Connection conn, int bno) {
-		
-		ArrayList<File> fList = null; // new File이라고 하면 null값이 아닐 수도 있기에 안됨... ???
-		PreparedStatement pstmt = null;
-		ResultSet  rset = null;
-		String sql = prop.getProperty("selectFile");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, bno);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				// file을 새 객체에 담고
-				File f = new File();
-				
-				// 값을 넣은 다음
-				f.setFileNo(rset.getInt("FILE_NO"));
-				f.setOriginalName(rset.getString("ORIGINAL_NAME"));
-				f.setUploadName(rset.getString("UPLOAD_NAME"));
-				f.setFilePath(rset.getString("FILE_PATH"));
-				
-				// 리스트에 담고
-				fList.add(f);
-			} // 이 사이클을 계속 반복
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 	finally {
-			close(rset);
-			close(pstmt);
-		}
-	
-			return fList;
-	}
-	
-	public  int countLike(Connection conn, int bno) {
-	
-		int likeCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet  rset = null;
-		String sql = prop.getProperty("selectLike");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, bno);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				
-				likeCount = rset.getInt("COUNT(*)");
-				
-			}
-			
-			System.out.println(rset);
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return likeCount;
-	}
-	
 }//class

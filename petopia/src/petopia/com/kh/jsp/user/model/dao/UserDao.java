@@ -265,8 +265,8 @@ public class UserDao {
 		
 		return result;
 	}
-	public Date selectEmailAuth(Connection conn, String email, String authCode) {
-		Date date = null;
+	public java.util.Date selectEmailAuth(Connection conn, String email, String authCode) {
+		java.util.Date date = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectEmailAuth");
@@ -278,8 +278,7 @@ public class UserDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				date = rset.getDate("EMAIL_AUTH_DATE");
-				System.out.println(date);
+				date = rset.getTimestamp("EMAIL_AUTH_DATE");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
