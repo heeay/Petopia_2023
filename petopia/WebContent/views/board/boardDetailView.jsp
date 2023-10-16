@@ -81,6 +81,7 @@
         <div class="title-info">
             <div id="bno"><%=board.getBoardNo()%></div> 
             <div id="title"><%=board.getBoardTitle()%></div> 
+            <div id="category"><%=board.getCtgNo()%></div>
             
         </div>
 
@@ -122,10 +123,12 @@
         </div>
 
         <div id="content-imgs">
-			<% for(int i = 1; i < fList.size(); i++){ %>
-	            
-	                <div>상세이미지-<%= i %></div>
-	                <div><img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180"></div>
+            <% for(int i = 1; i < fList.size(); i++){ %>
+            <img src="<%= contextPath %>/<%= fList.get(0).getFilePath() %>/<%= fList.get(0).getUploadName() %>" alt="대표이미지" id="titleImg" width="250" height="180">
+
+            <div>상세이미지-<%= i %></div>
+			
+            <div><img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180"></div>
 	            
             <% } %>
         </div>
