@@ -211,6 +211,24 @@ public class PetService {
 		return walkRecords;
 	}
 
+	public int insertWalk(WalkRecords wr, PetFile pf) {
+		Connection conn = getConnection();
+		
+		int result2 = 1;
+		
+		if(pf != null) {
+			result2 = new PetDao().insertWalkImg(conn, pf);
+		}
+		
+		int result1 = new PetDao().insertWalk(conn, wr);
+		
+		if((result1*result2)>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return (result1*result2);
+	}
 
 	
 }

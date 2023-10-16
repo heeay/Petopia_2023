@@ -58,7 +58,7 @@ public class HosInsertController extends HttpServlet {
 			session.setAttribute("alertMsg", "병원기록 작성 성공");
 			response.sendRedirect(request.getContextPath()+"/hosList.my?cpage=1");
 		}else {
-			request.setAttribute("ereeorMsg", "공지사항 등록 실패");
+			request.setAttribute("ereeorMsg", "병원기록 등록 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

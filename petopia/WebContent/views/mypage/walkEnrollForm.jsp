@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>    
+<%
+	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,8 +85,7 @@
     <%@ include file = "mysidebar.jsp" %>
 
     <div class="content-area">
-        <form action="">
-        
+        <form action="<%=contextPath%>/walkInsert.my" method="post" enctype="multipart/form-data">
             <div id="sug-content">
 
                 <div>
@@ -95,17 +98,29 @@
                     <div id="sub-content-back">
                         <div class="contentSize">
                             <div class="float-left">제목</div>
-                            <div class="float-right"><input type="text" class="input-width"></div>
+                            <div class="float-right"><input type="text" class="input-width" name="walkTitle" required></div>
                         </div>
+                        <div class="contentSize">
+                            <div class="float-left">이름</div>
+                            <div class="float-right">
+                                <select class="input-width" name="petNo" style="border: none;">
+                                	<% for(Pet p : petList) {%>
+                                    	<option value="<%=p.getPetNo() %>"><%=p.getPetName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="walkDate">
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea name="" id="" cols="85" rows="9" style="resize:none;"></textarea></div>
+                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="walkContent" required></textarea></div>
                         </div>
                         <br><br>
                         <div class="contentSize3">
                             <div class="float-left">첨부파일</div>
-                            <div><input type="file" name="fil1" id="file1"></div>
+                            <div><input type="file" name="walkFile" id="walkFile" required></div>
                         </div>
 
                         <div class="btn-right">

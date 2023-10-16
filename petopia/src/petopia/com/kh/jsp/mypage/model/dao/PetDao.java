@@ -604,6 +604,7 @@ public class PetDao {
 				wr.setWalkNo(rset.getInt("WALK_NO"));
 				wr.setWalkDate(rset.getString("WALK_DATE"));
 				wr.setWalkTitle(rset.getString("WALK_TITLE"));
+				wr.setFileNo(rset.getString("PATH"));
 				wr.setRowNum(rset.getInt("IND"));
 				
 				walkList.add(wr);
@@ -615,6 +616,48 @@ public class PetDao {
 			close(pstmt);
 		}
 		return walkList;
+	}
+	public int insertWalk(Connection conn, WalkRecords wr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertWalk");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, wr.getWalkContent());
+			pstmt.setString(2, wr.getWalkTitle());
+			pstmt.setInt(3, wr.getPetNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		//System.out.println(wr);
+		return result;
+	}
+	public int insertWalkImg(Connection conn, PetFile pf) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		// sql 재활용(이미지 1개 업로드)
+		String sql = prop.getProperty("insertPetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pf.getOriginalName());
+			pstmt.setString(2, pf.getUploadName());
+			pstmt.setString(3, pf.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

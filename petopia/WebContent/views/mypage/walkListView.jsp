@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
 <%
 	ArrayList<WalkRecords> walkList = (ArrayList<WalkRecords>)request.getAttribute("walkList");
-
+	PetFile pf = (PetFile)request.getAttribute("pf");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int currentPage = pi.getCurrentPage();
@@ -111,67 +111,106 @@
                 </div>
 
                 <div class="walk-list">
-                        
-                    <div class="walkcontent content1">
+                    <% if(walkList.isEmpty()) { %>
+                        	<div>
+                        		<div align="center">등록된 기록이 없습니다.</div>
+                        	</div>
+                        <% }else { %>
+                       		<% for(int i=0; i<walkList.size(); i++){ %>
+                                <div class="walkcontent content1">
 
-                        <div>
-                            <input type="checkbox" class="check" style="margin: 0;">
+                                    <div>
+                                        <input type="checkbox" class="check" style="margin: 0;">
+                                    </div>
+        
+                                    <div>
+                                        <img src="<%=contextPath%>/<%=walkList.get(i).getFileNo() %>" alt="산책기본" width="300" height="200">
+                                    </div>
+        
+                                    <div>
+                                    	<input type="hidden" name="hno" value="<%=walkList.get(i).getWalkNo() %>">
+                                        <p class="walk-1"><%=walkList.get(i).getWalkTitle() %></p>
+                                        <p class="walk-2"><%=walkList.get(i).getWalkDate() %></p>
+                                    </div>
+        
+                                </div>
+                            <% } %>
+                        <% } %>    
+                        <!--
+                        <div class="walkcontent content1">
+
+                            <div>
+                                <input type="checkbox" class="check" style="margin: 0;">
+                            </div>
+
+                            <div>
+                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
+                            </div>
+
+                            <div>
+                                <p class="walk-1">오늘의 산책기록1</p>
+                                <p class="walk-2">2023-10-04</p>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
+                        <div class="walkcontent content2">
+
+                            <div>
+                                <input type="checkbox" class="check" style="margin: 0;">
+                            </div>
+
+                            <div>
+                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
+                            </div>
+
+                            <div>
+                                <p class="walk-1">오늘의 산책기록2</p>
+                                <p class="walk-2">2023-10-04</p>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <p class="walk-1"><%= %>오늘의 산책기록1</p>
-                            <p class="walk-2">2023-10-04</p>
+                        <div class="walkcontent content3">
+
+                            <div>
+                                <input type="checkbox" class="check" style="margin: 0;">
+                            </div>
+
+                            <div>
+                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
+                            </div>
+
+                            <div>
+                                <p class="walk-1">오늘의 산책기록3</p>
+                                <p class="walk-2">2023-10-04</p>
+                            </div>
+
                         </div>
-
-                    </div>
-
-                    <div class="walkcontent content2">
-
-                        <div>
-                            <input type="checkbox" class="check" style="margin: 0;">
-                        </div>
-
-                        <div>
-                            <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
-                        </div>
-
-                        <div>
-                            <p class="walk-1">오늘의 산책기록2</p>
-                            <p class="walk-2">2023-10-04</p>
-                        </div>
-
-                    </div>
-
-                    <div class="walkcontent content3">
-
-                        <div>
-                            <input type="checkbox" class="check" style="margin: 0;">
-                        </div>
-
-                        <div>
-                            <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
-                        </div>
-
-                        <div>
-                            <p class="walk-1">오늘의 산책기록3</p>
-                            <p class="walk-2">2023-10-04</p>
-                        </div>
-
-                    </div>
-
+                    	-->
                     
-                    <div class="btn btn-sm btn-secondary btn-right"><a href="<%=contextPath %>/views/mypage/walkEnrollForm.jsp" class="color-black">작성하기</a></div>
+                    <div class="btn btn-sm btn-secondary btn-right"><a href="<%=contextPath %>/walkEnroll.my" class="color-black">작성하기</a></div>
                 </div>
 
                 
             </div>
 
             <div class="page-btn">
-                페이지 버튼 위치
+                <% if(currentPage != 1) { %>
+                    <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
+                <% } %>
+                
+                <% for(int i = startPage; i <= endPage; i++) { %>
+                    <% if(currentPage != i) { %>
+                        <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
+                    <% } else {%>
+                        <button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
+                    <% } %>
+                <% } %>
+                
+                <% if(currentPage != maxPage) { %>
+                    <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
+                <% } %>
             </div>
 
         </div>

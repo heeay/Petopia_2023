@@ -337,22 +337,48 @@
 		 		USER_NO = ? 
 	</entry>
 	
-	<entry key="selectHosList">
-				 SELECT * 
-  		   		   FROM (SELECT *
+	<entry key="selectWalkList">
+				 
+				 SELECT *
+          		   FROM (SELECT *
           		  		   FROM (SELECT 
 		          		  				ROWNUM IND,
 								 		WALK_NO,
 										TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
-										WALK_TITLE
+										WALK_TITLE,
+										FILE_PATH||'/'||UPLOAD_NAME "PATH"
 								   FROM 
 								   		TB_WALK_RECORDS 
 								   JOIN 
-								   		TB_PET USING (PET_NO) 
+								   		TB_PET USING (PET_NO)
+								   LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO) 
 								  WHERE 
 								  		USER_NO = ? 
 								  ORDER BY WALK_DATE)
-						  ORDER BY IND DESC)
+						ORDER BY IND DESC) 
 		  WHERE IND BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="insertWalk">
+		 INSERT 
+		   INTO 
+		   		TB_WALK_RECORDS
+		   		(
+		   		WALK_NO,
+                WALK_DATE,
+                WALK_CONTENT,
+                WALK_TITLE,
+                PET_NO,
+                FILE_MYPAGE_NO
+		   		)
+		 VALUES 
+	 			(
+	 			SEQ_WALK_NO.NEXTVAL,
+	 			SYSDATE,
+	 			?,
+	 			?,
+	 			?,
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
+	 			)
 	</entry>
 </properties>

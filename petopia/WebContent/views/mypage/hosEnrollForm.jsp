@@ -100,7 +100,7 @@
 
                         <div class="contentSize">
                             <div class="float-left">일자</div>
-                            <div class="float-right"><input type="date" class="input-width" name="hosDate"></div>
+                            <div class="float-right"><input type="date" class="input-width" name="hosDate" required></div>
                         </div>
 
                         <div class="contentSize">
