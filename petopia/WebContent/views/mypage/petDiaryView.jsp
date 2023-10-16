@@ -214,7 +214,7 @@
                         </form>
 
                         <div class="btn-right">
-                            <a href="<%=contextPath %>/views/mypage/walkListView.jsp" class="btn btn-sm btn-secondary">more</a>
+                            <a href="<%=contextPath %>/walkList.my?cpage=1" class="btn btn-sm btn-secondary">more</a>
                         </div>
 
                     </div>

@@ -22,13 +22,13 @@ import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
  * Servlet implementation class suggestionEnrollFormController
  */
 @WebServlet("/sugEnroll.my")
-public class suggestionEnrollFormController extends HttpServlet {
+public class SuggestionEnrollFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public suggestionEnrollFormController() {
+    public SuggestionEnrollFormController() {
         super();
         // TODO Auto-generated constructor stub
     }

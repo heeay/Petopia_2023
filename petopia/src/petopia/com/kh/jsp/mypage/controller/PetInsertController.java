@@ -23,13 +23,13 @@ import petopia.com.kh.jsp.mypage.model.vo.PetFile;
  * Servlet implementation class petInsertController
  */
 @WebServlet("/petInsert.my")
-public class petInsertController extends HttpServlet {
+public class PetInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public petInsertController() {
+    public PetInsertController() {
         super();
     }
 

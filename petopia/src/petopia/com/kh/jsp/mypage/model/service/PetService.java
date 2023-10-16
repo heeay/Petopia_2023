@@ -14,6 +14,7 @@ import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
+import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public class PetService {
@@ -133,7 +134,7 @@ public class PetService {
 	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser, String startDate, String endDate) {
 		Connection conn = getConnection();
 		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi, loginUser, startDate, endDate);
-		System.out.println(hosList);
+		//System.out.println(hosList);
 		close(conn);
 		return hosList;
 	}
@@ -193,6 +194,21 @@ public class PetService {
 			rollback(conn);
 		}
 		return result;
+	}
+
+	public int selectWalkListCount(User loginUser) {
+		Connection conn = getConnection();
+		int walkListCount = new PetDao().selectWalkListCount(conn, loginUser);
+		close(conn);
+		return walkListCount;
+	}
+
+	public ArrayList<WalkRecords> selectWalkList(PageInfo pi, User loginUser, String startDate, String endDate) {
+		Connection conn = getConnection();
+		ArrayList<WalkRecords> walkRecords = new PetDao().selectWalkList(conn, pi, loginUser, startDate, endDate);
+		//System.out.println(walkRecords);
+		close(conn);
+		return walkRecords;
 	}
 
 
