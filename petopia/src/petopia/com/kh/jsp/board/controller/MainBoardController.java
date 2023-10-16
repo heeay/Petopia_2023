@@ -198,18 +198,8 @@ public class MainBoardController extends HttpServlet {
 		PageInfo pageInfo = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
-		 System.out.println(pi);
-		
-<<<<<<< Updated upstream
-		// 4) Service로 가자~
-		ArrayList<Board> list = new BoardService().selectList(pi);
-		
-		System.out.println(list);
-		// 5) 응답화면 지정
-		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
-		request.setAttribute("pi", pi);  // 아래 페이지바 
-//		response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
-=======
+ 
+ 
 		// 4) Service로 가자~ // pageInfo를 넘기는 이유 : select할 때 pageInfo이용하니까
 		ArrayList<Board> bList = new BoardService().selectList(pageInfo);
 		
@@ -227,7 +217,7 @@ public class MainBoardController extends HttpServlet {
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("bList", bList);
 		
->>>>>>> Stashed changes
+ 
 		request.getRequestDispatcher("views/board/mainBoardView.jsp").forward(request, response);
 		
 	}

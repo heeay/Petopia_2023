@@ -14,8 +14,7 @@
 		
 </entry>
 
-<<<<<<< Updated upstream
-=======
+
 
 
 <entry key="selectList">
@@ -97,7 +96,7 @@
 		       BOARD_NO,
 		       BOARD_TITLE,
 		       BOARD_VIEWS
-		       FILE_PATH || '/' || UPLOAD_NAME FILE_IMG
+		       FILE_PATH || '/' || UPLOAD_NAME 'FILE_IMG'
 		  FROM
 		       TB_BOARD A
 		  JOIN
@@ -165,7 +164,7 @@
 </entry>
 
 
->>>>>>> Stashed changes
+
 <!-- 
 최신글 순으로 정리된 게시글 수를 
 시작페이지와 끝페이지의 페이징바를 통해 번호(개수)로 나타내고

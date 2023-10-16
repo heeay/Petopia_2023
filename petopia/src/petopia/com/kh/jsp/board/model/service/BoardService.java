@@ -26,28 +26,7 @@ public class BoardService {
 		
 		return listCount;
 	}
-<<<<<<< Updated upstream
 
-	public int increaseViewsCount(int bno) {
-		
-		Connection conn = getConnection();
-		
-		int increaseCount = new BoardDao().increaseViewsCount(conn, bno);
-		
-		
-		if(increaseCount > 0) commit(conn);
-		else rollback(conn);
-		close(conn);
-		
-		return increaseCount;
-	}
-	
-		
-	
-	
-	
-	
-=======
 	
 	// 게시글 리스트 뽑기
 	public ArrayList<Board> selectList(PageInfo pageInfo) {
@@ -110,7 +89,7 @@ public class BoardService {
 		
 		 return board;
 	}
->>>>>>> Stashed changes
+
 	
 	
 }
