@@ -578,25 +578,50 @@ public class PetDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectWalkList");
-		String walkDate = "AND WALK_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
+		String walkDate = "AND WALK_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1      \r\n" + 
+				"								  ORDER BY WALK_NO DESC)\r\n" + 
+				"		  WHERE IND BETWEEN ? AND ?";
+		
+		String sql2 = " ORDER BY WALK_NO DESC)\r\n" + 
+				"		  WHERE IND BETWEEN ? AND ?";
+		
+		if(startDate == null) {
+			sql += sql2;
+		}
 		
 		if(startDate != null) {
 			sql += walkDate;
 		}
+		System.out.println(sql);
 		try {
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endrow = startRow+pi.getBoardLimit()-1;
+			int endRow = startRow+pi.getBoardLimit()-1;
+			
+			//System.out.println(startRow);
+			//System.out.println(endRow);
+			//System.out.println(pi.getBoardLimit());
 			
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, loginUser.getUserNo());
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endrow);
 			
-			if(startDate != null) {
-				pstmt.setString(4, startDate);
-				pstmt.setString(5, endDate);
+			if(startDate == null) {
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			}
+			if(startDate != null) {
+				pstmt.setString(2, startDate);
+				pstmt.setString(3, endDate);
+				pstmt.setInt(4, startRow);
+				pstmt.setInt(5, endRow);
+			}
+			
+			//System.out.println(startRow);
+			//System.out.println(endrow);
+			//System.out.println(loginUser.getUserNo());
+			//System.out.println(startDate);
+			//System.out.println(endDate);
+
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -617,6 +642,8 @@ public class PetDao {
 		}
 		return walkList;
 	}
+	
+	
 	public int insertWalk(Connection conn, WalkRecords wr) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -655,6 +682,103 @@ public class PetDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public WalkRecords selectWalkContent(Connection conn, int walkNo) {
+		WalkRecords wr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWalkContent");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  walkNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				wr = new WalkRecords();
+				wr.setWalkNo(rset.getInt("WALK_NO"));
+				wr.setWalkDate(rset.getString("WALK_DATE"));
+				wr.setWalkContent(rset.getString("WALK_CONTENT"));
+				wr.setWalkTitle(rset.getString("WALK_TITLE"));
+				wr.setPetNo(rset.getInt("PET_NO"));
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return wr;
+	}
+	public PetFile selectWalkFile(Connection conn, int walkNo) {
+		PetFile pf = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWalkFile");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, walkNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pf = new PetFile();
+				pf.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
+				pf.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				pf.setUploadName(rset.getString("UPLOAD_NAME"));
+				pf.setFilePath(rset.getString("FILE_PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pf;
+	}
+	public int updateWalkImg(Connection conn, PetFile pf) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		// sql 재활용
+		String sql = prop.getProperty("updatePetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pf.getOriginalName());
+			pstmt.setString(2, pf.getUploadName());
+			pstmt.setString(3, pf.getFilePath());
+			pstmt.setInt(4, pf.getFileNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateWalk(Connection conn, WalkRecords wr) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateWalk");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, wr.getWalkContent());
+			pstmt.setString(2, wr.getWalkTitle());
+			pstmt.setInt(3, wr.getPetNo());
+			pstmt.setInt(4, wr.getWalkNo());
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;
