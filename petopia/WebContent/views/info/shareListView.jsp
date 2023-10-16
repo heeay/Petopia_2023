@@ -24,10 +24,6 @@
         margin: auto;
         position: relative;
 	}
-	
-	div{
-		border : 1px solid red;
-	}
 
     #wrap{
         width: 780px;
@@ -41,10 +37,6 @@
     }
     
     #content-area{text-align: right;}
-
-    .info-list *{
-        border : 1px solid black;
-    }
 
     .info-list{
         border-collapse: separate;
