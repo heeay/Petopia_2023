@@ -383,7 +383,7 @@ public class PetDao {
 				pstmt.setString(4, startDate);
 				pstmt.setString(5, endDate);
 			}
-			//System.out.println(sql);
+			System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
