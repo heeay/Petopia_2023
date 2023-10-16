@@ -152,6 +152,22 @@ public class InfoService {
 		return result;
 	}
 	
+	public int deleteLike(int infoNo, int userNo) {
+			
+			Connection conn = getConnection();
+			
+			int result = new InfoDao().deleteLike(conn, infoNo, userNo);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			close(conn);
+			
+			return result;
+		}
+	
 	public int countLike(int infoNo) {
 		
 		Connection conn = getConnection();
