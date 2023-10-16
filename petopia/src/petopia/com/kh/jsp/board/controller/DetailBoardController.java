@@ -37,45 +37,8 @@ public class DetailBoardController extends HttpServlet {
  // boardDetail 조회시 board
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// mainBoard의 boardTitle을 클릭하면 detail.bo로 이동
-		// 1. 인코딩 생략
-		// 2. 값 뽑아내기 : PK인 boardNo만 뽑기 = 식별가능
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
-		
-		// 3. 기능 : 조회수 증가 : DML
-		
-		 int increaseCount = new BoardService().increaseViewsCount(bno);
-		 System.out.println("나는 조회수 증가" + increaseCount);
-		 
-		 
-		 // 서비스 갔다온 뒤 결과 조회수가 성공적으로 증가했다면 조회에 성공한 거임 이제 데이터 불러오면 됨
-		 if(increaseCount > 0) {
-			 // 보드 조회, 파일조회, 좋아요 조회도 같이
-			 
-			// 1. 보드 조회
-			 Board b = new BoardService().selectBoard(bno);
-			
-			// 2. 파일 조회
-			 ArrayList<File> fList = new BoardService().selectFile(bno);
-			 
-			 // 3. 좋아요 조회
-			 int likeCount = new BoardService().countLike(bno);
-			 
-			 // 조회한 결과 담기
-			 request.setAttribute("b", b);
-			 request.setAttribute("fList", fList);
-			 request.setAttribute("likeCount", likeCount);
-	
-			 // 조회한 결과 화면에 dispatch
-			 request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
-			 
-			 
-		 } else {
-			 request.getRequestDispatcher("views/common/errorPage.jsp");
-		 }
-		
 
+		 
 	}
 
 	/**

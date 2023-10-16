@@ -24,25 +24,29 @@ public class BoardService {
 		
 		return listCount;
 	}
-
-	public int increaseViewsCount(int bno) {
+	
+	public int selectLikeCount(int bno) {
 		
 		Connection conn = getConnection();
 		
-		int increaseCount = new BoardDao().increaseViewsCount(conn, bno);
+		int likeCount = new BoardDao().selectLikeCount(conn, bno);
 		
+		 close(conn);
 		
-		if(increaseCount > 0) commit(conn);
-		else rollback(conn);
-		close(conn);
-		
-		return increaseCount;
+		return likeCount;
 	}
 	
+	public void selectList() {
 		
-	
-	
-	
+		Connection conn = getConnection();
+		
+		new BoardDao().selectList(conn);
+		
+		 close(conn);
+		
+		
+	}
+
 	
 	
 	

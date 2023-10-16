@@ -37,7 +37,7 @@ public class BoardDao {
 		}
 	}
 	 
-	
+	// 게시글 수를 불러오는 메소드
 	public int selectListCount(Connection conn) {
 		
 		int listCount = 0;
@@ -66,140 +66,80 @@ public class BoardDao {
 
 		}
 		
-		System.out.println("난 게시글 총 개수 : " + listCount);
+		//System.out.println("난 게시글 총 개수 : " + listCount);
 		return listCount;
 	}
 	
-	public ArrayList<Board> selectList(Connection conn, PageInfo pi) {
+	// 게시글 번호를 통해 그 게시글의 좋아요 수를 불러오는 메소드
+	public int selectLikeCount(Connection conn, int bno) {
 		
-		ArrayList<Board> list = new ArrayList();
+		int likeCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
-		
+		String sql = prop.getProperty("selectLikeCount");
+	
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			// 위치홀더는 sql값을 넣는 게 아니라 계산식을 변수에 담아서 그 변수를 넣기
-			int startRow = ((pi.getCurrentPage()) - 1) * pi.getBoardLimit() + 1;
-			int endRow = startRow + pi.getBoardLimit() - 1;
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			System.out.println("startRow:" + startRow);
-			System.out.println("endRow:" +endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()){
-
-				Board b = new Board();
-				
-				// 메인게시판에 보여줄 컬럼은 총 8개 // board 필드는 총 11개  // sql은 8개 + rownum = 9개
-				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setBoardViews(rset.getInt("BOARD_VIEWS"));
-				b.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
-				b.setUserNo(rset.getInt("USER_NO"));
-				b.setFileNo(rset.getInt("FILE_NO"));
-				b.setCtgNo(rset.getInt("CTG_NO"));
-				b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
-			
-				list.add(b);
-			}
-			System.out.println("나는 resultSet : " + rset);
-
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		} finally {
-			
-			close(rset);
-			close(pstmt);
-
-			
-		}
-		
-		System.out.println("난 리스트 : " + list);
-		return list;
-		
-		
-	}
-	
-	public int increaseViewsCount(Connection conn, int bno) {
-		
-		int increaseCount = 0;
-		PreparedStatement pstmt = null;
-
-		
-		String sql = prop.getProperty("increaseViewsCount");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			// 여기가 문제였음 : 파라미터로 bno가져왔으면 PSTMT에 bno 셋팅하기
-			pstmt.setInt(1, bno);
-			
-			increaseCount = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		} finally {
-			
-			close(pstmt);
-		}
-		
-		return increaseCount;
-		
-	}
-	
-	
-	
-	public Board selectBoard(Connection conn, int bno) {
-		
-		Board b = new Board();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-		
-			pstmt.setInt(1, bno);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-			b.setBoardNo(rset.getInt("BOARD_NO"));
-			b.setBoardTitle(rset.getString("BOARD_TITLE"));
-			b.setBoardContent(rset.getString("BOARD_CONTENT"));
-			b.setBoardViews(rset.getInt("BOARD_VIEWS"));
-			b.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
-			b.setBoardUpdateDate(rset.getDate("BOARD_UPDATE_DATE"));
-			b.setUserNo(rset.getInt("USER_NO"));
-			b.setFileNo(rset.getInt("FILE_NO"));
-			b.setCtgNo(rset.getInt("CTG_NO"));
-			b.setPetCtgNo(rset.getInt("PET_CTG_NO"));
-			b.setLikeCount(rset.getInt("LIKE_COUNT"));
+				likeCount = rset.getInt("COUNT(*)");
 			}
 			
-			
 		} catch (SQLException e) {
-		
+			
 			e.printStackTrace();
+		
 		} finally {
+			
 			close(rset);
 			close(pstmt);
-		}
 
-		return b;
+		}
+		
+		//System.out.println("난 좋아요 총 개수 : " +likeCount);
+		return likeCount;
 	}
 	
- //상세조회에서 카테고리 보이는 건 생략	
-	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
+	public void selectList(Connection conn) {
+		
+		ArrayList<Board> bList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectList");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+			
+				Board b = new Board();
+				
+				b.set
+				
+				bList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		} finally {
+			
+			close(rset);
+			close(pstmt);
 
+		}
+		
+		
+		//int startRow = ((pi.getCurrentPage()) - 1) * pi.getBoardLimit() + 1;
+		//int endRow = startRow + pi.getBoardLimit() - 1;
+	}
+	
+	
 }//class

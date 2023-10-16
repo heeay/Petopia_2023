@@ -61,8 +61,8 @@ public class MainBoardController extends HttpServlet {
 		} catch(NumberFormatException e) {
 			currentPage = 1;
 		}
-		System.out.println("총게시글수 : " + listCount); 
-		System.out.println("사용자가 요청한 페이지 : " + currentPage);
+		//System.out.println("총게시글수 : " + listCount); 
+		//System.out.println("사용자가 요청한 페이지 : " + currentPage);
 		
 		// * pageLimit : 페이징바 최대 개수
 		pageLimit = 5;
@@ -116,7 +116,7 @@ public class MainBoardController extends HttpServlet {
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		// listCount == 0이면 maxPage도 0
 		
-		System.out.println("총페이지개수 : " + maxPage);
+		//System.out.println("총페이지개수 : " + maxPage);
 		
 		
 		// * startPage : 페이지 하단에 보여질 페이징바의 시작 수
@@ -163,7 +163,7 @@ public class MainBoardController extends HttpServlet {
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		// lsitCount가 0일때 currentPage -1은 0 == startPage는 1
 		
-		System.out.println("시작페이지 : " + startPage);
+		//System.out.println("시작페이지 : " + startPage);
 		// * endPage : 페이지 하단에 보여질 페이징바의 끝 수
 		/*
 		 * startPage, pageLimit에 영향을 받음 (단, maxPage도 마지막 페이징 바에 대해 영향을 끼침)
@@ -181,7 +181,7 @@ public class MainBoardController extends HttpServlet {
 		//listCount가 0일때 startPage는 1 == endPage는 pageLimit
 		// ==> pageLimit은 5이므로 endPage는 5
 		
-		System.out.println("끝 페이지 : " +  endPage);
+		//System.out.println("끝 페이지 : " +  endPage);
 		
 		
 		// startPage가 21이라서 endPage에는 30이 들어갔는데
@@ -198,16 +198,14 @@ public class MainBoardController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
-		 System.out.println(pi);
+		 //System.out.println(pi);
 		
 		// 4) Service로 가자~
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		new BoardService().selectList();
 		
-		System.out.println(list);
+		//System.out.println(list);
 		// 5) 응답화면 지정
-		request.setAttribute("list", list); // 우리가 실제로 조회한 페이지에 보여질 10개의 게시글
-		request.setAttribute("pi", pi);  // 아래 페이지바 
-//		response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
+	
 		request.getRequestDispatcher("views/board/mainBoardView.jsp").forward(request, response);
 		
 	}
