@@ -435,7 +435,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         // 슬라이더 동작 정의
         const swiper = new Swiper('.swiper', {
             autoplay : {
-                delay : 3000 // 3초마다 이미지 변경
+                delay : 4000 // 3초마다 이미지 변경
             },
             loop : true, //반복 재생 여부
             slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수

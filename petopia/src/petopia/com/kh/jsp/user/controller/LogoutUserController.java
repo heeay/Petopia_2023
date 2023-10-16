@@ -1,6 +1,8 @@
 package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +30,8 @@ public class LogoutUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.removeAttribute("userInfo");
+		session.invalidate();
+		//session.removeAttribute("userInfo");
 		
 		response.sendRedirect(request.getContextPath());
 	}
