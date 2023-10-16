@@ -47,7 +47,11 @@
             width: 460px;
             height: 50px;
             margin: auto;
-            margin-top: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        #email-auth-btn-wrap{
+            margin-top: 0px;
             margin-bottom: 5px;
         }
         .btn-wrap>button{
@@ -100,6 +104,18 @@
             font-size: 13px;
             font-weight: bold;
         }
+        #timer{
+            width: 50px;
+            height: 20px;
+            font-size: 15px;
+            color: rgb(97, 97, 97);
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: right;
+            right: 25%;
+        }
     </style>
 </head>
 <body>
@@ -123,7 +139,8 @@
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">key</span>
                     </div>
-                    <input id="auth-code" type="text" name="authCode" placeholder=" 인증코드" autocomplete="off">
+                    <input id="auth-code" type="text" maxlength="6" name="authCode" placeholder=" 인증코드" autocomplete="off">
+                    <div id="timer">2 : 00</div>
                     <button type="button" id="auth-code-btn">인증</button>
                 </div>
                 <div id="email-auth-success" style="display: none;">
@@ -179,6 +196,8 @@
         let nicknameFlag = false;
         let pwFlag = false;
         let phoneFlag = false;
+        let timerStart = false;
+        let curTime = 120;
         $(document).ready(function(){
             $("#register-submit").click(function(){
                 checkPhone();
@@ -400,22 +419,20 @@
                     const email = document.getElementById("email");
                     $("#email-auth-btn-wrap").css("display","none");
                     $("#auth-code-wrap").css("display","block");
+                    $("#err-email-auth").css("display","none").text("");
+                    
                     $.ajax({
                         url : "requestAuthEmail",
                         type : "get",
                         data : {email : email.value},
                         success : function(result){
                             console.log(result);
-                            if(result == "1"){
-                                $("#err-email-auth").css("display","none");
-                                $("#err-email-auth").text("");
-                            }
-                            else{
-                                
+                            if(result != "1"){
                                 $("#email-auth-btn-wrap").css("display","block");
                                 $("#auth-code-wrap").css("display","none");
-                                $("#err-email-auth").css("display","block");
-                                $("#err-email-auth").text("코드 전송이 실패했습니다.");
+                                $("#err-email-auth").css("display","block").text("코드 전송이 실패했습니다.");
+                            } else {
+                                startTimer();
                             }
                         },
                         error : function(e){
@@ -440,8 +457,8 @@
                             $("#auth-code-wrap").css("display","none");
                             $("#email-auth-success").css("display","block");
                             emailAuthFlag = true;
-                            $("#err-email-auth").css("display","none");
-                            $("#err-email-auth").text("");
+                            $("#err-email-auth").css("display","none").text("");
+                            endTimer();
                         }
                         else if(result == "404"){
                             $("#err-email-auth").css("display","block");
@@ -449,9 +466,8 @@
                         } else {
                             $("#email-auth-btn-wrap").css("display","block");
                             $("#auth-code-wrap").css("display","none");
-                            $("#err-email-auth").css("display","block");
-                            $("#err-email-auth").css("display","block");
-                            $("#err-email-auth").text("이미 만료된 코드입니다.");
+                            $("#err-email-auth").css("display","block").text("이미 만료된 코드입니다.");
+                            endTimer();
                         }
                     },
                     error : function(e){
@@ -460,6 +476,30 @@
                 });
             });
         })
+        let timer;
+        function startTimer(){
+            curTime = 120;
+            timerStart = true;
+            timer = window.setInterval(function(){
+                if(timerStart&&curTime>0){
+                    curTime--;
+                    let min = parseInt(curTime/60);
+                    let sec = curTime%60;
+                    if(sec<10){
+                        sec = '0'+sec;
+                    }
+                    str = min+" : "+sec;
+                    document.getElementById("timer").innerText = str;
+                }
+            }, 1000);
+        }
+        function endTimer(){
+            clearInterval(timer);
+            $("#auth-code").val("");
+            curTime = 120;
+            timerStart = false;
+            $("#timer").text("2 : 00");
+        }
     </script>
     </section>
 </body>

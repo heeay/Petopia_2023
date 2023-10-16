@@ -39,7 +39,7 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		String result="";
 		if(date==null) {
 			result = "404";
-		} else if(curDate.getTime()-date.getTime()<60000) {
+		} else if(curDate.getTime()-date.getTime()<120000) {
 			result = "200";
 		} else {
 			result = "400";
