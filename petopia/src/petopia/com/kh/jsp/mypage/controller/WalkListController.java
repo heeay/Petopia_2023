@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import petopia.com.kh.jsp.mypage.model.service.PetService;
-import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
+import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class HosListController
+ * Servlet implementation class WalkListController
  */
-@WebServlet("/hosList.my")
-public class HosListController extends HttpServlet {
+@WebServlet("/walkList.my")
+public class WalkListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HosListController() {
+    public WalkListController() {
         super();
     }
 
@@ -45,9 +45,6 @@ public class HosListController extends HttpServlet {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		
-		//System.out.println(startDate);
-		//System.out.println(endDate);
-		
 		int listCount;		// 현재 일반게시판의 게시글 총 개수
 		int currentPage;	// 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
 		int pageLimit;		// 페이지 하단에 보여질 페이징바의 최대 개수
@@ -57,14 +54,12 @@ public class HosListController extends HttpServlet {
 		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
 		int endPage;		// 페이지 하단에 보여질 페이징바의 끝 수
 		
-		listCount = new PetService().selectHosListCount(loginUser);
+		listCount = new PetService().selectWalkListCount(loginUser);
 		
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		
-		//System.out.println(currentPage);
-		
 		pageLimit = 10;
-		boardLimit = 8;
+		boardLimit = 3;
 		
 		maxPage = (int)Math.ceil((double)listCount/pageLimit);
 		
@@ -77,16 +72,13 @@ public class HosListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
 								boardLimit, maxPage, startPage, endPage);
-		//System.out.println(loginUser.getUserNo());
-		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, loginUser, startDate, endDate);
-		//System.out.println(pi);
-		//System.out.println(hosList);
-
-		request.setAttribute("hosList", hosList);
+		
+		ArrayList<WalkRecords> walkList = new PetService().selectWalkList(pi, loginUser, startDate, endDate);
+		
+		request.setAttribute("walkList", walkList);
 		request.setAttribute("pi", pi);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/hosListView.jsp");
-		view.forward(request, response);
+		request.getRequestDispatcher("/views/mypage/walkListView.jsp").forward(request, response);
 	}
 
 	/**

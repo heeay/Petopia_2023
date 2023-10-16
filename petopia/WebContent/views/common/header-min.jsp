@@ -191,6 +191,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             box-shadow: -4px 5px 5px -4px black;
         }
         #file-area{
+            width: 50px;
             display: inline-block;
         }
         .rounded-circle{
@@ -264,7 +265,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
                     	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
-                            <div style="width: 50px;" id="file-area">
+                            <div id="file-area">
                                 <% if(userInfo.getFileMypageNo().equals("/")) {%>
                                     <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
                                 <% } else {%>

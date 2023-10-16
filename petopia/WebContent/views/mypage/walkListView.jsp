@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	ArrayList<WalkRecords> walkList = (ArrayList<WalkRecords>)request.getAttribute("walkList");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,11 +100,14 @@
                     <div class="delete">
                         <button type="button" style="border: none; background-color: rgba(247, 222, 205, 0);">삭제하기</button>
                     </div>
-                    <p class="walk-title">산책기록</p>  
-                    <p class="walk-date">
-                        <input type="date" name="startday"> ~ <input type="date" name="lastday">
-                    </p>
-                    
+                    <p class="walk-title">산책기록</p>
+
+                    <form action="<%=contextPath %>/walkList.my">  
+                        <p class="walk-date">
+                            <input type="date" name="startDay"> ~ <input type="date" name="endDate">
+                            <button type="submit">조회</button>
+                        </p>
+                    </form>
                 </div>
 
                 <div class="walk-list">
@@ -109,7 +123,7 @@
                         </div>
 
                         <div>
-                            <p class="walk-1">오늘의 산책기록1</p>
+                            <p class="walk-1"><%= %>오늘의 산책기록1</p>
                             <p class="walk-2">2023-10-04</p>
                         </div>
 

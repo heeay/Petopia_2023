@@ -1,6 +1,8 @@
 package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +33,10 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		String email = request.getParameter("email");
 		String authCode = request.getParameter("authCode");
 		
-		boolean result = new UserService().selectEmailAuth(email, authCode);
+		Date date = new UserService().selectEmailAuth(email, authCode);
+		
+		String result="";
+		//if(date)
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);

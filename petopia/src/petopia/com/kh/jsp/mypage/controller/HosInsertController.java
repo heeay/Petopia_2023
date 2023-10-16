@@ -30,6 +30,10 @@ public class HosInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("userInfo")==null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		request.setCharacterEncoding("UTF-8");
 		
 		int petNo = Integer.parseInt(request.getParameter("petNo"));

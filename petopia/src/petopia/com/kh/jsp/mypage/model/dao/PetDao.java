@@ -14,6 +14,7 @@ import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
+import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
@@ -359,11 +360,12 @@ public class PetDao {
 		
 		String sql = prop.getProperty("selectHosList");
 		String hosDate = "AND HOS_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
+		
 		if(startDate != null) {
 			sql += hosDate;
 		}
+		
 		try {
-			
 			
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 			int endrow = startRow+pi.getBoardLimit()-1;
@@ -381,7 +383,7 @@ public class PetDao {
 				pstmt.setString(4, startDate);
 				pstmt.setString(5, endDate);
 			}
-			System.out.println(sql);
+			//System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -399,7 +401,7 @@ public class PetDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(hosList);
+		//System.out.println(hosList);
 		return hosList;
 	}
 	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
@@ -547,6 +549,72 @@ public class PetDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int selectWalkListCount(Connection conn, User loginUser) {
+		int walkListCount=0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWalkListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				walkListCount =  rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return walkListCount;
+	}
+	public ArrayList<WalkRecords> selectWalkList(Connection conn, PageInfo pi, User loginUser, String startDate, String endDate) {
+		ArrayList<WalkRecords> walkList= new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWalkList");
+		String walkDate = "AND WALK_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
+		
+		if(startDate != null) {
+			sql += walkDate;
+		}
+		try {
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginUser.getUserNo());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endrow);
+			
+			if(startDate != null) {
+				pstmt.setString(4, startDate);
+				pstmt.setString(5, endDate);
+			}
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				WalkRecords wr = new WalkRecords();
+				wr.setWalkNo(rset.getInt("WALK_NO"));
+				wr.setWalkDate(rset.getString("WALK_DATE"));
+				wr.setWalkTitle(rset.getString("WALK_TITLE"));
+				wr.setRowNum(rset.getInt("IND"));
+				
+				walkList.add(wr);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return walkList;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

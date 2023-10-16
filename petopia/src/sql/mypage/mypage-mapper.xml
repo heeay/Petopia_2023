@@ -237,26 +237,25 @@
 		  		TB_PET USING (PET_NO) 
 		  WHERE 
 		 		USER_NO = ? 
-		 		
 	</entry>
 	
 	<entry key="selectHosList">
 		 SELECT * 
-  		   		   FROM (SELECT *
-          		  		   FROM (SELECT 
-		          		  				ROWNUM IND,
-								 		HOS_NO,
-										TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
-										PET_NAME
-								   FROM 
-								   		TB_HOS_RECORDS 
-								   JOIN 
-								   		TB_PET USING (PET_NO) 
-								  WHERE 
-								  		USER_NO = ? 
-								  ORDER BY HOS_DATE)
-						  ORDER BY IND DESC)
-		  WHERE IND BETWEEN ? AND ?
+  		   FROM (SELECT * 
+          		   FROM (SELECT 
+		          		  		ROWNUM IND,
+								HOS_NO,
+								TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+								PET_NAME
+						   FROM 
+								TB_HOS_RECORDS 
+						   JOIN 
+								TB_PET USING (PET_NO) 
+						  WHERE 
+								USER_NO = ? 
+						  ORDER BY HOS_DATE) 
+				   ORDER BY IND DESC) 
+		  WHERE IND BETWEEN ? AND ? 
 	</entry>
 	
 	<entry key="selectPetName">
@@ -327,4 +326,33 @@
     	  		Hos_NO=? 
 	</entry>
 	
+	<entry key="selectWalkListCount">
+		 SELECT 
+				COUNT(*) 
+		   FROM 
+		  		TB_WALK_RECORDS 
+		   JOIN 
+		  		TB_PET USING (PET_NO) 
+		  WHERE 
+		 		USER_NO = ? 
+	</entry>
+	
+	<entry key="selectHosList">
+				 SELECT * 
+  		   		   FROM (SELECT *
+          		  		   FROM (SELECT 
+		          		  				ROWNUM IND,
+								 		WALK_NO,
+										TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+										WALK_TITLE
+								   FROM 
+								   		TB_WALK_RECORDS 
+								   JOIN 
+								   		TB_PET USING (PET_NO) 
+								  WHERE 
+								  		USER_NO = ? 
+								  ORDER BY WALK_DATE)
+						  ORDER BY IND DESC)
+		  WHERE IND BETWEEN ? AND ?
+	</entry>
 </properties>

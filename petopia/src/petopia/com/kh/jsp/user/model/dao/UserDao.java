@@ -3,6 +3,7 @@ package petopia.com.kh.jsp.user.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -264,8 +265,8 @@ public class UserDao {
 		
 		return result;
 	}
-	public boolean selectEmailAuth(Connection conn, String email, String authCode) {
-		boolean isThere = false;
+	public Date selectEmailAuth(Connection conn, String email, String authCode) {
+		Date date = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectEmailAuth");
@@ -276,8 +277,10 @@ public class UserDao {
 			pstmt.setString(2, authCode);
 			
 			rset = pstmt.executeQuery();
-			isThere = rset.next();
-			
+			if(rset.next()) {
+				date = rset.getDate("EMAIL_AUTH_DATE");
+				System.out.println(date);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -285,7 +288,7 @@ public class UserDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
-		return isThere;
+		return date;
 	}
 	public boolean selectToken(Connection conn, String token) {
 		boolean isThere = false;

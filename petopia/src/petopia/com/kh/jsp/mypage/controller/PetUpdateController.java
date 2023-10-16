@@ -21,13 +21,13 @@ import petopia.com.kh.jsp.mypage.model.vo.PetFile;
  * Servlet implementation class petUpdateController
  */
 @WebServlet("/petUpdate.my")
-public class petUpdateController extends HttpServlet {
+public class PetUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public petUpdateController() {
+    public PetUpdateController() {
         super();
     }
 
@@ -35,7 +35,10 @@ public class petUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(request.getSession().getAttribute("userInfo")==null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
