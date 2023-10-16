@@ -222,7 +222,7 @@
 
                             <div class="btn-wid">
                                 <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
-                                <a href="<%=contextPath%>/deletePet.my?pno=<%=p.getPetNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
+                                <a href="<%=contextPath%>/deletePet.my?pno=<%=p.getPetNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 관련된 모든 기능이 같이 삭제되어 복구할수 없습니다. \n정말 삭제하시겠습니까??')){return false;}">삭제하기</a>
                             </div>
 
                         </div>

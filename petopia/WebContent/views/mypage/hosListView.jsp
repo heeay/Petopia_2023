@@ -72,7 +72,7 @@
                 <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                     <input type="hidden" name="cpage" value="<%=currentPage%>">
-                    <button type="submit">조회</button>
+                    <button type="submit" class="btn btn-sm btn-secondary">조회</button>
                 </div>
                 </form>
             </div>
