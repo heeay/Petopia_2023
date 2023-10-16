@@ -199,6 +199,19 @@
 			   )
 	</entry>
 	
+	<entry key="deleteLike">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'N'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND 
+		       LIKE_YN = 'Y'
+	</entry>
+	
 	<entry key="countLike">
 		SELECT
 			   COUNT(*)
