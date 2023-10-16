@@ -79,6 +79,14 @@ public class LoginUserController extends HttpServlet {
 				}
 			}
 			
+			ServletContext application = request.getSession().getServletContext();
+			
+			if(application.getAttribute("accessCount")==null) {
+				application.setAttribute("accessCount", 0);
+			}
+			int ac = (Integer)application.getAttribute("accessCount");
+			application.setAttribute("accessCount", ++ac);
+			
 			request.getSession().setAttribute("userInfo", user);
 			response.sendRedirect(request.getContextPath());
 		}

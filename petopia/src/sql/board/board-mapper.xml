@@ -16,24 +16,8 @@
 
 
 
-
+<!-- 메인보드에서 게시글을 한페이지에 boardLimit만큼 보여주는  SQL -->
 <entry key="selectList">
-<!-- 내꺼		SELECT
-						BOARD_NO,
-						BOARD_TITLE,
-						BOARD_VIEWS,
-						BOARD_CREATE_DATE,
-						USER_NO,
-						FILE_NO,
-						CTG_NO,
-						PET_CTG_NO
-		FROM
-						TB_BOARD
-		WHERE 
-						BOARD_STATUS = 'Y'	
-			AND
-						BOARD  -->
-						
 		<!-- rownum과 페이징처리 공부하기 -->						
 		SELECT *
 				  FROM (SELECT ROWNUM RNUM, A.*
@@ -62,6 +46,7 @@
 
 </entry>
 
+<!-- 게시글 조회에 앞서 조회수카운팅이 선행되어야하므로 만들어진 SQL -->
 <entry key="increaseViewCount">
 	 	UPDATE
 	 					TB_BOARD
@@ -93,21 +78,25 @@
 		                BOARD_NO = ?-->
 		                
 		SELECT
-		       BOARD_NO,
-		       BOARD_TITLE,
-		       BOARD_VIEWS
-		       FILE_PATH || '/' || UPLOAD_NAME 'FILE_IMG'
+		       FILE_NO,
+		       REF_BNO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH,
+		       FILE_LEVEL
 		  FROM
-		       TB_BOARD A
+		       TB_FILE A
 		  JOIN
-		       TB_FILE B ON(A.BOARD_NO = B.REF_BNO)
+		       TB_BOARD B ON(B.BOARD_NO = A.REF_BNO)
 		 WHERE
-		       FILE_LEVEL = 1
+		       FILE_LEVEL = 1 <!-- 썸네일용 -->
 		   AND
 		       BOARD_STATUS = 'Y'
+		   AND 
+		   		BOARD_NO = ?
 		 ORDER
 		    BY
-		       BOARD_NO DESC
+		       REF_BNO DESC
 </entry>
 
 
@@ -163,157 +152,27 @@
 		                BOARD_NO = ?
 </entry>
 
-
-
+<!-- 게시글 수에 따른 유저등급관리 -->
+<entry key="">
+		UPDATE 
+						TB_USER
+		SET
+						ROLE_ID = 'R1'
+		WHERE 
+						(
+						SELECT 
+									COUNT(*) 
+						FROM 
+									TB_BOARD 
+						WHERE 
+									USER_ID = ? 
+						)  = ?
+					
+</entry>
 <!-- 
 최신글 순으로 정리된 게시글 수를 
 시작페이지와 끝페이지의 페이징바를 통해 번호(개수)로 나타내고
 한편, 조회된 리스트들을 보여주는 SQL
 -->
-<entry key="selectList">
-		SELECT *
-		  FROM (SELECT ROWNUM RNUM, A.*
-		          FROM (SELECT 
-		                       BOARD_NO,
-		                       BOARD_TITLE,
-		                       BOARD_VIEWS,
-		                       BOARD_CREATE_DATE,
-		                       USER_NO,
-		                       FILE_NO,
-		                       CTG_NO,
-		                       PET_CTG_NO
-		                  FROM
-		                       TB_BOARD
-		                  JOIN
-		                        TB_USER
-		                        		USING(USER_NO) 
-		                  JOIN
-		                        TB_FILE
-		                        		USING(FILE_NO) 
-		                  JOIN
-		                        TB_CATEGORY
-		                        		USING(CTG_NO) 
-		                  JOIN 
-		                  		TB_PET_CATEGORY
-		                  				USING(PET_CTG_NO)
-		                 WHERE
-		                       BOARD_STATUS = 'Y'
-		                 ORDER
-		                    BY BOARD_CREATE_DATE DESC) A)
-		         WHERE RNUM BETWEEN ? AND ?
-		         		
-</entry>
-
-<!--  -->
-<entry key="selectBoard">
-						SELECT <!-- SELECT문은 특히 PK등 중요컬럼은 당장 쓰지 않더라도 가져오기
-						나중에 HIDDEN으로도 넘길 수 있기 때문 : -->
-		                       BOARD_NO,
-		                       BOARD_TITLE,
-		                       BOARD_CONTENT,
-		                       BOARD_VIEWS,
-		                       BOARD_CREATE_DATE,
-		                       BOARD_UPDATE_DATE,
-		                       USER_NO,
-		                       FILE_NO,
-		                       CTG_NO,
-		                       PET_CTG_NO,
-		                       LIKE_COUNT
-		                  FROM
-		                       TB_BOARD
-		                  JOIN
-		                        TB_USER
-		                        		USING(USER_NO) 
-		                   <!-- 이건 없어도 되나? 파일테이블에서 또 조회하니깐... -->
-		                  JOIN
-		                        TB_FILE
-		                        		USING(FILE_NO) 
-		                  JOIN
-		                        TB_CATEGORY
-		                        		USING(CTG_NO) 
-		                  JOIN 
-		                  		TB_PET_CATEGORY
-		                  				USING(PET_CTG_NO)
-		                  JOIN
-		                  		TB_LIKE
-		                  				USING(BOARD_NO)
-		                 WHERE
-		                       BOARD_STATUS = 'Y'
-		                 AND
-		                 		BOARD_NO = ?
-		           
-		         		
-</entry>
-
-<entry key="increaseViewsCount">
-		UPDATE 
-						TB_BOARD
-		SET 
-						BOARD_VIEWS = BOARD_VIEWS + 1
-		WHERE 	
-						BOARD_NO = ?
-
-</entry>
-
-
-<entry key="increaseLikeCount">
-			UPDATE
-							TB_BOARD 
-				JOIN
-							TB_LIKE 
-									USING(BOARD_NO) 
-			SET
-							LIKE_COUNT  = LIKE_COUNT + 1			
-			WHERE
-							BOARD_NO = ?	
-				<!-- TB_BOARD에 없는 컬럼인데 JOIN했으니 참조할 수 있나?? -->
-			 	AND
-			 				LIKE_YN = 'N'
-	
-
-</entry>
-
-
-<entry key="selectCtgList">
-			SELECT 
-							CTG_NO,
-							CTG_NAME
-			FROM
-							TB_CATEGORY
-	
-</entry>
-
-<entry key="selectFile">
-			SELECT
-							FILE_NO,
-							ORIGINAL_NAME,
-							UPLOAD_NAME,
-							FILE_PATH
-							<!-- 왜 FILE_LEVEL은 안 해? -->
-			FROM
-							TB_FILE
-			WHERE
-							REF_BNO = ?
-			ORDER
-				BY
-							FILE_NO ASC
-
-
-</entry>
-
-
-<entry key="countLike">
-			SELECT
-			<!-- USER_NO를 카운트해도 됨 -->
-							COUNT(*)
-			FROM
-							TB_LIKE
-			WHERE
-							BOARD_NO = ?
-				
-			 	AND
-			 				LIKE_YN = 'Y'
-	
-</entry>
 
 </properties>

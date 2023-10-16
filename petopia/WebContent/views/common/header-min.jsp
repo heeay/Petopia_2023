@@ -210,6 +210,16 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             	<% session.removeAttribute("alertMsg"); %>
             }
         })
+        window.addEventListener("beforeunload", function (e) {
+            if (closing_window) {
+                $.ajax({
+                    type: "POST",
+                    url: "/logout",
+                    async: false
+                });
+                return;
+            }
+        });
     </script>
 <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
