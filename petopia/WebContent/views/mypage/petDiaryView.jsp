@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
 <%
     HosRecords hr = (HosRecords)request.getAttribute("hr");
+	WalkRecords wr = (WalkRecords)request.getAttribute("wr");
 %>   
 <!DOCTYPE html>
 <html>
@@ -192,26 +193,34 @@
                     <div class="content-title">산책기록</div>
 
                     <div class="content">
-                        <form action="">
+                        
                             
                             <div align="center">
-
+								<% if(hr == null) {%>
                                 <div class="content-top">
                                     <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="350" height="250">
                                 </div>
-
                                 <div class="content-top"></div>
                                 <div class="text-hidden">
-                                    <b>제목내용</b>
+                                    <b>산책기록을 작성해 주세요</b>
+                                </div>
+								<% } else { %>
+								<div class="content-top">
+                                    <img src="<%=contextPath%>/<%=wr.getFileNo() %>" alt="산책기본" width="350" height="250">
+                                </div>
+                                
+                                <div class="content-top"></div>
+                                <div class="text-hidden">
+                                    <b><%=wr.getWalkTitle() %></b>
                                 </div>
 
                                 <div class="content-top"></div>
                                 <div class="content-inblock walk-box text-auto">
-                                    <p>컨텐트 내용</p>
+                                    <p><%=wr.getWalkContent() %></p>
                                 </div>
                             </div>
-
-                        </form>
+							<% } %>
+                        
 
                         <div class="btn-right">
                             <a href="<%=contextPath %>/walkList.my?cpage=1" class="btn btn-sm btn-secondary">more</a>

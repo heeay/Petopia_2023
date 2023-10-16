@@ -337,6 +337,25 @@ public class InfoDao {
 		}
 		return result;
 	}
+	
+	public int deleteLike(Connection conn, int infoNo, int userNo) {
+			
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteLike");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, infoNo);
+				pstmt.setInt(2, userNo);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
 
 	public int countLike(Connection conn, int infoNo) {
 		

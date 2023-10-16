@@ -489,7 +489,7 @@ public class PetDao {
 		String sql = prop.getProperty("selectHosMain");
 		try {
 			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1,  loginUser.getUserNo());
+			pstmt.setInt(1, loginUser.getUserNo());
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
@@ -782,6 +782,32 @@ public class PetDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public WalkRecords selectWalkMain(Connection conn, User loginUser) {
+		WalkRecords wr = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWalkMain");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				wr = new WalkRecords();
+				wr.setWalkContent(rset.getString("WALK_CONTENT"));
+				wr.setWalkTitle(rset.getString("WALK_TITLE"));
+				wr.setFileNo(rset.getString("PATH"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return wr;
+		
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

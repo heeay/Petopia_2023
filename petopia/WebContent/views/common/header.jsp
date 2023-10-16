@@ -287,6 +287,22 @@ User userInfo = (User)session.getAttribute("userInfo");
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
         })
+        /*window.addEventListener("beforeunload", function (e) {
+            var confirmationMessage = "\o/";
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Webkit, Safari, Chrome
+        });*/
+        //https://han288.tistory.com/49
+        window.addEventListener("beforeunload", function (e) {
+            if (closing_window) {
+                $.ajax({
+                    type: "POST",
+                    url: "/logout",
+                    async: false
+                });
+                return;
+            }
+        });
     </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
@@ -435,7 +451,7 @@ User userInfo = (User)session.getAttribute("userInfo");
         // 슬라이더 동작 정의
         const swiper = new Swiper('.swiper', {
             autoplay : {
-                delay : 3000 // 3초마다 이미지 변경
+                delay : 4000 // 3초마다 이미지 변경
             },
             loop : true, //반복 재생 여부
             slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수

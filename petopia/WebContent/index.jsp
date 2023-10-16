@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+int accessCount = application.getAttribute("accessCount")!=null ? (Integer)application.getAttribute("accessCount") : 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,7 +182,36 @@
                 }
 	        </script>
 
-
+            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <canvas id="access-chart" width="250" height="200"></canvas>
+            <script>
+                new Chart(document.getElementById("access-chart"), {
+                type: 'line',
+                data: {
+                    labels: [1750,1800,1850,1900,1950,1999,2050],
+                    datasets: [{ 
+                        data: [119,120,111,133,221,183,208],
+                        label: "접속자",
+                        borderColor: "#3e95cd",
+                        fill: true
+                    }]
+                },
+                options: {
+                    title: {
+                        display: false
+                    },
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                }
+            });
+            </script>
 
             <div class="board-item">
                 <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">

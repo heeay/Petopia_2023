@@ -106,7 +106,7 @@
                                     <td><%=hosList.get(i-1).getHosDate() %></td>
                                     <td><%=hosList.get(i-1).getPetName() %></td>
                                     <td style="width: 20px; border-top:none;">
-				                        <a href="<%=contextPath%>/deleteHos.my?hno=<%=hosList.get(i-1).getHosNo() %>" class="btn btn-sm btn-secondary" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</button>
+				                        <a href="<%=contextPath%>/deleteHos.my?hno=<%=hosList.get(i-1).getHosNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
 				                    </td>
                         	    </tr>
                         	<% } %>
