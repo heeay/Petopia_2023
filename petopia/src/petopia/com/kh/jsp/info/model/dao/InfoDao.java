@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
-import petopia.com.kh.jsp.user.model.vo.User;
 
 public class InfoDao {
 	
@@ -293,33 +293,59 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int selectUser(Connection conn, int infoNo, int userNo) {
+	public int checkLike(Connection conn, int infoNo, int userNo) {
 		
-		int countUser = 0;
+		int check = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectUser");
+		String sql = prop.getProperty("checkLike");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, infoNo);
 			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				countUser = rset.getInt("COUNT(*)");
+				check = rset.getInt("COUNT(*)");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return countUser;
+		return check;
 	}
 	
-	public int insertLike(Connection conn, int infoNo, int userNo) {
+	public int checkNoLike(Connection conn, int infoNo, int userNo) {
+		
+		int checkNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkNoLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, infoNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkNo = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return checkNo;
+	}
+	
+	public int insertLike(Connection conn, Like like) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -327,8 +353,8 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, infoNo);
-			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, like.getBoardNo());
+			pstmt.setInt(2, like.getUserNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -356,6 +382,25 @@ public class InfoDao {
 			}
 			return result;
 		}
+	
+	public int updateLike(Connection conn, int infoNo, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, infoNo);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	public int countLike(Connection conn, int infoNo) {
 		
