@@ -27,24 +27,23 @@
 	</entry>
 	
 	<entry key="insertFileList">
-		INSERT
-		  INTO
-		      TB_FILE
-		      (
-		      FILE_NO,
-		      ORIGINAL_NAME,
-		      UPLOAD_NAME,
-		      FILE_PATH,
-		      FILE_LEVEL
-		      )
-		VALUES
-			  (
-			  SEQ_FILE_NO.NEXTVAL,
-			  ?,
-			  ?,
-			  ?,
-			  ?
-			  )
+      INSERT
+			  INTO
+				TB_FILE(FILE_NO,
+				 REF_BNO, 
+				 ORIGINAL_NAME, 
+				 UPLOAD_NAME, 
+				 FILE_PATH, 
+				 FILE_LEVEL)
+		    VALUES      
+				  (
+				  SEQ_FILE_NO.NEXTVAL,
+				  SEQ_MEET_BOARD_NO.NEXTVAL, 
+				  ?,
+				  ?,
+				  ?,
+				  ?
+				  )
 		      
 	</entry>
 	
@@ -81,6 +80,9 @@
 			  
 	     WHERE
 	     	  STATUS = 'Y'
+	     ORDER
+	        BY 
+	     	  MEET_BOARD_NO DESC  
 			  
 	</entry>
 

@@ -38,6 +38,7 @@ public class MatchDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			
 			pstmt.setString(1, m.getMeetBoardTitle());
 			pstmt.setString(2, m.getPetInfo());
 			pstmt.setString(3, m.getHopeActivity());
@@ -70,7 +71,7 @@ public class MatchDao {
 				pstmt.setString(3, fi.getFilePath());
 				pstmt.setInt(4, fi.getFileLevel());
 				
-				result = pstmt.executeUpdate();
+				result += pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
