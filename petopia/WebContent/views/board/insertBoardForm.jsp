@@ -136,7 +136,7 @@
                             
                             <% for(Category category : cList) { %>
 								<option value="<%= category.getCtgNo() %>">
-									<%= category.getCtgNo() %>
+									<%= category.getCtgName() %>
 								</option>                            
                             <% } %>
                         </select>

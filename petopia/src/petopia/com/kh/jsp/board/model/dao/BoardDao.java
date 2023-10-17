@@ -272,7 +272,7 @@ public class BoardDao {
 					board.setBoardContent(rset.getString("BOARD_CONTENT"));
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setUserNo(rset.getInt("USER_NO"));
-					board.setFileImg(rset.getString("FILE_IMG"));
+					
 					board.setLikeCount(rset.getInt("LIKE_COUNT"));
 					
 				}
@@ -311,6 +311,7 @@ public class BoardDao {
 					category.setCtgName(rset.getString("CTG_NAME"));
 					
 					cList.add(category);
+					System.out.println("나는 cateogrylist인데 반복문안이야 : " +  category);
 				}
 				
 			} catch (SQLException e) {
@@ -327,7 +328,7 @@ public class BoardDao {
 		
 		public int insertBoard(Connection conn, Board board) {
 		
-			int result1 = 0;
+			int boardInsert = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertBoard");
 			
@@ -344,7 +345,7 @@ public class BoardDao {
 				pstmt.setInt(4, board.getCtgNo());
 
 				
-				result1 = pstmt.executeUpdate();
+				boardInsert = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -353,12 +354,15 @@ public class BoardDao {
 				close(pstmt);
 			}
 
-			return result1;
+			return boardInsert;
 		}
+		
+		
+
 		
 		public int insertFileList(Connection conn, ArrayList<File> fList) {
 			
-			int result2 = 0;
+			int fileInsert = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertFileList");
 			
@@ -367,8 +371,7 @@ public class BoardDao {
 				
 				//리스트의 요소 개수만큼  TB_FILE에 행을 추가
 				for(File file : fList) {
-	
-					
+
 					pstmt.setString(1, file.getOriginalName());
 					pstmt.setString(2, file.getUploadName());
 					pstmt.setString(3, file.getFilePath());
@@ -378,7 +381,7 @@ public class BoardDao {
 //					fList.add(file);
 //					result2 = pstmt.executeUpdate();
 					
-					result2 += pstmt.executeUpdate();
+					fileInsert += pstmt.executeUpdate();
 				
 				}// 리스트에 객체 다 넣었으면
 				
@@ -390,7 +393,7 @@ public class BoardDao {
 				
 				close(pstmt);
 			}
-			return result2;
+			return fileInsert;
 		}
 	
 	

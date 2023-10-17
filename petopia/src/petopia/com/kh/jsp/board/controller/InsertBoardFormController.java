@@ -35,7 +35,7 @@ public class InsertBoardFormController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 //		// 카테고리 데이터 넣어주기 작업 후 form으로 이동합니다.
-//		
+
 		ArrayList<Category> cList = new BoardService().selectCategoryList();
 
 		request.setAttribute("cList", cList);
