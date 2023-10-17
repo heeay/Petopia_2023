@@ -1,5 +1,7 @@
 package petopia.com.kh.jsp.user.model.dao;
 
+import static petopia.com.kh.jsp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,8 +9,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.common.JDBCTemplate;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.vo.User;

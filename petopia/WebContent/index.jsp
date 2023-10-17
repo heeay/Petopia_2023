@@ -144,6 +144,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             font-family: 'Nanum Pen Script', cursive;
             margin-bottom: 40px;
         }
+        .center-text-align{text-align: center;}
         .right-text-align{text-align: right;}
         .highlight-text{
             color: rgb(141, 88, 23);
@@ -294,10 +295,11 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             </script>-->
             <div class="article-wrap">
                 <div class="article-title">※펫토피아를 소개합니다!※</div>
-                <div class="article-content">
-                    위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를 철환하였는가?<br>
-                    밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?<br>
-                    아니다 그들은 커다란 이상 곧<br>
+                <div class="article-content center-text-align">
+                    펫토피아는 동물과 사람을 생각하는 글로벌 일류기업을 추구합니다.<br>
+                    '경영이념, 핵심가치, 경영원칙'의 가치체계를 경영의 나침반으로 삼고,<br>
+                    인재와 기술을 바탕으로 최고의 제품과 서비스를 창출하여<br>
+                    인류사회에 공헌하는 것을 궁극적인 목표로 삼고 있습니다.<br>
                 </div>
 
             </div>
@@ -351,6 +353,47 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                 </p>
                             </div>
                         </div>
+                        <div class="swiper-slide">
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
                     </div>
             
                     <!-- If we need pagination -->
@@ -381,6 +424,43 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                         nextEl: '.swiper-button-next'
                     }
                 }); 
+            </script>
+            <script>
+                $(document).ready(function(){
+                    $.ajax({
+                        url:"bestBoard",
+                        type:"post",
+                        //data:{}
+                        success: function(result){
+                            console.log(result);
+                            const swiperWrapper = $(".board-swiper>.swiper-wrapper");
+                            //swiperWrapper.empty();
+                            for(var i=0;i<result.length;i++){
+                                console.log(result[i]["boardTitle"]);
+                                var str=
+                                //"<div class='swiper-slide'>"+
+                                "<div class='board-item'>"+
+                                "<div class='board-thumbnail-wrap'>"+
+                                "<img src='"+result[i]["fileImg"]+"'>"+
+                                "</div>"+
+                                "<div>"+result[i]["boardTitle"]+" [125]</div>"+
+                                "<div class='text'><img class='text-icon' src='<%=contextPath %>/resources/images/writer.svg'>"+result[i]["boardContent"]+"</div>"+
+                                "<div class='text'>"+
+                                "<img class='text-icon' src='<%=contextPath %>/resources/images/create_date.svg'>"+result[i]["boardCreateDate"]
+                                "<img class='text-icon' src='<%=contextPath %>/resources/images/views.svg'>"+result[i]["boardViews"]
+                                "</div>"+
+                                //"</div>"+
+                                "</div>";
+                                var swiperSlide = $("<div></div>").addClass("swiper-slide");
+                                swiperSlide.append(str);
+                                //swiperWrapper.append(swiperSlide);
+                            }
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    })
+                })
             </script>
             <div class="article-wrap">
                 <div class="article-title">※추구하는 가치 등※</div>
