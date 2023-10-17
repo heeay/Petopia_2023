@@ -76,7 +76,26 @@
                 </div>
                 </form>
             </div>
-            
+            <script>
+                const urlParams = new URL(location.href).searchParams;
+
+                const startDate = urlParams.get('startDate');
+                const endDate = urlParams.get('endDate');
+
+
+                console.log(startDate);
+                console.log(endDate);
+
+                $(function () {
+
+                const dateControl = document.querySelector('input[name="startDate"]')
+                dateControl.value = startDate;
+
+                const dateControl2 = document.querySelector('input[name="endDate"]')
+                dateControl2.value = endDate;
+                });
+
+            </script>
             
         </div>
         
