@@ -95,6 +95,17 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
     </style>
     <style>
+        .board-swiper-title{
+            color: rgb(255, 243, 224);
+            font-size: 40px;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+            border-style: solid;
+            border-color: rgb(87, 55, 43);
+            border-width: 2px 0;
+            background-color: rgb(124, 95, 84);
+            margin: 5px;
+        }
         #board-swiper-wrap{
             overflow: hidden;
         }
@@ -118,13 +129,24 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
     </style>
     <style>
-        .content-title{
-            color: rgb(226, 120, 59);
-            font-weight: bold;
-            font-size: 19px;
+        .article-wrap{
+            padding: 0 50px;
         }
-        .content{
-            font-size: 17px;
+        .article-title{
+            color: rgb(104, 74, 56);
+            font-weight: bold;
+            font-size: 42px;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+        }
+        .article-content{
+            font-size: 27px;
+            font-family: 'Nanum Pen Script', cursive;
+            margin-bottom: 40px;
+        }
+        .right-text-align{text-align: right;}
+        .highlight-text{
+            color: rgb(141, 88, 23);
         }
     </style>
 </head>
@@ -270,13 +292,18 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 }
             });
             </script>-->
-            <p>
-                <div class="content-title">※펫토피아를 소개합니다!※</div>
-<pre class="content">
-qweqwe
-</pre>
+            <div class="article-wrap">
+                <div class="article-title">※펫토피아를 소개합니다!※</div>
+                <div class="article-content">
+                    위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를 철환하였는가?<br>
+                    밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?<br>
+                    아니다 그들은 커다란 이상 곧<br>
+                </div>
 
-            </p>
+            </div>
+            <div class="board-swiper-title">
+                베스트 게시판
+            </div>
             <div id="board-swiper-wrap">
                 <!-- Slider main container -->
                 <div class="board-swiper">
@@ -355,14 +382,18 @@ qweqwe
                     }
                 }); 
             </script>
-            <div class="board-item">
-                <div class="board-thumbnail-wrap">
-                    <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+            <div class="article-wrap">
+                <div class="article-title">※추구하는 가치 등※</div>
+                <div class="article-content">
+                    함께하는 시간동안 동물이 아닌 <span class="highlight-text">가족</span>으로써의<br>
+                    삶을 함께 살고자 하는 반려인들에게 올바른 <span class="highlight-text">이정표</span>이자<br>
+                    신나는 <span class="highlight-text">놀이터</span>로써의 역할을 하고자 합니다.<br>
                 </div>
-                <p>
-                    <div>강아지 목욕 꿀팁!</div>
-                    <div>나는야집사 2020-01-01 조회수[55]</div>
-                </p>
+                <div class="article-content right-text-align">
+                    이별의 슬픔을 덜고 행복한 <span class="highlight-text">추억</span>만을 간직할 수 있도록<br>
+                    다양한 서비스를 <span class="highlight-text">지속적</span>으로 만들어 가는 것,<br>
+                    그것이 <span class="highlight-text">펫토피아</span>가 추구하는 <span class="highlight-text">가치</span>입니다.<br>
+                </div>
             </div>
         </div>
         <div id="right-side-menu-wrap">
