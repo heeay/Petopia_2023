@@ -77,18 +77,18 @@ public class ShareInsertController extends HttpServlet {
 				// 현재 반복하고 있는 키값을 통해 파일을 업로드했는지 파악
 				if(multiRequest.getOriginalFileName(key) != null) { // 파일이 존재한다면
 					
-					InfoFile iFile = new InfoFile(); // InfoFile 객체 생성
-					iFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
-					iFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
-					iFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
+					InfoFile infoFile = new InfoFile(); // InfoFile 객체 생성
+					infoFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
+					infoFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
+					infoFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
 					
 					// 파일 레벨을 지정하는 조건문
 					if(i == 1) {
-						iFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)
+						infoFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)
 					} else {
-						iFile.setFileLevel(2); // 나머지 파일의 파일 레벨은 2
+						infoFile.setFileLevel(2); // 나머지 파일의 파일 레벨은 2
 					}
-					list.add(iFile);
+					list.add(infoFile);
 				}
 			}
 			

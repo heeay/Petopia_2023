@@ -206,6 +206,26 @@ public class InfoService {
 		return count;
 	}
 	
+	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new InfoDao().updateInfo(conn, in);
+		
+		int result2 = new InfoDao().updateInfoFile(conn, list);
+		
+		int result3 = new InfoDao().updateStar(conn, star, infoNo);
+		
+		if((result1 * result2 * result3) > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return (result1 * result2 * result3);
+	}
+	
 	
 	
 }

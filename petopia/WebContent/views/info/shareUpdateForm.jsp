@@ -58,6 +58,21 @@
     }
     
     #stars > a:hover{cursor:pointer;}
+    
+    .img-area{
+    	width : 100%;
+    	height : 100px;
+    	text-align : center;
+    }
+    
+    .file-area{width : 100%;}
+    
+    .original-img{
+    	width : 140px;
+    	height : 100px;
+    	margin-left : 5px;
+    	margin-right : 5px;
+    }
 </style>
 </head>
 <body>
@@ -126,14 +141,16 @@
                     </tr>
                 </table>
                 
-                <div id="file-area">
-                	기존 파일 : 
+                <div class="img-area">
+                
                 	<% for(int i = 0; i < fileList.size(); i++) { %>
-                		<%= fileList.get(i).getOriginalName() %>
-                		<input type="text" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
-                		<input type="text" name="originalFileName" value="<%= fileList.get(i).getUploadName() %>">
+                		<img src="<%= contextPath %>/<%= fileList.get(i).getFilePath() %>/<%= fileList.get(i).getUploadName() %>" class="original-img">
+                		<input type="hidden" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
                 	<% } %>
-                	<br>
+                
+                </div>
+                
+                <div class="file-area">
                 	
                 	<!-- 새로 올릴 파일(게시글 수정 시 기존 파일 삭제하고 이 파일들로 바꿀 것) -->
                 	<input type="file" name="reUpFile1" id="reUpFile1" required>

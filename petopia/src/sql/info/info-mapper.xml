@@ -257,6 +257,39 @@
 		   	   BOARD_NO = ?
 	</entry>
 
+	<entry key="updateInfo">
+		UPDATE
+			   TB_BOARD
+		   SET
+		   	   BOARD_TITLE = ?,
+		   	   BOARD_CONTENT = ?,
+		   	   BOARD_UPDATE_DATE = SYSDATE,
+		   	   CTG_NO = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateInfoFile">
+		UPDATE
+		       TB_FILE
+		   SET 
+		   	   ORIGINAL_NAME = ?,
+		   	   UPLOAD_NAME = ?,
+		   	   FILE_PATH = ?,
+		   	   FILE_LEVEL = ?
+		 WHERE 
+		 	   REF_BNO = ?
+	</entry>
+	
+	<entry key="updateStar">
+		UPDATE
+		       TB_STAR
+		   SET 	
+		   	   STAR_SCORE = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
 	
 
 </properties>
