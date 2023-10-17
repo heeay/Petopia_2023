@@ -13,14 +13,14 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             width: 100%;
         }
         #section-wrap{
-            width: 1000px;
+            width: 1220px;
             height: 2000px;
             padding: 20px 0;
             margin: auto;
             position: relative;
         }
         #content-wrap{
-            width: 780px;
+            width: 750px;
             height: 100%;
             float: left;
         }
@@ -34,7 +34,14 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
     </style>
     <style>
-        #side-menu-wrap{
+        #left-side-menu-wrap{
+            width: 250px;
+            height: 100%;
+            float: left;
+        }
+    </style>
+    <style>
+        #right-side-menu-wrap{
             width: 220px;
             height: 100%;
             float: left;
@@ -76,20 +83,9 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 	<%@include file="views/common/header.jsp" %>
 	<section>
     <div id="section-wrap">
-        <div id="content-wrap">
-            <button id="b1">logout</button>
-    <script>
-        $(document).ready(function(){
-            $("#b1").click(function(){
-                $.ajax({
-                    type: "POST",
-	    	        url: "logout",
-	    	        async: false
-                })
-            })
-        })
-    </script>
-            <div id="map" style="width:500px;height:400px;"></div>
+        <div id="left-side-menu-wrap">
+            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
 	        	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
@@ -193,8 +189,8 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                     });
                 }
 	        </script>
-
-            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+        </div>
+        <div id="content-wrap">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>
@@ -233,7 +229,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 </p>
             </div>
         </div>
-        <div id="side-menu-wrap">
+        <div id="right-side-menu-wrap">
             <div id="side-menu">
                 <ul id="category">
                     <li><a>⭐베스트</a></li>
