@@ -27,7 +27,6 @@
 												BOARD_VIEWS,
 												BOARD_CREATE_DATE,
 												USER_NO,
-												FILE_IMG,
 												CTG_NO,
 												PET_CTG_NO
 				                 FROM
@@ -139,7 +138,7 @@
 		               	BOARD_CONTENT,
 		               	BOARD_CREATE_DATE,
 		               	USER_NO,
-		               	FILE_IMG, <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
+		             <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
 		           		LIKE_COUNT
 		  FROM
 		                TB_BOARD A
@@ -152,6 +151,50 @@
 		                BOARD_NO = ?
 </entry>
 
+<!-- 위의 SELECTCATEGORY와 달리 단순히 카테고리리스트만 조회하는 SQL-->
+<entry key="selectCategoryList">
+		SELECT
+					CTG_NO,
+					CTG_NAME
+		FROM
+					TB_CATEGORY
+</entry>
+
+<entry key="insertBoard">
+		INSERT
+		INTO	<!-- INSERT할 때 TABLE(특정컬럼)시 나머지컬럼값은 DEFAULT가 들어감 -->
+						TB_BOARD(BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_NO, CTG_NO)
+		VALUES
+						(<!-- PETOPIA"."TB_BOARD"."FILE_IMG" 파일이미지는 notnull이기에 넣는다. -->
+						SEQ_BOARD_NO.NEXTVAL,
+						?,
+						?,
+						?,
+						?
+						)
+<!-- insert는 where이 없어요 -->
+</entry>
+
+<entry key="insertFileList">
+		INSERT
+		INTO
+						TB_FILE(FILE_NO, REF_BNO, ORIGINAL_NAME, UPLOAD_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES      
+						(
+						SEQ_FILE_NO.NEXTVAL,
+						SEQ_BOARD_NO.NEXTVAL, <!-- 현재 게시판 넘버 -->
+						?,
+						?,
+						?,
+						?
+						)
+
+</entry>
+<!-- 
+최신글 순으로 정리된 게시글 수를 
+시작페이지와 끝페이지의 페이징바를 통해 번호(개수)로 나타내고
+한편, 조회된 리스트들을 보여주는 SQL
+-->
 <!-- 게시글 수에 따른 유저등급관리 -->
 <entry key="">
 		UPDATE 
@@ -169,10 +212,4 @@
 						)  = ?
 					
 </entry>
-<!-- 
-최신글 순으로 정리된 게시글 수를 
-시작페이지와 끝페이지의 페이징바를 통해 번호(개수)로 나타내고
-한편, 조회된 리스트들을 보여주는 SQL
--->
-
 </properties>

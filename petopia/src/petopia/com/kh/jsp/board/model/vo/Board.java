@@ -16,7 +16,7 @@ public class Board {
 	private int ctgNo; // Category테이블과 연결
 	private int petCtgNo; // Pet_Category테이블과 연결
 	private String boardStatus;
-	private int likeCount;
+	private int likeCount;// DEFAULT가 0인데 INSERT할 때 넣어야 하나?
 	
 	public Board() {
 		super();

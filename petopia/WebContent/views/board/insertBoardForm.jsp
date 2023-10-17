@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.info.model.vo.*, petopia.com.kh.jsp.user.model.vo.*"  %>
 <%  
-	User userInfo = (User)request.getAttribute("userInfo");
-    ArrayList<Category> ctgList = (ArrayList<Category>)request.getAttribute("ctgList");
-%>
+	
+    ArrayList<Category> cList = (ArrayList<Category>)request.getAttribute("cList");
+%><!-- User userInfo = (User)request.getAttribute("userInfo");는 이미 헤더에 있음 -->
 
 <!DOCTYPE html>
 <html>
@@ -133,10 +133,10 @@
                     <th class="content-item-title">카테고리</th>
                     <td class="content-item-content">
                         <select id="category" name="category">
-                            <!---->
-                            <% for(Category c : ctgList) { %>
-								<option value="<%= c.getCtgNo() %>">
-									<%= c.getCtgName() %>
+                            
+                            <% for(Category category : cList) { %>
+								<option value="<%= category.getCtgNo() %>">
+									<%= category.getCtgNo() %>
 								</option>                            
                             <% } %>
                         </select>
@@ -156,7 +156,13 @@
                 </tr>
                 <tr class="content-item">
                     <th class="content-item-title">첨부파일</th>
-                    <td class="content-item-content"><label id="fileUpload">File🖼️<input type="file" name="upfile" id="upfile"></label></td>
+                    <td class="content-item-content">
+                        <label id="upfile1" class="fileUpload">File1🖼️<input type="file" name="file1" id="upfile1" class="upfiles"></label>
+                        <label id="upfile2" class="fileUpload">File2🖼️<input type="file" name="file2" id="upfile2" class="upfiles"></label>
+                        <label id="upfile3" class="fileUpload">File3🖼️<input type="file" name="file3" id="upfile3" class="upfiles"></label>
+                        <label id="upfile4" class="fileUpload">File4🖼️<input type="file" name="file4" id="upfile4" class="upfiles"></label>
+                    </td>
+                    
                 </tr>
             </table>
             <br><br>
@@ -193,7 +199,7 @@
             #content{
                 width : 100%;
             }
-            #upfile {
+            .upfiles {
                 position: absolute;
                 width: 0;
                 height: 0;
@@ -202,7 +208,7 @@
                 border: 0;
                 
             }
-            #fileUpload {
+            .fileUpload {
                 color : black;
                 background-color: rgb(247, 189, 96);
                 width : 60px;

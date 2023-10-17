@@ -203,7 +203,7 @@ public class MainBoardController extends HttpServlet {
 		// 4) Service로 가자~ // pageInfo를 넘기는 이유 : select할 때 pageInfo이용하니까
 		ArrayList<Board> bList = new BoardService().selectList(pageInfo);
 		
-		//System.out.println(list);
+		System.out.println(bList);
 		
 		// 5) 응답화면 지정
 		
