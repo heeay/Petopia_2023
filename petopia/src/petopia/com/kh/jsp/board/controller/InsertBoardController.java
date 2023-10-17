@@ -1,6 +1,7 @@
 package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,7 +15,10 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import petopia.com.kh.jsp.board.model.service.BoardService;
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
+import petopia.com.kh.jsp.common.model.vo.File;
 
 /**
  * Servlet implementation class InsertBoardController
@@ -62,13 +66,89 @@ public class InsertBoardController extends HttpServlet {
 			
 //			userInfo.getter
 			// 3. 이제서야 값 뽑기
-			// : 카테고리
+			// 제목/내용/카테고리/이미지/글슨이/
+			String boardTitle = multiRequest.getParameter("title");
+			String boardContent = multiRequest.getParameter("content");
+			int ctgNo = Integer.parseInt(multiRequest.getParameter("category"));
+			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
+			/* 이게 아니라 반복문
+			int file1 = Integer.parseInt(multiRequest.getParameter("file1"));
+			int file1 = Integer.parseInt(multiRequest.getParameter("file1"));
+			int file1 = Integer.parseInt(multiRequest.getParameter("file1"));
+			int file1 = Integer.parseInt(multiRequest.getParameter("file1"));
+			*/
 			
+
+			// 변수 = input의 name속성명에서 추출한 값
+			
+			
+			// 3_1. VO로 가공 : Board와 ArrayList<File>
+			Board board = new Board();
+			board.setBoardTitle(boardTitle);
+			board.setBoardContent(boardContent);
+			board.setCtgNo(ctgNo);
+			board.setUserNo(userNo);
+	
+			
+			// 3_2. VO로 가공하되 값은 multiRequest에서 뽑기
+			ArrayList<File> fList = new ArrayList();
+			
+			for(int i = 1; i < 4 + 1; i++) {
+				
+				String fNum = "file" + i;
+				
+				// 파일업로드부터확인해야(조회수증가확인하는것처럼)
+				if(multiRequest.getOriginalFileName(fNum) != null) {
+					
+					// 업로드된거면 VO에 담아주기
+					File file = new File();
+					
+					// fileNum을 통한 mutlRequest의 메소드를 이용해서 값을 담아준다.
+					file.setOriginalName(multiRequest.getOriginalFileName(fNum));
+					file.setUploadName(multiRequest.getFilesystemName(fNum));
+					file.setFilePath("resources/board_upfiles");
+					
+					// 파일레벨 : 썸네일이냐 아니냐에 따라 file.setFileLevel을 1/2로 설정할 건데....
+					// 사실 inputFile.files[0]을 mainBoard.jsp에서 썸네일로 추출하면 fileLevel은 필요가 없을지도?
+					// 그래도 혹시 모르니 설정하자
+					if(i == 1) {
+						file.setFileLevel(1);
+					} else {
+						file.setFileLevel(2);
+					}
+					
+					fList.add(file);
+
+				} else { // getApplication은 없음
+					request.getSession().setAttribute("errorPage", "파일을 업로드 해야 합니다");
+				}
+				
+			} // 반복문 끝
+			
+			// 4. DB에 요청
+			int result = new BoardService().insertBoard(board, fList);
+			
+			
+			if(result > 0) { // 게시글 작성 성공
+				
+				// 트랜잭션이 끝난뒤 결과값을 main.bo에 되돌려준다.
+				response.sendRedirect(request.getContextPath() + "/main.bo");
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
+				
+			} else {
+				request.getSession().setAttribute("errorPage", "게시글이나 파일에 문제가 있습니다");
+			}
+			
+			
+			
+		} // multiPart등 입력값이 없다는 뜻
+		else {
+			request.getSession().setAttribute("errorPage", "값을 모두 입력해주세요");
 		}
 		
 		
-		// 트랜잭션이 끝난뒤 결과값을 main.bo에 되돌려준다.
-		response.sendRedirect(request.getContextPath() + "/main.bo");
+		
+		
 
 	}
 

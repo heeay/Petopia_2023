@@ -171,7 +171,8 @@
 		   	   BOARD_STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectUser">
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요를 Y로 한 사람이라면 1 -->
+	<entry key="checkLike">
 		SELECT
 			   COUNT(*)
 		  FROM 
@@ -180,8 +181,25 @@
 		 	   BOARD_NO = ?
 		   AND 
 		   	   USER_NO = ?
+		   AND
+		   	   LIKE_YN = 'Y'
 	</entry>
 	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요를 N으로 한 사람이라면 1 -->
+	<entry key="checkNoLike">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND
+		   	   LIKE_YN = 'N'
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요 Y로 INSERT -->
 	<entry key="insertLike">
 		INSERT
 		  INTO
@@ -199,6 +217,7 @@
 			   )
 	</entry>
 	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요가 Y이면 N으로  UPDATE -->
 	<entry key="deleteLike">
 		UPDATE
 			   TB_LIKE
@@ -212,6 +231,21 @@
 		       LIKE_YN = 'Y'
 	</entry>
 	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요가 N이면 Y로  UPDATE -->	
+	<entry key="updateLike">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'Y'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND 
+		       LIKE_YN = 'N'
+	</entry>
+	
+	<!-- 클릭한 게시글의 좋아요 수 count -->
 	<entry key="countLike">
 		SELECT
 			   COUNT(*)
@@ -223,6 +257,6 @@
 		   	   BOARD_NO = ?
 	</entry>
 
-
+	
 
 </properties>

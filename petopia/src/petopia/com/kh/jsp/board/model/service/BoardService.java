@@ -79,7 +79,9 @@ public class BoardService {
 	
 
 	
-	public Board selectBoard(int bno) {
+	
+	
+		public Board selectBoard(int bno) {
 		
 		Connection conn = getConnection();
 		
@@ -89,7 +91,31 @@ public class BoardService {
 		
 		 return board;
 	}
+		
+		public ArrayList<Category> selectCategoryList() {
+			
+			Connection conn = getConnection();
+			
+			ArrayList<Category> cList = new BoardDao().selectCategoryList(conn);
+			
+			 close(conn);
+			
+			 return cList;
+		}
 
+	public int insertBoard(Board board, ArrayList<File> fList) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new BoardDao().insertBoard(conn, board);
+		int result2 = new BoardDao().insertFileList(conn, fList);
+		
+		// 둘은 동시에 성공해야 commit
+		if(result1*result2 > 0) commit(conn);
+		else rollback(conn);
+
+		return (result1*result2);
+	}
 	
 	
 }
