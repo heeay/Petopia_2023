@@ -77,6 +77,18 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 	<section>
     <div id="section-wrap">
         <div id="content-wrap">
+            <button id="b1">logout</button>
+    <script>
+        $(document).ready(function(){
+            $("#b1").click(function(){
+                $.ajax({
+                    type: "POST",
+	    	        url: "logout",
+	    	        async: false
+                })
+            })
+        })
+    </script>
             <div id="map" style="width:500px;height:400px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>

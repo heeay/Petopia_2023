@@ -124,7 +124,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(245, 216, 190);
+            background-color: rgb(224, 198, 180);
         }
         #header-bar-wrap{
             width: 100%;
@@ -137,7 +137,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(247, 222, 205);
+            background-color: rgb(224, 198, 180);
         }
         .header-bar{
             width: 1100px;

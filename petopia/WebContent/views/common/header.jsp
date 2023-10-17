@@ -148,7 +148,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(253, 232, 213);
+            background-color: rgb(224, 198, 180);
         }
         .header-bar{
             width: 1100px;
@@ -286,23 +286,78 @@ User userInfo = (User)session.getAttribute("userInfo");
     <script>
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
-        })
-        /*window.addEventListener("beforeunload", function (e) {
-            var confirmationMessage = "\o/";
-            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-            return confirmationMessage; //Webkit, Safari, Chrome
-        });*/
-        //https://han288.tistory.com/49
-        window.addEventListener("beforeunload", function (e) {
-            if (closing_window) {
-                $.ajax({
-                    type: "POST",
-                    url: "/logout",
-                    async: false
+
+
+            //브라우저 종료 시 로그아웃
+            var closing_window = false;
+            $(window).on('focus', function(){//유저가 window 사용 시에는 window가 닫힌 것이 아니다.
+                  closing_window = false;
+            });
+    
+            $(window).on('blur', function(){
+                closing_window = true;
+                if (!document.hidden) { //window가 최소화된 것은 닫힌 것이 아니다.
+                    closing_window = false;
+                }
+                $(window).on('resize', function(e){//window가 최대화된 것은 닫힌 것이 아니다.
+                    closing_window = false;
                 });
-                return;
-            }
-        });
+                $(window).off('resize');//multiple listening 회피
+            });
+            //유저가 html을 나간다면 window가 닫힌 것으로 간주
+            $('html').on('mouseleave', function(){
+                closing_window = true;
+            });
+            //유저의 마우스가 페이지 안에 있다면 로그아웃하지 않음
+            $('html').on('mouseenter', function(){
+                closing_window = false;
+            });
+    
+            $(document).on('keydown', function(e){
+                if (e.keyCode == 91 || e.keyCode == 18) {
+                    closing_window = false; //단축키 ALT+TAB (창 변경)
+                }
+                if (e.keyCode == 116 || (e.ctrlKey && e.keyCode == 82)) {
+                    closing_window = false; //단축키 F5, CTRL+F5, CTRL+R (새로고침)
+                }
+            });
+    
+            //a링크를 눌렀을 때
+            $(document).on("click", "a", function(){
+                closing_window = false;
+            });
+    
+            //버튼이 다른 페이지로 redirect
+            $(document).on("click", "button", function(){
+                closing_window = false;
+            });
+            //submit이나 form 사용 시
+            $(document).on("submit", "form", function(){
+                closing_window = false;
+            });
+            //submit
+            $(document).on("click", "input[type=submit]", function(){
+                closing_window = false;
+            });
+
+            //beforeunload
+            $(window).on("beforeunload", function(){
+                console.log("화면꺼짐 실행 : "+closing_window);
+                if(closing_window){
+                    $.ajax({
+                        type: "POST",
+                        url: "decreaseCount",
+                        //async: false,
+                        success: function(r){
+                            console.log("로그아웃");
+                        },
+                        error: function(e){
+                            console.log(e);
+                        }
+                    });
+                }
+            });
+        })
     </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>

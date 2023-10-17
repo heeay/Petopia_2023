@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutUserController
+ * Servlet implementation class DecreaseCountController
  */
-@WebServlet("/logout")
-public class LogoutUserController extends HttpServlet {
+@WebServlet("/decreaseCount")
+public class DecreaseCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutUserController() {
+    public DecreaseCountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +28,6 @@ public class LogoutUserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("userInfo")==null) {
-			response.sendRedirect(request.getContextPath());
-			return;
-		}
-		
-		HttpSession session = request.getSession();
-		session.removeAttribute("userInfo");
-		
 		ServletContext application = request.getSession().getServletContext();
 		
 		if(application.getAttribute("accessCount")==null) {
@@ -47,8 +38,6 @@ public class LogoutUserController extends HttpServlet {
                 ac=0;
 			application.setAttribute("accessCount", ac);
 		}
-		
-		response.sendRedirect(request.getContextPath());
 	}
 
 	/**
