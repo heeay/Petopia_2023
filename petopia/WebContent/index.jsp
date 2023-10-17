@@ -191,7 +191,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 	        </script>
         </div>
         <div id="content-wrap">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>
                 new Chart(document.getElementById("access-chart"), {
@@ -219,7 +219,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                     },
                 }
             });
-            </script>
+            </script>-->
 
             <div class="board-item">
                 <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
