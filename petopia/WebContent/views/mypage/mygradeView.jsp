@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	int bcount = (int)request.getAttribute("bcount");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,7 +135,7 @@
                     </div>
 
                     <div class="text-null"></div>
-                    <div class="text-stand">게시글 수 :</div>
+                    <div class="text-stand">게시글 수 : <b><%=bcount %></b>개</div>
                     <div class="text-null2"></div>
                     <div class="text-stand">마지막 게시글 :</div>
                     

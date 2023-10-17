@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
@@ -824,6 +825,28 @@ public class PetDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int selectBoardCount(Connection conn, User loginUser) {
+		int bcount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bcount = rset.getInt("COUNT(BOARD_NO)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bcount;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

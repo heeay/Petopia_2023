@@ -8,6 +8,7 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.mypage.model.dao.PetDao;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
@@ -280,6 +281,14 @@ public class PetService {
 			rollback(conn);
 		}
 		return result;
+	}
+
+
+	public int selectBoardCount(User loginUser) {
+		Connection conn = getConnection();
+		int bcount = new PetDao().selectBoardCount(conn, loginUser);
+		close(conn);
+		return bcount;
 	}
 
 	
