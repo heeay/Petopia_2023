@@ -81,6 +81,9 @@
 			  
 	     WHERE
 	     	  STATUS = 'Y'
+	     ORDER
+	        BY
+	     	  DESC  
 			  
 	</entry>
 

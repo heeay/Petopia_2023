@@ -38,6 +38,7 @@ public class MatchDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			
 			pstmt.setString(1, m.getMeetBoardTitle());
 			pstmt.setString(2, m.getPetInfo());
 			pstmt.setString(3, m.getHopeActivity());
@@ -51,6 +52,7 @@ public class MatchDao {
 		} finally {
 			close(pstmt);
 		}
+		System.out.println(result);
 		return result;
 	}
 	
