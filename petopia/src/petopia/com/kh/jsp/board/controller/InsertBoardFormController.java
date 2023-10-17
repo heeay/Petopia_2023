@@ -34,12 +34,11 @@ public class InsertBoardFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		// 카테고리 데이터 넣어주기 작업 후 form으로 이동합니다.
-		
-		ArrayList<Category> ctgList = new BoardService().selectCtgList();
-		System.out.println(ctgList);
-		
-		request.setAttribute("ctgList", ctgList);
+//		// 카테고리 데이터 넣어주기 작업 후 form으로 이동합니다.
+//		
+		ArrayList<Category> cList = new BoardService().selectCategoryList();
+
+		request.setAttribute("cList", cList);
 		
 		
 		request.getRequestDispatcher("views/board/insertBoardForm.jsp").forward(request, response);

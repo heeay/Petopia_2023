@@ -99,7 +99,7 @@
                         <input type="radio" name="search-radio">작성자
                     </div>
 
-                </form>
+                
             </article>
 
             <article id="search-count">
@@ -147,7 +147,7 @@
                 <% } %>
             </article>
        
- 		
+        </form>
         </section>
 
 
