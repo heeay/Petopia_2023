@@ -14,7 +14,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
         #section-wrap{
             width: 1250px;
-            height: 2000px;
+            overflow: hidden;
             padding: 20px 0;
             margin: auto;
             position: relative;
@@ -41,7 +41,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             height: 100%;
         }
         .text{
-            font-size: 14px;
+            font-size: 13px;
         }
         .text-icon{
             /*color: #6d6d6d;*/
@@ -156,7 +156,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
             <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
-            근처 동물병원
+            ↓↓근처 동물병원↓↓
             <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
@@ -330,8 +330,8 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                 </div>
                                 <p>
                                     <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
                                     </div>
@@ -343,8 +343,8 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                 </div>
                                 <p>
                                     <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
                                     </div>
