@@ -90,11 +90,16 @@ public class ShareUpdateController extends HttpServlet {
 					
 					int result = new InfoService().updateInfo(in, list, star, infoNo);
 					
+					if(result > 0) { // 게시글 수정 성공
+						response.sendRedirect(request.getContextPath() + "/detailShare.in?ino=" + infoNo);
+					} else { // 실패
+						request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					}
+					
 				}
-			}
-			
+			}	
 		}
-		
 	}
 
 	/**
