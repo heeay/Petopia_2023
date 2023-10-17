@@ -115,6 +115,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
         <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
+            <input type="hidden" name="petNo" value="<%= petInfo.get(1).getPetNo() %>">
             
 
 
@@ -126,7 +127,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
             </section>
    
 
-                <select name="petNo">
+                <select name="petName">
                     <% for(Pet p : petInfo) { %>
                     <option value="">
                         <%= p.getPetName() %>

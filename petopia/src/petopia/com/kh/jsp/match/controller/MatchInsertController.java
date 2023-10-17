@@ -57,12 +57,13 @@ public class MatchInsertController extends HttpServlet {
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
 			int petNo = Integer.parseInt(multiRequest.getParameter("petNo"));
 			
+			
 			Match m = new Match();
 			m.setMeetBoardTitle(meetBoardTitle);
 			m.setPetInfo(petInfo);
 			m.setHopeActivity(hopeActivity);
 			m.setUserNo(userNo); 
-			m.setPetInfo(petInfo);
+			m.setPetNo(petNo);
 			
 			ArrayList<File> list = new ArrayList();
 			

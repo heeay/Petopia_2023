@@ -70,12 +70,15 @@ public class MatchDao {
 				pstmt.setString(3, fi.getFilePath());
 				pstmt.setInt(4, fi.getFileLevel());
 				
-				result += pstmt.executeUpdate();
+				result = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			close(pstmt);
+		}
+		
 		return list.size() == result ? 1 : 0;
 	}
 	
