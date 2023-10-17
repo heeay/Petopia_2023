@@ -52,7 +52,6 @@ public class MatchDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 	
@@ -72,7 +71,7 @@ public class MatchDao {
 				pstmt.setString(3, fi.getFilePath());
 				pstmt.setInt(4, fi.getFileLevel());
 				
-				result = pstmt.executeUpdate();
+				result += pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
