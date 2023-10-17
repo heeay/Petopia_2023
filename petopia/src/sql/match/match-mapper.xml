@@ -11,13 +11,11 @@
 		      MEET_BOARD_TITLE,
 		      PET_INFO,
 		      HOPE_ACTIVITY,
-		      USER_NO,
-			  PET_NO
+		      USER_NO
 		      )
 		 VALUES
 		 	  (
 		 	  SEQ_MEET_BOARD_NO.NEXTVAL,
-		 	  ?,
 		 	  ?,
 		 	  ?,
 		 	  ?,

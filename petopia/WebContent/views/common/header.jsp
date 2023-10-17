@@ -148,7 +148,7 @@ User userInfo = (User)session.getAttribute("userInfo");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(253, 232, 213);
+            background-color: rgb(224, 198, 180);
         }
         .header-bar{
             width: 1100px;
@@ -287,22 +287,6 @@ User userInfo = (User)session.getAttribute("userInfo");
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
         })
-        /*window.addEventListener("beforeunload", function (e) {
-            var confirmationMessage = "\o/";
-            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-            return confirmationMessage; //Webkit, Safari, Chrome
-        });*/
-        //https://han288.tistory.com/49
-        window.addEventListener("beforeunload", function (e) {
-            if (closing_window) {
-                $.ajax({
-                    type: "POST",
-                    url: "/logout",
-                    async: false
-                });
-                return;
-            }
-        });
     </script>
     <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
@@ -355,7 +339,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <%if(userInfo == null){ %>
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
+                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                         <div id="file-area">
                         	<% if(userInfo.getFileMypageNo().equals("/")) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">

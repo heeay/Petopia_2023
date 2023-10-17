@@ -13,28 +13,46 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             width: 100%;
         }
         #section-wrap{
-            width: 1000px;
+            width: 1250px;
             height: 2000px;
             padding: 20px 0;
             margin: auto;
             position: relative;
         }
         #content-wrap{
-            width: 780px;
+            width: 750px;
             height: 100%;
             float: left;
         }
         .board-item{
             width: 250px;
             height: 300px;
+            float: left;
         }
-        .board-item img{
+        .board-thumbnail-wrap{
             width: 200px;
             height: 160px;
+            margin: auto;
+            
+        }
+        .board-thumbnail-wrap > img{
+            width: 100%;
+            height: 100%;
+        }
+        .text-icon{
+            /*color: #6d6d6d;*/
+            filter: invert(44%) sepia(2%) saturate(8%) hue-rotate(319deg) brightness(94%) contrast(90%);
         }
     </style>
     <style>
-        #side-menu-wrap{
+        #left-side-menu-wrap{
+            width: 280px;
+            height: 100%;
+            float: left;
+        }
+    </style>
+    <style>
+        #right-side-menu-wrap{
             width: 220px;
             height: 100%;
             float: left;
@@ -71,13 +89,37 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             background-color: rgb(255, 234, 226);
         }
     </style>
+    <style>
+        #board-swiper-wrap{
+            overflow: hidden;
+        }
+        /* 이미지 영역 사이즈 조절 */
+        .board-swiper {
+            width: 750px;
+            height: 300px;
+        }
+
+        /* 이미지 사이즈 조절 */
+        .swiper-slide>img {
+            width : 100%;
+            height : 100%;
+            object-fit: cover;
+        }
+
+        /* 화살표 버튼색 변경 (기본색은 파란색) */
+        div[class^=board-swiper-button] {
+            color : rgb(117, 81, 28);
+            /*display : none; /* 아니면 안보이게 숨기기도 가능 */
+        }
+    </style>
 </head>
 <body>
 	<%@include file="views/common/header.jsp" %>
 	<section>
     <div id="section-wrap">
-        <div id="content-wrap">
-            <div id="map" style="width:500px;height:400px;"></div>
+        <div id="left-side-menu-wrap">
+            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
 	        	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
@@ -181,9 +223,9 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                     });
                 }
 	        </script>
-
-            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        </div>
+        <div id="content-wrap">
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>
                 new Chart(document.getElementById("access-chart"), {
@@ -211,17 +253,96 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                     },
                 }
             });
+            </script>-->
+            <div id="board-swiper-wrap">
+                <!-- Slider main container -->
+                <div class="board-swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div>
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div>
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2018/07/14/17/46/raccoon-3538081_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div>
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+            
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+            
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </div>
+            <script>
+                // 슬라이더 동작 정의
+                const boardSwiper = new Swiper('.board-swiper', {
+                    //autoplay : {
+                    //    delay : 4000 // 3초마다 이미지 변경
+                    //},
+                    loop : true, //반복 재생 여부
+                    slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
+                    pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: { // 화살표 버튼 클릭 시 이미지 이동 가능
+                        prevEl: '.swiper-button-prev',
+                        nextEl: '.swiper-button-next'
+                    }
+                }); 
             </script>
-
             <div class="board-item">
-                <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+                <div class="board-thumbnail-wrap">
+                    <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+                </div>
                 <p>
                     <div>강아지 목욕 꿀팁!</div>
                     <div>나는야집사 2020-01-01 조회수[55]</div>
                 </p>
             </div>
         </div>
-        <div id="side-menu-wrap">
+        <div id="right-side-menu-wrap">
             <div id="side-menu">
                 <ul id="category">
                     <li><a>⭐베스트</a></li>

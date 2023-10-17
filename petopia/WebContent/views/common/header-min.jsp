@@ -124,7 +124,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(245, 216, 190);
+            background-color: rgb(224, 198, 180);
         }
         #header-bar-wrap{
             width: 100%;
@@ -137,7 +137,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             z-index: 10;
             top: 0px;
             left: 0px;
-            background-color: rgb(247, 222, 205);
+            background-color: rgb(224, 198, 180);
         }
         .header-bar{
             width: 1100px;
@@ -210,16 +210,6 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             	<% session.removeAttribute("alertMsg"); %>
             }
         })
-        window.addEventListener("beforeunload", function (e) {
-            if (closing_window) {
-                $.ajax({
-                    type: "POST",
-                    url: "/logout",
-                    async: false
-                });
-                return;
-            }
-        });
     </script>
 <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
@@ -273,7 +263,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
                 	<%if(userInfo == null){ %>
                     	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                     <%} else { %>
-                    	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
+                    	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                             <div id="file-area">
                                 <% if(userInfo.getFileMypageNo().equals("/")) {%>
                                     <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
@@ -319,7 +309,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
                         <%if(userInfo == null){ %>
                             <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                         <%} else { %>
-                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
+                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                                 <div style="width: 50px;" id="file-area">
                                     <% if(userInfo.getFileMypageNo().equals("/")) {%>
                                         <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">

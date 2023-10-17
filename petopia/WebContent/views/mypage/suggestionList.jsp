@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
 <%
-	ArrayList<HosRecords> hosList = (ArrayList<HosRecords>)request.getAttribute("hosList");
+	ArrayList<Suggestion> sugList = (ArrayList<Suggestion>)request.getAttribute("sugList");
 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -15,9 +15,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>병원기록</title>
-
-  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -64,11 +63,9 @@
         <div class="container margin-none">
             
             <div class="mg-t-b">
-                <div class="hos-title">병원기록</div>
-
-                <div class="btn-right"><a href="<%=contextPath %>/hosEnrollForm.my" class="btn btn-secondary">글작성</a></div>
+                <div class="hos-title">건의사항 확인</div>
                 
-                <form action="<%=contextPath %>/hosList.my">
+                <form action="<%=contextPath %>/sugList.my">
                 <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                     <input type="hidden" name="cpage" value="<%=currentPage%>">
@@ -107,25 +104,27 @@
                     <tr>
                         <th>No.</th>
                         <th>Date</th>
-                        <th>Name</th>
+                        <th>userID</th>
+                        <th>Title</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                	<% if(hosList.isEmpty()) { %>
+                	<% if(sugList.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 기록이 없습니다.</td>
+                        		<td colspan="4" align="center" style="pointer-events: none;">요청된 건의사항이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                       		<% for(int i=hosList.size(); i>0; i--){ %>
+                       		<% for(int i=sugList.size(); i>0; i--){ %>
                                 <tr>
-                                    <input type="hidden" name="hno" value="<%=hosList.get(i-1).getHosNo() %>">
+                                    <input type="hidden" name="hno" value="<%=sugList.get(i-1).getSugNo() %>">
                                     
                                     <td><%=i%></td>
-                                    <td><%=hosList.get(i-1).getHosDate() %></td>
-                                    <td><%=hosList.get(i-1).getPetName() %></td>
+                                    <td><%=sugList.get(i-1).getSugDate() %></td>
+                                    <td><%=sugList.get(i-1).getUserNo() %></td>
+                                    <td>어쩌고저쩌고 안되요</td>
                                     <td style="width: 20px; border-top:none;">
-				                        <a href="<%=contextPath%>/deleteHos.my?hno=<%=hosList.get(i-1).getHosNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+				                        <a href="<%=contextPath%>/deleteSug.my?sno=<%=sugList.get(i-1).getSugNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
 				                    </td>
                         	    </tr>
                         	<% } %>
@@ -146,7 +145,7 @@
                 $(function(){
 
                     $('#list-area>tbody>tr').click(function(){
-                        location.href="<%= contextPath %>/hosDetail.my?hno=" + $(this).children().eq(0).val();
+                        location.href="<%= contextPath %>/sugDetail.my?sno=" + $(this).children().eq(0).val();
                     });
                 })
 
@@ -156,19 +155,19 @@
 
         <div class="page-btn">
            	<% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
+        		<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
         	<% } %>
         	
         	<% for(int i = startPage; i <= endPage; i++) { %>
         		<% if(currentPage != i) { %>
-        			<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
+        			<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
         		<% } else {%>
         			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
         		<% } %>
         	<% } %>
         	
         	<% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
+            	<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
         	<% } %>
         </div>
 

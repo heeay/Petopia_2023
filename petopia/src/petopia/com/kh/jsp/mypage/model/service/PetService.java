@@ -8,6 +8,7 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.mypage.model.dao.PetDao;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
@@ -268,6 +269,33 @@ public class PetService {
 		WalkRecords wr = new PetDao().selectWalkMain(conn, loginUser);
 		close(conn);
 		return wr;
+	}
+
+	public int deleteWalk(int walkkNo) {
+		Connection conn = getConnection();
+		int result = new PetDao().deleteWalk(conn, walkkNo);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+
+	public String selectBoardCount(User loginUser) {
+		Connection conn = getConnection();
+		String bcount = new PetDao().selectBoardCount(conn, loginUser);
+		close(conn);
+		return bcount;
+	}
+
+	public String selectBoardDate(User loginUser) {
+		Connection conn = getConnection();
+		String lastDate = new PetDao().selectBoardDate(conn, loginUser);
+		close(conn);
+		return lastDate;
 	}
 
 	

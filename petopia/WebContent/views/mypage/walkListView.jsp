@@ -103,10 +103,42 @@
                         <p class="walk-date">
                             <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                             <input type="hidden" name="cpage" value="<%=currentPage%>">
-                            <button type="submit">조회</button>
+                            <button type="submit" class="btn btn-sm btn-secondary">조회</button>
                         </p>
                     </form>
                 </div>
+
+                <script>
+                    // js url 가지고오기
+                    //const searchParams = new URLSearchParams(location.search);
+
+                    //for (const param of searchParams) {
+                    //console.log(param);
+                    //}
+
+                    const urlParams = new URL(location.href).searchParams;
+
+                    const startDate = urlParams.get('startDate');
+                    const endDate = urlParams.get('endDate');
+
+
+                    console.log(startDate);
+                    console.log(endDate);
+
+                    $(function () {
+
+                    const dateControl = document.querySelector('input[name="startDate"]')
+                    dateControl.value = startDate;
+
+                    const dateControl2 = document.querySelector('input[name="endDate"]')
+                    dateControl2.value = endDate;
+
+
+                    //console.log(dateControl.value)
+
+                    });
+
+                </script>
 
                 <div class="walk-list" id="list-area">
                     <% if(walkList.isEmpty()) { %>

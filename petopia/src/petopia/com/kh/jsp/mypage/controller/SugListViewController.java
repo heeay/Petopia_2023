@@ -1,26 +1,26 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import petopia.com.kh.jsp.mypage.model.service.PetService;
+import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class HosDeleteController
+ * Servlet implementation class SugListViewController
  */
-@WebServlet("/deleteHos.my")
-public class HosDeleteController extends HttpServlet {
+@WebServlet("/sugList.my")
+public class SugListViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HosDeleteController() {
+    public SugListViewController() {
         super();
     }
 
@@ -35,18 +35,13 @@ public class HosDeleteController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int hosNo = Integer.parseInt(request.getParameter("hno"));
+		HttpSession session = request.getSession();
+		User loginUser = ((User)session.getAttribute("userInfo"));
 		
-		int result = new PetService().deleteHos(hosNo);
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		
 		
-		if(result>0) {
-			request.getSession().setAttribute("alertMsg", "병원기록 삭제 성공");
-			response.sendRedirect(request.getContextPath()+"/hosList.my?cpage=1");
-		} else {
-			request.setAttribute("errorMsg", "병원기록 삭제 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
 	}
 
 	/**

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
 import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
@@ -383,7 +384,7 @@ public class PetDao {
 				pstmt.setString(4, startDate);
 				pstmt.setString(5, endDate);
 			}
-			System.out.println(sql);
+			//System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -592,7 +593,7 @@ public class PetDao {
 		if(startDate != null) {
 			sql += walkDate;
 		}
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 			int endRow = startRow+pi.getBoardLimit()-1;
@@ -808,6 +809,66 @@ public class PetDao {
 		}
 		return wr;
 		
+	}
+	public int deleteWalk(Connection conn, int walkkNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteWalk");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, walkkNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public String selectBoardCount(Connection conn, User loginUser) {
+		String bcount = "작성된 게시글이 없습니다";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bcount = rset.getString("COUNT(BOARD_NO)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bcount;
+	}
+	public String selectBoardDate(Connection conn, User loginUser) {
+		String lastDate = "작성된 게시글이 없습니다.";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardDate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lastDate = rset.getString("LASTDATE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return lastDate;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
