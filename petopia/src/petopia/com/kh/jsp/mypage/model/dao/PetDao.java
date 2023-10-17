@@ -826,8 +826,8 @@ public class PetDao {
 		}
 		return result;
 	}
-	public int selectBoardCount(Connection conn, User loginUser) {
-		int bcount = 0;
+	public String selectBoardCount(Connection conn, User loginUser) {
+		String bcount = "작성된 게시글이 없습니다";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -838,7 +838,7 @@ public class PetDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				bcount = rset.getInt("COUNT(BOARD_NO)");
+				bcount = rset.getString("COUNT(BOARD_NO)");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -847,6 +847,28 @@ public class PetDao {
 			close(pstmt);
 		}
 		return bcount;
+	}
+	public String selectBoardDate(Connection conn, User loginUser) {
+		String lastDate = "작성된 게시글이 없습니다.";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardDate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lastDate = rset.getString("LASTDATE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return lastDate;
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

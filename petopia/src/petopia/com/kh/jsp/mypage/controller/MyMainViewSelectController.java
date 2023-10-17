@@ -42,10 +42,14 @@ public class MyMainViewSelectController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		
-		int bcount = new PetService().selectBoardCount(loginUser);
+		String bcount = new PetService().selectBoardCount(loginUser);
+		String lastDate = new PetService().selectBoardDate(loginUser);
 		
 		//System.out.println(bcount);
+		//System.out.println(lastDate);
+		
 		request.setAttribute("bcount", bcount);
+		request.setAttribute("lastDate", lastDate);
 		
 		request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
 		

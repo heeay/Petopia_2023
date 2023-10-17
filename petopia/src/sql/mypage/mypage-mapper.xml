@@ -13,6 +13,14 @@
 		 WHERE USER_NO=?
 	</entry>
 	
+	<!-- 내정보: 마지막으로 작성한 게시글 날짜 -->
+	<entry key="selectBoardDate">
+		SELECT TO_CHAR(MAX(BOARD_CREATE_DATE), 'YYYY-MM-DD')"LASTDATE" 
+		  FROM TB_BOARD
+		  WHERE USER_NO = ?
+		   AND BOARD_STATUS = 'Y'
+	</entry>
+	
 	
 	
 	<!-- ==============펫 프로필 등록============== -->

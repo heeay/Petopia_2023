@@ -284,11 +284,18 @@ public class PetService {
 	}
 
 
-	public int selectBoardCount(User loginUser) {
+	public String selectBoardCount(User loginUser) {
 		Connection conn = getConnection();
-		int bcount = new PetDao().selectBoardCount(conn, loginUser);
+		String bcount = new PetDao().selectBoardCount(conn, loginUser);
 		close(conn);
 		return bcount;
+	}
+
+	public String selectBoardDate(User loginUser) {
+		Connection conn = getConnection();
+		String lastDate = new PetDao().selectBoardDate(conn, loginUser);
+		close(conn);
+		return lastDate;
 	}
 
 	
