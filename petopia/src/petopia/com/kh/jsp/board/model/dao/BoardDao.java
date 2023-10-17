@@ -325,6 +325,37 @@ public class BoardDao {
 			return cList;
 		}
 	
+		public ArrayList<Board> selectSwiperBestBoardList(Connection conn){
+			ArrayList<Board> list = new ArrayList<Board>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectSwiperBestBoardList");
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				rset = pstmt.executeQuery();
+				while(rset.next()){
+					Board board = new Board();
+					board.setBoardNo(rset.getInt("BOARD_NO"));
+					board.setBoardTitle(rset.getString("BOARD_TITLE"));
+					board.setBoardViews(rset.getInt("BOARD_VIEWS"));
+					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+					board.setBoardContent(rset.getString("USER_NICKNAME"));//유저 넘버필드int 닉네임은 컨텐트에다넣음
+					board.setFileImg(rset.getString("FILE_URL"));
+					board.setCtgNo(rset.getInt("CTG_NO"));
+					board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+					
+					list.add(board);
+	 
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 		
 		public int insertBoard(Connection conn, Board board) {
 		

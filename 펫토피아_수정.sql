@@ -975,16 +975,16 @@ VALUES(SEQ_USER_NO.NEXTVAL,'user4@test.com','A417B5DC3D06D15D91C6687E27FC1705EBC
 UPDATE TB_USER SET ROLE_ID = 'R0'
 WHERE USER_NO = 1;
 
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 1, 'A', 'a', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 2, 'B', 'b', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 3, 'C', 'c', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 4, 'D', 'd', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 5, 'E', 'e', 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160704_276%2Fhj05092_1467643644342NlEzI_JPEG%2F%25A4%25BE.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 6, 'F', 'f', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 7, 'G', 'g', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 8, 'H', 'h', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 9, 'I', 'i', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg', 1);
-INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 10, 'J', 'j', 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2F92%2F67%2F35%2F9267357aef702f137c97b309063ac0bb--bot-the-road.jpg', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 1, 'A', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 2, 'B', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 3, 'C', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 4, 'D', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 5, 'E', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 6, 'F', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 7, 'G', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 8, 'H', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 9, 'I', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
+INSERT INTO TB_FILE VALUES (SEQ_FILE_NO.NEXTVAL, 10, 'J', 'PETOPIA_20231017121442_54038.png', 'resources/board_upfiles', 1);
 
 INSERT INTO TB_BOARD(BOARD_NO,BOARD_TITLE,BOARD_CONTENT,USER_NO,CTG_NO,PET_CTG_NO)
 VALUES(SEQ_BOARD_NO.NEXTVAL,'첫 게시글 제목','첫 게시글 내용 첫 게시글 내용 첫 게시글 내용',1,8,1);

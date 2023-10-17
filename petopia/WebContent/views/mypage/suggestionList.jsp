@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>건의사항 확인</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -30,7 +30,7 @@
             height: 80%;
             width: 80%;  
         }
-        .hos-title{
+        .sug-title{
             font-size: 30px;
             font-weight: bold;
             float: left;
@@ -49,7 +49,7 @@
         }
         .pad-top{padding-top: 5px;}
         .mg-t-b{
-            margin-top: 50px;
+            margin-top: 20px;
             margin-bottom: 50px;
         }
     </style>
@@ -63,39 +63,11 @@
         <div class="container margin-none">
             
             <div class="mg-t-b">
-                <div class="hos-title">건의사항 확인</div>
-                
-                <form action="<%=contextPath %>/sugList.my">
-                <div class="btn-right pad-top" style="border-top:none;">
-                    <input type="date" name="startDate"> ~ <input type="date" name="endDate">
-                    <input type="hidden" name="cpage" value="<%=currentPage%>">
-                    <button type="submit" class="btn btn-sm btn-secondary">조회</button>
-                </div>
-                </form>
+                <div class="sug-title">건의사항 확인</div>
             </div>
-            <script>
-                const urlParams = new URL(location.href).searchParams;
-
-                const startDate = urlParams.get('startDate');
-                const endDate = urlParams.get('endDate');
-
-
-                console.log(startDate);
-                console.log(endDate);
-
-                $(function () {
-
-                const dateControl = document.querySelector('input[name="startDate"]')
-                dateControl.value = startDate;
-
-                const dateControl2 = document.querySelector('input[name="endDate"]')
-                dateControl2.value = endDate;
-                });
-
-            </script>
             
         </div>
-        
+
         <div class="container">
 
             <table class="table table-hover" id="list-area">
@@ -103,9 +75,9 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Date</th>
-                        <th>userID</th>
                         <th>Title</th>
+                        <th>Email</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
 
@@ -115,28 +87,20 @@
                         		<td colspan="4" align="center" style="pointer-events: none;">요청된 건의사항이 없습니다.</td>
                         	</tr>
                         <% }else { %>
-                       		<% for(int i=sugList.size(); i>0; i--){ %>
+                       		<% for(int i= 0; i<sugList.size(); i++){ %>
                                 <tr>
-                                    <input type="hidden" name="hno" value="<%=sugList.get(i-1).getSugNo() %>">
+                                    <input type="hidden" name="sno" value="<%=sugList.get(i).getSugNo() %>">
                                     
-                                    <td><%=i%></td>
-                                    <td><%=sugList.get(i-1).getSugDate() %></td>
-                                    <td><%=sugList.get(i-1).getUserNo() %></td>
-                                    <td>어쩌고저쩌고 안되요</td>
+                                    <td><%=sugList.get(i).getInd() %></td>
+                                    <td><%=sugList.get(i).getSugTitle() %></td>
+                                    <td><%=sugList.get(i).getUserEmail() %></td>
+                                    <td><%=sugList.get(i).getSugDate() %></td>
                                     <td style="width: 20px; border-top:none;">
-				                        <a href="<%=contextPath%>/deleteSug.my?sno=<%=sugList.get(i-1).getSugNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+				                        <a href="<%=contextPath%>/deleteSug.my?sno=<%=sugList.get(i).getSugNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
 				                    </td>
                         	    </tr>
                         	<% } %>
                         <% } %>
-                	<!-- 
-                    <td>1.</td>
-                    <td>2023-09-27</td>
-                    <td>제리</td>
-                    <td style="width: 20px; border-top:none;">
-                        <button type="button" class="btn btn-sm btn-secondary">—</button>
-                    </td>
-                     -->
                 </tbody>
 
             </table>

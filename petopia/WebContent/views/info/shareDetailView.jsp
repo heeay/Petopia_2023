@@ -177,7 +177,7 @@
            </div>
            
            <div id="back">
-           		<button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">목록으로</button>
+           		<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= in.getCategoryNo() %>&ipage=1'" type="button" class="btn btn-sm btn-secondary">목록으로</button>
            </div>
     
         </div>

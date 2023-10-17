@@ -139,7 +139,7 @@
             <div class="left-box">
             <% if(!userInfo.getRoleId().equals("관리자")) { %>
                 <div class="sug-background">
-                    <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black">
+                    <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black2">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">건의사항이 있을 시 클릭해주세요</p>
@@ -147,7 +147,7 @@
                 </div>
                 <% } else { %>
                 	<div class="sug-background">
-                    <a href="<%=contextPath %>/views/mypage/sugList.my" class="color-black">
+                    <a href="<%=contextPath %>/sugList.my?cpage=1" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 확인</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">건의사항내용 확인하기</p>

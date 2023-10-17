@@ -139,53 +139,40 @@
                     <script>
                         //console.log('<%=userInfo.getRoleId() %>');
                         if('<%=userInfo.getRoleId() %>' === '관리자'){
-                            var str = document.getElementById("count");
-                            str.innerHTML = 100+'%';
-
-                        let variable = document.getElementById('percent');
-
-                            variable.dataset.width;
+                            let variable = document.getElementById('percent');
+                            //variable.dataset.width;
                             variable.dataset.width = 100;
 
                             variable.innerHTML = '관리자입니다';
                         }
-                        if('<%=userInfo.getRoleId() %>' === '초급'){
+                        else if('<%=userInfo.getRoleId() %>' === '초급'){
                             var grade =11;
                         }
-                        if('<%=userInfo.getRoleId() %>' === '중급'){
+                        else if('<%=userInfo.getRoleId() %>' === '중급'){
                             var grade = 31;
                         }
-                        if('<%=userInfo.getRoleId() %>' === '고급'){
-                        var str = document.getElementById("count");
-                        str.innerHTML = 100+'%';
+                        else if('<%=userInfo.getRoleId() %>' === '고급'){
+                            let variable = document.getElementById('percent');
 
-                        let variable = document.getElementById('percent');
+                           // variable.dataset.width;
+                            variable.dataset.width = 100;
 
-                        variable.dataset.width;
-                        variable.dataset.width = 100;
-
-                        variable.innerHTML = '최종 등급입니다';
+                            variable.innerHTML = '최종 등급입니다';
                        }
                         
-                        var myInt = '<%=bcount %>';
-                        var myGrade = Math.abs(grade-myInt);
-
-                        var percent = Math.ceil((myInt/grade)*100);
-                        
+                        let myInt = '<%=bcount %>';
+                        let myGrade = Math.abs(grade-myInt);
+                        let percent = Math.ceil((myInt/grade)*100);
                         
                         //console.log(myInt);
                         //console.log(myGrade);
 
-                        
-
-                        var str = document.getElementById("count");
+                        let str = document.getElementById("count");
                         str.innerHTML = percent+'%';
 
                         let variable = document.getElementById('percent');
-
-                        variable.dataset.width;
+                        //variable.dataset.width;
                         variable.dataset.width = percent;
-
                        // console.log(variable.dataset.width);
                     </script>
 
@@ -207,24 +194,24 @@
                 
                 <div class="cricle">
                     <div class="text-null"></div>
-                    <div class="text-bold">❤ 33</div>
+                    <div class="text-bold">❤ 0</div>
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
-                    <div class="text-stand">나의 매칭 : </div>
+                    <div class="text-stand">나의 매칭 : 0건</div>
                     
                     <div class="text-null"></div>
                     <div class="text-null2"></div>
 
                     <div class="text-stand">평균 점수 : 
-                        <div class="stars">⭐(4.6)</div>
+                        <div class="stars">⭐(0.0)</div>
 
                     </div>
 
                     <div class="text-null2"></div>
 
                     <div class="text-stand">최근 점수 :
-                        <div class="stars">⭐(4.2)</div>
+                        <div class="stars">⭐(0.0)</div>
                         <p class="text-small">* 최근 10건의 평균 점수 입니다.</p>
 
                     </div>

@@ -870,6 +870,121 @@ public class PetDao {
 		}
 		return lastDate;
 	}
+	public ArrayList<Suggestion> selectSugList(Connection conn, PageInfo pi) {
+		ArrayList<Suggestion> sugList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSugList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endrow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Suggestion sug = new Suggestion();
+				sug.setInd(rset.getInt("IND"));
+				sug.setSugNo(rset.getInt("SUG_NO"));
+				sug.setSugTitle(rset.getString("SUG_TITLE"));
+				sug.setSugContent(rset.getString("SUG_CONTENT"));
+				sug.setSugDate(rset.getString("SUG_DATE"));
+				sug.setUserNo(rset.getInt("USER_NO"));
+				sug.setUserEmail(rset.getString("USER_EMAIL"));
+				
+				sugList.add(sug);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sugList;
+	}
+	public int selectSugListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSugListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public Suggestion selectSugContent(Connection conn, int sugNo) {
+		Suggestion sug = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSugContent");
+		try {
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1,  sugNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				sug = new Suggestion();
+				sug.setSugNo(rset.getInt("SUG_NO"));
+				sug.setSugTitle(rset.getString("SUG_TITLE"));
+				sug.setSugContent(rset.getString("SUG_CONTENT"));
+				sug.setSugDate(rset.getString("SUG_DATE"));
+				sug.setUserEmail(rset.getString("USER_EMAIL"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sug;
+	}
+	public ArrayList<PetFile> selectSugFile(Connection conn, int sugNo) {
+		ArrayList<PetFile> file = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSugFile");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sugNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				PetFile pf = new PetFile();
+				pf.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
+				pf.setRefBno(rset.getInt("SUG_NO"));
+				pf.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				pf.setUploadName(rset.getString("UPLOAD_NAME"));
+				pf.setFilePath(rset.getString("FILE_PATH"));
+				file.add(pf);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return file;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;

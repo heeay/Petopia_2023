@@ -21,8 +21,7 @@
 		   AND BOARD_STATUS = 'Y'
 	</entry>
 	
-	
-	
+		
 	<!-- ==============펫 프로필 등록============== -->
 	<!-- 펫프로필: 유저프로필 첨부 -->
 	<entry key="insertUserProfil">
@@ -424,5 +423,95 @@
 	</entry>
 	
 	
+	<!-- ====================건의사항==================== -->
+	<!-- 건의사항: 등록 -->
+	<entry key="insertSuggestion">
+		 INSERT 
+		   INTO 
+		   		TB_SUGGESTION
+		    	(
+		    	SUG_NO,
+		    	SUG_TITLE,
+				SUG_CONTENT,
+				SUG_DATE,
+				USER_NO
+		    	)
+		 VALUES 
+				(
+				SEQ_SUG_NO.NEXTVAL,
+				?,
+				?,
+				SYSDATE,
+				?
+				)
+	</entry>
 	
+	<!-- 건의사항: 파일등록 -->
+	<entry key="insertSuggestionFile">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+		   		SUG_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				SEQ_SUG_NO.CURRVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
+	<!-- 건의사항: 페이징 -->
+	<entry key="selectSugList">
+		SELECT * 
+  FROM(SELECT ROWNUM IND,A.*
+         FROM (SELECT SUG_NO,
+                      SUG_TITLE,
+                      SUG_CONTENT,
+                      SUG_DATE,
+                      USER_NO,
+                      USER_EMAIL
+                 FROM TB_SUGGESTION
+                 JOIN TB_USER USING(USER_NO)
+                ORDER BY SUG_NO DESC)A
+        ORDER BY IND)
+ WHERE IND BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 건의사항: 전체리스트 수 -->
+	<entry key="selectSugListCount">
+		SELECT COUNT(*)
+  		  FROM TB_SUGGESTION
+	</entry>
+	
+	<!-- 건의사항: 건의사항 상세보기 -->
+	<entry key="selectSugContent">
+		SELECT SUG_NO,
+			   SUG_TITLE,
+		       SUG_CONTENT,
+		       SUG_DATE,
+		       USER_EMAIL
+		  FROM TB_SUGGESTION
+		  JOIN TB_USER USING (USER_NO)
+		  WHERE SUG_NO = ?
+	</entry>
+	
+	<!-- 건의사항: 건의사항 첨부파일 -->
+	<entry key="selectSugFile">
+		SELECT FILE_MYPAGE_NO,
+		       SUG_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH
+		  FROM TB_MYPAGE_FILE 
+		  JOIN TB_SUGGESTION USING(SUG_NO)  
+		  WHERE SUG_NO = ?
+	</entry>
 </properties>

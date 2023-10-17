@@ -75,6 +75,7 @@ public class ShareUpdateController extends HttpServlet {
 					infoFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
 					infoFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
 					infoFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
+					infoFile.setRefBno(infoNo); // 현재 게시글 번호를 파일의 참조번호에 담음
 					
 					// 파일 레벨을 지정하는 조건문
 					if(i == 1) {
@@ -84,17 +85,21 @@ public class ShareUpdateController extends HttpServlet {
 					}
 					list.add(infoFile);
 					
-					infoFile.setRefBno(infoNo); // 현재 게시글 번호를 파일의 참조번호에 담음
-					
-					new File(savePath + multiRequest.getParameter("originalFileNo")).delete();
+					// name이 originalFileNo인 파일들 삭제 (기존 게시글 작성 시 올렸던 파일들) => name 속성이 같은 여러 개 받아올 때는 getParameterValues 사용
+					new File(savePath + multiRequest.getParameterValues("originalFileNo")).delete();
 					
 					int result = new InfoService().updateInfo(in, list, star, infoNo);
 					
+					if(result > 0) { // 게시글 수정 성공
+						response.sendRedirect(request.getContextPath() + "/detailShare.in?ino=" + infoNo);
+					} else { // 실패
+						request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					}
+					
 				}
-			}
-			
+			}	
 		}
-		
 	}
 
 	/**

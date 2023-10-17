@@ -304,6 +304,7 @@
  	                   <% } %>
                     <% } %>
                     <!-- 
+                </div>
                    <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
                         <h2 id="title">강아지 목욕 꿀팁!</h2>
@@ -321,7 +322,6 @@
                         </div>
                     </div>
                     </div>
-                </div>
                 <div class="content-box">
                     <div class="content">
                         <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
