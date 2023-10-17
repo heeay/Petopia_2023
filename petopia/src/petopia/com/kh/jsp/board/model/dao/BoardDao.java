@@ -1,5 +1,7 @@
 package petopia.com.kh.jsp.board.model.dao;
 
+import static petopia.com.kh.jsp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,10 +13,6 @@ import java.util.Properties;
 
 import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.board.model.vo.Category;
-
-
-import static petopia.com.kh.jsp.common.JDBCTemplate.*;
-
 import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 
@@ -107,7 +105,7 @@ public class BoardDao {
 				board.setBoardViews(rset.getInt("BOARD_VIEWS"));
 				board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 				board.setUserNo(rset.getInt("USER_NO"));
-				board.setFileImg(rset.getString("FILE_IMG"));
+		
 				board.setCtgNo(rset.getInt("CTG_NO"));
 				board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
 				
@@ -165,6 +163,7 @@ public class BoardDao {
 			
 		}
 	
+		
 		public ArrayList<File> selectFile(Connection conn, int bno){
 			
 			ArrayList<File> fList = new ArrayList();
@@ -290,7 +289,109 @@ public class BoardDao {
 			return board;
 		}
 	
+		
+		
+		public ArrayList<Category> selectCategoryList(Connection conn) {
+			
+			ArrayList<Category> cList = new ArrayList();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectCategoryList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Category category = new Category();
+					
+					category.setCtgNo(rset.getInt("CTG_NO"));
+					category.setCtgName(rset.getString("CTG_NAME"));
+					
+					cList.add(category);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+
+			return cList;
+		}
 	
+		
+		public int insertBoard(Connection conn, Board board) {
+		
+			int result1 = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertBoard");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				
+//	뭐하니	pstmt.setBoardTitle(board.getBoardTitle("BOARD_TITLE"))
+				
+				// SEQ로 받아도 셋팅은 해야하나? 놉
+				pstmt.setString(1, board.getBoardTitle());
+				pstmt.setString(2, board.getBoardContent());
+				pstmt.setInt(3, board.getUserNo());
+				pstmt.setInt(4, board.getCtgNo());
+
+				
+				result1 = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result1;
+		}
+		
+		public int insertFileList(Connection conn, ArrayList<File> fList) {
+			
+			int result2 = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertFileList");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				//리스트의 요소 개수만큼  TB_FILE에 행을 추가
+				for(File file : fList) {
+	
+					
+					pstmt.setString(1, file.getOriginalName());
+					pstmt.setString(2, file.getUploadName());
+					pstmt.setString(3, file.getFilePath());
+					pstmt.setInt(4, file.getFileLevel());
+					
+//					 *** 이 방법과 정답과의 차이는?
+//					fList.add(file);
+//					result2 = pstmt.executeUpdate();
+					
+					result2 += pstmt.executeUpdate();
+				
+				}// 리스트에 객체 다 넣었으면
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				
+				close(pstmt);
+			}
+			return result2;
+		}
 	
 	
 	

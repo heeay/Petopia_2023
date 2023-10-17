@@ -25,6 +25,7 @@
             box-sizing: border-box;
             height: 80%;
             width: 80%;  
+            min-width: 1350px;
         }
     </style>  
     

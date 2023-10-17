@@ -7,7 +7,7 @@ public class Suggestion {
 	private int sugNo;			//SUG_NO	NUMBER
 	private String sugTitle;	//SUG_TITLE	VARCHAR2(100 BYTE)
 	private String sugContent;	//SUG_CONTENT	VARCHAR2(2000 BYTE)
-	private Date subDate;		//SUG_DATE	DATE
+	private String sugDate;		//SUG_DATE	DATE
 	private int userNo;			//USER_NO	NUMBER
 	private int fileNo;			//FILE_NO	NUMBER
 	
@@ -15,12 +15,12 @@ public class Suggestion {
 		super();
 	}
 	
-	public Suggestion(int sugNo, String sugTitle, String sugContent, Date subDate, int userNo, int fileNo) {
+	public Suggestion(int sugNo, String sugTitle, String sugContent, String sugDate, int userNo, int fileNo) {
 		super();
 		this.sugNo = sugNo;
 		this.sugTitle = sugTitle;
 		this.sugContent = sugContent;
-		this.subDate = subDate;
+		this.sugDate = sugDate;
 		this.userNo = userNo;
 		this.fileNo = fileNo;
 	}
@@ -43,11 +43,11 @@ public class Suggestion {
 	public void setSugContent(String sugContent) {
 		this.sugContent = sugContent;
 	}
-	public Date getSubDate() {
-		return subDate;
+	public String getSugDate() {
+		return sugDate;
 	}
-	public void setSubDate(Date subDate) {
-		this.subDate = subDate;
+	public void setSugDate(String sugDate) {
+		this.sugDate = sugDate;
 	}
 	public int getUserNo() {
 		return userNo;
@@ -64,8 +64,8 @@ public class Suggestion {
 	
 	@Override
 	public String toString() {
-		return "Suggestion [sugNo=" + sugNo + ", sugTitle=" + sugTitle + ", sugContent=" + sugContent + ", subDate="
-				+ subDate + ", userNo=" + userNo + ", fileNo=" + fileNo + "]";
+		return "Suggestion [sugNo=" + sugNo + ", sugTitle=" + sugTitle + ", sugContent=" + sugContent + ", sugDate="
+				+ sugDate + ", userNo=" + userNo + ", fileNo=" + fileNo + "]";
 	}
 	
 }

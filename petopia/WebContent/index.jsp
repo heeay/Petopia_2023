@@ -13,7 +13,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             width: 100%;
         }
         #section-wrap{
-            width: 1220px;
+            width: 1250px;
             height: 2000px;
             padding: 20px 0;
             margin: auto;
@@ -27,15 +27,31 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         .board-item{
             width: 250px;
             height: 300px;
+            float: left;
+            padding: 0 12px;
         }
-        .board-item img{
+        .board-thumbnail-wrap{
             width: 200px;
             height: 160px;
+            margin: auto;
+            
+        }
+        .board-thumbnail-wrap > img{
+            width: 100%;
+            height: 100%;
+        }
+        .text{
+            font-size: 14px;
+        }
+        .text-icon{
+            /*color: #6d6d6d;*/
+            width: 20px;
+            filter: invert(44%) sepia(2%) saturate(8%) hue-rotate(319deg) brightness(94%) contrast(90%);
         }
     </style>
     <style>
         #left-side-menu-wrap{
-            width: 250px;
+            width: 280px;
             height: 100%;
             float: left;
         }
@@ -78,6 +94,61 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             background-color: rgb(255, 234, 226);
         }
     </style>
+    <style>
+        .board-swiper-title{
+            color: rgb(255, 243, 224);
+            font-size: 40px;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+            border-style: solid;
+            border-color: rgb(87, 55, 43);
+            border-width: 2px 0;
+            background-color: rgb(124, 95, 84);
+            margin: 5px;
+        }
+        #board-swiper-wrap{
+            overflow: hidden;
+        }
+        /* 이미지 영역 사이즈 조절 */
+        .board-swiper {
+            width: 750px;
+            height: 300px;
+        }
+
+        /* 이미지 사이즈 조절 */
+        .swiper-slide>img {
+            width : 100%;
+            height : 100%;
+            object-fit: cover;
+        }
+
+        /* 화살표 버튼색 변경 (기본색은 파란색) */
+        div[class^=board-swiper-button] {
+            color : rgb(117, 81, 28);
+            /*display : none; /* 아니면 안보이게 숨기기도 가능 */
+        }
+    </style>
+    <style>
+        .article-wrap{
+            padding: 0 50px;
+        }
+        .article-title{
+            color: rgb(104, 74, 56);
+            font-weight: bold;
+            font-size: 42px;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+        }
+        .article-content{
+            font-size: 27px;
+            font-family: 'Nanum Pen Script', cursive;
+            margin-bottom: 40px;
+        }
+        .right-text-align{text-align: right;}
+        .highlight-text{
+            color: rgb(141, 88, 23);
+        }
+    </style>
 </head>
 <body>
 	<%@include file="views/common/header.jsp" %>
@@ -85,13 +156,14 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
             <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            근처 동물병원
             <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
 	        	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
 	            var mapOption = {
 	        	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        	        level: 6, // 지도의 확대 레벨
+	        	        level: 7, // 지도의 확대 레벨
 	        	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
 	        	    };
                 
@@ -220,13 +292,108 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 }
             });
             </script>-->
+            <div class="article-wrap">
+                <div class="article-title">※펫토피아를 소개합니다!※</div>
+                <div class="article-content">
+                    위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를 철환하였는가?<br>
+                    밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?<br>
+                    아니다 그들은 커다란 이상 곧<br>
+                </div>
 
-            <div class="board-item">
-                <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
-                <p>
-                    <div>강아지 목욕 꿀팁!</div>
-                    <div>나는야집사 2020-01-01 조회수[55]</div>
-                </p>
+            </div>
+            <div class="board-swiper-title">
+                베스트 게시판
+            </div>
+            <div id="board-swiper-wrap">
+                <!-- Slider main container -->
+                <div class="board-swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div>
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="board-item">
+                                <div class="board-thumbnail-wrap">
+                                    <img src="https://cdn.pixabay.com/photo/2018/07/14/17/46/raccoon-3538081_1280.jpg" alt="">
+                                </div>
+                                <p>
+                                    <div>강아지 목욕 꿀팁! [125]</div>
+                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div>
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
+                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+            
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+            
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar"></div>
+                </div>
+            </div>
+            <script>
+                // 슬라이더 동작 정의
+                const boardSwiper = new Swiper('.board-swiper', {
+                    //autoplay : {
+                    //    delay : 4000 // 3초마다 이미지 변경
+                    //},
+                    loop : true, //반복 재생 여부
+                    slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
+                    pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: { // 화살표 버튼 클릭 시 이미지 이동 가능
+                        prevEl: '.swiper-button-prev',
+                        nextEl: '.swiper-button-next'
+                    }
+                }); 
+            </script>
+            <div class="article-wrap">
+                <div class="article-title">※추구하는 가치 등※</div>
+                <div class="article-content">
+                    함께하는 시간동안 동물이 아닌 <span class="highlight-text">가족</span>으로써의<br>
+                    삶을 함께 살고자 하는 반려인들에게 올바른 <span class="highlight-text">이정표</span>이자<br>
+                    신나는 <span class="highlight-text">놀이터</span>로써의 역할을 하고자 합니다.<br>
+                </div>
+                <div class="article-content right-text-align">
+                    이별의 슬픔을 덜고 행복한 <span class="highlight-text">추억</span>만을 간직할 수 있도록<br>
+                    다양한 서비스를 <span class="highlight-text">지속적</span>으로 만들어 가는 것,<br>
+                    그것이 <span class="highlight-text">펫토피아</span>가 추구하는 <span class="highlight-text">가치</span>입니다.<br>
+                </div>
             </div>
         </div>
         <div id="right-side-menu-wrap">
