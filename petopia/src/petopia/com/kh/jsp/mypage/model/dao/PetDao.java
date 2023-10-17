@@ -384,7 +384,7 @@ public class PetDao {
 				pstmt.setString(4, startDate);
 				pstmt.setString(5, endDate);
 			}
-			System.out.println(sql);
+			//System.out.println(sql);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -593,7 +593,7 @@ public class PetDao {
 		if(startDate != null) {
 			sql += walkDate;
 		}
-		System.out.println(sql);
+		//System.out.println(sql);
 		try {
 			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
 			int endRow = startRow+pi.getBoardLimit()-1;
