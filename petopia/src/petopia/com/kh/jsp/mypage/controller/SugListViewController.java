@@ -1,6 +1,9 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import petopia.com.kh.jsp.mypage.model.service.PetService;
+import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
+import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -38,10 +44,41 @@ public class SugListViewController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
+		int listCount;		
+		int currentPage;	
+		int pageLimit;		
+		int boardLimit;		
+
+		int maxPage;		
+		int startPage;
+		int endPage;
 		
+		listCount = new PetService().selectSugListCount();
 		
+		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		
+		//System.out.println(currentPage);
+		
+		pageLimit = 10;
+		boardLimit = 8;
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
+		endPage = startPage + pageLimit -1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		ArrayList<Suggestion> sugList = new PetService().selectSugList(pi);
+		
+		request.setAttribute("sugList", sugList);
+		request.setAttribute("pi", pi);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/suggestionList.jsp");
+		view.forward(request, response);
 	}
 
 	/**

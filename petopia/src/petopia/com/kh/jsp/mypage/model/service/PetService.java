@@ -298,5 +298,33 @@ public class PetService {
 		return lastDate;
 	}
 
+	public ArrayList<Suggestion> selectSugList(PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Suggestion> sugList = new PetDao().selectSugList(conn, pi);
+		close(conn);
+		return sugList;
+	}
+
+	public int selectSugListCount() {
+		Connection conn = getConnection();
+		int listCount = new PetDao().selectSugListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public Suggestion selectSugContent(int sugNo) {
+		Connection conn = getConnection();
+		Suggestion sug = new PetDao().selectSugContent(conn, sugNo);
+		close(conn);
+		return sug;
+	}
+
+	public ArrayList<PetFile> selectSugFile(int sugNo) {
+		Connection conn = getConnection();
+		ArrayList<PetFile> file = new PetDao().selectSugFile(conn, sugNo);
+		close(conn);
+		return file;
+	}
+
 	
 }
