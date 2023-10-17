@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
+<%
+	String bcount = (String)request.getAttribute("bcount");
+	String lastDate = (String)request.getAttribute("lastDate");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,17 +128,70 @@
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
-                    <div class="text-stand">내 등급은?</div>
+                    <div class="text-stand">다음 등급까지</div>
                     <div class="zt-skill-bar">
-                        <div data-width="88">다음 등급까지
-                            <span>88%</span>
+                        <div data-width="88" id="percent">✏
+                            <span id="count"></span>
                         </div>
                     </div>
 
+                    <script>
+                        //console.log('<%=userInfo.getRoleId() %>');
+                        if('<%=userInfo.getRoleId() %>' === '관리자'){
+                            var str = document.getElementById("count");
+                            str.innerHTML = 100+'%';
+
+                        let variable = document.getElementById('percent');
+
+                            variable.dataset.width;
+                            variable.dataset.width = 100;
+
+                            variable.innerHTML = '관리자입니다';
+                        }
+                        if('<%=userInfo.getRoleId() %>' === '초급'){
+                            var grade =11;
+                        }
+                        if('<%=userInfo.getRoleId() %>' === '중급'){
+                            var grade = 31;
+                        }
+                        if('<%=userInfo.getRoleId() %>' === '고급'){
+                        var str = document.getElementById("count");
+                        str.innerHTML = 100+'%';
+
+                        let variable = document.getElementById('percent');
+
+                        variable.dataset.width;
+                        variable.dataset.width = 100;
+
+                        variable.innerHTML = '최종 등급입니다';
+                       }
+                        
+                        var myInt = '<%=bcount %>';
+                        var myGrade = Math.abs(grade-myInt);
+
+                        var percent = Math.ceil((myInt/grade)*100);
+                        
+                        
+                        //console.log(myInt);
+                        //console.log(myGrade);
+
+                        
+
+                        var str = document.getElementById("count");
+                        str.innerHTML = percent+'%';
+
+                        let variable = document.getElementById('percent');
+
+                        variable.dataset.width;
+                        variable.dataset.width = percent;
+
+                       // console.log(variable.dataset.width);
+                    </script>
+
                     <div class="text-null"></div>
-                    <div class="text-stand">게시글 수 :</div>
+                    <div class="text-stand">게시글 수 : <b><%=bcount %></b>개</div>
                     <div class="text-null2"></div>
-                    <div class="text-stand">마지막 게시글 :</div>
+                    <div class="text-stand">마지막 게시글 : <b><%=lastDate %></b></div>
                     
                 </div>
 

@@ -410,7 +410,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <%if(userInfo == null){ %>
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
                 <%} else { %>
-                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp">
+                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                         <div id="file-area">
                         	<% if(userInfo.getFileMypageNo().equals("/")) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
