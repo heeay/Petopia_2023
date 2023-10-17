@@ -26,10 +26,8 @@ public class MatchService {
 		
 		if((result1 * result2) > 0) {
 			commit(conn);
-			System.out.println("성공");
 		} else {
 			rollback(conn);
-			System.out.println("실패");
 		}
 		close(conn);
 		return (result1 * result2);

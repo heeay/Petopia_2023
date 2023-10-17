@@ -107,14 +107,14 @@ public class BoardService {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new BoardDao().insertBoard(conn, board);
-		int result2 = new BoardDao().insertFileList(conn, fList);
+		int boardInsert = new BoardDao().insertBoard(conn, board);
+		int fileInsert = new BoardDao().insertFileList(conn, fList);
 		
 		// 둘은 동시에 성공해야 commit
-		if(result1*result2 > 0) commit(conn);
+		if(boardInsert*fileInsert > 0) commit(conn);
 		else rollback(conn);
 
-		return (result1*result2);
+		return (boardInsert*fileInsert);
 	}
 	
 	

@@ -8,12 +8,12 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.dao.InfoDao;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
-import petopia.com.kh.jsp.user.model.vo.User;
 
 public class InfoService {
 	
@@ -125,22 +125,33 @@ public class InfoService {
 		return result;
 	}
 	
-	public int selectUser(int infoNo, int userNo) {
+	public int checkLike(int infoNo, int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int countUser = new InfoDao().selectUser(conn, infoNo, userNo);
+		int check = new InfoDao().checkLike(conn, infoNo, userNo);
 		
 		close(conn);
 		
-		return countUser;
+		return check;
 	}
 	
-	public int insertLike(int infoNo, int userNo) {
+	public int checkNoLike(int infoNo, int userNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = new InfoDao().insertLike(conn, infoNo, userNo);
+		int checkNo = new InfoDao().checkNoLike(conn, infoNo, userNo);
+		
+		close(conn);
+		
+		return checkNo;
+	}
+	
+	public int insertLike(Like like) {
+		
+		Connection conn = getConnection();
+		
+		int result = new InfoDao().insertLike(conn, like);
 		
 		if(result > 0) {
 			commit(conn);
@@ -154,19 +165,35 @@ public class InfoService {
 	
 	public int deleteLike(int infoNo, int userNo) {
 			
-			Connection conn = getConnection();
-			
-			int result = new InfoDao().deleteLike(conn, infoNo, userNo);
-			
-			if(result > 0) {
-				commit(conn);
-			} else {
-				rollback(conn);
-			}
-			close(conn);
-			
-			return result;
+		Connection conn = getConnection();
+		
+		int result = new InfoDao().deleteLike(conn, infoNo, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int updateLike(int infoNo, int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new InfoDao().updateLike(conn, infoNo, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 	
 	public int countLike(int infoNo) {
 		
@@ -177,6 +204,26 @@ public class InfoService {
 		close(conn);
 		
 		return count;
+	}
+	
+	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new InfoDao().updateInfo(conn, in);
+		
+		int result2 = new InfoDao().updateInfoFile(conn, list);
+		
+		int result3 = new InfoDao().updateStar(conn, star, infoNo);
+		
+		if((result1 * result2 * result3) > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return (result1 * result2 * result3);
 	}
 	
 	

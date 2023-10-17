@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
-import petopia.com.kh.jsp.user.model.vo.User;
 
 public class InfoDao {
 	
@@ -125,13 +125,13 @@ public class InfoDao {
 		String sql = prop.getProperty("insertFileList");
 		
 		try {
-			for(InfoFile iFile : list) { // list의 요소를 순서대로 InfoFile 객체에 담음
+			for(InfoFile infoFile : list) { // list의 요소를 순서대로 InfoFile 객체에 담음
 				pstmt = conn.prepareStatement(sql);
 			
-				pstmt.setString(1, iFile.getOriginalName()); // 파일 원본명
-				pstmt.setString(2, iFile.getUploadName()); // 파일 수정명
-				pstmt.setString(3, iFile.getFilePath()); // 파일 경로
-				pstmt.setInt(4, iFile.getFileLevel()); // 파일 레벨(썸네일 1, 나머지 2)
+				pstmt.setString(1, infoFile.getOriginalName()); // 파일 원본명
+				pstmt.setString(2, infoFile.getUploadName()); // 파일 수정명
+				pstmt.setString(3, infoFile.getFilePath()); // 파일 경로
+				pstmt.setInt(4, infoFile.getFileLevel()); // 파일 레벨(썸네일 1, 나머지 2)
 				
 				result *= pstmt.executeUpdate();
 			}
@@ -258,12 +258,12 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				InfoFile iFile = new InfoFile();
-				iFile.setFileNo(rset.getInt("FILE_NO"));
-				iFile.setOriginalName(rset.getString("ORIGINAL_NAME"));
-				iFile.setUploadName(rset.getString("UPLOAD_NAME"));
-				iFile.setFilePath(rset.getString("FILE_PATH"));
-				list.add(iFile);
+				InfoFile infoFile = new InfoFile();
+				infoFile.setFileNo(rset.getInt("FILE_NO"));
+				infoFile.setOriginalName(rset.getString("ORIGINAL_NAME"));
+				infoFile.setUploadName(rset.getString("UPLOAD_NAME"));
+				infoFile.setFilePath(rset.getString("FILE_PATH"));
+				list.add(infoFile);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,33 +293,59 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int selectUser(Connection conn, int infoNo, int userNo) {
+	public int checkLike(Connection conn, int infoNo, int userNo) {
 		
-		int countUser = 0;
+		int check = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectUser");
+		String sql = prop.getProperty("checkLike");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setInt(1, infoNo);
 			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				countUser = rset.getInt("COUNT(*)");
+				check = rset.getInt("COUNT(*)");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return countUser;
+		return check;
 	}
 	
-	public int insertLike(Connection conn, int infoNo, int userNo) {
+	public int checkNoLike(Connection conn, int infoNo, int userNo) {
+		
+		int checkNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkNoLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, infoNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkNo = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return checkNo;
+	}
+	
+	public int insertLike(Connection conn, Like like) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -327,8 +353,8 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, infoNo);
-			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, like.getBoardNo());
+			pstmt.setInt(2, like.getUserNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -356,6 +382,25 @@ public class InfoDao {
 			}
 			return result;
 		}
+	
+	public int updateLike(Connection conn, int infoNo, int userNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, infoNo);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	public int countLike(Connection conn, int infoNo) {
 		
@@ -379,6 +424,76 @@ public class InfoDao {
 			close(pstmt);
 		}
 		return count;
+	}
+	
+	public int updateInfo(Connection conn, Info in) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, in.getInfoTitle());
+			pstmt.setString(2, in.getInfoContent());
+			pstmt.setInt(3, Integer.parseInt(in.getCategory()));
+			pstmt.setInt(4, in.getInfoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateInfoFile(Connection conn, ArrayList<InfoFile> list) {
+		
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInfoFile");
+		
+		try {
+			for(InfoFile infoFile : list) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, infoFile.getOriginalName());
+				pstmt.setString(2, infoFile.getUploadName());
+				pstmt.setString(3, infoFile.getFilePath());
+				pstmt.setInt(4, infoFile.getFileLevel());
+				pstmt.setInt(5, infoFile.getRefBno());
+				
+				result *= pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateStar(Connection conn, int star, int infoNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateStar");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, star);
+			pstmt.setInt(2, infoNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

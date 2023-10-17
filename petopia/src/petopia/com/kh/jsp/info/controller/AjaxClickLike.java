@@ -1,13 +1,6 @@
 package petopia.com.kh.jsp.info.controller;
 
-import static petopia.com.kh.jsp.common.JDBCTemplate.close;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,23 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.info.model.service.InfoService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class AjaxSelectUser
+ * Servlet implementation class AjaxUpdateLike
  */
-@WebServlet("/selectUser.in")
-public class AjaxSelectUser extends HttpServlet {
+@WebServlet("/clickLike.in")
+public class AjaxClickLike extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSelectUser() {
+    public AjaxClickLike() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,17 +32,37 @@ public class AjaxSelectUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int infoNo = Integer.parseInt(request.getParameter("ino"));
-		
+		int infoNo = Integer.parseInt(request.getParameter("ino")); // 게시글 번호
 		int userNo = 0;
 		if((User)request.getSession().getAttribute("userInfo") != null) {
 			userNo = ((User)request.getSession().getAttribute("userInfo")).getUserNo(); // 회원 번호
 		}
 		
-		// 해당 게시글의 LIKE_YN = 'Y'인 사람 == 1
-		int result = new InfoService().checkLike(infoNo, userNo);
+		int result = 0;
+		int check = new InfoService().checkLike(infoNo, userNo); // Y인 좋아요의 개수
+		int checkNo = new InfoService().checkNoLike(infoNo, userNo); // N인 좋아요의 개수
 		
-		// 응답 데이터에 한글이 있을 수 있으니까 그에 따른 UTF-8 인코딩 설정, text/html : 응답할 데이터 타입
+		// System.out.println(check);
+		// System.out.println(checkNo);
+		
+		if(check == 1) { // 게시글에 좋아요가 클릭되어있는 경우 (LIKE_YN == 'Y')
+			result = new InfoService().deleteLike(infoNo, userNo); // LIKE_YN = 'N'으로 변경 (성공 1, 실패 0)
+			result += 1; // result + 1 (성공 2)
+			
+		} else { // check == 0 (LIKE_YN = 'N' OR 좋아요 처음 클릭)
+			
+			if(checkNo == 1) { // 이전에 좋아요를 클릭했다 취소한 경우 (LIKE_YN == 'N')
+				result = new InfoService().updateLike(infoNo, userNo); // LIKE_YN = 'Y'로 변경
+				
+			} else { // 처음 좋아요를 클릭하는 경우
+				Like like = new Like();
+				like.setBoardNo(infoNo);
+				like.setUserNo(userNo);
+				
+				result = new InfoService().insertLike(like); // 성공 1, 실패 0
+			}
+		}
+		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
 	}

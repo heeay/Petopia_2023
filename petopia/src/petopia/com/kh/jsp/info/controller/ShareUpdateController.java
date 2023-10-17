@@ -1,5 +1,6 @@
 package petopia.com.kh.jsp.info.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
+import petopia.com.kh.jsp.info.model.service.InfoService;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
@@ -69,27 +71,35 @@ public class ShareUpdateController extends HttpServlet {
 				// 현재 반복하고 있는 키값을 통해 파일을 업로드했는지 파악
 				if(multiRequest.getOriginalFileName(key) != null) { // 파일이 존재한다면
 					
-					InfoFile iFile = new InfoFile(); // InfoFile 객체 생성
-					iFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
-					iFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
-					iFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
+					InfoFile infoFile = new InfoFile(); // InfoFile 객체 생성
+					infoFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
+					infoFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
+					infoFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
 					
 					// 파일 레벨을 지정하는 조건문
 					if(i == 1) {
-						iFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)
+						infoFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)
 					} else {
-						iFile.setFileLevel(2); // 나머지 파일의 파일 레벨은 2
+						infoFile.setFileLevel(2); // 나머지 파일의 파일 레벨은 2
 					}
-					list.add(iFile);
+					list.add(infoFile);
 					
-					iFile.setFileNo(Integer.parseInt(multiRequest.getParameter("originalFileNo")));
+					infoFile.setRefBno(infoNo); // 현재 게시글 번호를 파일의 참조번호에 담음
 					
+					new File(savePath + multiRequest.getParameter("originalFileNo")).delete();
+					
+					int result = new InfoService().updateInfo(in, list, star, infoNo);
+					
+					if(result > 0) { // 게시글 수정 성공
+						response.sendRedirect(request.getContextPath() + "/detailShare.in?ino=" + infoNo);
+					} else { // 실패
+						request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+					}
 					
 				}
-			}
-			
+			}	
 		}
-		
 	}
 
 	/**

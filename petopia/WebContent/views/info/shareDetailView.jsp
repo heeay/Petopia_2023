@@ -88,6 +88,7 @@
     /* 좋아요 버튼 */
     .like{
     	border : none;
+    	background-color : rgb(255, 248, 240);
 	}
 </style>
 </head>
@@ -156,7 +157,7 @@
                         <% if(userInfo != null) { %>
                             <td align="center">
                             	<!-- 빈 하트 -->
-                            	<button id="like" class="like" onclick="insertLike();">🤍</button><span></span>
+                            	<button id="like" class="like" onclick="clickLike();">🤍</button><span></span>
                             </td>
                         <% } else { %>
                         	<td align="center">
@@ -176,7 +177,7 @@
            </div>
            
            <div id="back">
-           		<button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">목록으로</button>
+           		<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= in.getCategoryNo() %>&ipage=1'" type="button" class="btn btn-sm btn-secondary">목록으로</button>
            </div>
     
         </div>
@@ -238,11 +239,12 @@
             });
         </script>
         
-        <!-- 좋아요 클릭하면 숫자  + 1 -->
+        <!-- 좋아요 기능 -->
         <script>
         
      		// 1초마다 좋아요 수 새롭게 읽어옴
     		$(function(){
+    			// 지금 로그인한 유저가 클릭한 게시글의 좋아요를 눌렀는지 먼저 확인
     			selectUser();
     			
     			countLike();
@@ -257,7 +259,7 @@
         			data : {ino : <%= in.getInfoNo() %>},
         			success : function(count){
         				// console.log(count);
-        				$('.like').next().html(count);
+        				$('.like').next().html(count); // 하트 옆에 읽어온 좋아요 수 출력
         			},
         			error : function(){
         				console.log('실패');
@@ -265,64 +267,39 @@
         		})
         	}
         	
-        	let activeLike = 0;
-        	console.log(activeLike);
-        	
-        	// 하트를 클릭하면 좋아요 여부 = 'Y'로 INSERT
-        	function insertLike(){
-        		
-        		if(activeLike == 1) {
-	        		$.ajax({
-	        			url : 'deleteLike.in',
-	        			type : 'get',
-	        			async: false,
-	        			data : {ino : <%= in.getInfoNo() %>},
-	        			success : function(){
+        	// 하트 클릭했을 때
+        	function clickLike(){
+	        	$.ajax({
+	        		url : 'clickLike.in',
+	        		type : 'get',
+	        		data : {
+	        			// 좋아요 클릭한 게시글 번호
+	        			ino : <%= in.getInfoNo() %>,
+	        		},
+	        		success : function(result){
+	        			if(result > 1) { // '좋아요 -> 좋아요  취소' 하는 경우에만 if문 해당(result에 + 1 했기 때문)
 	        				$('.like').html('🤍'); // 빈 하트로 바꿈
-	        				activeLike = 0;
-	        				//console.log(activeLike);
-	        				countLike(); // 하트 수를 다시 count
-	        			},
-	        			error : function(){
-	        				console.log('실패');
+	        			} else { // 나머지 경우(좋아요 + 1인 경우)
+	        				$('.like').html('❤'); // 빨간 하트로 바꿈	        				
 	        			}
-	        			
-	        		})
-        		}
-        		
-        		if(activeLike == 0) {
-	        		$.ajax({
-	        			url : 'insertLike.in',
-	        			type : 'get',
-	        			async: false,
-	        			data : {
-	        				// 좋아요 클릭한 게시글 번호
-	        				ino : <%= in.getInfoNo() %>,
-	        			},
-	        			success : function(){
-	        				$('.like').html('❤'); // 빨간 하트로 바꿈
-	        				activeLike = 1;
-	        				//console.log(activeLike);
-	        				countLike(); // 하트 수를 다시 count
-	        			},
-	        			error : function(){
-	        				console.log('실패');
-	        			}
-	        		})
-        		}
-    		
+	        			countLike(); // 하트 수를 다시 count
+	        		},
+	        		error : function(){
+	        			console.log('실패');
+	        		}
+	        	})
         	}
         	
-        	// 현재 로그인한 사용자가 이미 좋아요를 클릭한 사람인지 체크
+        	// 현재 로그인한 사용자가 이미 좋아요를 클릭한 사람인지 아닌지
         	function selectUser(){
         		$.ajax({
         			url : 'selectUser.in',
         			data : {ino : <%= in.getInfoNo() %>},
-        			success : function(countUser){
-        				// console.log(countUser);
-        				if(countUser == 1) { // 이미 이 게시글의 좋아요를 클릭한 사용자라면
-        					activeLike = 1;
-        					$('.like').html('❤'); // 게시글을 나왔다 다시 들어가도 빨간 하트
+        			success : function(result){
+        				if(result > 0) { // 해당 게시글의 좋아요를 이미 클릭한 사람이라면
+        					$('.like').html('❤'); // 빨간 하트로 보여짐
+        				} else {
+        					$('.like').html('🤍'); // 빈 하트로 보여짐
         				}
         			},
         			error : function(){
@@ -330,7 +307,6 @@
         			}
         		})
         	}
-        	
         </script>
 
 </body>
