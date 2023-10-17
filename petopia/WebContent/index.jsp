@@ -29,6 +29,10 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             height: 300px;
             float: left;
             padding: 0 12px;
+            color: rgb(44, 44, 44);
+        }
+        .board-item:hover{
+            text-decoration: none;
         }
         .board-thumbnail-wrap{
             width: 200px;
@@ -408,24 +412,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 </div>
             </div>
             <script>
-                // 슬라이더 동작 정의
-                const boardSwiper = new Swiper('.board-swiper', {
-                    //autoplay : {
-                    //    delay : 4000 // 3초마다 이미지 변경
-                    //},
-                    loop : true, //반복 재생 여부
-                    slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
-                    pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능
-                        el: '.swiper-pagination',
-                        clickable: true
-                    },
-                    navigation: { // 화살표 버튼 클릭 시 이미지 이동 가능
-                        prevEl: '.swiper-button-prev',
-                        nextEl: '.swiper-button-next'
-                    }
-                }); 
-            </script>
-            <script>
                 $(document).ready(function(){
                     $.ajax({
                         url:"bestBoard",
@@ -434,27 +420,46 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                         success: function(result){
                             console.log(result);
                             const swiperWrapper = $(".board-swiper>.swiper-wrapper");
-                            //swiperWrapper.empty();
+                            //const swiperWrapper = $("#test");
+                            swiperWrapper.empty();
+                            var swiperSlide = $("<div></div>").addClass("swiper-slide");
                             for(var i=0;i<result.length;i++){
                                 console.log(result[i]["boardTitle"]);
                                 var str=
-                                //"<div class='swiper-slide'>"+
-                                "<div class='board-item'>"+
+                                "<a class='board-item' href='#'>"+
                                 "<div class='board-thumbnail-wrap'>"+
                                 "<img src='"+result[i]["fileImg"]+"'>"+
                                 "</div>"+
                                 "<div>"+result[i]["boardTitle"]+" [125]</div>"+
                                 "<div class='text'><img class='text-icon' src='<%=contextPath %>/resources/images/writer.svg'>"+result[i]["boardContent"]+"</div>"+
                                 "<div class='text'>"+
-                                "<img class='text-icon' src='<%=contextPath %>/resources/images/create_date.svg'>"+result[i]["boardCreateDate"]
-                                "<img class='text-icon' src='<%=contextPath %>/resources/images/views.svg'>"+result[i]["boardViews"]
+                                "<img class='text-icon' src='<%=contextPath %>/resources/images/create_date.svg'>"+result[i]["boardCreateDate"]+
+                                " <img class='text-icon' src='<%=contextPath %>/resources/images/views.svg'> "+result[i]["boardViews"]+
                                 "</div>"+
-                                //"</div>"+
-                                "</div>";
-                                var swiperSlide = $("<div></div>").addClass("swiper-slide");
+                                "</a>";
                                 swiperSlide.append(str);
-                                //swiperWrapper.append(swiperSlide);
+                                if((i+1)%3==0){
+                                    swiperWrapper.append(swiperSlide);
+                                    swiperSlide = $("<div></div>").addClass("swiper-slide");
+                                }
                             }
+                            swiperWrapper.append(swiperSlide);
+                            // 슬라이더 동작 정의
+                            const boardSwiper = new Swiper('.board-swiper', {
+                                //autoplay : {
+                                //    delay : 4000 // 3초마다 이미지 변경
+                                //},
+                                loop : false, //반복 재생 여부
+                                slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
+                                pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능
+                                    el: '.swiper-pagination',
+                                    clickable: true
+                                },
+                                navigation: { // 화살표 버튼 클릭 시 이미지 이동 가능
+                                    prevEl: '.swiper-button-prev',
+                                    nextEl: '.swiper-button-next'
+                                }
+                            });
                         },
                         error: function(error){
                             console.log(error);
