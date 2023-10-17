@@ -28,6 +28,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             width: 250px;
             height: 300px;
             float: left;
+            padding: 0 12px;
         }
         .board-thumbnail-wrap{
             width: 200px;
@@ -39,8 +40,12 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             width: 100%;
             height: 100%;
         }
+        .text{
+            font-size: 14px;
+        }
         .text-icon{
             /*color: #6d6d6d;*/
+            width: 20px;
             filter: invert(44%) sepia(2%) saturate(8%) hue-rotate(319deg) brightness(94%) contrast(90%);
         }
     </style>
@@ -112,6 +117,16 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             /*display : none; /* 아니면 안보이게 숨기기도 가능 */
         }
     </style>
+    <style>
+        .content-title{
+            color: rgb(226, 120, 59);
+            font-weight: bold;
+            font-size: 19px;
+        }
+        .content{
+            font-size: 17px;
+        }
+    </style>
 </head>
 <body>
 	<%@include file="views/common/header.jsp" %>
@@ -119,13 +134,14 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
             <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            근처 동물병원
             <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>
 	        	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
 	            var mapOption = {
 	        	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        	        level: 6, // 지도의 확대 레벨
+	        	        level: 7, // 지도의 확대 레벨
 	        	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
 	        	    };
                 
@@ -254,6 +270,13 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 }
             });
             </script>-->
+            <p>
+                <div class="content-title">※펫토피아를 소개합니다!※</div>
+<pre class="content">
+qweqwe
+</pre>
+
+            </p>
             <div id="board-swiper-wrap">
                 <!-- Slider main container -->
                 <div class="board-swiper">
@@ -267,8 +290,8 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                 </div>
                                 <p>
                                     <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div>
+                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
+                                    <div class="text">
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
                                         <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
                                     </div>

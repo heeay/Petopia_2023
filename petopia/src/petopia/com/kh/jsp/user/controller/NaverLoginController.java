@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -163,6 +164,14 @@ public class NaverLoginController extends HttpServlet {
 				request.setAttribute("errorMsg", "간편 로그인 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			} else {
+				ServletContext application = request.getSession().getServletContext();
+				
+				if(application.getAttribute("accessCount")==null) {
+					application.setAttribute("accessCount", 0);
+				}
+				int ac = (Integer)application.getAttribute("accessCount");
+				application.setAttribute("accessCount", ++ac);
+				
 				request.getSession().setAttribute("userInfo", user);
 				response.sendRedirect(request.getContextPath());
 			}
