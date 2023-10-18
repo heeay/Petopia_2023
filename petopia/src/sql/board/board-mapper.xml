@@ -192,7 +192,6 @@ FROM
         FROM
             TB_BOARD
         JOIN TB_FILE ON(BOARD_NO = REF_BNO)
-        JOIN TB_CATEGORY USING(CTG_NO)
         JOIN TB_USER USING(USER_NO)
         LEFT JOIN TB_COMMENT USING(BOARD_NO)
         GROUP BY 
@@ -203,7 +202,8 @@ FROM
             USER_NICKNAME,
             FILE_PATH||'/'||UPLOAD_NAME,
             FILE_LEVEL,
-            BOARD_STATUS
+            BOARD_STATUS,
+            CTG_NO
         HAVING
             BOARD_STATUS = 'Y'
         AND

@@ -14,20 +14,20 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
         #section-wrap{
             width: 1250px;
-            overflow: hidden;
+            overflow: visible;
             padding: 20px 0;
             margin: auto;
             position: relative;
+            display: flex;
+            flex-direction: row;
         }
         #content-wrap{
             width: 750px;
-            height: 100%;
-            float: left;
+            flex: 1;
         }
         .board-item{
             width: 250px;
-            height: 300px;
-            float: left;
+            height: 250px;
             padding: 0 12px;
             color: rgb(44, 44, 44);
         }
@@ -56,15 +56,14 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     <style>
         #left-side-menu-wrap{
             width: 280px;
-            height: 100%;
-            float: left;
+            flex: 1;
         }
     </style>
     <style>
         #right-side-menu-wrap{
             width: 220px;
-            height: 100%;
-            float: left;
+            flex: 1;
+            overflow: visible;
         }
         #side-menu{
             width: 200px;
@@ -74,8 +73,8 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             font-size: 18px;
             font-weight: 500;
             position: sticky;
-            z-index: 10;
             top: 120px;
+            z-index: 10;
             background-color: rgb(228, 156, 92);
         }
         #side-menu a{
@@ -108,17 +107,22 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             border-color: rgb(87, 55, 43);
             border-width: 2px 0;
             background-color: rgb(124, 95, 84);
-            margin: 5px;
+            margin: 5px 0px;
         }
         #board-swiper-wrap{
             overflow: hidden;
+            background-color: rgba(124, 95, 84, 0.11);
         }
         /* 이미지 영역 사이즈 조절 */
         .board-swiper {
             width: 750px;
-            height: 300px;
+            height: 270px;
+            padding: 10px 0;
         }
-
+        .swiper-slide{
+            display: flex;
+            flex-direction: row;
+        }
         /* 이미지 사이즈 조절 */
         .swiper-slide>img {
             width : 100%;
@@ -142,6 +146,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
             font-size: 42px;
             font-family: 'Nanum Pen Script', cursive;
             text-align: center;
+            margin-bottom: 15px;
         }
         .article-content{
             font-size: 27px;
@@ -161,6 +166,35 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
             <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <canvas id="access-chart" width="250" height="200"></canvas>
+            <script>
+                new Chart(document.getElementById("access-chart"), {
+                type: 'line',
+                data: {
+                    labels: [1750,1800,1850,1900,1950,1999,2050],
+                    datasets: [{ 
+                        data: [119,120,111,133,221,183,208],
+                        label: "접속자",
+                        borderColor: "#3e95cd",
+                        fill: true
+                    }]
+                },
+                options: {
+                    title: {
+                        display: false
+                    },
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                }
+            });
+            </script>-->
             ↓↓근처 동물병원↓↓
             <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
@@ -190,9 +224,10 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 
                 // 키워드부분
                 // 키워드로 장소를 검색합니다
-                ps.keywordSearch('동물병원', placesSearchCB,{
+                /*ps.keywordSearch('동물병원', placesSearchCB,{
                     location: new kakao.maps.LatLng(33.450701, 126.570667)
-                });
+                });*/
+
                 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
                 function placesSearchCB (data, status, pagination) {
                     if (status === kakao.maps.services.Status.OK) {
@@ -210,7 +245,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                         //map.setBounds(bounds);
                     } 
                 }
-
                 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
                 if (navigator.geolocation) {
                     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -242,11 +276,11 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                         position: new kakao.maps.LatLng(place.y, place.x) 
                     });
                     var clickInfoWindow = new kakao.maps.InfoWindow({
-                        content : '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>',
+                        content : "<div style='padding:5px;font-size:12px;'>" + place.place_name + "</div>",
                         removable : true
                     });
                     var hoverInfoWindow = new kakao.maps.InfoWindow({
-                        content : '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>'
+                        content : "<div style='padding:5px;font-size:12px;'>" + place.place_name + "</div>"
                     });
 
                     // 마커에 클릭이벤트를 등록합니다
@@ -268,35 +302,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 	        </script>
         </div>
         <div id="content-wrap">
-            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-            <canvas id="access-chart" width="250" height="200"></canvas>
-            <script>
-                new Chart(document.getElementById("access-chart"), {
-                type: 'line',
-                data: {
-                    labels: [1750,1800,1850,1900,1950,1999,2050],
-                    datasets: [{ 
-                        data: [119,120,111,133,221,183,208],
-                        label: "접속자",
-                        borderColor: "#3e95cd",
-                        fill: true
-                    }]
-                },
-                options: {
-                    title: {
-                        display: false
-                    },
-                    responsive: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    },
-                }
-            });
-            </script>-->
             <div class="article-wrap">
                 <div class="article-title">※펫토피아를 소개합니다!※</div>
                 <div class="article-content center-text-align">
@@ -365,7 +370,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                 //autoplay : {
                                 //    delay : 4000 // 3초마다 이미지 변경
                                 //},
-                                loop : false, //반복 재생 여부
+                                loop : true, //반복 재생 여부
                                 slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
                                 pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능
                                     el: '.swiper-pagination',

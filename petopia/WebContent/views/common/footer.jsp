@@ -34,6 +34,10 @@
             font-weight: bold;
             color: rgb(94, 94, 94);
         }
+        .modal-backdrop {
+            z-index: -1;
+        }
+
     </style>
 </head>
 <body>
