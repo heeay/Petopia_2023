@@ -394,7 +394,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 })
             </script>
             <div class="article-wrap">
-                <div class="article-title">※추구하는 가치 등※</div>
+                <div class="article-title">※추구하는 가치※</div>
                 <div class="article-content">
                     함께하는 시간동안 동물이 아닌 <span class="highlight-text">가족</span>으로써의<br>
                     삶을 함께 살고자 하는 반려인들에게 올바른 <span class="highlight-text">이정표</span>이자<br>
