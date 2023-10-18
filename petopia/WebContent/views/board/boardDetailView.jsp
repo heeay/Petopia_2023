@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
+    <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
     	Board board = (Board)request.getAttribute("board");
-    	
+    	Category category = (Category)request.getAttribute("category");
     %>
 <!DOCTYPE html>
 <html>
@@ -81,8 +81,9 @@
         <div class="title-info">
             <div id="bno"><%=board.getBoardNo()%></div> 
             <div id="title"><%=board.getBoardTitle()%></div> 
-            <div id="category"><%=board.getCtgNo()%></div>
-            
+            <!-- String형이 필요해 FileImg필드 빌려씀 -->
+            <div id="category"><%=category.getCtgName()%></div>
+
         </div>
 
         <div class="title-info">
@@ -123,10 +124,10 @@
         </div>
 
         <div id="content-imgs">
-            
+           <div>대표이미지</div>
             <img src="<%= contextPath %>/<%= fList.get(0).getFilePath() %>/<%= fList.get(0).getUploadName() %>" alt="대표이미지" id="titleImg" width="250" height="180">
             
-            <% for(int i = 1; i <= 3; i++){ %>
+            <% for(int i = 1; i < fList.size(); i++){ %>
             <div>상세이미지 <%= i %></div>
             <div>
                 <img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180">
@@ -135,64 +136,40 @@
         </div>
 
         <div id="content-like">
-            <div>
-            <p id="like-icon">👍</p>
-            <p id="likeCount">
-         		<%= likeCount %>
-            </p>
-            </div>
+            <form action="<%=contextPath%>/increaseLike.bo" method="post">
+                <div>
+                <button type="submit" id="like-icon">👍</button>
+                <p id="likeCount">
+                    <%= likeCount %>
+                </p>
+                </div>
+            </form>
         </div>
 
-       
     </div>
     <!-- content-like -->
-    <!--  -->
+
     
-<!-- 
+    <script>
         $(function(){
 
-            // 좋아요아이콘 클릭시 이벤트
-            $("#like-icon").on("click", function(){
+            
+            $('#like-icon').on('click', function(){
 
-                $.ajax({
+                $('#like-icon').html('🤞');
 
-                    url : "/petopia/increaseLike.bo",
-                    type : "get",
-                    data : {
-                        bno : $('#bno').val()
-                    },
-                    
-                    success : function(){
-                        countLike();
-                    }
+                var likeCount = $('#likeCount').attr('id');
 
-                }),
-
+                console.log(likeCount);
+                
             });
+
+          
 
         });
 
-        function countLike(){
-
-            $.ajax({
-
-                url : "/petopia/detail.bo",
-                type : "get",
-                data : {
-           
-                   likeCount : '<%= likeCount %>'
-                },
-                success : function(likeCount){
-
-                    $("#likeCount").text(likeCount+1);
-
-                },
-
-            });
-
-
-        }; -->
-
+    
+    </script>
 
 
     <!-- content -->

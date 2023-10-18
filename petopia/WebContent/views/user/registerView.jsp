@@ -205,7 +205,7 @@
                 checkNickname();
                 checkEmail();
                 checkAuthEmail();
-
+                
                 if(emailAuthFlag  && nicknameFlag && pwFlag && phoneFlag){
                     $("#register-form").submit();
                 }
