@@ -89,13 +89,13 @@ public class ShareUpdateController extends HttpServlet {
 					
 			String[] originFiles = multiRequest.getParameterValues("originalFileNo");
 			
-			System.out.println(originFiles.length);
+			// System.out.println(originFiles.length); // 기존 게시글 작성 시 첨부한 사진의 수
 			
-			int[] origins = new int[originFiles.length];
+			// int[] origins = new int[originFiles.length];
 			
-			for(int j = 0; j < originFiles.length; j++) {
-				origins[j] = Integer.parseInt(originFiles[j]);
-			}
+			// for(int j = 0; j < originFiles.length; j++) {
+			// 	origins[j] = Integer.parseInt(originFiles[j]);
+			// }
 			
 			// name이 originalFileNo인 파일들 삭제 (기존 게시글 작성 시 올렸던 파일들) => name 속성이 같은 여러 개 받아올 때는 getParameterValues 사용
 			new File(savePath + multiRequest.getParameterValues("originalFileNo")).delete();
@@ -104,7 +104,7 @@ public class ShareUpdateController extends HttpServlet {
 			//	  System.out.println(origin[k]);
 			// }
 			
-			int result = new InfoService().updateInfo(in, list, star, infoNo, origins);
+			int result = new InfoService().updateInfo(in, list, star, infoNo, originFiles);
 			
 			if(result > 0) { // 게시글 수정 성공
 				response.sendRedirect(request.getContextPath() + "/detailShare.in?ino=" + infoNo);

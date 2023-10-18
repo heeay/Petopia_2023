@@ -206,7 +206,7 @@ public class InfoService {
 		return count;
 	}
 	
-	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo, int[] origins) {
+	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo, String[] originFiles) {
 		
 		Connection conn = getConnection();
 		
@@ -221,7 +221,7 @@ public class InfoService {
 			
 		//}
 		
-		int a = origins.length; // 1
+		int a = originFiles.length; // 1
 		System.out.println(a);
 		
 		int b = 5 - a; // 4
