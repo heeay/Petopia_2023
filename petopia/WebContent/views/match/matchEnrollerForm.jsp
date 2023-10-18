@@ -115,26 +115,28 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
         <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
 			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-            <input type="hidden" name="petNo" value="<%= petInfo.get(1).getPetNo() %>">
             
 
 
             <section id="pet-img">
                 <div>
+                
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="titleImg2" width="130" height="170">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST-HI6N_3Y_1v9mHFbaBVQYVe5bT6jNVAfDA&usqp=CAU" id="contentImg" width="130" height="170">
                 </div>
             </section>
    
 
-                <select name="petName">
-                    <% for(Pet p : petInfo) { %>
-                    <option value="">
-                        <%= p.getPetName() %>
-                    </option>
-
-                        <% } %>
-                </select>
+			<select name="petNo">
+			    <% for(Pet p : petInfo) { %>
+			        <option value="<%= p.getPetNo() %>">
+			            <% if(p.getUserNo() == userInfo.getUserNo()) { %>
+			                <%= p.getPetName() %></option>
+			            <% } else { %>
+			         	<option>등록하신 펫이 없습니다.</option>  
+			         <% } %>
+			    <% } %>
+			</select>
          
                 <div id="meetBoardTitle">
                     <h2>제목</h2>
@@ -154,13 +156,13 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
             <div id="write-button">
                 <button class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기</button>            
             </div>
-            </form> 
  
  
             <div id="file-area1">
                 <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1);">
                 <input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
             </div>
+            </form> 
             
           </div>
         </div>

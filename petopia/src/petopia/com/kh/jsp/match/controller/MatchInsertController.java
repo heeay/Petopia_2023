@@ -3,11 +3,13 @@ package petopia.com.kh.jsp.match.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -41,12 +43,18 @@ public class MatchInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
+			 
 			// 전송 용량 제한(10Mbyte)
 			int maxSize = 1024 * 1024 * 10;
 			
 			// 저장 경로
-			String savePath = request.getServletContext().getRealPath("/resources/thumbnail_upfiles/");
+			
+			
+			HttpSession session = request.getSession();
+			ServletContext application = session.getServletContext();
+			String savePath = application.getRealPath("/resources/thumbnail_upfiles/");
+		
+			//System.out.println(savePath);
 			
 			MultipartRequest multiRequest = 
 			new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
@@ -56,7 +64,6 @@ public class MatchInsertController extends HttpServlet {
 			String petInfo = multiRequest.getParameter("petInfo");
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
 			int petNo = Integer.parseInt(multiRequest.getParameter("petNo"));
-			
 			
 			Match m = new Match();
 			m.setMeetBoardTitle(meetBoardTitle);
@@ -91,10 +98,12 @@ public class MatchInsertController extends HttpServlet {
 			
 			
 			if(result > 0) {
-				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 				response.sendRedirect(request.getContextPath() + "/main.pb");
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 				
 			} else {
+				request.getSession().setAttribute("errorPage", "게시글 작성 실패");
+
 			}
 			
 			 

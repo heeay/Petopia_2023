@@ -52,7 +52,8 @@
 			  PET_NO,
 			  PET_NAME,
 			  PET_SPECIES,
-			  PET_GENDER
+			  PET_GENDER,
+			  TB_PET.USER_NO
 	  	  FROM
 	  	      TB_PET
 	INNER JOIN 

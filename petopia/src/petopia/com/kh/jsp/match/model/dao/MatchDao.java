@@ -100,6 +100,7 @@ public class MatchDao {
 				p.setPetName(rset.getString("PET_NAME"));
 				p.setPetSpecies(rset.getString("PET_SPECIES"));
 				p.setPetGender(rset.getString("PET_GENDER"));
+				p.setUserNo(rset.getInt("USER_NO"));
 
 				list.add(p);
 			}
