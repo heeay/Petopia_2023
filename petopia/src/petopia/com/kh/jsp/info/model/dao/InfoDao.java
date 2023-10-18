@@ -449,21 +449,21 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int updateInfoFile(Connection conn, ArrayList<InfoFile> list) {
+	public int updateInfoFile(Connection conn, ArrayList<InfoFile> list, int a) {
 		
 		int result = 1;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateInfoFile");
 		
 		try {
-			for(InfoFile infoFile : list) {
+			for(int j = 0; j < a; j++) { // 0
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setString(1, infoFile.getOriginalName());
-				pstmt.setString(2, infoFile.getUploadName());
-				pstmt.setString(3, infoFile.getFilePath());
-				pstmt.setInt(4, infoFile.getFileLevel());
-				pstmt.setInt(5, infoFile.getRefBno());
+				pstmt.setString(1, list.get(j).getOriginalName());
+				pstmt.setString(2, list.get(j).getUploadName());
+				pstmt.setString(3, list.get(j).getFilePath());
+				pstmt.setInt(4, list.get(j).getFileLevel());
+				pstmt.setInt(5, list.get(j).getRefBno());
 				
 				result *= pstmt.executeUpdate();
 			}
@@ -488,6 +488,32 @@ public class InfoDao {
 			pstmt.setInt(2, infoNo);
 			
 			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertNewFile(Connection conn, ArrayList<InfoFile> list, int b) {
+		
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewFile");
+		
+		try {
+			for(int k = 0; k < b; k++) { // 0 ~ 3
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, list.get(k).getRefBno());
+				pstmt.setString(2, list.get(k).getOriginalName());
+				pstmt.setString(3, list.get(k).getUploadName());
+				pstmt.setString(4, list.get(k).getFilePath());
+				pstmt.setInt(5, list.get(k).getFileLevel());
+				
+				result *= pstmt.executeUpdate();	
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
