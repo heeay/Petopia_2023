@@ -39,7 +39,7 @@
 								                       			TB_USER USING(USER_NO)
 								                  JOIN
 								                  				TB_FILE 
-								                  						ON(BOARD_NO = REF_NO)
+								                  						ON(BOARD_NO = REF_BNO)
 								             	WHERE 
 																BOARD_STATUS = 'Y'	
 													AND <!-- 게시판 번호로 조회할 리스트 범위 한정 -->
