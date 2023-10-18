@@ -19,7 +19,6 @@ if(cookies!=null){
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name ="google-signin-client_id" content="572625010116-htnd5pcq61kgorbli1cv0q5d724a7f5k.apps.googleusercontent.com">
     <title>로그인</title>
     <style>
         .margin-top{margin-top: 50px;}
@@ -186,6 +185,7 @@ if(cookies!=null){
                 const errPw = document.getElementById("err-pw");
 
                 if(pw.value.trim()==""){
+                    pw.value = "";
                     pw.focus();
                     errPw.style.display = "block";
                     errPw.innerText = "비밀번호를 작성해 주세요.";
@@ -197,6 +197,7 @@ if(cookies!=null){
                     pwFlag = true;
                 }
                 if(email.value.trim()==""){
+                    email.value = "";
                     email.focus();
                     errEmail.style.display = "block";
                     errEmail.innerText = "이메일을 작성해 주세요.";

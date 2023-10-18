@@ -33,6 +33,7 @@ public class UserDeleteController extends HttpServlet {
 		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
 		int userMethod = userInfo!=null ? userInfo.getUserMethod() : 0;
 		
+		//int result = new UserService().deleteUser(userNo);
 		int result = 0;
 		if(userMethod == 0) {
 			result = new UserService().deleteUser(userNo);
