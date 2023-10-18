@@ -23,6 +23,8 @@ public class MatchService {
 		int result1 = new MatchDao().insertThumbnailBoard(conn, m);
 		int result2 = new MatchDao().insertFileList(conn, list);
 		
+
+		
 		
 		if((result1 * result2) > 0) {
 			commit(conn);
@@ -30,7 +32,9 @@ public class MatchService {
 			rollback(conn);
 		}
 		close(conn);
+
 		return (result1 * result2);
+		
 	}
 	
 	public ArrayList<Pet> selectPetInfo() {

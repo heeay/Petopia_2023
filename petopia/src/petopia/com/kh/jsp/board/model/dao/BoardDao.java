@@ -273,7 +273,7 @@ public class BoardDao {
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setUserNo(rset.getInt("USER_NO"));
 					
-					board.setLikeCount(rset.getInt("LIKE_COUNT"));
+					
 					
 				}
 				
@@ -325,6 +325,36 @@ public class BoardDao {
 			return cList;
 		}
 	
+		public ArrayList<Board> selectSwiperBestBoardList(Connection conn){
+			ArrayList<Board> list = new ArrayList<Board>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectSwiperBestBoardList");
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				rset = pstmt.executeQuery();
+				while(rset.next()){
+					Board board = new Board();
+					board.setBoardNo(rset.getInt("BOARD_NO"));
+					board.setBoardTitle(rset.getString("BOARD_TITLE"));
+					board.setBoardViews(rset.getInt("BOARD_VIEWS"));
+					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
+					board.setBoardContent(rset.getString("USER_NICKNAME"));//유저 넘버필드int 닉네임은 컨텐트에다넣음
+					board.setUserNo(rset.getInt("COMMENT_COUNT"));//댓글수 필드가 없으므로 안쓰는 유저넘버에다 넣음
+					board.setFileImg(rset.getString("FILE_URL"));
+					
+					list.add(board);
+	 
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 		
 		public int insertBoard(Connection conn, Board board) {
 		
@@ -362,7 +392,7 @@ public class BoardDao {
 		
 		public int insertFileList(Connection conn, ArrayList<File> fList) {
 			
-			int fileInsert = 0;
+			int fileInsert = 1;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertFileList");
 			
@@ -380,6 +410,7 @@ public class BoardDao {
 //					 *** 이 방법과 정답과의 차이는?
 //					fList.add(file);
 //					result2 = pstmt.executeUpdate();
+					
 					
 					fileInsert += pstmt.executeUpdate();
 				

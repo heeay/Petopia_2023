@@ -9,8 +9,10 @@ import petopia.com.kh.jsp.board.model.vo.Category;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 
+import petopia.com.kh.jsp.common.JDBCTemplate;
 import petopia.com.kh.jsp.common.model.vo.File;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
+import petopia.com.kh.jsp.user.model.dao.UserDao;
 
 public class BoardService {
 
@@ -102,7 +104,14 @@ public class BoardService {
 			
 			 return cList;
 		}
-
+	public ArrayList<Board> selectSwiperBestBoardList() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectSwiperBestBoardList(conn);
+		close(conn);
+		
+		return list;
+	}
 	public int insertBoard(Board board, ArrayList<File> fList) {
 		
 		Connection conn = getConnection();

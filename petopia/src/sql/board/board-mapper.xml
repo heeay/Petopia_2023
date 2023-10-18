@@ -137,9 +137,9 @@
 		               	BOARD_TITLE,
 		               	BOARD_CONTENT,
 		               	BOARD_CREATE_DATE,
-		               	USER_NO,
+		               	USER_NO
 		             <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
-		           		LIKE_COUNT
+		           		
 		  FROM
 		                TB_BOARD A
 		   JOIN
@@ -158,18 +158,88 @@
 					CTG_NAME
 		FROM
 					TB_CATEGORY
+		WHERE
+					CTG_NO BETWEEN 1 AND 11
 	
+</entry>
+<entry key="selectSwiperBestBoardList">
+
+SELECT
+    RNUM,
+    BOARD_NO,
+    BOARD_TITLE,
+    BOARD_VIEWS,
+    BOARD_CREATE_DATE,
+    USER_NICKNAME,
+    COMMENT_COUNT,
+    FILE_URL
+
+FROM
+    (SELECT
+        ROWNUM RNUM,
+        BOARD_NO,
+        BOARD_TITLE,
+        BOARD_VIEWS,
+        BOARD_CREATE_DATE,
+        USER_NICKNAME,
+        COMMENT_COUNT,
+        FILE_URL
+    FROM
+        (SELECT 
+            BOARD_NO,
+            BOARD_TITLE,
+            BOARD_VIEWS,
+            BOARD_CREATE_DATE,
+            USER_NICKNAME,
+            COUNT(COMMENT_NO) "COMMENT_COUNT",
+            FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
+        FROM
+            TB_BOARD
+        JOIN TB_FILE ON(BOARD_NO = REF_BNO)
+        JOIN TB_USER USING(USER_NO)
+        LEFT JOIN TB_COMMENT USING(BOARD_NO)
+        GROUP BY 
+            BOARD_NO,
+            BOARD_TITLE,
+            BOARD_VIEWS,
+            BOARD_CREATE_DATE,
+            USER_NICKNAME,
+            FILE_PATH||'/'||UPLOAD_NAME,
+            FILE_LEVEL,
+            BOARD_STATUS,
+            CTG_NO
+        HAVING
+            BOARD_STATUS = 'Y'
+        AND
+            FILE_LEVEL = 1
+        ORDER BY
+            BOARD_CREATE_DATE DESC
+        )
+
+    )
+WHERE
+    12 >= RNUM
+
 </entry>
 
 <entry key="insertBoard">
 		INSERT
 		INTO	<!-- INSERT할 때 TABLE(특정컬럼)시 나머지컬럼값은 DEFAULT가 들어감 -->
-						TB_BOARD(BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_NO, CTG_NO)
+						TB_BOARD
+						(
+						BOARD_NO, 
+						BOARD_TITLE, 
+						BOARD_CONTENT, 
+						BOARD_CREATE_DATE,
+						USER_NO, 
+						CTG_NO
+						)
 		VALUES
 						(<!-- PETOPIA"."TB_BOARD"."FILE_IMG" 파일이미지는 notnull이기에 넣는다. -->
 						SEQ_BOARD_NO.NEXTVAL,
 						?,
 						?,
+						SYSDATE,
 						?,
 						?
 						)
@@ -185,7 +255,14 @@
 <entry key="insertFileList">
 		INSERT
 		INTO
-						TB_FILE(FILE_NO, REF_BNO, ORIGINAL_NAME, UPLOAD_NAME, FILE_PATH, FILE_LEVEL)
+						TB_FILE
+						(
+						FILE_NO,
+						REF_BNO, 
+						ORIGINAL_NAME, 
+						UPLOAD_NAME, 
+						FILE_PATH, 
+						FILE_LEVEL)
 		VALUES      
 						(
 						SEQ_FILE_NO.NEXTVAL,

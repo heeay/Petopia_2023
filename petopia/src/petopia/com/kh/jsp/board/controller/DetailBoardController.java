@@ -37,8 +37,6 @@ public class DetailBoardController extends HttpServlet {
     
  // boardDetail 조회시 board
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
- 
 
 		// 값 뽑기
 		int bno = Integer.parseInt(request.getParameter("bno"));

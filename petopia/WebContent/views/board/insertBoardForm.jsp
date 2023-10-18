@@ -154,18 +154,34 @@
                         <textarea id="content" name="content" style="resize:none;" rows="10"></textarea>
                     </td>
                 </tr>
+
                 <tr class="content-item">
                     <th class="content-item-title">첨부파일</th>
                     <td class="content-item-content">
-                        <label id="upfile1" class="fileUpload">File1🖼️<input type="file" name="file1" id="upfile1" class="upfiles"></label>
-                        <label id="upfile2" class="fileUpload">File2🖼️<input type="file" name="file2" id="upfile2" class="upfiles"></label>
-                        <label id="upfile3" class="fileUpload">File3🖼️<input type="file" name="file3" id="upfile3" class="upfiles"></label>
-                        <label id="upfile4" class="fileUpload">File4🖼️<input type="file" name="file4" id="upfile4" class="upfiles"></label>
+                        <label id="upfile1" class="fileUpload">
+                            File1🖼️
+                            <input type="file" name="file1" id="upfile1" class="upfiles" required>
+                        </label>
+                        <label id="upfile2" class="fileUpload">
+                            File2🖼️
+                            <input type="file" name="file2" id="upfile2" class="upfiles">
+                        </label>
+                        <label id="upfile3" class="fileUpload">
+                            File3🖼️
+                            <input type="file" name="file3" id="upfile3" class="upfiles">
+                        </label>
+                        <label id="upfile4" class="fileUpload">
+                            File4🖼️
+                            <input type="file" name="file4" id="upfile4" class="upfiles">
+                        </label>
                     </td>
                     
                 </tr>
             </table>
             <br><br>
+            <script>
+              
+            </script>
             
             <div align="center">
                 <button type="submit" id="insert-btn" class="btn btn-sm btn-info">글작성</button>

@@ -33,7 +33,8 @@ User userInfo = (User)session.getAttribute("userInfo");
             -webkit-user-select:none;
             -moz-user-select:none;
             -ms-user-select:none;
-            user-select:none
+            user-select:none;
+            background-color: rgb(255, 243, 224);
         }
         a{
             text-decoration: none;
