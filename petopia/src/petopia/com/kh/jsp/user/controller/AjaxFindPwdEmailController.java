@@ -84,6 +84,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			}
 			int userNo = new UserService().checkUserEmail(toEmail);
 			String url = request.getRequestURL().toString();
+			
 			url = url.substring(0, url.lastIndexOf("/"));
 			String urlPath = url+"/changePassword?key="+userNo+"&token="+token;
 			StringBuffer sb = new StringBuffer();

@@ -93,7 +93,7 @@ public class InsertBoardController extends HttpServlet {
 			// 3_2. VO로 가공하되 값은 multiRequest에서 뽑기
 			ArrayList<File> fList = new ArrayList();
 			
-			for(int i = 1; i <= 4 + 1; i++) {
+			for(int i = 1; i <= 4 ; i++) {
 				
 				String fNum = "file" + i;
 				
@@ -121,6 +121,7 @@ public class InsertBoardController extends HttpServlet {
 
 				} else { // getApplication은 없음
 					request.getSession().setAttribute("errorPage", "파일을 업로드 해야 합니다");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}
 				
 			} // 반복문 끝
@@ -139,6 +140,7 @@ public class InsertBoardController extends HttpServlet {
 				
 			} else {
 				request.getSession().setAttribute("errorPage", "게시글이나 파일에 문제가 있습니다");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			
 			
@@ -146,6 +148,7 @@ public class InsertBoardController extends HttpServlet {
 		} // multiPart등 입력값이 없다는 뜻
 		else {
 			request.getSession().setAttribute("errorPage", "값을 모두 입력해주세요");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 		

@@ -135,7 +135,7 @@
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
-                    <div class="text-stand">다음 등급까지</div>
+                    <div class="text-stand"><b>다음 등급까지</b></div>
                     <div class="zt-skill-bar">
                         <div data-width="88" id="percent">✏
                             <span id="count"></span>
@@ -188,7 +188,7 @@
                     <% if(lastDate!= null) {%>
                         <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
                     <% } else { %>
-                        <div class="text-stand">마지막 게시글&nbsp;: 게시글을 작성하세요!</b></div>
+                        <div class="text-stand">마지막 게시글&nbsp;: <b>게시글</b>을 <b>작성</b>하세요!</div>
                     <% }  %>
                 </div>
 

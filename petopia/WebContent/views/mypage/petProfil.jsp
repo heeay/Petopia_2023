@@ -44,7 +44,8 @@
             float: right;
         }
         #petEnroll{
-           padding-bottom: 5px;
+            padding-top: 20px;
+           padding-bottom: 20px;
            float: right;
         }
         .area-padding{padding-left: 300px;}
