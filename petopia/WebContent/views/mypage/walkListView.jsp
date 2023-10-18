@@ -41,6 +41,7 @@
         a {text-decoration: none;}
         .color-black{color: white;}
         .walk-title{
+            height: 70px;
             font-size: 30px;
             font-weight: bold;
             border-top: none;
@@ -74,7 +75,7 @@
             height: 500px;
             border-radius: 10px;
         }
-        .walk-date{padding-top: 5px;}
+        .walk-date{padding-top: 8px;}
         .walkcontent{
             display: inline-table;
             padding-left: 30px;
@@ -103,7 +104,7 @@
                         <p class="walk-date">
                             <input type="date" name="startDate"> ~ <input type="date" name="endDate">
                             <input type="hidden" name="cpage" value="<%=currentPage%>">
-                            <button type="submit" class="btn btn-sm btn-secondary">조회</button>
+                            <button type="submit" class="btn-sm btn-secondary">조회</button>
                         </p>
                     </form>
                 </div>

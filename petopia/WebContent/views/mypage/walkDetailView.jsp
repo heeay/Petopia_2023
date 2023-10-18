@@ -129,7 +129,7 @@
                             </div>
                             <br>
                             <div class="float-left">첨부파일</div>
-                            <div><input type="file" name="walkFile" id="walkFile" required></div>
+                            <div><input type="file" name="walkFile" id="walkFile"></div>
                         </div>
 
                         <div class="btn-right">
@@ -140,6 +140,53 @@
                         <br>
                     </div>
                 </div>
+
+                <script>
+                    $(document).ready(function() {
+                        $('button[type=submit]').attr('disabled', 'disabled');
+
+                        // 파일 변경경시 버튼 활성화
+                        $('input[type=file]').on('input', function() {
+                            if ($(this).val() !== '') {
+                                $('button').removeAttr("disabled");
+                            }
+                            else {
+                                $('button').attr('disabled', 'disabled');
+                            }
+                        });
+                        
+                        // 옵션 변경 시 버튼 활성화
+                        $('select').on('input', function() {
+                            if ($(this).val() !== '') {
+                                $('button').removeAttr("disabled");
+                            }
+                            else {
+                                $('button').attr('disabled', 'disabled');
+                            }
+                        });
+
+                        // 제목: 글 한글자라도 수정할 시 버튼 활성화
+                        $('input[type=text]').on('input', function() {
+                            if ($(this).val() !== '') {
+                                $('button').removeAttr("disabled");
+                            }
+                            else {
+                                $('button').attr('disabled', 'disabled');
+                            }
+                        });
+
+                        // 내용: 글 한글자라도 수정할 시 버튼 활성화
+                        $('textarea').on('input', function() {
+                            if ($(this).val() !== '') {
+                                $('button').removeAttr("disabled");
+                            }
+                            else {
+                                $('button').attr('disabled', 'disabled');
+                            }
+                        });
+
+                    });
+                </script>
 
 
             </div>

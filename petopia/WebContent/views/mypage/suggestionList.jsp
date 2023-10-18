@@ -31,6 +31,7 @@
             width: 80%;  
         }
         .sug-title{
+            height: 70px;
             font-size: 30px;
             font-weight: bold;
             float: left;

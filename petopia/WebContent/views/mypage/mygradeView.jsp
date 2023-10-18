@@ -177,9 +177,9 @@
                     </script>
 
                     <div class="text-null"></div>
-                    <div class="text-stand">게시글 수 : <b><%=bcount %></b>개</div>
+                    <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b><%=bcount %></b>개</div>
                     <div class="text-null2"></div>
-                    <div class="text-stand">마지막 게시글 : <b><%=lastDate %></b></div>
+                    <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
                     
                 </div>
 
@@ -198,22 +198,20 @@
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
-                    <div class="text-stand">나의 매칭 : 0건</div>
+                    <div class="text-stand">나의 매칭&nbsp;:&nbsp;&nbsp;0건</div>
                     
                     <div class="text-null"></div>
                     <div class="text-null2"></div>
 
-                    <div class="text-stand">평균 점수 : 
+                    <div class="text-stand">평균 점수&nbsp;: 
                         <div class="stars">⭐(0.0)</div>
-
                     </div>
 
                     <div class="text-null2"></div>
 
-                    <div class="text-stand">최근 점수 :
+                    <div class="text-stand">최근 점수&nbsp;:
                         <div class="stars">⭐(0.0)</div>
                         <p class="text-small">* 최근 10건의 평균 점수 입니다.</p>
-
                     </div>
                     
                 </div>

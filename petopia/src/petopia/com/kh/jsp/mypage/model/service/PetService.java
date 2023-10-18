@@ -326,5 +326,24 @@ public class PetService {
 		return file;
 	}
 
+	public int deleteSug(int sugNo) {
+		Connection conn = getConnection();
+		int result = new PetDao().deleteSug(conn, sugNo);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int checkPetName(String petName, int userNo) {
+		Connection conn = getConnection();
+		int result = new PetDao().checkPetName(conn, petName, userNo);
+		close(conn);
+		return result;
+	}
+
 	
 }

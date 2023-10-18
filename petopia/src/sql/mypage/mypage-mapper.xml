@@ -17,12 +17,20 @@
 	<entry key="selectBoardDate">
 		SELECT TO_CHAR(MAX(BOARD_CREATE_DATE), 'YYYY-MM-DD')"LASTDATE" 
 		  FROM TB_BOARD
-		  WHERE USER_NO = ?
+		 WHERE USER_NO = ?
 		   AND BOARD_STATUS = 'Y'
 	</entry>
 	
 		
 	<!-- ==============펫 프로필 등록============== -->
+	<!-- 펫프로필: 펫이름 중복확인 -->
+	<entry key="checkPetName">
+		SELECT PET_NAME
+		  FROM TB_PET
+		 WHERE USER_NO=?
+		   AND PET_NAME = ?
+	</entry>
+	
 	<!-- 펫프로필: 유저프로필 첨부 -->
 	<entry key="insertUserProfil">
 		 INSERT 
@@ -424,7 +432,7 @@
 	
 	
 	<!-- ====================건의사항==================== -->
-	<!-- 건의사항: 등록 -->
+	<!-- 건의사항: 글작성 -->
 	<entry key="insertSuggestion">
 		 INSERT 
 		   INTO 
@@ -513,5 +521,14 @@
 		  FROM TB_MYPAGE_FILE 
 		  JOIN TB_SUGGESTION USING(SUG_NO)  
 		  WHERE SUG_NO = ?
+	</entry>
+	
+	<!-- 건의사항: 삭제 -->
+	<entry key="deleteSug">
+		 DELETE 
+		   FROM 
+		   		TB_SUGGESTION 
+    	  WHERE 
+    	  		SUG_NO=?
 	</entry>
 </properties>
