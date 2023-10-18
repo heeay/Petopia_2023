@@ -341,9 +341,8 @@ public class BoardDao {
 					board.setBoardViews(rset.getInt("BOARD_VIEWS"));
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setBoardContent(rset.getString("USER_NICKNAME"));//유저 넘버필드int 닉네임은 컨텐트에다넣음
+					board.setUserNo(rset.getInt("COMMENT_COUNT"));//댓글수 필드가 없으므로 안쓰는 유저넘버에다 넣음
 					board.setFileImg(rset.getString("FILE_URL"));
-					board.setCtgNo(rset.getInt("CTG_NO"));
-					board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
 					
 					list.add(board);
 	 
