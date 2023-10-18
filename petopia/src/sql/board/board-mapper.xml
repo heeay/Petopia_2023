@@ -37,6 +37,8 @@
 				                       			TB_USER USING(USER_NO)
 				             	WHERE 
 												BOARD_STATUS = 'Y'	
+									AND <!-- 게시판 번호로 조회할 리스트 범위 한정 -->
+												CTG_NO BETWEEN 1 AND 10
 				                 ORDER
 				                    BY BOARD_CREATE_DATE DESC)   A)
 				         WHERE 
@@ -139,6 +141,7 @@
 		               	BOARD_CREATE_DATE,
 		               	USER_NO,
 		               	CTG_NO
+		               	FILE_PATH||'/'||UPLOAD_NAME "FILE_IMG"
 		  FROM
 		                TB_BOARD A
 		   JOIN

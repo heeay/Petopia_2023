@@ -1,27 +1,23 @@
-package petopia.com.kh.jsp.user.controller;
+package petopia.com.kh.jsp.board.controller;
 
 import java.io.IOException;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
-
 /**
- * Servlet implementation class AjaxCheckEmailAuthController
+ * Servlet implementation class DecreaseLikeCountController
  */
-@WebServlet("/checkAuthEmail")
-public class AjaxCheckEmailAuthController extends HttpServlet {
+@WebServlet("/decreaseLike")
+public class DecreaseLikeCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCheckEmailAuthController() {
+    public DecreaseLikeCountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +26,8 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String authCode = request.getParameter("authCode");
-		
-		Date curDate = new Date();
-		Date date = new UserService().selectEmailAuth(email, authCode);
-		
-		//System.out.println(date);
-		String result="";
-		if(date==null) {
-			result = "404";
-		} else if(curDate.getTime()-date.getTime()<120000) {
-			result = "200";
-		} else {
-			result = "400";
-		}
-		
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(result);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

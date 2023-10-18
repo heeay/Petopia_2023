@@ -159,13 +159,13 @@
                     <!--닉네임을 입력해 주세요.-->
                 </div>
                 <div class="input-wrap">
-                    <input id="pw" type="text" name="pw" placeholder=" 비밀번호" onkeyup="checkCaps(event);">
+                    <input id="pw" type="password" name="pw" placeholder=" 비밀번호" onkeyup="checkCaps(event);">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">lock</span>
                     </div>
                 </div>
                 <div class="input-wrap">
-                    <input id="pw-check" type="text" placeholder=" 비밀번호 확인" onkeyup="checkCaps(event);">
+                    <input id="pw-check" type="password" placeholder=" 비밀번호 확인" onkeyup="checkCaps(event);">
                     <div class="input-icon">
                         <span class="material-symbols-outlined icon-size">lock</span>
                     </div>
@@ -262,6 +262,7 @@
             const email = document.getElementById("email");
             const errEmail = document.getElementById("err-email");
             const regExpEmail = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+            email.value = email.value.trim();
             if(email.value==""){
                 errEmail.style.display="block";
                 errEmail.innerText = "이메일을 입력해 주세요.";
@@ -303,6 +304,7 @@
         function checkNickname(){
             const nickname = document.getElementById("nickname");
             const errNickname = document.getElementById("err-nickname");
+            nickname.value = nickname.value.trim();
             if(nickname.value==""){
                 errNickname.style.display="block";
                 errNickname.innerText = "닉네임을 입력해 주세요.";
@@ -340,6 +342,8 @@
             const pwCheck = document.getElementById("pw-check");
             const errPw = document.getElementById("err-pw");
             const regExpPw = /^[a-zA-Z0-9]+$/;
+            pw.value = pw.value.trim();
+            pwCheck.value = pwCheck.value.trim();
             if(pw.value==""){
                 errPw.style.display="block";
                 errPw.innerText = "비밀번호를 입력해 주세요.";
@@ -380,6 +384,7 @@
             const phone = document.getElementById("phone");
             const errPhone = document.getElementById("err-phone");
             const regExpPhone = /\d{3}-\d{3,4}-\d{4}/;
+            phone.value = phone.value.trim();
             if(phone.value==""){
                 errPhone.style.display="block";
                 errPhone.innerText = "전화번호를 입력해 주세요.";

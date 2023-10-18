@@ -19,14 +19,14 @@ import petopia.com.kh.jsp.user.model.vo.User;
 @WebServlet("/register.prossess")
 public class RegisterUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegisterUserController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RegisterUserController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,11 +37,11 @@ public class RegisterUserController extends HttpServlet {
 		String nickname = request.getParameter("nickname").trim();
 		String pw = request.getParameter("pw").trim();
 		String phone = request.getParameter("phone").trim();
-		
+
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(pw.getBytes());
-			
+
 			byte[] bytes = md.digest();
 			StringBuilder builder = new StringBuilder();
 			for(int i=0;i<bytes.length;i++) {
@@ -51,16 +51,16 @@ public class RegisterUserController extends HttpServlet {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		
+
 		User user = new User();
 		user.setUserMethod(0);
 		user.setUserEmail(email);
 		user.setUserNickname(nickname);
 		user.setUserPass(pw);
 		user.setUserPhone(phone);
-		
+
 		int result = new UserService().insertUser(user);
-		
+
 		if(result>0) {
 			response.sendRedirect(request.getContextPath()+"/login");
 		} else {

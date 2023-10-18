@@ -72,10 +72,10 @@ String key = (String)request.getAttribute("key");
                 비밀번호 변경
             </div>
             <div class="input-wrap">
-                <input id="pw" type="text" name="pw" placeholder="비밀번호" onkeyup="checkCaps(event);">
+                <input id="pw" type="password" name="pw" placeholder="비밀번호" onkeyup="checkCaps(event);">
             </div>
             <div class="input-wrap">
-                <input id="pw-check" type="text" placeholder="비밀번호 확인" onkeyup="checkCaps(event);">
+                <input id="pw-check" type="password" placeholder="비밀번호 확인" onkeyup="checkCaps(event);">
             </div>
             <div class="change-pw-error-wrap" id="err-capslock" style="display: none;">
                 <!--CapsLock이 켜져 있습니다.-->
