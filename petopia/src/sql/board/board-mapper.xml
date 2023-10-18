@@ -21,26 +21,31 @@
 		<!-- rownum과 페이징처리 공부하기 -->						
 		SELECT *
 				  FROM (SELECT ROWNUM RNUM, A.*
-				          FROM (SELECT 
-						                       BOARD_NO,
-												BOARD_TITLE,
-												BOARD_VIEWS,
-												BOARD_CREATE_DATE,
-												USER_NO,
-												CTG_NO,
-												PET_CTG_NO
-				                 FROM
-												TB_BOARD
-				                  JOIN
-				                       			TB_CATEGORY USING(CTG_NO)
-				                  JOIN 
-				                       			TB_USER USING(USER_NO)
-				             	WHERE 
-												BOARD_STATUS = 'Y'	
-									AND <!-- 게시판 번호로 조회할 리스트 범위 한정 -->
-												CTG_NO BETWEEN 1 AND 10
-				                 ORDER
-				                    BY BOARD_CREATE_DATE DESC)   A)
+				          			FROM 
+				          						(SELECT 
+										                       BOARD_NO,
+																BOARD_TITLE,
+																BOARD_VIEWS,
+																BOARD_CREATE_DATE,
+																USER_NO,
+																CTG_NO,
+																PET_CTG_NO
+																<!--FILE_PATH||'/'||UPLOAD_NAME FILE_IMG  -->
+								                 FROM 
+																TB_BOARD 
+								                  JOIN
+								                       			TB_CATEGORY USING(CTG_NO)
+								                  JOIN 
+								                       			TB_USER USING(USER_NO)
+								                  JOIN
+								                  				TB_FILE 
+								                  						ON(BOARD_NO = REF_NO)
+								             	WHERE 
+																BOARD_STATUS = 'Y'	
+													AND <!-- 게시판 번호로 조회할 리스트 범위 한정 -->
+																CTG_NO BETWEEN 1 AND 10
+								                 ORDER
+								                    BY BOARD_CREATE_DATE DESC)   A)
 				         WHERE 
 				         				RNUM BETWEEN ? AND ?
 		         
@@ -141,7 +146,7 @@
 		               	BOARD_CREATE_DATE,
 		               	USER_NO,
 		               	CTG_NO
-		               	FILE_PATH||'/'||UPLOAD_NAME "FILE_IMG"
+		               	<!--FILE_PATH || '/' || UPLOAD_NAME "FILE_IMG"  -->
 		  FROM
 		                TB_BOARD A
 		   JOIN
