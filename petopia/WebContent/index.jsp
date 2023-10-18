@@ -165,7 +165,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         }
     </style>
 </head>
-<body>let 
+<body>
 	<%@include file="views/common/header.jsp" %>
 	<section>
     <div id="section-wrap">
@@ -372,9 +372,9 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                             }
                             // 슬라이더 동작 정의
                             const boardSwiper = new Swiper('.board-swiper', {
-                                //autoplay : {
-                                //    delay : 4000 // 3초마다 이미지 변경
-                                //},
+                                autoplay : {
+                                    delay : 8000 // 8초마다 이미지 변경
+                                },
                                 loop : true, //반복 재생 여부
                                 slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
                                 pagination: { // 페이징 버튼 클릭 시 이미지 이동 가능

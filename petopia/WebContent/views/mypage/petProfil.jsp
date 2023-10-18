@@ -146,7 +146,7 @@
 	<div class="content-area">
 
         <div class="area-padding">
-
+            <!--
             <div class="petImg">
                 <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
                     
@@ -176,7 +176,7 @@
                         </div>
                     </div>
                     
-                    <!-- 프로필 첨부안할시 버튼 비활성화/첨부 시 활성화 -->
+                    프로필 첨부안할시 버튼 비활성화/첨부 시 활성화
                     <script>
                         $(document).ready(function() {
                             $('button[type=submit]').attr('disabled', 'disabled');
@@ -195,8 +195,9 @@
                 </form>
 
             </div>
+            -->
 
-            <!-- 파일 첨부시 첨부된 이미지 보여주는 스크립트 -->
+            <!-- 파일 첨부시 첨부된 이미지 보여주는 스크립트 
             <script>
                function loadImg(inputFile, num){
 					if(inputFile.files.length == 1){ // 파일이 첨부
@@ -220,6 +221,7 @@
 				};
 				
             </script>
+        -->
 
 
             <div class="petProfil-list">
@@ -230,7 +232,7 @@
                         <div id="petEnroll">
                             <button type="button" id="modalOpenButton" class="btn btn-sm btn-info">펫프로필 등록</button>
                         </div>
-        
+                        
                         <thead class>
                             <tr>
                                 <th style="width: 200px;">No.</th>
