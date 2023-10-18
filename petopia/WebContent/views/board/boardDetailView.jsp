@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
+    <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
@@ -136,64 +136,40 @@
         </div>
 
         <div id="content-like">
-            <div>
-            <p id="like-icon">👍</p>
-            <p id="likeCount">
-         		<%= likeCount %>
-            </p>
-            </div>
+            <form action="<%=contextPath%>/increaseLike.bo" method="post">
+                <div>
+                <button type="submit" id="like-icon">👍</button>
+                <p id="likeCount">
+                    <%= likeCount %>
+                </p>
+                </div>
+            </form>
         </div>
 
-       
     </div>
     <!-- content-like -->
-    <!--  -->
+
     
-<!-- 
+    <script>
         $(function(){
 
-            // 좋아요아이콘 클릭시 이벤트
-            $("#like-icon").on("click", function(){
+            
+            $('#like-icon').on('click', function(){
 
-                $.ajax({
+                $('#like-icon').html('🤞');
 
-                    url : "/petopia/increaseLike.bo",
-                    type : "get",
-                    data : {
-                        bno : $('#bno').val()
-                    },
-                    
-                    success : function(){
-                        countLike();
-                    }
+                var likeCount = $('#likeCount').attr('id');
 
-                }),
-
+                console.log(likeCount);
+                
             });
+
+          
 
         });
 
-        function countLike(){
-
-            $.ajax({
-
-                url : "/petopia/detail.bo",
-                type : "get",
-                data : {
-           
-                   likeCount : '<%= likeCount %>'
-                },
-                success : function(likeCount){
-
-                    $("#likeCount").text(likeCount+1);
-
-                },
-
-            });
-
-
-        }; -->
-
+    
+    </script>
 
 
     <!-- content -->

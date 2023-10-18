@@ -264,7 +264,7 @@ public class BoardDao {
 				
 				if(rset.next()) {
 					
-					category.setCtgNo(rset.getInt("CTG_No"));
+					category.setCtgNo(rset.getInt("CTG_NO"));
 					category.setCtgName(rset.getString("CTG_NAME"));
 
 				}

@@ -267,7 +267,7 @@ WHERE
 		VALUES      
 						(
 						SEQ_FILE_NO.NEXTVAL,
-						SEQ_BOARD_NO.NEXTVAL, <!-- 현재 게시판 넘버 -->
+						SEQ_BOARD_NO.CURRVAL, <!-- 현재 게시판 넘버 -->
 						?,
 						?,
 						?,
