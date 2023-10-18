@@ -290,6 +290,27 @@
 		 	   BOARD_NO = ?
 	</entry>
 	
-	
+	<entry key="insertNewFile">
+		INSERT
+		  INTO
+		  	   TB_FILE
+		  	   (
+		  	   FILE_NO,
+		  	   REF_BNO,
+		  	   ORIGINAL_NAME,
+		  	   UPLOAD_NAME,
+		  	   FILE_PATH,
+		  	   FILE_LEVEL
+		  	   )
+		VALUES 
+			   (
+			   SEQ_FILE_NO.NEXTVAL,
+			   ?,
+			   ?,
+			   ?,
+			   ?,
+			   ?
+			   )
+	</entry>
 
 </properties>
