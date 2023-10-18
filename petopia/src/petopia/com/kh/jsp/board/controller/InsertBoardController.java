@@ -93,7 +93,7 @@ public class InsertBoardController extends HttpServlet {
 			// 3_2. VO로 가공하되 값은 multiRequest에서 뽑기
 			ArrayList<File> fList = new ArrayList();
 			
-			for(int i = 1; i < 4 + 1; i++) {
+			for(int i = 1; i <= 4 + 1; i++) {
 				
 				String fNum = "file" + i;
 				
@@ -132,8 +132,10 @@ public class InsertBoardController extends HttpServlet {
 			if(result > 0) { // 게시글 작성 성공
 				
 				// 트랜잭션이 끝난뒤 결과값을 main.bo에 되돌려준다.
-				response.sendRedirect(request.getContextPath() + "/main.bo");
+				
 				request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
+				response.sendRedirect(request.getContextPath() + "/main.bo");
+			
 				
 			} else {
 				request.getSession().setAttribute("errorPage", "게시글이나 파일에 문제가 있습니다");

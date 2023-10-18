@@ -273,7 +273,7 @@ public class BoardDao {
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setUserNo(rset.getInt("USER_NO"));
 					
-					board.setLikeCount(rset.getInt("LIKE_COUNT"));
+					
 					
 				}
 				
@@ -392,7 +392,7 @@ public class BoardDao {
 		
 		public int insertFileList(Connection conn, ArrayList<File> fList) {
 			
-			int fileInsert = 0;
+			int fileInsert = 1;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertFileList");
 			
@@ -410,6 +410,7 @@ public class BoardDao {
 //					 *** 이 방법과 정답과의 차이는?
 //					fList.add(file);
 //					result2 = pstmt.executeUpdate();
+					
 					
 					fileInsert += pstmt.executeUpdate();
 				

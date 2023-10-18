@@ -15,13 +15,14 @@ public class Board {
 	private int ctgNo; // Category테이블과 연결
 	private int petCtgNo; // Pet_Category테이블과 연결
 	private String boardStatus;
+	private String fileImg;
 	
 	public Board() {
 		super();
 	}
 
 	public Board(int boardNo, String boardTitle, String boardContent, int boardViews, Date boardCreateDate,
-			Date boardUpdateDate, int userNo, int ctgNo, int petCtgNo, String boardStatus) {
+			Date boardUpdateDate, int userNo, int ctgNo, int petCtgNo, String boardStatus, String fileImg) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
@@ -33,6 +34,7 @@ public class Board {
 		this.ctgNo = ctgNo;
 		this.petCtgNo = petCtgNo;
 		this.boardStatus = boardStatus;
+		this.fileImg = fileImg;
 	}
 
 	public int getBoardNo() {
@@ -115,12 +117,22 @@ public class Board {
 		this.boardStatus = boardStatus;
 	}
 
+	public String getFileImg() {
+		return fileImg;
+	}
+
+	public void setFileImg(String fileImg) {
+		this.fileImg = fileImg;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardViews=" + boardViews + ", boardCreateDate=" + boardCreateDate + ", boardUpdateDate="
 				+ boardUpdateDate + ", userNo=" + userNo + ", ctgNo=" + ctgNo + ", petCtgNo=" + petCtgNo
-				+ ", boardStatus=" + boardStatus + "]";
+				+ ", boardStatus=" + boardStatus + ", fileImg=" + fileImg + "]";
 	}
 	
+	
+}
 		

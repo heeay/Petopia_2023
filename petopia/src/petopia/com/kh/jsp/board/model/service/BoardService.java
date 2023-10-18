@@ -108,7 +108,7 @@ public class BoardService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		ArrayList<Board> list = new BoardDao().selectSwiperBestBoardList(conn);
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		return list;
 	}
