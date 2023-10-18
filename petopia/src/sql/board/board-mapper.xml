@@ -168,8 +168,7 @@ SELECT
     BOARD_VIEWS,
     BOARD_CREATE_DATE,
     USER_NICKNAME,
-    CTG_NO,
-    PET_CTG_NO,
+    COMMENT_COUNT,
     FILE_URL
 FROM
     (SELECT
@@ -179,8 +178,7 @@ FROM
         BOARD_VIEWS,
         BOARD_CREATE_DATE,
         USER_NICKNAME,
-        CTG_NO,
-        PET_CTG_NO,
+        COMMENT_COUNT,
         FILE_URL
     FROM
         (SELECT 
@@ -189,20 +187,29 @@ FROM
             BOARD_VIEWS,
             BOARD_CREATE_DATE,
             USER_NICKNAME,
-            CTG_NO,
-            PET_CTG_NO,
+            COUNT(COMMENT_NO) "COMMENT_COUNT",
             FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
         FROM
             TB_BOARD
         JOIN TB_FILE ON(BOARD_NO = REF_BNO)
         JOIN TB_CATEGORY USING(CTG_NO)
         JOIN TB_USER USING(USER_NO)
-        WHERE
+        LEFT JOIN TB_COMMENT USING(BOARD_NO)
+        GROUP BY 
+            BOARD_NO,
+            BOARD_TITLE,
+            BOARD_VIEWS,
+            BOARD_CREATE_DATE,
+            USER_NICKNAME,
+            FILE_PATH||'/'||UPLOAD_NAME,
+            FILE_LEVEL,
+            BOARD_STATUS
+        HAVING
             BOARD_STATUS = 'Y'
         AND
             FILE_LEVEL = 1
         ORDER BY
-            BOARD_NO DESC
+            BOARD_CREATE_DATE DESC
         )
     )
 WHERE

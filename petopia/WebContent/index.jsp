@@ -316,88 +316,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://cdn.pixabay.com/photo/2018/07/14/17/46/raccoon-3538081_1280.jpg" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="board-item">
-                                <div class="board-thumbnail-wrap">
-                                    <img src="https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262_1280.jpg" alt="">
-                                </div>
-                                <p>
-                                    <div>강아지 목욕 꿀팁! [125]</div>
-                                    <div class="text"><img class="text-icon" src="<%=contextPath %>/resources/images/writer.svg">나는야집사</div>
-                                    <div class="text">
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/create_date.svg">2020-01-01
-                                        <img class="text-icon" src="<%=contextPath %>/resources/images/views.svg">55
-                                    </div>
-                                </p>
-                            </div>
-                        </div>
                     </div>
             
                     <!-- If we need pagination -->
@@ -424,13 +342,12 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                             swiperWrapper.empty();
                             var swiperSlide = $("<div></div>").addClass("swiper-slide");
                             for(var i=0;i<result.length;i++){
-                                console.log(result[i]["boardTitle"]);
                                 var str=
-                                "<a class='board-item' href='#'>"+
+                                "<a class='board-item' href='<%=contextPath%>/detail.bo?bno="+result[i]["boardNo"]+"'>"+
                                 "<div class='board-thumbnail-wrap'>"+
                                 "<img src='"+result[i]["fileImg"]+"'>"+
                                 "</div>"+
-                                "<div>"+result[i]["boardTitle"]+" [125]</div>"+
+                                "<div>"+result[i]["boardTitle"]+" ["+result[i]["userNo"]+"]</div>"+
                                 "<div class='text'><img class='text-icon' src='<%=contextPath %>/resources/images/writer.svg'>"+result[i]["boardContent"]+"</div>"+
                                 "<div class='text'>"+
                                 "<img class='text-icon' src='<%=contextPath %>/resources/images/create_date.svg'>"+result[i]["boardCreateDate"]+
@@ -443,7 +360,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                                     swiperSlide = $("<div></div>").addClass("swiper-slide");
                                 }
                             }
-                            swiperWrapper.append(swiperSlide);
                             // 슬라이더 동작 정의
                             const boardSwiper = new Swiper('.board-swiper', {
                                 //autoplay : {
