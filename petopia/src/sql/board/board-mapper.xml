@@ -137,9 +137,9 @@
 		               	BOARD_TITLE,
 		               	BOARD_CONTENT,
 		               	BOARD_CREATE_DATE,
-		               	USER_NO,
+		               	USER_NO
 		             <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
-		           		LIKE_COUNT
+		           		
 		  FROM
 		                TB_BOARD A
 		   JOIN
@@ -161,52 +161,52 @@
 	
 </entry>
 <entry key="selectSwiperBestBoardList">
-SELECT
-    RNUM,
-    BOARD_NO,
-    BOARD_TITLE,
-    BOARD_VIEWS,
-    BOARD_CREATE_DATE,
-    USER_NICKNAME,
-    CTG_NO,
-    PET_CTG_NO,
-    FILE_URL
-FROM
-    (SELECT
-        ROWNUM RNUM,
-        BOARD_NO,
-        BOARD_TITLE,
-        BOARD_VIEWS,
-        BOARD_CREATE_DATE,
-        USER_NICKNAME,
-        CTG_NO,
-        PET_CTG_NO,
-        FILE_URL
-    FROM
-        (SELECT 
-            BOARD_NO,
-            BOARD_TITLE,
-            BOARD_VIEWS,
-            BOARD_CREATE_DATE,
-            USER_NICKNAME,
-            CTG_NO,
-            PET_CTG_NO,
-            FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
-        FROM
-            TB_BOARD
-        JOIN TB_FILE ON(BOARD_NO = REF_BNO)
-        JOIN TB_CATEGORY USING(CTG_NO)
-        JOIN TB_USER USING(USER_NO)
-        WHERE
-            BOARD_STATUS = 'Y'
-        AND
-            FILE_LEVEL = 1
-        ORDER BY
-            BOARD_NO DESC
-        )
-    )
-WHERE
-    12 >= RNUM
+		SELECT
+				    RNUM,
+				    BOARD_NO,
+				    BOARD_TITLE,
+				    BOARD_VIEWS,
+				    BOARD_CREATE_DATE,
+				    USER_NICKNAME,
+				    CTG_NO,
+				    PET_CTG_NO,
+				    FILE_URL
+		FROM
+		    (SELECT
+				        ROWNUM RNUM,
+				        BOARD_NO,
+				        BOARD_TITLE,
+				        BOARD_VIEWS,
+				        BOARD_CREATE_DATE,
+				        USER_NICKNAME,
+				        CTG_NO,
+				        PET_CTG_NO,
+				        FILE_URL
+		    FROM
+		        (SELECT 
+				            BOARD_NO,
+				            BOARD_TITLE,
+				            BOARD_VIEWS,
+				            BOARD_CREATE_DATE,
+				            USER_NICKNAME,
+				            CTG_NO,
+				            PET_CTG_NO,
+				            FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
+		        FROM
+		            		TB_BOARD
+		        JOIN TB_FILE ON(BOARD_NO = REF_BNO)
+		        JOIN TB_CATEGORY USING(CTG_NO)
+		        JOIN TB_USER USING(USER_NO)
+		        WHERE
+		            BOARD_STATUS = 'Y'
+		        AND
+		            FILE_LEVEL = 1
+		        ORDER BY
+		            BOARD_NO DESC
+		        )
+		    )
+		WHERE
+		    12 >= RNUM
 </entry>
 <entry key="insertBoard">
 		INSERT
