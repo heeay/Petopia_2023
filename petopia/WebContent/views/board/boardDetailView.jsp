@@ -139,16 +139,27 @@
             <form action="<%=contextPath%>/increaseLike.bo" method="post">
                 <div>
                 <button type="submit" id="like-icon">👍</button>
-                <p id="likeCount">
-                    <%= likeCount %>
-                </p>
+                <%= likeCount %>
                 </div>
             </form>
         </div>
 
     </div>
     <!-- content-like -->
+    <style>
+        #like-icon{
+            position: absolute;
+         
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+                
+            width : 30px;
+            height : 30px;
 
+    
+        }
+    </style>
     
     <script>
         $(function(){
@@ -197,11 +208,7 @@
     }
 
 
-    #like-icon{
-        width : 30px;
-        height : 30px;
-            	
-    }   
+
     
     </style>
 
