@@ -137,9 +137,9 @@
 		               	BOARD_TITLE,
 		               	BOARD_CONTENT,
 		               	BOARD_CREATE_DATE,
-		               	USER_NO,
+		               	USER_NO
 		             <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
-		           		LIKE_COUNT
+		           		
 		  FROM
 		                TB_BOARD A
 		   JOIN
@@ -161,6 +161,7 @@
 	
 </entry>
 <entry key="selectSwiperBestBoardList">
+
 SELECT
     RNUM,
     BOARD_NO,
@@ -214,6 +215,7 @@ FROM
     )
 WHERE
     12 >= RNUM
+
 </entry>
 <entry key="insertBoard">
 		INSERT
