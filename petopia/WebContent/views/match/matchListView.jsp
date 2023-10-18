@@ -284,7 +284,7 @@
                 	<% } else { %>
                 		<% for(Match m : list) { %>
                     <div class="content">
-                        <div><img id="img-thumbnail" src="<%= m.getTitleImg() %>"></div>
+                        <div><img id="img-thumbnail" src="<%= contextPath %>/<%= m.getTitleImg() %>"></div>
                         <h2 id="title"><%= m.getMeetBoardTitle() %></h2>
 
                     <div id="content-info">

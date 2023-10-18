@@ -272,7 +272,7 @@
 
                             
                             <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>">
-                            <img src="<%= board.getFileImg() %>" alt="">
+                            <img src="<%=contextPath%><%= board.getFileImg() %>" alt="">
                             </a>
                             <p><%= board.getBoardTitle() %></p>
                             <span><%= board.getBoardViews() %>|</span>
