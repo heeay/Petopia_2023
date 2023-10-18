@@ -985,6 +985,48 @@ public class PetDao {
 		}
 		return file;
 	}
+	public int deleteSug(Connection conn, int sugNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteSug");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sugNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int checkPetName(Connection conn, String petName, int userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkPetName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, petName);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next() || petName.equals("")) {
+				// 이미존재할때, 생성불가능
+				result = 0;
+			}else {
+				// 존재하지 않을때, 생성가능
+				result = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;
