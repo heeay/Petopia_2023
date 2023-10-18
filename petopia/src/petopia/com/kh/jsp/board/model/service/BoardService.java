@@ -136,4 +136,33 @@ public class BoardService {
 	}
 	
 	
+	
+	public int increaseLikeCount(int boardNo) {
+		
+		
+		Connection conn = getConnection();
+		
+		int increasedCount = new BoardDao().selectLikeCount(conn, boardNo) + 1;
+		
+		 close(conn);
+		
+		 return increasedCount;
+		
+		
+	}
+	
+	public int decreaseLikeCount(int boardNo) {
+		
+		
+		Connection conn = getConnection();
+		
+		int decreasedCount = new BoardDao().selectLikeCount(conn, boardNo) - 1;
+		
+		 close(conn);
+		
+		 return decreasedCount;
+		
+		
+	}
+	
 }

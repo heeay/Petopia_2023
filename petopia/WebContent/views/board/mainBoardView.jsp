@@ -270,9 +270,9 @@
 	                	
                         <div class="content-item">
 
-                            
-                            <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>">
-                            <img src="<%= board.getFileImg() %>" alt="">
+                            <a href="<%= contextPath %>/increaseLike.bo?bno=<%= board.getBoardNo()%>"></a>
+                            <!-- <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>"> -->
+                            <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
                             </a>
                             <p><%= board.getBoardTitle() %></p>
                             <span><%= board.getBoardViews() %>|</span>

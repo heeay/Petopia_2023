@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import petopia.com.kh.jsp.board.model.service.BoardService;
+
 /**
  * Servlet implementation class DecreaseLikeCountController
  */
-@WebServlet("/decreaseLike")
+@WebServlet("/decreaseLike.bo")
 public class DecreaseLikeCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +28,14 @@ public class DecreaseLikeCountController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+
+		int decreasedCount = new BoardService().decreaseLikeCount(boardNo);
+	
+		request.setAttribute("increasedCount", decreasedCount);//	이거 없으면 값이 넘어가지 않아서 404에러 뜸
+		request.getRequestDispatcher("views/boardDetailView.jsp").forward(request, response);
+
 	}
 
 	/**

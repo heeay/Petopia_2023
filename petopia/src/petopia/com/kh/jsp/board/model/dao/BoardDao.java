@@ -459,8 +459,41 @@ public class BoardDao {
 			}
 			return fileInsert;
 		}
-	
-	
+	/*
+		public int increaseLikeCount(Connection conn, int boardNo, int likeCount) {
+			
+			int increasedCount = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectLikeCount");
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, boardNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					increasedCount = rset.getInt("COUNT(*)") + 1;
+				}
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			
+			} finally {
+				
+				close(rset);
+				close(pstmt);
+
+			}
+				
+
+				return increasedCount;
+		}
+		*/
 	
  //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드

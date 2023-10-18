@@ -4,9 +4,12 @@
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
+        
     	Board board = (Board)request.getAttribute("board");
     	Category category = (Category)request.getAttribute("category");
-    %>
+    %><!-- int increasedCount = (int)request.getAttribute("increasedCount");
+        int decreasedCount = (int)request.getAttribute("decreasedCount"); 
+    controller에서 +-1하는 것보단 jsp화면상에서 하는게 합리적--><!-- increasedCount는 항상 1보다 크거나 같다 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -135,15 +138,35 @@
             <% } %>
         </div>
 
-        <div id="content-like">
-            <form action="<%=contextPath%>/increaseLike.bo" method="post">
+        <!-- 로그인한 상태에서 -->
+        <% if(userInfo != null){ %>
+            
+        <form action="<%= contextPath %>/increaseLike.bo" method="post">
+            
+            <div id="content-like">
+     
+                    <div>
+                    <input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
+                    <p><%= likeCount %></p>
+                    <!-- 처음 좋아요 버튼 누르는 회원이라면 -->
+                  
+                    <button type="submit" id="like-icon" onclick="countLike()">👍</button>
+                    <!-- 좋아요 취소 하려는 회원이라면 -->
+                    </div>
+                
+            </div>
+           
+        </form>       
+        <% } else{ %>
+            <div id="content-like">
                 <div>
+                    
+                <p><%= likeCount %></p>
                 <button type="submit" id="like-icon">👍</button>
-                <%= likeCount %>
                 </div>
-            </form>
-        </div>
-
+            
+            </div>
+        <% } %>
     </div>
     <!-- content-like -->
     <style>
@@ -160,20 +183,32 @@
     
         }
     </style>
-    
+    $('.like').next().html(count); // 하트 옆에 읽어온 좋아요 수 출력
     <script>
-        $(function(){
+        $(function countLike(){
 
-            
-            $('#like-icon').on('click', function(){
+            // 좋아요버튼 클릭시 실행되는 이벤트
+          
+                if(userInfo != null){
+                    
+                    // 좋아요를 처음 누른 회원일 때
+                    $('#like-icon').html('😄');
+                    $('#like-icon').prev().html(<%=likeCount%> += 1);
 
-                $('#like-icon').html('🤞');
+                    // 좋아요를 누른 적이 있을 때 == 좋아요 취소
+                    $('#like-icon').html('😢');
+                    $('#like-icon').prev().html(<%=likeCount%> -= 1);
 
-                var likeCount = $('#likeCount').attr('id');
+                    
+                } 
+                else{
+                    alert('로그인한 회원만 좋아요를 할 수 있습니다.');
+                    likeCount = likeCount;
+                }
+                //var likeCount = $('#likeCount').attr('id');
 
-                console.log(likeCount);
                 
-            });
+
 
           
 

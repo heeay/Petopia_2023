@@ -38,6 +38,8 @@ public class DetailBoardController extends HttpServlet {
  // boardDetail 조회시 board
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		
 		// 값 뽑기
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
@@ -53,6 +55,8 @@ public class DetailBoardController extends HttpServlet {
 			int likeCount = new BoardService().selectLikeCount(bno);
 			Board board = new BoardService().selectBoard(bno);
 			Category category = new BoardService().selectCategory(bno);
+			
+			
 			
 			// likeCount는 초기값이 0일 수 있으나 file이 없거나 카테고리가 없는 게시글들은 조회 불가(애초에 작성불가지만 방어적 프로그래밍)
 				if(fList == null || board == null || category == null) {
