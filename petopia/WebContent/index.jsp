@@ -158,14 +158,19 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         .highlight-text{
             color: rgb(141, 88, 23);
         }
+        .side-content-title{
+            font-size: 18px;
+            color: rgb(58, 58, 58);
+            margin: 20px 0;
+        }
     </style>
 </head>
-<body>
+<body>let 
 	<%@include file="views/common/header.jsp" %>
 	<section>
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
-            <div id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <div class="side-content-title" id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
             <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>
@@ -195,7 +200,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                 }
             });
             </script>-->
-            ↓↓근처 동물병원↓↓
+            <div class="side-content-title">↓↓근처 동물병원↓↓</div>
             <div id="map" style="width:250px;height:200px;"></div>
             <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9947b6fb5f9eb6975bcffce3ad32133&libraries=services"></script>
 	        <script>

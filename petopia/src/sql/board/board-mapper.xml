@@ -212,6 +212,8 @@ FROM
             BOARD_STATUS = 'Y'
         AND
             FILE_LEVEL = 1
+        AND
+            11 > CTG_NO
         ORDER BY
             BOARD_CREATE_DATE DESC
         )
