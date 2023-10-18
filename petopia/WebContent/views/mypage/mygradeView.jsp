@@ -26,6 +26,7 @@
             height: 80%;
             width: 80%;  
             min-width: 1350px;
+            max-width: 1800px;
         }
     </style>  
     
@@ -110,7 +111,12 @@
             padding: 0 5px 0 10px;
             background-color: #1a1a1a;
         }
-
+    </style>
+    <style>
+        .cricle-margin{
+            padding-top: 40px;
+            padding-left: 50px;
+        }
     </style>
      
 </head>
@@ -179,8 +185,11 @@
                     <div class="text-null"></div>
                     <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b><%=bcount %></b>개</div>
                     <div class="text-null2"></div>
-                    <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
-                    
+                    <% if(lastDate!= null) {%>
+                        <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
+                    <% } else { %>
+                        <div class="text-stand">마지막 게시글&nbsp;: 게시글을 작성하세요!</b></div>
+                    <% }  %>
                 </div>
 
                 <div class="text-null"></div>
@@ -191,8 +200,9 @@
 
         <div class="content2 top">
             <div class="point">
-                
-                <div class="cricle">
+                <div class="cricle cricle-margin">
+                    <!--
+                    
                     <div class="text-null"></div>
                     <div class="text-bold">❤ 0</div>
 
@@ -218,13 +228,87 @@
 
                 <div class="text-null"></div>
                 <div class="text-bold">내 점수</div>
+            -->
+                <div class="petImg">
+                <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
+                    
+                    <div id="style-user">
+                        <div style="width: 300px;" id="file-area">
+                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
+                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
+                        	<% } else {%>
+                        	<%
+                			String url = userInfo.getFileMypageNo();
+                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
+                			%>
+                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
+                			<%} else { %>
+                                <!-- 인터넷 이미지-->
+                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본"  id="titleImg" width="200px" height="200px">
+                			<%} %>
+                        	<% } %>
+                        </div>
+                        
+                        <div class="text-null2"></div>
+                        <div class="text-null2"></div>
+                        <div>
+                            <div style="margin-left: 30px; margin-bottom: 5px; margin-top: 10px;">
+                                <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
+                            </div>
+                            <div style="margin-left: 30px; padding-bottom: 10px;">
+                                <button type="submit" class="btn btn-sm btn-warning">유저프로필 등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 프로필 첨부안할시 버튼 비활성화/첨부 시 활성화 -->
+                    <script>
+                        $(document).ready(function() {
+                            $('button[type=submit]').attr('disabled', 'disabled');
+                        
+                            $('input[type=file]').on('input', function() {
+                                if ($(this).val() !== '') {
+                                    $('button').removeAttr("disabled");
+                                }
+                                else {
+                                    $('button').attr('disabled', 'disabled');
+                                }
+                            });
+                        });
+                    </script>
+                    
+                </form>
 
             </div>
+            <!-- 파일 첨부시 첨부된 이미지 보여주는 스크립트 -->
+            <script>
+                function loadImg(inputFile, num){
+                    if(inputFile.files.length == 1){ // 파일이 첨부
+                        let reader = new FileReader();
+                        reader.readAsDataURL(inputFile.files[0]);
+                        reader.onload = function(e){
+                            switch(num){
+                                case 1 : $('#titleImg').attr('src', e.target.result); break;
+                            }
+                        }
+                    }
+                    else {
+                        const str = '<%=contextPath%>\resources\images/profil.png';
+                        switch(num){
+                                case 1 : $('#titleImg').attr('src', str); break;
+                        }
+                    }
+                };
+            </script>
+
 
         </div>
+
+        <div class="text-null"></div>
+        <div class="text-bold">내 프로필</div>
         
     </div>
-
+        
 
     <script>
         
