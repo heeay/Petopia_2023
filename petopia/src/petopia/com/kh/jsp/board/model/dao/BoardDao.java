@@ -109,6 +109,7 @@ public class BoardDao {
 		
 				board.setCtgNo(rset.getInt("CTG_NO"));
 				board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+				//board.setFileImg(rset.getString("FILE_IMG"));
 				
 				bList.add(board);
  
