@@ -61,7 +61,7 @@ public class PetListController extends HttpServlet {
 		//System.out.println(currentPage);
 		
 		pageLimit = 10;
-		boardLimit = 5;
+		boardLimit = 8;
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 		

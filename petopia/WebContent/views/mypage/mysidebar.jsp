@@ -45,6 +45,7 @@
             line-height : 50px;
             color : black;
             font-weight : bold;
+            min-height: 40px;
         }
         .side{
          	height :50px;
@@ -163,6 +164,8 @@
             margin: auto;
             padding-left: 400px;
             padding-right: 80px;
+            min-width: 1350px;
+            max-width: 2000px;
         }
     </style>
     <script>
@@ -219,9 +222,9 @@
             </div>
 
             <div id="sidemenu">
-                <div class="side"><a href="<%=contextPath %>/main.my">내 등급 및 점수</a></div>
+                <div class="side"><a href="<%=contextPath %>/main.my">내 등급/프로필 관리</a></div>
                 <div class="side"><a href="<%=contextPath %>/change.my">내 정보변경</a></div>
-                <div class="side"><a href="<%=contextPath %>/pet.my?cpage=1">내 애완동물 프로필</a></div>
+                <div class="side"><a href="<%=contextPath %>/pet.my?cpage=1">펫 프로필 관리</a></div>
                 <div class="side"><a href="<%=contextPath %>/hosMain.my">펫 다이어리 작성</a></div>
                 <div class="side"><a href="<%=contextPath %>/views/mypage/suggestions.jsp">건의사항/고객센터</a></div>
             </div>

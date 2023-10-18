@@ -146,7 +146,7 @@
 	<div class="content-area">
 
         <div class="area-padding">
-
+            <!--
             <div class="petImg">
                 <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
                     
@@ -171,23 +171,33 @@
                                 <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
                             </div>
                             <div style="margin-left: 30px; padding-bottom: 10px;">
-                                <button type="submit" class="btn btn-sm btn-warning" id="target_btn">유저프로필 등록</button>
+                                <button type="submit" class="btn btn-sm btn-warning">유저프로필 등록</button>
                             </div>
                         </div>
                     </div>
-
+                    
+                    프로필 첨부안할시 버튼 비활성화/첨부 시 활성화
                     <script>
-                        const target = document.getElementById('target_btn');
-
-                        // 활성화
-                        const btnActive = document.getElementById('userProfil');
-                        btnActive.addEventListener('click', () => target.disabled = false);
+                        $(document).ready(function() {
+                            $('button[type=submit]').attr('disabled', 'disabled');
+                        
+                            $('input[type=file]').on('input', function() {
+                                if ($(this).val() !== '') {
+                                    $('button').removeAttr("disabled");
+                                }
+                                else {
+                                    $('button').attr('disabled', 'disabled');
+                                }
+                            });
+                        });
                     </script>
 
                 </form>
 
             </div>
+            -->
 
+            <!-- 파일 첨부시 첨부된 이미지 보여주는 스크립트 
             <script>
                function loadImg(inputFile, num){
 					if(inputFile.files.length == 1){ // 파일이 첨부
@@ -211,6 +221,7 @@
 				};
 				
             </script>
+        -->
 
 
             <div class="petProfil-list">
@@ -221,7 +232,7 @@
                         <div id="petEnroll">
                             <button type="button" id="modalOpenButton" class="btn btn-sm btn-info">펫프로필 등록</button>
                         </div>
-        
+                        
                         <thead class>
                             <tr>
                                 <th style="width: 200px;">No.</th>
@@ -277,9 +288,9 @@
             <div id="modalContainer" class="hidden">
             <div id="modalContent">
                 
-                <form action="<%=contextPath%>/petInsert.my" enctype="multipart/form-data" method="post">
+                <form action="<%=contextPath%>/petInsert.my" enctype="multipart/form-data" method="post" id="checkedPetName">
                 	<input type="hidden" name="userNo" value="<%=userInfo.getUserNo()%>">
-
+					
                     <div>
                         <p class="profil-content-name">반려동물 프로필</p>
     
@@ -288,9 +299,55 @@
                             <div class="petfil-size">
     
                                 <div class="profil-name">
-                                    이름
-                                    <div class="profil-align-right"><input type="text" name="petName" required></div>
+                                    이름			
+                                    <div class="profil-align-right"><input type="text" name="petName" required class="input_name"></div>
+                                    <div id="checkName"></div>
                                 </div>
+
+                                <script>
+                                    let checkResult = false;
+
+                                    // submit버튼 활성화/비활성화
+                                    function checkPetName(){
+                                        //console.log(checkResult);
+                                        if(checkResult){
+                                            return true;
+                                        } else{
+                                            return false;
+                                        }
+                                    };
+
+                                    // 중복일때는 클릭 안되게, 중복이 아닐때는 submit으로 전송
+                                    $(document).ready(function(){
+                                        
+                                            $('.input_name').focusout(function(){
+                                                let petName = $('.input_name').val();
+                                                let userNo = '<%=userInfo.getUserNo()%>';
+        
+                                                $.ajax({
+                                                    url: 'checkPetName.my',
+                                                    type: 'post',
+                                                    data:{petName: petName, 
+                                                          userNo: userNo},
+                                                    success : function(result){
+                                                        if(result == '0'){
+                                                            $('#checkName').html('* 사용할 수 없는 이름입니다.');
+                                                            $('#checkName').css('color','red');
+                                                            checkResult = false;
+                                                        } else {
+                                                            $('#checkName').html('* 사용가능한 이름입니다.');
+                                                            $('#checkName').css('color','green');
+                                                            checkResult = true;
+                                                        }
+                                                    },
+                                                    error:function(){
+                                                        alert("실패");
+                                                    }
+                                                })
+                                            });
+                                    });
+                                    
+                                </script>
     
                                 <div class="profil-name">
                                     <label>종</label>
@@ -353,7 +410,7 @@
                                 </div>
                             </div>
     
-                            <button type="submit" class="btn btn-sm btn-secondary btn-right">등록하기</button>
+                            <button type="submit" class="btn btn-sm btn-secondary btn-right" id="profilSubmit" onclick="return checkPetName();">등록하기</button>
                         
                         </div>
     
@@ -365,6 +422,7 @@
                 <button id="modalCloseButton" class="btn btn-sm btn-danger">닫기</button>
             </div>
             </div>
+
             <!--모달창-->
             <script>
                 const modalOpenButton = document.getElementById('modalOpenButton');

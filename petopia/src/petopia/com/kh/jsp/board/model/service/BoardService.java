@@ -79,9 +79,18 @@ public class BoardService {
 		 return likeCount;
 	}
 	
+		public Category selectCategory(int bno) {
+			
+		Connection conn = getConnection();
+		
+		Category category = new BoardDao().selectCategory(conn, bno);
+		
+		 close(conn);
+		
+		 return category;
+	}
 
-	
-	
+
 	
 		public Board selectBoard(int bno) {
 		
@@ -108,7 +117,7 @@ public class BoardService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		ArrayList<Board> list = new BoardDao().selectSwiperBestBoardList(conn);
-		JDBCTemplate.close(conn);
+		close(conn);
 		
 		return list;
 	}

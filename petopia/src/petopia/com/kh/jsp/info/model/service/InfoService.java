@@ -206,13 +206,34 @@ public class InfoService {
 		return count;
 	}
 	
-	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo) {
+	public int updateInfo(Info in, ArrayList<InfoFile> list, int star, int infoNo, int[] origins) {
 		
 		Connection conn = getConnection();
 		
 		int result1 = new InfoDao().updateInfo(conn, in);
 		
-		int result2 = new InfoDao().updateInfoFile(conn, list);
+		int result2 = 1;
+		
+		// origins는 기존 게시글 작성 시 첨부했던 파일들의 배열
+		//for(int i = 0; i < origins.length; i++) {
+			// 기존 파일 변경
+			// System.out.println(list.size());
+			
+		//}
+		
+		int a = origins.length; // 1
+		System.out.println(a);
+		
+		int b = 5 - a; // 4
+		
+		result2 = new InfoDao().updateInfoFile(conn, list, a);
+		
+		// 첨부할 수 있는 파일의 최대 개수(5) - 실제 첨부한 개수
+		//for(int i = 0; i < (5 - origins.length); i++) {
+			// 새로운 파일로 첨부
+			// System.out.println(list.size());
+			result2 = new InfoDao().insertNewFile(conn, list, b);
+		//}
 		
 		int result3 = new InfoDao().updateStar(conn, star, infoNo);
 		

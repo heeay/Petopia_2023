@@ -25,6 +25,7 @@
         }
         input{border: none;}
         textarea{border: none;}
+        select{border: none;}
      </style>
      <style>
         #sug-content{
@@ -93,7 +94,7 @@
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
-                                <select class="input-width" id="selectPetName" name="petNo" style="border: none;">
+                                <select class="input-width" id="selectPetName" name="petNo">
                                 	<% for(Pet p : petList) {%>
                                     	<option value="<%=p.getPetNo()%>"><%=p.getPetName() %></option>
                                     <% } %>
@@ -162,6 +163,53 @@
                         	<a href="javascript:history.back();" class="btn btn-sm btn-secondary">닫기</a>
                         </div>
                         <br>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('button[type=submit]').attr('disabled', 'disabled');
+
+                                // 날짜 변경할 시 버튼 활성화
+                                $('input[type=date]').on('input', function() {
+                                    if ($(this).val() !== '') {
+                                        $('button').removeAttr("disabled");
+                                    }
+                                    else {
+                                        $('button').attr('disabled', 'disabled');
+                                    }
+                                });
+                                
+                                // 옵션 변경 시 버튼 활성화
+                                $('select').on('input', function() {
+                                    if ($(this).val() !== '') {
+                                        $('button').removeAttr("disabled");
+                                    }
+                                    else {
+                                        $('button').attr('disabled', 'disabled');
+                                    }
+                                });
+
+                                // input: 글 한글자라도 수정할 시 버튼 활성화
+                                $('input[type=text]').on('input', function() {
+                                    if ($(this).val() !== '') {
+                                        $('button').removeAttr("disabled");
+                                    }
+                                    else {
+                                        $('button').attr('disabled', 'disabled');
+                                    }
+                                });
+                                
+                                // textarea: 내용수정시 버튼 활성화
+                                $('textarea').on('input', function() {
+                                    if ($(this).val() !== '') {
+                                        $('button').removeAttr("disabled");
+                                    }
+                                    else {
+                                        $('button').attr('disabled', 'disabled');
+                                    }
+                                });
+
+                            });
+                        </script>
 
                     </div>
                 </div>

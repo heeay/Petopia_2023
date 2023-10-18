@@ -1,6 +1,7 @@
 package petopia.com.kh.jsp.board.model.dao;
 
 import static petopia.com.kh.jsp.common.JDBCTemplate.close;
+import static petopia.com.kh.jsp.common.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -246,9 +247,40 @@ public class BoardDao {
 			return likeCount;
 		}
 		
-		
-		
-		
+		public Category selectCategory(Connection conn, int bno) {
+			
+			Category category = new Category();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectCategory");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bno);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					
+					category.setCtgNo(rset.getInt("CTG_NO"));
+					category.setCtgName(rset.getString("CTG_NAME"));
+
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			System.out.println("난 게시판 category객체야 : " + category);
+			return category;
+		}
+
 		public Board selectBoard(Connection conn, int bno){
 			
 			// *** Board board = null;이라고 하면 객체를 생성하지 않았기 때문에 board.setBoardNo 등이 불가 => 그대로 board는 null
@@ -272,8 +304,8 @@ public class BoardDao {
 					board.setBoardContent(rset.getString("BOARD_CONTENT"));
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setUserNo(rset.getInt("USER_NO"));
-					
-					board.setLikeCount(rset.getInt("LIKE_COUNT"));
+					board.setCtgNo(rset.getInt("CTG_NO"));// 놀고 있는 fileImg가 String형이라 잠시 빌려씀
+
 					
 				}
 				
@@ -341,9 +373,8 @@ public class BoardDao {
 					board.setBoardViews(rset.getInt("BOARD_VIEWS"));
 					board.setBoardCreateDate(rset.getDate("BOARD_CREATE_DATE"));
 					board.setBoardContent(rset.getString("USER_NICKNAME"));//유저 넘버필드int 닉네임은 컨텐트에다넣음
+					board.setUserNo(rset.getInt("COMMENT_COUNT"));//댓글수 필드가 없으므로 안쓰는 유저넘버에다 넣음
 					board.setFileImg(rset.getString("FILE_URL"));
-					board.setCtgNo(rset.getInt("CTG_NO"));
-					board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
 					
 					list.add(board);
 	 
@@ -393,7 +424,7 @@ public class BoardDao {
 		
 		public int insertFileList(Connection conn, ArrayList<File> fList) {
 			
-			int fileInsert = 0;
+			int fileInsert = 1;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertFileList");
 			
@@ -411,6 +442,7 @@ public class BoardDao {
 //					 *** 이 방법과 정답과의 차이는?
 //					fList.add(file);
 //					result2 = pstmt.executeUpdate();
+					
 					
 					fileInsert += pstmt.executeUpdate();
 				

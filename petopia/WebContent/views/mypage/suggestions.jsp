@@ -155,7 +155,7 @@
                 </div>
                 <% } %>
                 <div class="sug-background sub-blank">
-                    <a href="<%=contextPath %>/views/board/noticeListView.jsp" class="color-black">
+                    <a href="<%=contextPath %>/main.no" class="color-black">
                         <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;공지사항 바로가기</p>
                         <p style="font-size: 25px;">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
                         <p style="font-size: 15px; padding-top: 11px;">공지사항을 확인해주세요</p>
@@ -211,7 +211,8 @@
                                   <div>
                                     A. <br>
                                     0~10개: 초급, 11~30: 중급, 31개 이상: 고급으로 
-                                    게시글 작성 수에 따라 등급이 나누어져 있습니다.
+                                    게시글 작성 수에 따라 등급이 나누어져 있습니다<br>
+                                    다양한 게시글을 작성하여 회원분들과 정보를 공유해보세요!
                                   </div>
                                   
                                 </div>
@@ -224,7 +225,7 @@
                                     A. <br>
                                     펫토피아는 따로 비용을 받지않는 무료 서비스입니다. <br>
                                     아이가 더 멀리 가기전에 펫토피아에 빠르게 신고하시고, 
-                                    동네 이웃분들에게 소식을 공유해보세요!
+                                    동네 이웃분들에게 소식을 공유해보세요.
                                   </div>
                                   
                                 </div>

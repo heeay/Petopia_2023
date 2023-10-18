@@ -26,6 +26,7 @@
             height: 80%;
             width: 80%;
             min-width: 1350px;
+            max-width: 1800px;
         }
      </style>  
      
