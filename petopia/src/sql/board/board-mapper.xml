@@ -137,9 +137,8 @@
 		               	BOARD_TITLE,
 		               	BOARD_CONTENT,
 		               	BOARD_CREATE_DATE,
-		               	USER_NO
-		             <!-- 배열로 받아야하는데 => FOR문 쓰면 됨 -->
-		           		
+		               	USER_NO,
+		               	CTG_NO
 		  FROM
 		                TB_BOARD A
 		   JOIN
@@ -159,7 +158,7 @@
 		FROM
 					TB_CATEGORY
 		WHERE
-					CTG_NO BETWEEN 1 AND 11
+					CTG_NO BETWEEN 1 AND 10
 	
 </entry>
 <entry key="selectSwiperBestBoardList">
