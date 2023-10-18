@@ -36,6 +36,7 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		Date curDate = new Date();
 		Date date = new UserService().selectEmailAuth(email, authCode);
 		
+		//System.out.println(date);
 		String result="";
 		if(date==null) {
 			result = "404";
