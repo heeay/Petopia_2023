@@ -23,6 +23,7 @@
             -ms-user-select:none;
             user-select:none
         }
+        textarea{border: none; resize: none !important;}
     </style>
     <style>
         #sidemenu{
@@ -191,7 +192,6 @@
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-                    <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
@@ -212,15 +212,15 @@
             <div class="profil-bar">
                 <div class="profil">
                 <% if(userInfo.getFileMypageNo().equals("/")) {%>
-                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필">
+                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필" width="200px" height="200px">
                 <% } else {%>
                 <%
                 String url = userInfo.getFileMypageNo();
                 if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
                 %>
-                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
                 <%} else { %>
-                	<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                	<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
                 <%} %>
                 <% } %>
                 </div>
