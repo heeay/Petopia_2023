@@ -4,6 +4,7 @@
 <%
     String contextPath = request.getContextPath();
 	User userInfo = (User)session.getAttribute("userInfo");
+    String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -173,6 +174,12 @@
             $(document).bind("dragstart", function(){return false});
             $(document).bind("", function(){return false});
         })
+
+        const msg = '<%= alertMsg %>';
+        if(msg != 'null') {
+            alert(msg);
+            <% session.removeAttribute("alertMsg"); %>
+        }
     </script>
 
 </head>
