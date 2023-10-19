@@ -58,13 +58,13 @@ public class ShareInsertController extends HttpServlet {
 			String category = multiRequest.getParameter("category");
 			String content = multiRequest.getParameter("content");
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
-			int star = 0;
+			//int star = 0;
 			
 			// 별점을 클릭 안하고 넘어오는 경우 star = 0
-			if(star != 0) {
-				star = Integer.parseInt(multiRequest.getParameter("star"));
-			}
-				
+			//if(star != 0) {
+				int star = Integer.parseInt(multiRequest.getParameter("star"));
+			//}
+			
 			// VO로 가공 (Info)
 			Info in = new Info();
 			in.setInfoTitle(title);

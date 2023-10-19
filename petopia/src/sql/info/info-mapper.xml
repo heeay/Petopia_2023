@@ -269,25 +269,12 @@
 		 	   BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateInfoFile">
-		UPDATE
-		       TB_FILE
-		   SET 
-		   	   ORIGINAL_NAME = ?,
-		   	   UPLOAD_NAME = ?,
-		   	   FILE_PATH = ?,
-		   	   FILE_LEVEL = ?
+	<entry key="deleteOriginFile">
+		DELETE
+		  FROM 
+		  	   TB_FILE
 		 WHERE 
-		 	   REF_BNO = ?
-	</entry>
-	
-	<entry key="updateStar">
-		UPDATE
-		       TB_STAR
-		   SET 	
-		   	   STAR_SCORE = ?
-		 WHERE 
-		 	   BOARD_NO = ?
+		 	   REF_BNO = ?	   
 	</entry>
 	
 	<entry key="insertNewFile">
@@ -312,5 +299,16 @@
 			   ?
 			   )
 	</entry>
+	
+	<entry key="updateStar">
+		UPDATE
+		       TB_STAR
+		   SET 	
+		   	   STAR_SCORE = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
+	
 
 </properties>
