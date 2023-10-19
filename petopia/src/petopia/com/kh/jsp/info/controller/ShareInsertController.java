@@ -58,12 +58,15 @@ public class ShareInsertController extends HttpServlet {
 			String category = multiRequest.getParameter("category");
 			String content = multiRequest.getParameter("content");
 			int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
-			//int star = 0;
+			int star;
 			
-			// 별점을 클릭 안하고 넘어오는 경우 star = 0
-			//if(star != 0) {
-				int star = Integer.parseInt(multiRequest.getParameter("star"));
-			//}
+			// star를 클릭하지 않고 게시글을 작성한 경우 숫자가 아닌 null값이 넘어와서 NumberFormatExcpetion 발생
+			// => try-catch문으로 해결
+			try {
+				star = Integer.parseInt(multiRequest.getParameter("star"));
+			} catch (NumberFormatException e) {
+				star = 0;
+			}
 			
 			// VO로 가공 (Info)
 			Info in = new Info();
