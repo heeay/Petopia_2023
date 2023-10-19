@@ -29,12 +29,12 @@ public class IncreaseLikeCountController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		//int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		//int likeCount = Integer.parseInt(request.getParameter("likeCount"));
 		//System.out.println(likeCount);
 		
-		int increasedCount = new BoardService().increaseLikeCount(boardNo);
+		int increasedCount = new BoardService().increaseLikeCount(boardNo, userNo);
 		//int decreasedCount = new BoardService().dereasedLikeCount(boardNo);
 	
 		request.setAttribute("increasedCount", increasedCount);//	이거 없으면 값이 넘어가지 않아서 404에러 뜸
