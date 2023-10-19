@@ -4,7 +4,7 @@
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
-        int clickLike = (int)request.getAttribute("clickLike");
+        int checkClick = (int)request.getAttribute("checkClick");
     	Board board = (Board)request.getAttribute("board");
     	Category category = (Category)request.getAttribute("category");
     %><!-- int increasedCount = (int)request.getAttribute("increasedCount");
@@ -142,14 +142,14 @@
         <% if(userInfo != null){ %>
             
         <form action="<%= contextPath %>/increaseLike.bo" method="post">
-            
+            <input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
+            <input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
+
             <div id="content-like">
      
                     <div>
-                    <input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-                    <input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
                     <p><%= likeCount %></p>
-                    <button type="submit" id="like-icon" onclick="countLike()">👍</button>
+                    <button type="submit" id="like-icon">👍</button>
                     </div>
                 
             </div>
@@ -190,7 +190,7 @@
                 if(userInfo != null){
                     
                     // 좋아요를 처음 누른 회원일 때
-                    if( <%= clickLike %> == 0 ) {
+                    if( <%= checkClick %> == 0 ) {
                     $('#like-icon').html('😄');
                         // 이러면 데이터 관리 어려우니까.. 서블릿으로..
                     $('#like-icon').prev().html(<%=likeCount%> += 1);

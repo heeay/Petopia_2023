@@ -119,10 +119,11 @@ public class InsertBoardController extends HttpServlet {
 					
 					fList.add(file);
 
-				} else { // getApplication은 없음
+				}  /*else { // getApplication은 없음
 					request.getSession().setAttribute("errorPage", "파일을 업로드 해야 합니다");
 					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-				}
+				
+				}*/
 				
 			} // 반복문 끝
 			

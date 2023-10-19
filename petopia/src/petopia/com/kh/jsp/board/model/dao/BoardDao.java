@@ -281,7 +281,7 @@ public class BoardDao {
 			System.out.println("난 게시판 category객체야 : " + category);
 			return category;
 		}
-
+		
 		public Board selectBoard(Connection conn, int bno){
 			
 			// *** Board board = null;이라고 하면 객체를 생성하지 않았기 때문에 board.setBoardNo 등이 불가 => 그대로 board는 null
@@ -406,7 +406,7 @@ public class BoardDao {
 				pstmt.setString(2, board.getBoardContent());
 				pstmt.setInt(3, board.getUserNo());
 				pstmt.setInt(4, board.getCtgNo());
-
+	
 				
 				boardInsert = pstmt.executeUpdate();
 				
@@ -425,7 +425,7 @@ public class BoardDao {
 		
 		public int insertFileList(Connection conn, ArrayList<File> fList) {
 			
-			int fileInsert = 1;
+			int fileInsert = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertFileList");
 			
@@ -466,7 +466,7 @@ public class BoardDao {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
-			String sql = prop.getProperty("selectLikeCount");
+			String sql = prop.getProperty("checkClickLike");
 		
 			try {
 				pstmt = conn.prepareStatement(sql);
