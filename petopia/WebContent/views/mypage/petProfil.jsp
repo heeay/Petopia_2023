@@ -60,7 +60,6 @@
             left: 40%;
         }
         input{border: none;}
-        textarea{border: none;}
         select{border: none;}
     </style>
     <style>
@@ -139,6 +138,9 @@
             padding-top: 20px;
             padding-left: 20px;
         }
+        .pointer-events-none{pointer-events: none;}
+        .petSpecies-width{width: 205px;}
+        .petWeight-width{width: 175px;}
     </style>
 </head>
 <body>
@@ -236,9 +238,9 @@
                         
                         <thead class>
                             <tr>
-                                <th style="width: 200px;">No.</th>
-                                <th style="width: 400px;">Name</th>
-                                <th style="width: 300px;">Species</th>
+                                <th class>No.</th>
+                                <th class>Name</th>
+                                <th class>Species</th>
                             </tr>
                         </thead>
         
@@ -246,7 +248,7 @@
                         
                         <% if(list.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 프로필이 없습니다.</td>
+                        		<td colspan="3" align="center" class="pointer-events-none">등록된 프로필이 없습니다.</td>
                         	</tr>
                         <% }else { %>
                         	<% for(int i=0; i<list.size(); i++){ %>
@@ -353,7 +355,7 @@
                                 <div class="profil-name">
                                     <label>종</label>
                                     <div class="profil-align-right">
-                                        <select name="petSpecies" style="width: 205px;">
+                                        <select name="petSpecies" class="petSpecies-width">
                                             <option value="강아지">강아지</option>
                                             <option value="고양이">고양이</option>
                                             <option value="설치류">설치류</option>
@@ -371,7 +373,7 @@
                                 
                                 <div class="profil-name">
                                     몸무게
-                                    <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="1">&nbsp; Kg</div>
+                                    <div class="profil-align-right"><input type="number" name="petWeight" class="petWeight-width" min="0" max="100" value="1">&nbsp; Kg</div>
                                 </div>
     
                                 <div class="profil-name">
@@ -400,7 +402,7 @@
                                 <div class="profil-name2">
                                     기타사항
                                     <div class="profil-align-right">
-                                        <textarea name="petEtc" cols="35" rows="7" style="resize:none;"></textarea>
+                                        <textarea name="petEtc" cols="35" rows="7"></textarea>
                                     </div>
                                 </div>
                                 <div class="profil-name3">

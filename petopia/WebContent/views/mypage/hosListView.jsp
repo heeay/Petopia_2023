@@ -53,6 +53,7 @@
             margin-top: 50px;
             margin-bottom: 50px;
         }
+        .pointer-events-none{pointer-events: none;}
     </style>
     
 </head>
@@ -114,7 +115,7 @@
                 <tbody>
                 	<% if(hosList.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="3" align="center" style="pointer-events: none;">등록된 기록이 없습니다.</td>
+                        		<td colspan="3" align="center" class="pointer-events-none">등록된 기록이 없습니다.</td>
                         	</tr>
                         <% }else { %>
                        		<% for(int i=hosList.size(); i>0; i--){ %>

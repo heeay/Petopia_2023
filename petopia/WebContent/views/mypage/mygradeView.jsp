@@ -234,7 +234,9 @@
                     
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
-                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
+                            <!--기존코드: userInfo.getFileMypageNo().equals("/") -->
+                            <!--강사님 수정코드: "/".equals(userInfo.getFileMypageNo()) -->
+                        	<% if("/".equals(userInfo.getFileMypageNo())) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
                         	<% } else {%>
                         	<%

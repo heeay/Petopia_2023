@@ -27,7 +27,6 @@
             height: 80%;
             width: 80%;
         }
-        textarea{resize: none;}
     </style> 
     <style>
         .petImg{
@@ -117,6 +116,7 @@
 	        bottom:15px;
             left: 650px;
         }
+        .petSpecies-width{width: 205px;}
         </style>
 </head>
 <body>
@@ -143,7 +143,7 @@
                                     <div class="profil-name">
                                         <label>종</label>
                                         <div class="profil-align-right">
-                                            <select id="petSpecies" name="petSpecies" style="width: 205px;">
+                                            <select id="petSpecies" name="petSpecies" class="petSpecies-width">
                                                     <option value="강아지">강아지</option>
                                                     <option value="고양이">고양이</option>
                                                     <option value="설치류">설치류</option>

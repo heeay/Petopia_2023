@@ -21,7 +21,6 @@
             width: 78%;  
         }
         input{border: none;}
-        textarea{border: none;}
      </style>
      <style>
         #sug-content{
@@ -48,6 +47,7 @@
         }
         .input-width{
             width: 700px;
+            border: none;
         }
         .float-left{
             float: left;
@@ -68,6 +68,7 @@
             float: right;
             padding-right: 20px;
         }
+        .textarea-resize-none{resize:none;}
     </style>
 </head>
 <body>
@@ -90,7 +91,7 @@
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
-                                <select class="input-width" name="petNo" style="border: none;">
+                                <select class="input-width" name="petNo">
                                 	<% for(Pet p : petList) {%>
                                     	<option value="<%=p.getPetNo() %>"><%=p.getPetName() %></option>
                                     <% } %>
@@ -121,7 +122,7 @@
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="hosContent"></textarea></div>
+                            <div class="float-right2"><textarea cols="85" rows="9" name="hosContent" class="textarea-resize-none"></textarea></div>
                         </div>
 
                         <div class="btn-right">

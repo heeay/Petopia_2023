@@ -23,6 +23,7 @@
             -ms-user-select:none;
             user-select:none
         }
+        textarea{border: none; resize: none !important;}
     </style>
     <style>
         #sidemenu{
@@ -191,7 +192,6 @@
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-                    <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
