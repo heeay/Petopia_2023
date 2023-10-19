@@ -54,41 +54,51 @@ public class MyMainViewSelectController extends HttpServlet {
 		//System.out.println(bcount);
 		//System.out.println(bGrade);
 		
-		System.out.println(loginUser.getRoleId());
+		//System.out.println(loginUser.getRoleId());
 		
 		if(loginUser.getRoleId() == "관리자") {	// 관리자는 업그레이드 x
 			String getRoleId = "관리자";
-			
 			//System.out.println(getRoleId);
 			
 			request.setAttribute("getRoleId", getRoleId);
 			request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
-			
-		} else if(loginUser.getRoleId() == "초급") {
+		}
+		
+		if(loginUser.getRoleId() == "초급") {
 			if(bGrade>10) {
 				
 				int result = new PetService().updateGradeR1(loginUser);
 				
-				String getRoleId = new PetService().selectR2(loginUser);
-				
-				//System.out.println(getRoleId);
-				
-				request.setAttribute("getRoleId", getRoleId);
-				request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+				if(result>0) {
+					String getRoleId = new PetService().selectR2(loginUser);
+					//System.out.println(getRoleId);
+					
+					request.setAttribute("getRoleId", getRoleId);
+					request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+				} else {
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				}
 			} 
-			
-		}else if(loginUser.getRoleId() == "중급") {
+		}
+		
+		if(loginUser.getRoleId() == "중급") {
 			if(bGrade>30) {
 				int result = new PetService().updateGradeR2(loginUser);
 				
-				String getRoleId = new PetService().selectR3(loginUser);
-				
-				//System.out.println(getRoleId);
-				
-				request.setAttribute("getRoleId", getRoleId);
-				request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+				if(result>0) {
+					String getRoleId = new PetService().selectR3(loginUser);
+					//System.out.println(getRoleId);
+					
+					request.setAttribute("getRoleId", getRoleId);
+					request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+				} else {
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				}
 			}
-		}else if(loginUser.getRoleId() == "고급") {// 고급단계는 더이상 업그레이드 할 수 없음
+			
+		}
+		
+		if(loginUser.getRoleId() == "고급") {// 고급단계는 더이상 업그레이드 할 수 없음
 			String getRoleId = "고급";
 			
 			//System.out.println(getRoleId);
