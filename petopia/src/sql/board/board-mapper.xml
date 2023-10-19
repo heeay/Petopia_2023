@@ -319,11 +319,11 @@ WHERE
 한편, 조회된 리스트들을 보여주는 SQL
 -->
 <!-- 게시글 수에 따른 유저등급관리 -->
-<entry key="">
+<entry key="R1toR2">
 		UPDATE 
 						TB_USER
 		SET
-						ROLE_ID = 'R1'
+						ROLE_ID = 'R2'
 		WHERE 
 						(
 						SELECT 
@@ -331,10 +331,29 @@ WHERE
 						FROM 
 									TB_BOARD 
 						WHERE 
-									USER_ID = ? 
-						)  = ?
-					
+									USER_NO = ? 
+						)  BETWEEN 11 AND 20
+
 </entry>
+
+<entry key="R2toR3">
+		UPDATE 
+						TB_USER
+		SET
+						ROLE_ID = 'R3'
+		WHERE 
+						(
+						SELECT 
+									COUNT(*) 
+						FROM 
+									TB_BOARD 
+						WHERE 
+									USER_NO = ? 
+						)  BETWEEN 21 AND 30
+
+</entry>
+
+
 
 
 </properties>

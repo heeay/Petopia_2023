@@ -78,6 +78,7 @@ public class MainBoardController extends HttpServlet {
 //		}
 		
 		String display = request.getParameter("display");
+		
 		if(display != null) {
 			switch(Integer.parseInt(display)) {
 			case 2 : boardLimit = 2; break;
@@ -88,6 +89,7 @@ public class MainBoardController extends HttpServlet {
 			boardLimit = 4;
 		}
 		
+		 
 		
 		// * maxPage : 가장 마지막페이지가 몇 번 페이지인지(총 페이지 개수)
 		/*
