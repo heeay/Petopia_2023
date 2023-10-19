@@ -57,10 +57,10 @@
                         <li><a href="<%= contextPath %>/share.in?ictg=14&ipage=1">🏥병원</a></li>
                     </ul>
                 </li>
-                <li><a>⚾트레이닝 센터</a></li>
-                <li><a>📂애완동물 도감</a></li>
-                <li><a>⛅날씨</a></li>
-                <li><a>📄뉴스레터</a></li>
+                <li><a href="<%= contextPath %>/training">⚾트레이닝 센터</a></li>
+                <li><a href="https://namu.wiki/w/%EA%B2%AC%EC%A2%85#s-5" target="_blank">📂애완동물 도감</a></li>
+                <li><a href="https://www.weather.go.kr/w/weather/forecast/short-term.do" target="_blank">⛅날씨</a></li>
+                <li><a href="https://www.pet-news.or.kr/" target="_blank">📄뉴스레터</a></li>
             </ul>
         </div>
     </div>

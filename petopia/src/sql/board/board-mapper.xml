@@ -71,23 +71,7 @@
 </entry>
 
 <entry key="selectFile">
-	<!--  	SELECT
-		               FILE_NO,
-		               REF_BNO,
-		               ORIGINAL_NAME,
-		               UPLOAD_NAME,
-		               FILE_PATH,
-		               FILE_LEVEL
-		  FROM
-		                TB_FILE
-		   JOIN
-		                TB_BOARD
-		                        USING(FILE_NO)
-		 WHERE
-		                BOARD_STATUS = 'Y'
-		    AND
-		                BOARD_NO = ?-->
-		                
+
 		SELECT
 		       FILE_NO,
 		       REF_BNO,
@@ -247,15 +231,16 @@ WHERE
 						BOARD_CREATE_DATE,
 						USER_NO, 
 						CTG_NO
-						)
+						)	
 		VALUES
-						(<!-- PETOPIA"."TB_BOARD"."FILE_IMG" 파일이미지는 notnull이기에 넣는다. -->
-						SEQ_BOARD_NO.NEXTVAL,
+					
+						(SEQ_BOARD_NO.NEXTVAL,
 						?,
 						?,
 						SYSDATE,
 						?,
 						?
+						
 						)
 <!-- insert는 where이 없어요 -->
 </entry>
@@ -294,12 +279,6 @@ WHERE
 						COUNT(*)
 		FROM 
 						TB_LIKE 
-		JOIN
-						TB_USER
-						USING(USER_NO)
-		JOIN
-						TB_BOARD
-						USING(BOARD_NO)
 		WHERE 
 						BOARD_NO = ?
 		AND 
@@ -318,6 +297,8 @@ WHERE
 							BOARD_NO = ?
 				AND
 							USER_NO = ?
+				AND 
+							LIKE_YN = 'N'
 </entry>
 
 <entry key="decreaseLikeCount">
@@ -329,6 +310,8 @@ WHERE
 							BOARD_NO = ?
 				AND
 							USER_NO = ?
+				AND 
+							LIKE_YN = 'Y'
 </entry>
 <!-- 
 최신글 순으로 정리된 게시글 수를 
@@ -336,11 +319,11 @@ WHERE
 한편, 조회된 리스트들을 보여주는 SQL
 -->
 <!-- 게시글 수에 따른 유저등급관리 -->
-<entry key="">
+<entry key="R1toR2">
 		UPDATE 
 						TB_USER
 		SET
-						ROLE_ID = 'R1'
+						ROLE_ID = 'R2'
 		WHERE 
 						(
 						SELECT 
@@ -348,10 +331,29 @@ WHERE
 						FROM 
 									TB_BOARD 
 						WHERE 
-									USER_ID = ? 
-						)  = ?
-					
+									USER_NO = ? 
+						)  BETWEEN 11 AND 20
+
 </entry>
+
+<entry key="R2toR3">
+		UPDATE 
+						TB_USER
+		SET
+						ROLE_ID = 'R3'
+		WHERE 
+						(
+						SELECT 
+									COUNT(*) 
+						FROM 
+									TB_BOARD 
+						WHERE 
+									USER_NO = ? 
+						)  BETWEEN 21 AND 30
+
+</entry>
+
+
 
 
 </properties>

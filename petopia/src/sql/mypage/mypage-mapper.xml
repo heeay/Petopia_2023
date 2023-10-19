@@ -21,6 +21,25 @@
 		   AND BOARD_STATUS = 'Y'
 	</entry>
 	
+	<!-- 내정보: 초급>중급으로 업데이트 -->
+	<entry key="updateGradeR1">
+		UPDATE TB_USER
+		   SET ROLE_ID = 'R2'
+		 WHERE USER_NO=?
+	</entry>
+	<!-- 내정보: 중급>고급으로 업데이트 -->
+	<entry key="updateGradeR2">
+		UPDATE TB_USER
+		   SET ROLE_ID = 'R3'
+		 WHERE USER_NO=?
+	</entry>
+	<!-- 내정보: 등급조회 -->
+	<entry key="selectR2">
+		 SELECT ROLE_ID, ROLE_NAME, USER_NO
+		   FROM TB_USER
+		   JOIN TB_ROLE USING(ROLE_ID)
+		  WHERE USER_NO=?
+	</entry>
 		
 	<!-- ==============펫 프로필 등록============== -->
 	<!-- 펫프로필: 펫이름 중복확인 -->

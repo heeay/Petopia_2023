@@ -269,25 +269,12 @@
 		 	   BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateInfoFile">
-		UPDATE
-		       TB_FILE
-		   SET 
-		   	   ORIGINAL_NAME = ?,
-		   	   UPLOAD_NAME = ?,
-		   	   FILE_PATH = ?,
-		   	   FILE_LEVEL = ?
+	<entry key="deleteOriginFile">
+		DELETE
+		  FROM 
+		  	   TB_FILE
 		 WHERE 
-		 	   REF_BNO = ?
-	</entry>
-	
-	<entry key="updateStar">
-		UPDATE
-		       TB_STAR
-		   SET 	
-		   	   STAR_SCORE = ?
-		 WHERE 
-		 	   BOARD_NO = ?
+		 	   REF_BNO = ?	   
 	</entry>
 	
 	<entry key="insertNewFile">
@@ -311,6 +298,57 @@
 			   ?,
 			   ?
 			   )
+	</entry>
+	
+	<entry key="updateStar">
+		UPDATE
+		       TB_STAR
+		   SET 	
+		   	   STAR_SCORE = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
+	<entry key="insertComment">
+		INSERT
+		  INTO
+		  	   TB_COMMENT
+		  	   	(
+		  	   	COMMENT_NO,
+		  	   	COMMENT_CONTENT,
+		  	   	COMMENT_CREATE_DATE,
+		  	   	COMMENT_UPDATE_DATE,
+		  	   	USER_NO,
+		  	   	BOARD_NO,
+		  	   	COMMENT_GROUP
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_COMMENT_NO.NEXTVAL,
+		 	    ?,
+		 	    SYSDATE,
+		 	    SYSDATE,
+		 	    ?,
+		 	    ?,
+		 	    1
+		 	    )
+	</entry>
+	
+	<entry key="selectCommentList">
+		SELECT
+			   COMMENT_NO,
+			   COMMENT_CONTENT,
+			   COMMENT_CREATE_DATE,
+			   USER_NICKNAME
+		  FROM 
+		  	   TB_COMMENT
+		  JOIN 
+		  	   TB_USER USING(USER_NO)
+		 WHERE 
+		 	   BOARD_NO = ?
+		 ORDER 
+	 	 	BY
+	 	 	   COMMENT_CREATE_DATE DESC
 	</entry>
 
 </properties>

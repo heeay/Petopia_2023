@@ -1052,6 +1052,9 @@ INSERT INTO TB_LIKE
 VALUES(4,4,'Y');
 INSERT INTO TB_LIKE
 VALUES(4,5,'Y');
-
+INSERT INTO TB_LIKE
+VALUES(5,5,'Y');
 COMMIT;
 
+                        
+                        

@@ -15,6 +15,7 @@ import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
+import petopia.com.kh.jsp.info.model.vo.InfoComment;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
 public class InfoDao {
@@ -449,23 +450,43 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int updateInfoFile(Connection conn, ArrayList<InfoFile> list, int a) {
+	// 기존 게시글 작성 시 첨부했던 파일들 삭제
+	public int deleteOriginFile(Connection conn, int infoNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteOriginFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);		
+			pstmt.setInt(1, infoNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 게시글 수정 시 새로 첨부한 파일 insert
+	public int insertNewFile(Connection conn, ArrayList<InfoFile> list) {
 		
 		int result = 1;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateInfoFile");
+		String sql = prop.getProperty("insertNewFile");
 		
 		try {
-			for(int j = 0; j < a; j++) { // 0
+			for(InfoFile infoFile : list) {
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setString(1, list.get(j).getOriginalName());
-				pstmt.setString(2, list.get(j).getUploadName());
-				pstmt.setString(3, list.get(j).getFilePath());
-				pstmt.setInt(4, list.get(j).getFileLevel());
-				pstmt.setInt(5, list.get(j).getRefBno());
+				pstmt.setInt(1, infoFile.getRefBno());
+				pstmt.setString(2, infoFile.getOriginalName());
+				pstmt.setString(3, infoFile.getUploadName());
+				pstmt.setString(4, infoFile.getFilePath());
+				pstmt.setInt(5, infoFile.getFileLevel());
 				
-				result *= pstmt.executeUpdate();
+				result *= pstmt.executeUpdate();	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -496,32 +517,60 @@ public class InfoDao {
 		return result;
 	}
 	
-	public int insertNewFile(Connection conn, ArrayList<InfoFile> list, int b) {
+	public int insertComment(Connection conn, InfoComment comment) {
 		
-		int result = 1;
+		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNewFile");
+		String sql = prop.getProperty("insertComment");
 		
 		try {
-			for(int k = 0; k < b; k++) { // 0 ~ 3
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, list.get(k).getRefBno());
-				pstmt.setString(2, list.get(k).getOriginalName());
-				pstmt.setString(3, list.get(k).getUploadName());
-				pstmt.setString(4, list.get(k).getFilePath());
-				pstmt.setInt(5, list.get(k).getFileLevel());
-				
-				result *= pstmt.executeUpdate();	
-			}
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, comment.getCommentContent());
+			pstmt.setInt(2, comment.getUserNo());
+			pstmt.setInt(3, comment.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		return result;
+		return result;	
 	}
 	
-	
+	public ArrayList<InfoComment> selectCommentList(Connection conn, int infoNo) {
+		
+		ArrayList<InfoComment> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, infoNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				InfoComment comment = new InfoComment();
+				comment.setCommentNo(rset.getInt("COMMENT_NO"));
+				comment.setCommentContent(rset.getString("COMMENT_CONTENT"));
+				comment.setCommentCreateDate(rset.getDate("COMMENT_CREATE_DATE"));
+				comment.setUserNickname(rset.getString("USER_NICKNAME"));
+				
+				list.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 }

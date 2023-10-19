@@ -345,5 +345,43 @@ public class PetService {
 		return result;
 	}
 
+	public int updateGradeR1(User loginUser) {
+		Connection conn = getConnection();
+		int result = new PetDao().updateGradeR1(conn, loginUser);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int updateGradeR2(User loginUser) {
+		Connection conn = getConnection();
+		int result = new PetDao().updateGradeR2(conn, loginUser);
+		
+		if(result>0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public String selectR2(User loginUser) {
+		Connection conn = getConnection();
+		String result = new PetDao().selectR2(conn, loginUser);
+		commit(conn);
+		return result;
+	}
+
+	public String selectR3(User loginUser) {
+		Connection conn = getConnection();
+		String result = new PetDao().selectR3(conn, loginUser);
+		commit(conn);
+		return result;
+	}
+
 	
 }

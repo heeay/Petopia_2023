@@ -4,6 +4,7 @@
 <%
     String contextPath = request.getContextPath();
 	User userInfo = (User)session.getAttribute("userInfo");
+    String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,14 @@
             -moz-user-select:none;
             -ms-user-select:none;
             user-select:none
+        }
+        textarea{
+            border: none; 
+            resize: none !important;
+        }
+        a{
+            text-decoration: none !important;
+            color: black;
         }
     </style>
     <style>
@@ -93,9 +102,6 @@
             padding: 0px;
             margin: 0px;
             box-sizing: border-box;
-        }
-        a{
-            text-decoration: none;
         }
         ul,ol{
             list-style: none;
@@ -173,6 +179,12 @@
             $(document).bind("dragstart", function(){return false});
             $(document).bind("", function(){return false});
         })
+
+        const msg = '<%= alertMsg %>';
+        if(msg != 'null') {
+            alert(msg);
+            <% session.removeAttribute("alertMsg"); %>
+        }
     </script>
 
 </head>
@@ -184,7 +196,6 @@
                 <ul class="header-navi">
                     <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                     <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-                    <li class="header-navi-item"><a href="#">행사</a></li>
                     <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
@@ -205,15 +216,15 @@
             <div class="profil-bar">
                 <div class="profil">
                 <% if(userInfo.getFileMypageNo().equals("/")) {%>
-                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필">
+                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필" width="200px" height="200px">
                 <% } else {%>
                 <%
                 String url = userInfo.getFileMypageNo();
                 if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
                 %>
-                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
                 <%} else { %>
-                	<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
+                	<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
                 <%} %>
                 <% } %>
                 </div>

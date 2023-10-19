@@ -333,7 +333,7 @@ User userInfo = (User)session.getAttribute("userInfo");
                 <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                 <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
 
-                <li class="header-navi-item"><a href="#">행사</a></li>
+                <!--<li class="header-navi-item"><a href="#">행사</a></li>-->
                 <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">

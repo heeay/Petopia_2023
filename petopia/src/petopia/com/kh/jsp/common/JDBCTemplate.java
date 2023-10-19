@@ -1,5 +1,8 @@
 package petopia.com.kh.jsp.common;
 
+import static petopia.com.kh.jsp.common.JDBCTemplate.commit;
+import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

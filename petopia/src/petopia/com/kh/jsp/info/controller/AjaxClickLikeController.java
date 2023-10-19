@@ -16,13 +16,13 @@ import petopia.com.kh.jsp.user.model.vo.User;
  * Servlet implementation class AjaxUpdateLike
  */
 @WebServlet("/clickLike.in")
-public class AjaxClickLike extends HttpServlet {
+public class AjaxClickLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxClickLike() {
+    public AjaxClickLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class AjaxClickLike extends HttpServlet {
 		int check = new InfoService().checkLike(infoNo, userNo); // Y인 좋아요의 개수
 		int checkNo = new InfoService().checkNoLike(infoNo, userNo); // N인 좋아요의 개수
 		
-		// System.out.println(check);
+		// System.out.println(check);❤
 		// System.out.println(checkNo);
 		
 		if(check == 1) { // 게시글에 좋아요가 클릭되어있는 경우 (LIKE_YN == 'Y')

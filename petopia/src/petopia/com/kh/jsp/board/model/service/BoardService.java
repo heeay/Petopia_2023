@@ -181,4 +181,19 @@ public class BoardService {
 		
 		
 	}
+	
+	public int R1toR2(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		int boardCount = new BoardDao().R1toR2(conn, userNo);
+		
+		 if(boardCount > 0) commit(conn);
+		 else rollback(conn);
+
+		close(conn);
+		
+		 return boardCount;
+		 
+	}
 }

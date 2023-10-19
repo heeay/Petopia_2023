@@ -20,9 +20,6 @@
       height: 80%;
       width: 78%;  
     }
-    a {
-      text-decoration: none;
-    }
     .sug-background{
       display: flex;
       background-color: rgb(244, 217, 174);
@@ -126,8 +123,14 @@
         border-radius:10px;
         padding:10px;
       }
+      .padding-top-10{padding-top: 10px;}
+      .font-size-25{font-size: 25px;}
+      .font-size-15{font-size: 15px;}
+      .padding-top-11{padding-top: 11px;}
     </style>
+  <style>
 
+  </style>
 </head>
 <body>
 
@@ -143,25 +146,25 @@
             <% if(!userInfo.getRoleId().equals("관리자")) { %>
                 <div class="sug-background">
                     <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black">
-                        <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
-                        <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-                        <p style="font-size: 15px; padding-top: 11px;">건의사항이 있을 시 클릭해주세요</p>
+                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
+                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+                        <p class="font-size-15 padding-top-11">건의사항이 있을 시 클릭해주세요</p>
                     </a>
                 </div>
                 <% } else { %>
                 	<div class="sug-background">
                     <a href="<%=contextPath %>/sugList.my?cpage=1" class="color-black">
-                        <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 확인</p>
-                        <p style="font-size: 25px;">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-                        <p style="font-size: 15px; padding-top: 11px;">건의사항내용 확인하기</p>
+                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 확인</p>
+                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+                        <p class="font-size-15 padding-top-11">건의사항내용 확인하기</p>
                     </a>
                 </div>
                 <% } %>
                 <div class="sug-background sub-blank">
                     <a href="<%=contextPath %>/main.no" class="color-black">
-                        <p style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;공지사항 바로가기</p>
-                        <p style="font-size: 25px;">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-                        <p style="font-size: 15px; padding-top: 11px;">공지사항을 확인해주세요</p>
+                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;공지사항 바로가기</p>
+                        <p class="font-size-25">&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+                        <p class="font-size-15 padding-top-11">공지사항을 확인해주세요</p>
                     </a>
                 </div>
             </div>

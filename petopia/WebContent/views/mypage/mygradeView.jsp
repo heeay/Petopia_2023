@@ -4,6 +4,7 @@
 <%
 	String bcount = (String)request.getAttribute("bcount");
 	String lastDate = (String)request.getAttribute("lastDate");
+	String getRoleId = (String)request.getAttribute("getRoleId");
 %>
 <!DOCTYPE html>
 <html>
@@ -117,6 +118,7 @@
             padding-top: 40px;
             padding-left: 50px;
         }
+        .btn-hidden{border: none;}
     </style>
      
 </head>
@@ -184,6 +186,7 @@
 
                     <div class="text-null"></div>
                     <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b><%=bcount %></b>개</div>
+                    
                     <div class="text-null2"></div>
                     <% if(lastDate!= null) {%>
                         <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
@@ -234,7 +237,9 @@
                     
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
-                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
+                            <!--기존코드: userInfo.getFileMypageNo().equals("/") -->
+                            <!--강사님 수정코드: "/".equals(userInfo.getFileMypageNo()) -->
+                        	<% if("/".equals(userInfo.getFileMypageNo())) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
                         	<% } else {%>
                         	<%

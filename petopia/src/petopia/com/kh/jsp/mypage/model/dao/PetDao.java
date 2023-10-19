@@ -1028,6 +1028,76 @@ public class PetDao {
 		}
 		return result;
 	}
+	public int updateGradeR1(Connection conn, User loginUser) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateGradeR1");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateGradeR2(Connection conn, User loginUser) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateGradeR2");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public String selectR2(Connection conn, User loginUser) {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectR2");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString("ROLE_NAME");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public String selectR3(Connection conn, User loginUser) {
+		String result = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectR2");
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString("ROLE_NAME");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {
 		int result = 0;
