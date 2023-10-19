@@ -1056,21 +1056,5 @@ INSERT INTO TB_LIKE
 VALUES(5,5,'Y');
 COMMIT;
 
-		UPDATE 
-						TB_USER
-		SET
-						ROLE_ID = 'R2'
-		WHERE 
-						(
-						SELECT 
-									COUNT(*) 
-						FROM 
-									TB_BOARD 
-						WHERE 
-									USER_NO = 2 
-						) > 11; 
-                        
-                        
-                   
                         
                         
