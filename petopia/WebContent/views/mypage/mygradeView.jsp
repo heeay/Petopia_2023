@@ -4,6 +4,7 @@
 <%
 	String bcount = (String)request.getAttribute("bcount");
 	String lastDate = (String)request.getAttribute("lastDate");
+	String getRoleId = (String)request.getAttribute("getRoleId");
 %>
 <!DOCTYPE html>
 <html>
@@ -117,6 +118,7 @@
             padding-top: 40px;
             padding-left: 50px;
         }
+        .btn-hidden{border: none;}
     </style>
      
 </head>
@@ -131,7 +133,7 @@
                 <div class="cricle">
 
                     <div class="text-null"></div>
-                    <div class="text-bold"><%=userInfo.getRoleId() %></div>
+                    <div class="text-bold"><%=getRoleId %></div>
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
@@ -184,6 +186,7 @@
 
                     <div class="text-null"></div>
                     <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b><%=bcount %></b>개</div>
+                    
                     <div class="text-null2"></div>
                     <% if(lastDate!= null) {%>
                         <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
