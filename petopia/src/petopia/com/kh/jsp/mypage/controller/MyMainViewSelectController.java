@@ -71,11 +71,11 @@ public class MyMainViewSelectController extends HttpServlet {
 				
 				String getRoleId = new PetService().selectR2(loginUser);
 				
-				System.out.println(getRoleId);
+				//System.out.println(getRoleId);
 				
 				request.setAttribute("getRoleId", getRoleId);
 				request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
-			}
+			} 
 			
 		}else if(loginUser.getRoleId() == "중급") {
 			if(bGrade>30) {
@@ -83,7 +83,7 @@ public class MyMainViewSelectController extends HttpServlet {
 				
 				String getRoleId = new PetService().selectR3(loginUser);
 				
-				System.out.println(getRoleId);
+				//System.out.println(getRoleId);
 				
 				request.setAttribute("getRoleId", getRoleId);
 				request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);

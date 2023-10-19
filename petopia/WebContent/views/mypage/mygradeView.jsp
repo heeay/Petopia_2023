@@ -133,7 +133,7 @@
                 <div class="cricle">
 
                     <div class="text-null"></div>
-                    <div class="text-bold"><%=getRoleId %></div>
+                    <div class="text-bold"><%=userInfo.getRoleId() %></div>
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
