@@ -17,7 +17,14 @@ public class Match {
 	private int fileNo;
 	private String titleImg;
 	private String userNickname;
+	private String PetName;
 	
+	public String getPetName() {
+		return PetName;
+	}
+	public void setPetName(String petName) {
+		PetName = petName;
+	}
 	public String getUserNickname() {
 		return userNickname;
 	}

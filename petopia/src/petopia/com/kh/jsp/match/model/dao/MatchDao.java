@@ -59,7 +59,7 @@ public class MatchDao {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertFileList");
+		String sql = prop.getProperty("insertFile");
 		
 		try {
 			
@@ -137,9 +137,10 @@ public class MatchDao {
 				m.setPetInfo(rset.getString("PET_INFO"));
 				m.setHopeActivity(rset.getString("HOPE_ACTIVITY"));
 				m.setUserNickname(rset.getString("USER_NICKNAME"));
-				m.setPetNo(rset.getInt("PET_NO"));
+				m.setPetName(rset.getString("PET_NAME"));
 				m.setMeetBoardViews(rset.getInt("MEET_BOARD_VIEWS"));
 			    m.setTitleImg(rset.getString("FILE_PATH"));
+			    m.setPetNo(rset.getInt("PET_NO"));
 			
 		    
 				list.add(m);
@@ -159,7 +160,26 @@ public class MatchDao {
 	}
 		
 	
-	
+	public int increaseCount(Connection conn, int meetBoardNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, meetBoardNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} return result;
+		
+		
+	}
 	
 	
 }
