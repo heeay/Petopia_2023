@@ -244,7 +244,7 @@
             });
             
             $('#insert-board-btn').on('click', function(){
-            	location.href  = "<%=contextPath%>/insertForm.bo";
+            	location.href  = "<%= contextPath %>/insertForm.bo";
             });
            
         });
@@ -269,8 +269,8 @@
                 	<% for(Board board : bList) { %>
 	                	
                         <div class="content-item">
-
-                            <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo()%>&uno=<%=userInfo.getUserNo()%>">
+                        <!-- boardNo(bno), userNo(uno)를 다 넘기면 userNo가 있을 때만 전체 게시글 조회가 가능-->
+                            <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo()%>">
                             <!-- <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>"> -->
                             <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
                             </a>
@@ -316,16 +316,27 @@
         <!-- content -->
         <style>
 
-            /* #content-items{ */
+             #content-items{ 
                 
                 /* 2차원 flex */
+                display : grid;
+                 justify-content: center;
+                 
+                 grid-template-rows : 300px 300px;
+                 grid-template-columns : 400px 400px;
+                 
+                 row-gap : 35px;
+                 column-gap : 200px;
 
+             }
        
             
   
             .content-item{
                 border : 1px solid black;
-                
+                width : 300px;
+                height : 300px;
+               
                 
             }
             .content-item img{
