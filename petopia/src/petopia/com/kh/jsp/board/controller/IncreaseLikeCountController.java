@@ -31,11 +31,10 @@ public class IncreaseLikeCountController extends HttpServlet {
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		//int likeCount = Integer.parseInt(request.getParameter("likeCount"));
-		//System.out.println(likeCount);
+	
 		
 		int increasedCount = new BoardService().increaseLikeCount(boardNo, userNo);
-		//int decreasedCount = new BoardService().dereasedLikeCount(boardNo);
+		
 	
 		request.setAttribute("increasedCount", increasedCount);//	이거 없으면 값이 넘어가지 않아서 404에러 뜸
 		request.getRequestDispatcher("views/boardDetailView.jsp").forward(request, response);
