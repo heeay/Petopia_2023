@@ -270,7 +270,7 @@
 	                	
                         <div class="content-item">
                         <!-- boardNo(bno), userNo(uno)를 다 넘기면 userNo가 있을 때만 전체 게시글 조회가 가능-->
-                            <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo()%>">
+                            <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo() %>&uno=<%= userInfo.getUserNo() %>">
                             <!-- <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>"> -->
                             <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
                             </a>
