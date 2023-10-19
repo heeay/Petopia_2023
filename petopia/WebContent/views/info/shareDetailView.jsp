@@ -14,11 +14,11 @@
 <style>
 	section{
 		width: 1000px;
-        height: 1000px;
+        height: auto;
         margin: auto;
         position: relative;
 	}
-
+	
     #wrap{
         width: 780px;
         height: 100%;
@@ -31,7 +31,7 @@
         height: 60%;
     }
 
-    #reply-content{
+    #comment-content{
         width: 100%;
         height: 20%;
     }
@@ -41,8 +41,21 @@
     	display: flex;
         justify-content: center;
     }
-
-    #photo-content, #text-content{
+    
+    #back > a{
+    	text-decoration : none;
+    	color : black;
+    }
+    
+    #back > a:hover{color : gray;}
+    
+    #photo-content{
+    	width : 50%;
+    	height : 600px;
+    	float : left;
+    }
+    
+    #text-content{
         width: 50%;
         height: 100%;
         float:left;
@@ -89,6 +102,13 @@
     .like{
     	border : none;
     	background-color : rgb(255, 248, 240);
+	}
+	
+	#comment-table th{text-align : center;}
+	
+	.comment-btn{
+		text-align : center;
+		margin-left : 30px;
 	}
 </style>
 </head>
@@ -170,14 +190,38 @@
 
            </div>
 
-           <div id="reply-content">
+           <div id="comment-content">
                 
-                	댓글영역
+                	<table id="comment-table" align="center">
+                		<thead>
+                			<tr>
+                				<th width="100">댓글 작성</th>
+                				<% if(userInfo != null) { %>
+                				<td>
+                					<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
+                				</td>
+                				<td width="150">
+                					<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
+                				</td>
+                				<% } else { %>
+                					<td>
+                						<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
+                					</td>
+                					<td width="150">
+                						<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
+                					</td>
+                				<% } %>
+                			</tr>
+                		</thead>
+                		<tbody>
+                		
+                		</tbody>
+                	</table>
 
            </div>
            
            <div id="back">
-           		<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= in.getCategoryNo() %>&ipage=1'" type="button" class="btn btn-sm btn-secondary">목록으로</button>
+           		<a href='<%= contextPath %>/share.in?ictg=<%= in.getCategoryNo() %>&ipage=1'>목록으로</a>
            </div>
     
         </div>
@@ -186,6 +230,7 @@
         
         <%@ include file="../common/footer.jsp" %>
 
+		<!-- 사진 관련 스크립트 -->
         <script>
             $(function(){
                 $("#edit > h4").click(function(){
@@ -239,7 +284,7 @@
             });
         </script>
         
-        <!-- 좋아요 기능 -->
+        <!-- 좋아요 관련 스크립트 -->
         <script>
         
      		// 1초마다 좋아요 수 새롭게 읽어옴
@@ -304,6 +349,70 @@
         			},
         			error : function(){
         				console.log('실패');
+        			}
+        		})
+        	}
+        </script>
+        
+        <!-- 댓글 관련 스크립트 -->
+        <script>
+        
+	        $(function(){
+	    		selectCommentList();
+	    	});
+	    	
+	    	$(function(){
+	    		selectCommentList();
+	    		
+	    		setInterval(selectCommentList, 1000);
+	    	});
+	    	
+			function selectCommentList(){
+        		
+        		$.ajax({
+        			url : 'commentList.in',
+        			data : {ino : <%= in.getInfoNo() %>},
+        			success : function(result){
+        				console.log(result);
+        				
+        				let resultStr = '';
+        				for(let i in result){
+        					
+        					resultStr += '<tr>'
+        							   + '<td>' + result[i].userNickname + '</td>'
+        							   + '<td>' + result[i].commentContent + '</td>'
+        							   + '<td>' + result[i].commentCreateDate + '</td>'
+        						       + '</tr>';
+        				}
+        				
+        				$('#comment-content tbody').html(resultStr);
+        				
+        			},
+        			error : function(){
+        				console.log('댓글 리스트 불러오기 실패');
+        			}
+        		})
+        	}
+	    	
+        	function insertComment(){
+        		
+        		$.ajax({
+        			url : 'commentInsert.in',
+        			type : 'post',
+        			data : {
+        				ino : <%= in.getInfoNo() %>,
+        				content : $('#commentContent').val()
+        			},
+        			success : function(result){
+        				// console.log(result);
+        				
+        				if(result > 0) {
+        					$('#commentContent').val('');
+        					selectCommentList();
+        				}
+        			},
+        			error : function(){
+        				console.log('댓글 작성 실패');
         			}
         		})
         	}

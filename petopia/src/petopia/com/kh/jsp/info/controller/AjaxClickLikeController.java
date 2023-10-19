@@ -16,13 +16,13 @@ import petopia.com.kh.jsp.user.model.vo.User;
  * Servlet implementation class AjaxUpdateLike
  */
 @WebServlet("/clickLike.in")
-public class AjaxClickLike extends HttpServlet {
+public class AjaxClickLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxClickLike() {
+    public AjaxClickLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }

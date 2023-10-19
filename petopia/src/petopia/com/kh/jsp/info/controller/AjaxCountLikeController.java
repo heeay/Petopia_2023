@@ -13,13 +13,13 @@ import petopia.com.kh.jsp.info.model.service.InfoService;
  * Servlet implementation class AjaxCountLike
  */
 @WebServlet("/countLike.in")
-public class AjaxCountLike extends HttpServlet {
+public class AjaxCountLikeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxCountLike() {
+    public AjaxCountLikeController() {
         super();
         // TODO Auto-generated constructor stub
     }
