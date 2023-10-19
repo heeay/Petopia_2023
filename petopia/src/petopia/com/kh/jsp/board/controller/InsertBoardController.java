@@ -19,6 +19,8 @@ import petopia.com.kh.jsp.board.model.service.BoardService;
 import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.common.model.vo.File;
+import petopia.com.kh.jsp.mypage.model.service.PetService;
+import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
  * Servlet implementation class InsertBoardController
@@ -128,16 +130,63 @@ public class InsertBoardController extends HttpServlet {
 			} // 반복문 끝
 			
 			// 4. DB에 요청
-			int result = new BoardService().insertBoard(board, fList);
+			int insert = new BoardService().insertBoard(board, fList);
 			
 			
-			if(result > 0) { // 게시글 작성 성공
+			if(insert > 0) { // 게시글 작성 성공
 				
 				// 트랜잭션이 끝난뒤 결과값을 main.bo에 되돌려준다.
 				
 				request.getSession().setAttribute("alertMsg", "게시글 작성 성공!");
 				response.sendRedirect(request.getContextPath() + "/main.bo");
 			
+				/*여기다 붙여넣기*/
+				
+				User loginUser = ((User)session.getAttribute("userInfo"));
+				String bcount = new PetService().selectBoardCount(loginUser);
+				int bGrade = Integer.valueOf(bcount);
+				
+				if(loginUser.getRoleId() == "관리자") {	// 관리자는 업그레이드 x
+					String getRoleId = "관리자";
+					
+					//System.out.println(getRoleId);
+					
+					request.setAttribute("getRoleId", getRoleId);
+					request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+					
+				} else if(loginUser.getRoleId() == "초급") {
+					if(bGrade>10) {
+						
+						int result = new PetService().updateGradeR1(loginUser);
+						
+						String getRoleId = new PetService().selectR2(loginUser);
+						
+						//System.out.println(getRoleId);
+						
+						request.setAttribute("getRoleId", getRoleId);
+						request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+					} 
+					
+				}else if(loginUser.getRoleId() == "중급") {
+					if(bGrade>30) {
+						int result = new PetService().updateGradeR2(loginUser);
+						
+						String getRoleId = new PetService().selectR3(loginUser);
+						
+						//System.out.println(getRoleId);
+						
+						request.setAttribute("getRoleId", getRoleId);
+						request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+					}
+				}else if(loginUser.getRoleId() == "고급") {// 고급단계는 더이상 업그레이드 할 수 없음
+					String getRoleId = "고급";
+					
+					//System.out.println(getRoleId);
+					
+					request.setAttribute("getRoleId", getRoleId);
+					request.getRequestDispatcher("views/mypage/mygradeView.jsp").forward(request, response);
+				}
+				request.setAttribute("bcount", bcount);
 				
 			} else {
 				request.getSession().setAttribute("errorPage", "게시글이나 파일에 문제가 있습니다");
