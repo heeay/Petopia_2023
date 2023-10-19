@@ -137,7 +137,7 @@
     			const index = $(this).index(); // 현재 클릭한 요소(this)의 index를 변수 index에 담음
     			// console.log(index);
     			// console.log(stars[index]);
-    			for(let i = 0; i <= index; i++){ // 배열의 0번 인덱스부터 i번째 인덱스까지
+    			for(let i = 0; i <= index; i++){ // 배열의 0번 인덱스부터 index번째 인덱스까지
     				// console.log(stars[i]);
     				$(stars[i]).text('⭐'); // 텍스트를 노란별로 바꿈
     			};
@@ -149,7 +149,7 @@
     			};
     			
     			// DB로 넘길 별점 개수 (1 ~ 5) => 위에 hidden을 만들어서 value에 담기
-    			let starNum = ($(this).text('⭐').last().index()) + 1; // 현재 클릭한 요소의 텍스트가 노란별인 요소의 마지막 요소의 인덱스 -> 0 ~ 4
+    			let starNum = ($(this).text('⭐').last().index()) + 1; // 현재 클릭한 요소의 텍스트가 노란별인 마지막 요소의 인덱스 -> 0 ~ 4
     			document.enroll.star.value = starNum; // 이 문서 중에서 name이 enroll인 요소 중 name이 star인 요소의 value값에 starNum을 담음
     		});
     	});
