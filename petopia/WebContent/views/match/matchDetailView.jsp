@@ -115,6 +115,8 @@
     
     #write {
         margin: 60px;
+        width: 800px;
+        
     }
 
     #pet-introduction {
@@ -203,6 +205,10 @@
   		 </section>
             <section id="write">
                 <div id="hope-activity">
+                    <h2>제목</h2>
+                    <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
+                </div>
+                <div id="hope-activity">
                     <h2>희망 교류 활동</h2>
                     <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
                 </div>
@@ -222,11 +228,16 @@
             </div>
         </section>
 
+        <div align="center">
+            <a href="">목록으로</a>
+            <a href="">수정하기</a>
+            <a href="">삭제하기</a>
+        </div>
 
 
     
-	</section>
     <%@include file="../common/footer.jsp" %>
+	</section>
 
 </body>
 </html>

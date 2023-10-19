@@ -34,7 +34,7 @@ public class MatchService {
 		close(conn);
 
 		return (result1 * result2);
-		
+		 
 	}
 	
 	public ArrayList<Pet> selectPetInfo() {
@@ -63,4 +63,31 @@ public class MatchService {
 		
 	}
 	
+	public int increaseCount(int meetBoardNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MatchDao().increaseCount(conn, meetBoardNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+		
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+

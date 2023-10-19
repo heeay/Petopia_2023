@@ -91,9 +91,11 @@ public class MatchInsertController extends HttpServlet {
 					}
 					
 					list.add(fi);
+					System.out.println(fi);
 				}
 				
 			}
+			
 			int result = new MatchService().insertThumbnailBoard(m, list);
 			
 			
