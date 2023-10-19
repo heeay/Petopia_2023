@@ -15,6 +15,7 @@ import petopia.com.kh.jsp.board.model.vo.Like;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
+import petopia.com.kh.jsp.info.model.vo.InfoComment;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
 public class InfoDao {
@@ -516,6 +517,60 @@ public class InfoDao {
 		return result;
 	}
 	
+	public int insertComment(Connection conn, InfoComment comment) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, comment.getCommentContent());
+			pstmt.setInt(2, comment.getUserNo());
+			pstmt.setInt(3, comment.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
+	}
 	
+	public ArrayList<InfoComment> selectCommentList(Connection conn, int infoNo) {
+		
+		ArrayList<InfoComment> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, infoNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				InfoComment comment = new InfoComment();
+				comment.setCommentNo(rset.getInt("COMMENT_NO"));
+				comment.setCommentContent(rset.getString("COMMENT_CONTENT"));
+				comment.setCommentCreateDate(rset.getDate("COMMENT_CREATE_DATE"));
+				comment.setUserNickname(rset.getString("USER_NICKNAME"));
+				
+				list.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 }

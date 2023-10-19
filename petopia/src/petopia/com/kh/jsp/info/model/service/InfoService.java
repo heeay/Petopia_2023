@@ -13,6 +13,7 @@ import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.info.model.dao.InfoDao;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
+import petopia.com.kh.jsp.info.model.vo.InfoComment;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
 public class InfoService {
@@ -228,6 +229,31 @@ public class InfoService {
 		return (result1 * result2 * result3 * result4);
 	}
 	
+	public int insertComment(InfoComment comment) {
+		
+		Connection conn = getConnection();
+		
+		int result = new InfoDao().insertComment(conn, comment);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 	
+	public ArrayList<InfoComment> selectCommentList(int infoNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<InfoComment> list = new InfoDao().selectCommentList(conn, infoNo);
+		
+		close(conn);
+		
+		return list;
+	}
 	
 }
