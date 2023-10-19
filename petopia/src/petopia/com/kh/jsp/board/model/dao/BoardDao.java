@@ -542,28 +542,7 @@ public class BoardDao {
 			return decreasedCount;
 		}
 	
-		public int R1ToR2(Connection conn, int userNo) {
-			
-			int boardCount = 0;
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("R1toR2");
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, userNo);
-				
-				boardCount = pstmt.executeUpdate();
 
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-
-			return boardCount;
-		}
  //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
 

@@ -189,32 +189,32 @@
 
            <div id="comment-content">
                 
-                	<table id="comment-table" align="center">
-                		<thead>
-                			<tr>
-                				<th width="100">댓글 작성</th>
-                				<% if(userInfo != null) { %>
+                <table id="comment-table" align="center">
+                	<thead>
+                		<tr>
+                			<th width="100">댓글 작성</th>
+                			<% if(userInfo != null) { %>
+                			<td>
+                				<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
+                			</td>
+                			<td width="150">
+                				<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
+                			</td>
+                			<% } else { %>
                 				<td>
-                					<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
+                					<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
                 				</td>
                 				<td width="150">
-                					<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
+                					<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
                 				</td>
-                				<% } else { %>
-                					<td>
-                						<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
-                					</td>
-                					<td width="150">
-                						<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
-                					</td>
-                				<% } %>
-                			</tr>
-                		</thead>
-                		<tbody>
-                		
-                		</tbody>
-                	</table>
-
+                			<% } %>
+                		</tr>
+                	</thead>
+                	<tbody>
+                	
+                	</tbody>
+                </table>
+				<br>
            </div>
            
            <div id="back">

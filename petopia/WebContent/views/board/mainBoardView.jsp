@@ -276,25 +276,29 @@
                     // 해당 선택자에 two라는 클래스가 없을 때 two를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
                     $('#search-count-two').on('click', function(){
                         $('#content-items').toggleClass('two');
-                        window.location.replace();
+                        preventClick(event);
                     });
         
                     
                     $('#search-count-four').on('click', function(){
                         $('#content-items').toggleClass('four');
-                        location.href  = "<%= contextPath %>/main.bo";
+                        preventClick(event);
                     });
         
                     // 해당 선택자에 nine라는 클래스가 없을 때 nine를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
                     $('#search-count-nine').on('click', function(){
                         $('#content-items').toggleClass('nine');
-                        location.href  = "<%= contextPath %>/main.bo";
+                        preventClick(event);
                     });
         
-                    
+
+
+                });
+
+
 
                    
-                });
+             
         
     </script>
 	<div id="wrapper">

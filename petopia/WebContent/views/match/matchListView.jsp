@@ -286,11 +286,15 @@
                     <div class="content">
                         <div><img id="img-thumbnail" src="<%= contextPath %>/<%= m.getTitleImg() %>"></div>
                         <h2 id="title"><%= m.getMeetBoardTitle() %></h2>
-
+                	<span id="meet-board-no"><%= m.getMeetBoardNo() %></span>
                     <div id="content-info">
                         <i class="far fa-heart fa-3x"></i>
                         <div class="info">
-                        <span id="pet-detail"><%= petInfo.get(2).getPetName() %>|</span>
+                        <%  for (Pet pet : petInfo) { %>
+                        <% if(m.getPetNo() == pet.getPetNo())  {%>
+                        <span id="pet-detail"><%= pet.getPetName() %>|</span>
+					<%  } %>
+					<% } %>
                         <span id="user-detail"><%= m.getUserNickname() %></span>
                         </div>
                         <div class="info">
@@ -358,7 +362,19 @@
                     </div>
     	 -->
                     </div>
-                </div>                
+                </div>          
+                
+                <script>
+                $(function() {
+                    $('#content-area .content').click(function() {
+
+					const  nno= $(this).find('#meet-board-no').text();
+                            
+                            location.href = "<%=contextPath%>/detail.pb?nno=" + nno;
+                        
+                    });
+                });
+                </script> 
     
                 <div id="pasing-area">
                     <button type="button" class="btn btn-dark"><</button>
