@@ -81,12 +81,12 @@ public class MainBoardController extends HttpServlet {
 		
 		if(display != null) {
 			switch(Integer.parseInt(display)) {
-			case 2 : boardLimit = 2; break;
+			case 1 : boardLimit = 1; break;
 			case 9 : boardLimit = 9; break;
 			default : boardLimit = 4;
 			}
 		} else {
-			boardLimit = 4;
+			boardLimit = 1;
 		}
 		
 		 

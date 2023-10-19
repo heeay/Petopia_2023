@@ -188,6 +188,8 @@ public class InsertBoardController extends HttpServlet {
 				}
 				request.setAttribute("bcount", bcount);
 				
+				/*여기다 붙여넣기*/
+				
 			} else {
 				request.getSession().setAttribute("errorPage", "게시글이나 파일에 문제가 있습니다");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

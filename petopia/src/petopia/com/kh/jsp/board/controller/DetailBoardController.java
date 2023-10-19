@@ -42,7 +42,7 @@ public class DetailBoardController extends HttpServlet {
 		
 		// 값 뽑기
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
-		int userNo = Integer.parseInt(request.getParameter("uno"));
+//		int userNo = Integer.parseInt(request.getParameter("uno"));
 		// *** 조회수 증가 - 통해 들어왔는지 확인부터해야
 		int viewCount = new BoardService().increaseViewCount(boardNo);
 				
@@ -57,7 +57,7 @@ public class DetailBoardController extends HttpServlet {
 			Category category = new BoardService().selectCategory(boardNo);
 			
 			// 0이면 좋아요 click안한 것, 1이면 클릭한 것
-			int checkClick = new BoardService().checkClickLike(boardNo,userNo);
+//			int checkClick = new BoardService().checkClickLike(boardNo,userNo);
 			
 			
 			
@@ -73,7 +73,7 @@ public class DetailBoardController extends HttpServlet {
 				request.setAttribute("likeCount", likeCount);
 				request.setAttribute("board", board);
 				request.setAttribute("category", category);
-				request.setAttribute("checkClick", checkClick);
+//				request.setAttribute("checkClick", checkClick);
 				
 				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 				}

@@ -76,7 +76,7 @@
     #content-items{ 
        
        /* 2차원 flex */
-             
+
   
     
     }
@@ -85,8 +85,7 @@
 
    .content-item{
        border : 1px solid black;
-       width : 300px;
-       height : 300px;
+    
       
        
    }
@@ -123,18 +122,13 @@
 
 
        
-            .two{
-                display : grid;
+            .one{
+                display : flex;
+                width : 500px;
+                height : 500px;
                  justify-content: center;
-                 
-                 grid-template-rows : 100px;
-                 grid-template-columns : 100px 100px;
-                 
-                 row-gap : 100px;
-                 column-gap : 400px;
- 
-                 /* grid-auto-rows: minmax(200px, auto);
-                 grid-auto-columns: minmax(300px, auto); */
+                 align-items: center;
+
             }
 
             .four{
@@ -166,9 +160,9 @@
                  grid-auto-columns: minmax(300px, auto); */
              }
  
-        </style>
-        <!-- search -->
-        <style>
+       
+        /* <!-- search --> */
+        
             #search-header{
                 /* display : flex;
                 justify-content: center; */
@@ -250,11 +244,9 @@
                 color : white;
             }
         </style>
-        
 
 </head>
 <body>
-
 
     <%@ include file="../common/header-min.jsp" %>
     <%@ include file="../common/sideBar.jsp" %>
@@ -264,42 +256,51 @@
             location.href  = "<%= contextPath %>/insertForm.bo";
         });
    
-            <!-- n개씩 보기 기능 -->
+            // <!-- n개씩 보기 기능 -->
       
         
                 $(document).ready(function(){
+
                     $('#search-count-toggle').on('click', function(){
                         $('#search-count-list').slideToggle('slow');
 
                     });
         
-                    // 해당 선택자에 two라는 클래스가 없을 때 two를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
-                    $('#search-count-two').on('click', function(){
-                        $('#content-items').toggleClass('two');
-                        preventClick(event);
+                    // 해당 선택자에 one라는 클래스가 없을 때 one를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
+                    $('#search-count-one').on('click', function(){
+
+                        // 2_1. 무식한 방법이지만 하나씩 다 remove 후 마지막에 해당 클래스 추가하기
+                        /*
+                        $('#content-items').removeClass('one');
+                        $('#content-items').removeClass('four');
+                        $('#content-items').removeClass('nine');
+                        $('#content-items').addClass('one');
+                        */
+
+                        //2_2. 더 나은 방법
+                        $('#content-items').removeClass();
+                        $('#content-items').addClass('one');
+
                     });
         
                     
                     $('#search-count-four').on('click', function(){
-                        $('#content-items').toggleClass('four');
-                        preventClick(event);
+                        $('#content-items').removeClass();
+                        $('#content-items').addClass('four');
+                         
+                        
                     });
         
                     // 해당 선택자에 nine라는 클래스가 없을 때 nine를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
                     $('#search-count-nine').on('click', function(){
-                        $('#content-items').toggleClass('nine');
-                        preventClick(event);
+                        $('#content-items').removeClass();
+                        $('#content-items').addClass('nine');
+                         
+                        
                     });
-        
-
 
                 });
 
-
-
-                   
-             
-        
     </script>
 	<div id="wrapper">
 		
@@ -326,9 +327,10 @@
                 <div id="search-count-toggle">
                     <li>게시글 보기 갯수</li>
                 </div>
+                <!-- 1_1. a태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법
                 <ul id="search-count-list">
-                    <li id="search-count-two">
-                        <a href="<%=contextPath%>/main.bo?display=2">2개씩 보기</a>
+                    <li id="search-count-one">
+                        <a href="<%=contextPath%>/main.bo?display=1">1개씩 보기</a>
                     </li>
                     <li id="search-count-four">
                         <a href="<%=contextPath%>/main.bo?display=4">4개씩 보기</a>
@@ -337,15 +339,23 @@
                         <a href="<%=contextPath%>/main.bo?display=9">9개씩 보기</a>
                     </li>
                 </ul>
-                
+                -->
+
+                <!-- 1_2. form&input태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법
+                    a태그와 달리 페이지 이동을 하지 않기 때문에 클릭 이벤트 후에도 상태가 유지됨 -->
+                <form action="<%= contextPath %>/main.bo" method="get">
+                    <div id="search-count-one">
+                        <label for="one"><input type="hidden" id="one" name="display">1개씩 보기</label>
+                    </div>
+                    <div id="search-count-four">
+                        <label for="four"><input type="hidden" id="four" name="display">4개씩 보기</label>
+                    </div>
+                    <div id="search-count-nine">
+                        <label for="nine"><input type="hidden" id="nine" name="display">9개씩 보기</label>
+                    </div>
+                </form>
             </article>
            
-                
-                 <!-- 한 페이지에 form태그 여러개 상관없음! -->
-                 <!-- 로그인한 유저가 있을 때만 보여주기 -->
-                  
-
-            
 			<article>
                 <% if(userInfo != null) { %>
 			<!-- button안에 a태그는 지양 -->
@@ -356,10 +366,6 @@
         </form>
         </section>
 
-
-
-
-                
         <section id="content-area">
 
             <article id="content-items" >
