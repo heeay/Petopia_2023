@@ -247,7 +247,7 @@
 								TB_PET USING (PET_NO) 
 						  WHERE 
 								USER_NO = ? 
-						  ORDER BY HOS_DATE) 
+						  ORDER BY HOS_NO DESC) 
 				   ORDER BY IND DESC) 
 		  WHERE IND BETWEEN ? AND ? 
 	</entry>
