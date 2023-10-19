@@ -42,7 +42,7 @@ public class AjaxClickLikeController extends HttpServlet {
 		int check = new InfoService().checkLike(infoNo, userNo); // Y인 좋아요의 개수
 		int checkNo = new InfoService().checkNoLike(infoNo, userNo); // N인 좋아요의 개수
 		
-		// System.out.println(check);
+		// System.out.println(check);❤
 		// System.out.println(checkNo);
 		
 		if(check == 1) { // 게시글에 좋아요가 클릭되어있는 경우 (LIKE_YN == 'Y')
