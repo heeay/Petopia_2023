@@ -59,7 +59,7 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             align-items: center;
             justify-content: center;
             margin-right: 50px;
-            background-color: rgb(247, 189, 96);
+            background-color: rgb(255, 205, 124);
         }
         .logo{
             width: 100px;

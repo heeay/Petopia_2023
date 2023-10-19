@@ -198,7 +198,7 @@
                         
                             
                             <div align="center">
-								<% if(hr == null) {%>
+								<% if(wr == null) {%>
                                 <div class="content-top">
                                     <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="350" height="250">
                                 </div>
