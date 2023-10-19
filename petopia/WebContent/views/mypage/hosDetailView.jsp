@@ -79,7 +79,7 @@
 	<%@ include file = "mysidebar.jsp" %>
 	<div class="content-area">
 
-        <form action="<%=contextPath%>/hosUpdate.my" method="post" enctype="multipart/form-data">
+        <form action="<%=contextPath%>/hosUpdate.my" method="post">
             <input type="hidden" name="hno" value="<%=hr.getHosNo() %>">
             <div id="sug-content">
 

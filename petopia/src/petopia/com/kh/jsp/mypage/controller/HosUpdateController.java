@@ -35,8 +35,8 @@ public class HosUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		System.out.println(request.getParameter("hno"));
 		int hosNo = Integer.parseInt(request.getParameter("hno"));
-		//System.out.println(hosNo);
 		
 		int petNo = Integer.parseInt(request.getParameter("petNo"));
 		String hosDate = request.getParameter("hosDate");
