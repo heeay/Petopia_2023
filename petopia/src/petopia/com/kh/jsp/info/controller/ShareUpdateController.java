@@ -54,7 +54,15 @@ public class ShareUpdateController extends HttpServlet {
 			String title = multiRequest.getParameter("title");
 			String category = multiRequest.getParameter("category");
 			String content = multiRequest.getParameter("content");
-			int star = Integer.parseInt(multiRequest.getParameter("star"));
+			int star;
+			
+			// star를 클릭하지 않고 게시글을 작성한 경우 숫자가 아닌 null값이 넘어와서 NumberFormatExcpetion 발생
+			// => try-catch문으로 해결
+			try {
+				star = Integer.parseInt(multiRequest.getParameter("star"));
+			} catch (NumberFormatException e) {
+				star = 0;
+			}
 			
 			// VO로 가공 (Info)
 			Info in = new Info();
@@ -86,25 +94,11 @@ public class ShareUpdateController extends HttpServlet {
 					list.add(infoFile);
 				}
 			}
-					
-			String[] originFiles = multiRequest.getParameterValues("originalFileNo");
-			
-			// System.out.println(originFiles.length); // 기존 게시글 작성 시 첨부한 사진의 수
-			
-			// int[] origins = new int[originFiles.length];
-			
-			// for(int j = 0; j < originFiles.length; j++) {
-			// 	origins[j] = Integer.parseInt(originFiles[j]);
-			// }
 			
 			// name이 originalFileNo인 파일들 삭제 (기존 게시글 작성 시 올렸던 파일들) => name 속성이 같은 여러 개 받아올 때는 getParameterValues 사용
 			new File(savePath + multiRequest.getParameterValues("originalFileNo")).delete();
 			
-			// for(int k = 0; k < origin.length; k++) {
-			//	  System.out.println(origin[k]);
-			// }
-			
-			int result = new InfoService().updateInfo(in, list, star, infoNo, originFiles);
+			int result = new InfoService().updateInfo(in, list, star, infoNo);
 			
 			if(result > 0) { // 게시글 수정 성공
 				response.sendRedirect(request.getContextPath() + "/detailShare.in?ino=" + infoNo);
