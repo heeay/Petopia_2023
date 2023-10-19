@@ -89,7 +89,7 @@
                 <form action="<%=contextPath%>/main.bo" method="get" id="search-form">
 
                     <div id="search-bar">
-                            <!-- <input type="hidden"> ??? -->
+                           
                             <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
                             <button type="submit" id="search-btn">🔍</button>        
                     </div>
@@ -270,7 +270,7 @@
 	                	
                         <div class="content-item">
 
-                            <a href="<%= contextPath %>/increaseLike.bo?bno=<%= board.getBoardNo()%>"></a>
+                            <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo()%>&uno=<%=userInfo.getUserNo()%>">
                             <!-- <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>"> -->
                             <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
                             </a>

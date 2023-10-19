@@ -288,6 +288,48 @@ WHERE
 						)
 
 </entry>
+
+<entry key="checkClickLike">
+		SELECT 
+						COUNT(*)
+		FROM 
+						TB_LIKE 
+		JOIN
+						TB_USER
+						USING(USER_NO)
+		JOIN
+						TB_BOARD
+						USING(BOARD_NO)
+		WHERE 
+						BOARD_NO = ?
+		AND 
+						 USER_NO = ? 
+		AND 
+						LIKE_YN = 'Y'
+
+</entry>
+
+<entry key="increaseLikeCount">
+			UPDATE
+							TB_LIKE
+			SET
+							LIKE_YN = 'Y'
+			WHERE
+							BOARD_NO = ?
+				AND
+							USER_NO = ?
+</entry>
+
+<entry key="decreaseLikeCount">
+			UPDATE
+							TB_LIKE
+			SET
+							LIKE_YN = 'N'
+			WHERE
+							BOARD_NO = ?
+				AND
+							USER_NO = ?
+</entry>
 <!-- 
 최신글 순으로 정리된 게시글 수를 
 시작페이지와 끝페이지의 페이징바를 통해 번호(개수)로 나타내고

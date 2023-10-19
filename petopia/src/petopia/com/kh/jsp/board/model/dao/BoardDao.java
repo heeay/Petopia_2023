@@ -459,10 +459,10 @@ public class BoardDao {
 			}
 			return fileInsert;
 		}
-	/*
-		public int increaseLikeCount(Connection conn, int boardNo, int likeCount) {
+	
+		public int checkClickLike(Connection conn, int boardNo, int userNo) {
 			
-			int increasedCount = 0;
+			int clickLike = 0;
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
@@ -472,11 +472,12 @@ public class BoardDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, boardNo);
+				pstmt.setInt(2, userNo);
 				
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					increasedCount = rset.getInt("COUNT(*)") + 1;
+					clickLike = rset.getInt("COUNT(*)");
 				}
 				
 			} catch (SQLException e) {
@@ -489,11 +490,57 @@ public class BoardDao {
 				close(pstmt);
 
 			}
+			
+			return clickLike;
+			}
+		
+		public int increaseLikeCount(Connection conn, int boardNo, int userNo) {
+			
+			int increasedCount = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("increaseLikeCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
 				
+				pstmt.setInt(1, boardNo);
+				pstmt.setInt(2, userNo);
+				
+				increasedCount = pstmt.executeUpdate();
 
-				return increasedCount;
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return increasedCount;
 		}
-		*/
+		
+		public int decreaseLikeCount(Connection conn, int boardNo, int userNo) {
+			
+			int decreasedCount = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("decreaseLikeCount");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, boardNo);
+				pstmt.setInt(2, userNo);
+				
+				decreasedCount = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return decreasedCount;
+		}
 	
  //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드

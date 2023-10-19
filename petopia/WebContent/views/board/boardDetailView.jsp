@@ -4,7 +4,7 @@
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
     	int likeCount = (int)request.getAttribute("likeCount");
-        
+        int clickLike = (int)request.getAttribute("clickLike");
     	Board board = (Board)request.getAttribute("board");
     	Category category = (Category)request.getAttribute("category");
     %><!-- int increasedCount = (int)request.getAttribute("increasedCount");
@@ -146,12 +146,10 @@
             <div id="content-like">
      
                     <div>
+                    <input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
                     <input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
                     <p><%= likeCount %></p>
-                    <!-- 처음 좋아요 버튼 누르는 회원이라면 -->
-                  
                     <button type="submit" id="like-icon" onclick="countLike()">👍</button>
-                    <!-- 좋아요 취소 하려는 회원이라면 -->
                     </div>
                 
             </div>
@@ -183,34 +181,31 @@
     
         }
     </style>
-    $('.like').next().html(count); // 하트 옆에 읽어온 좋아요 수 출력
+  
     <script>
-        $(function countLike(){
+        $(function(){
 
             // 좋아요버튼 클릭시 실행되는 이벤트
-          
+            $('#like-Icon').on('click', funtion(){
                 if(userInfo != null){
                     
                     // 좋아요를 처음 누른 회원일 때
+                    if( <%= clickLike %> == 0 ) {
                     $('#like-icon').html('😄');
+                        // 이러면 데이터 관리 어려우니까.. 서블릿으로..
                     $('#like-icon').prev().html(<%=likeCount%> += 1);
-
-                    // 좋아요를 누른 적이 있을 때 == 좋아요 취소
+                    
+                    } else{// 좋아요를 누른 적이 있을 때 == 좋아요 취소
                     $('#like-icon').html('😢');
                     $('#like-icon').prev().html(<%=likeCount%> -= 1);
-
+                    }
                     
-                } 
-                else{
+                } else{
                     alert('로그인한 회원만 좋아요를 할 수 있습니다.');
-                    likeCount = likeCount;
+                  
                 }
                 //var likeCount = $('#likeCount').attr('id');
-
-                
-
-
-          
+            });
 
         });
 

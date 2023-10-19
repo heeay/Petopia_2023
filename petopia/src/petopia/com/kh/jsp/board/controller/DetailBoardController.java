@@ -41,20 +41,23 @@ public class DetailBoardController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// 값 뽑기
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int userNo = Integer.parseInt(request.getParameter("uno"));
 		// *** 조회수 증가 - 통해 들어왔는지 확인부터해야
-		int viewCount = new BoardService().increaseViewCount(bno);
+		int viewCount = new BoardService().increaseViewCount(boardNo);
 				
 		// 조회수가 성공적으로 증가하였다면 이제 데이터들 불러오기 
 		if(viewCount > 0) {
 		
 			// bno가지고 db조회할 것 ***그전에!!!!! 페이지에 들어와서 조회수 증가시켰는지 먼저 확인해야 
 			// ***new BoardService().selectBoard인데 전처리 작업이 많음 : file, like, ctg도 가져와야함
-			ArrayList<File> fList = new BoardService().selectFile(bno);
-			int likeCount = new BoardService().selectLikeCount(bno);
-			Board board = new BoardService().selectBoard(bno);
-			Category category = new BoardService().selectCategory(bno);
+			ArrayList<File> fList = new BoardService().selectFile(boardNo);
+			int likeCount = new BoardService().selectLikeCount(boardNo);
+			Board board = new BoardService().selectBoard(boardNo);
+			Category category = new BoardService().selectCategory(boardNo);
+			
+			// 0이면 좋아요 click안한 것, 1이면 클릭한 것
+			int clickLike = new BoardService().checkClickLike(boardNo,userNo);
 			
 			
 			
@@ -70,6 +73,7 @@ public class DetailBoardController extends HttpServlet {
 				request.setAttribute("likeCount", likeCount);
 				request.setAttribute("board", board);
 				request.setAttribute("category", category);
+				request.setAttribute("clickLike", clickLike);
 				
 				request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
 				}

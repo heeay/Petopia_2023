@@ -136,33 +136,49 @@ public class BoardService {
 	}
 	
 	
-	
-	public int increaseLikeCount(int boardNo) {
+	public int checkClickLike(int boardNo, int userNo) {
 		
 		
 		Connection conn = getConnection();
 		
-		int increasedCount = new BoardDao().selectLikeCount(conn, boardNo) + 1;
+		int clickLike = new BoardDao().checkClickLike(conn, boardNo, userNo);
 		
 		 close(conn);
 		
-		 return increasedCount;
-		
-		
+		 return clickLike;
+		 
 	}
 	
-	public int decreaseLikeCount(int boardNo) {
+	public int increaseLikeCount(int boardNo, int userNo) {
 		
 		
 		Connection conn = getConnection();
 		
-		int decreasedCount = new BoardDao().selectLikeCount(conn, boardNo) - 1;
+		int increasedCount = new BoardDao().increaseLikeCount(conn, boardNo, userNo);
 		
-		 close(conn);
+		 if(increasedCount > 0) commit(conn);
+		 else rollback(conn);
+
+		close(conn);
+		
+		 return increasedCount;
+
+	}
+	
+	public int decreaseLikeCount(int boardNo, int userNo) {
+		
+		
+		Connection conn = getConnection();
+		
+		int decreasedCount = new BoardDao().decreaseLikeCount(conn, boardNo, userNo);
+		
+		 if(decreasedCount > 0) commit(conn);
+		 else rollback(conn);
+
+		close(conn);
 		
 		 return decreasedCount;
 		
 		
 	}
-	
 }
