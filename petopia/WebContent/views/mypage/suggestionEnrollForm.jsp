@@ -80,6 +80,10 @@
             float: right;
             padding-right: 20px;
         }
+        .x-btn-style{
+            border: none; 
+            background-color: rgba(247, 222, 205, 0);
+        }
     </style>
 </head>
 <body>
@@ -93,7 +97,7 @@
                 <div>
                     <div>
                         <div id="delete">
-                            <button type="reset" style="border: none; background-color: rgba(247, 222, 205, 0);">⨉</button>
+                            <button type="reset" class="x-btn-style">⨉</button>
                         </div>
                         <div id="suggestion">건의사항 작성</div>
                     </div>
@@ -108,7 +112,7 @@
 
                             <div class="contentSize2">
                                 <div class="float-left">내용</div>
-                                <div class="float-right2"><textarea name="content" cols="85" rows="9" resize: none></textarea></div>
+                                <div class="float-right2"><textarea name="content" cols="85" rows="9"></textarea></div>
                             </div>
                             <br><br>
                             <div class="contentSize3">

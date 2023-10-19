@@ -23,7 +23,14 @@
             -ms-user-select:none;
             user-select:none
         }
-        textarea{border: none; resize: none !important;}
+        textarea{
+            border: none; 
+            resize: none !important;
+        }
+        a{
+            text-decoration: none !important;
+            color: black;
+        }
     </style>
     <style>
         #sidemenu{
@@ -95,9 +102,6 @@
             padding: 0px;
             margin: 0px;
             box-sizing: border-box;
-        }
-        a{
-            text-decoration: none;
         }
         ul,ol{
             list-style: none;

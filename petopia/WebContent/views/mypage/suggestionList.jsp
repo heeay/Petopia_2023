@@ -53,6 +53,7 @@
             margin-top: 20px;
             margin-bottom: 50px;
         }
+        .pointer-events-style{pointer-events: none;}
     </style>
     
 </head>
@@ -85,7 +86,7 @@
                 <tbody>
                 	<% if(sugList.isEmpty()) { %>
                         	<tr>
-                        		<td colspan="4" align="center" style="pointer-events: none;">요청된 건의사항이 없습니다.</td>
+                        		<td colspan="4" align="center" class="pointer-events-style">요청된 건의사항이 없습니다.</td>
                         	</tr>
                         <% }else { %>
                        		<% for(int i= 0; i<sugList.size(); i++){ %>

@@ -117,6 +117,7 @@
             left: 650px;
         }
         .petSpecies-width{width: 205px;}
+        .petWeight-width{width: 175px;}
         </style>
 </head>
 <body>
@@ -165,7 +166,7 @@
                                     
                                     <div class="profil-name">
                                         몸무게
-                                        <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" style="width: 175px;" value="<%=p.getPetWeight()%>">&nbsp; Kg</div>
+                                        <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" class="petWeight-width" value="<%=p.getPetWeight()%>">&nbsp; Kg</div>
                                     </div>
 
                                     <div class="profil-name">

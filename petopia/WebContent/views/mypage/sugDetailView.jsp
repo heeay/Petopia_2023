@@ -21,11 +21,6 @@
             width: 78%;  
         }
         input{border: none;}
-        textarea{
-            border: none;
-            resize: none;
-        }
-        .resize-no{resize: none;}
      </style>
      <style>
         #sug-content{
@@ -124,7 +119,7 @@
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
                             <div class="float-right2">
-                                <textarea cols="82" rows="9" class="sug-text text-auto resize-no radius" readonly><%=sug.getSugContent() %></textarea>
+                                <textarea cols="82" rows="9" class="sug-text text-auto radius" readonly><%=sug.getSugContent() %></textarea>
                             </div>
                         </div>
 
@@ -136,7 +131,8 @@
                                         
                                         <div class="float-right">
                                             <a href="<%=contextPath%>/<%= file.get(i).getFilePath() %>/<%=file.get(i).getUploadName() %>" download="<%=file.get(i).getOriginalName()%>">
-                                            <%=file.get(i).getOriginalName()%></a>
+                                                <%=file.get(i).getOriginalName()%>
+                                            </a>
                                         </div>
                                     </div>
                                 <% } %>    
