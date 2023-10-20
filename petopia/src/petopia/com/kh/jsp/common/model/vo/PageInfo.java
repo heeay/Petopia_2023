@@ -9,7 +9,7 @@ public class PageInfo {
 	private int maxPage;
 	private int startPage;
 	private int endPage;
-	private int dpCount;
+	private String dpCount;
 	
 	public PageInfo() {
 		super();
@@ -25,6 +25,19 @@ public class PageInfo {
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
+	}
+	
+	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
+			int endPage, String dpCount) {
+		super();
+		this.listCount = listCount;
+		this.currentPage = currentPage;
+		this.pageLimit = pageLimit;
+		this.boardLimit = boardLimit;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.dpCount = dpCount;
 	}
 
 	public int getListCount() {
@@ -82,12 +95,20 @@ public class PageInfo {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
+	public String getDpCount() {
+		return dpCount;
+	}
+
+	public void setDpCount(String dpCount) {
+		this.dpCount = dpCount;
+	}
 
 	@Override
 	public String toString() {
 		return "PageInfo [listCount=" + listCount + ", currentPage=" + currentPage + ", pageLimit=" + pageLimit
 				+ ", boardLimit=" + boardLimit + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
-				+ endPage + "]";
+				+ endPage + ", dpCount=" + dpCount +"]";
 	}
 	
 }

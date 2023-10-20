@@ -41,15 +41,17 @@ public class MainBoardController extends HttpServlet {
 		
 		// -- 페이징 처리 --
 		// 필요한 변수들
-		int listCount; // 현재 일반게시판의 게시글 총 개수 => BOARD테이블로부터 COUNT(*)활용(STATUS = 'Y')해서 조회
+		int listCount; // 현재 일반게시판의 게시글 '총 개수' => BOARD테이블로부터 COUNT(*)활용(STATUS = 'Y')해서 조회
 		int currentPage; // 현재 페이지(사용자가 요청한 페이지) => request.getParameter("cpage")
 		int pageLimit; // 페이지 하단에 보여질 페이징바의 최대 개수 => 5개로 고정
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 8개로 고정  
+		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수 => 9개로 고정  
 		
-		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
-		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수
-		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수) => Math.ceil(listCount/boardLimit) ???
+		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수 => ((currentPage/pageLimit) -1)*pageLimit + 1 = startPage
+		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수 => startPage + pageLimit - 1
+		String dpCount;
 		
+/*여기서부턴 각 변수마다 예외경우의 수 분석 */ 
 		
 		// * listCount : 총 게시글의 수
 		listCount = new BoardService().selectListCount(); // 107
@@ -57,8 +59,8 @@ public class MainBoardController extends HttpServlet {
 		// * currentPage : 현재 페이지(사용자가 요청한페이지) : 서블릿에서 getParameter할수있는것은 사용자가 요청한 값뿐
 		
 		try {
-			currentPage = Integer.parseInt(request.getParameter("cpage")); // 1    ""
-		} catch(NumberFormatException e) {
+			currentPage = Integer.parseInt(request.getParameter("cpage")); // int 혹은 ""
+		} catch(NumberFormatException e) { // 예외case) ""일 때
 			currentPage = 1;
 		}
 		System.out.println("총게시글수 : " + listCount); 
@@ -69,26 +71,28 @@ public class MainBoardController extends HttpServlet {
 		
 		// * boardLimit : 한 페이지에 보여질 게시글의 최대 개수
 
-//		이거아님
-//		if( ) {
-//		
-//			boardLimit = Integer.parseInt(request.getParameter("display"));
-//		} else {
-//			boardLimit = 4;
-//		}
+/*
+		이거아님
+		if( ) {
 		
-		String display = request.getParameter("display");
-		
-		if(display != null) {
-			switch(Integer.parseInt(display)) {
-			case 1 : boardLimit = 1; break;
-			case 9 : boardLimit = 9; break;
-			default : boardLimit = 4;
-			}
+			boardLimit = Integer.parseInt(request.getParameter("display"));
 		} else {
 			boardLimit = 4;
 		}
+*/		
+			dpCount = request.getParameter("display");
 		
+			if(dpCount != null) {
+				switch(Integer.parseInt(dpCount)) {
+				case 1 : boardLimit = 1; break;
+				case 9 : boardLimit = 9; break;
+				default : boardLimit = 4; // 처음 메인게시판 들어왔을 땐 '이벤트없이' #content-items에 .four클래스 추가해야
+				}
+			}else {
+				boardLimit = 4;
+			}
+			
+		// main.bo?display=n은 페이지바가 pageLimit내에서 이동해도 변화가 없어야 함
 		 
 		
 		// * maxPage : 가장 마지막페이지가 몇 번 페이지인지(총 페이지 개수)
@@ -115,7 +119,7 @@ public class MainBoardController extends HttpServlet {
 		//listCount = 302;
 		//boardLimit = 15;
 		
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		maxPage = (int)Math.ceil((double)listCount / boardLimit); // 단순히 Math.ceil(listCount/boardLimit)
 		// listCount == 0이면 maxPage도 0
 		
 		System.out.println("총페이지개수 : " + maxPage);
@@ -139,11 +143,12 @@ public class MainBoardController extends HttpServlet {
 		 * currentPage				startPage
 		 * 		1						1
 		 * 		5						1
-		 * 	   10						1
+		 * 	   10						1 currentPage/pageLimit <=1 startPage = 1
 		 * 	   13						11						
-		 * 	   20						11
-		 * 	   29						21
-		 * 
+		 * 	   20						11 currentPage/pageLimit <=2 startPage = 11
+		 * 	   29						21 currentPage/pageLimit <=3 startPage = 21
+		 * 					((currentPage/pageLimit) -1)*pageLimit + 1 = startPage
+		 * 					
 		 * 
 		 * =>  1 ~ 10 : n * 10 + 1 => n == 0
 		 * => 11 ~ 20 : n * 10 + 1 => n == 1
@@ -162,8 +167,8 @@ public class MainBoardController extends HttpServlet {
 		 * 
 		 * startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		 */
-		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
-		// lsitCount가 0일때 currentPage -1은 0 == startPage는 1
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;// 내 방법 : ((currentPage/pageLimit) -1)*pageLimit + 1 = startPage
+		// lsitCount가 0일때 'currentPage -1'은 0 == startPage는 1
 		
 		System.out.println("시작페이지 : " + startPage);
 		// * endPage : 페이지 하단에 보여질 페이징바의 끝 수
@@ -200,6 +205,8 @@ public class MainBoardController extends HttpServlet {
 		PageInfo pageInfo = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage);
 		
+		PageInfo pageInfoDisplay = new PageInfo(listCount, currentPage, pageLimit, 
+								   boardLimit, maxPage, startPage, endPage, dpCount);
  
  
 		// 4) Service로 가자~ // pageInfo를 넘기는 이유 : select할 때 pageInfo이용하니까
@@ -217,6 +224,7 @@ public class MainBoardController extends HttpServlet {
 		}
 		*/
 		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("pageInfoDisplay", pageInfoDisplay);
 		request.setAttribute("bList", bList);
 		
  

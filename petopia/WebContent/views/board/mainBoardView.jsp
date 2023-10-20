@@ -5,12 +5,14 @@
    
 	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+    PageInfo pageInfoDisplay = (PageInfo)request.getAttribute("pageInfoDisplay");
 
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
 	int maxPage = pageInfo.getMaxPage();
     int boardLimit = pageInfo.getBoardLimit();
+    String dpCount = pageInfoDisplay.getDpCount();
 
 %>
 <!DOCTYPE html>
@@ -42,7 +44,7 @@
 
     #search-area{
        width : 1100px;
-       height : 10%;
+       height : 15%;
        border : 1px solid black;
        display : flex;
        justify-content: space-around;
@@ -52,7 +54,7 @@
     #content-area{
 
         border : 1px solid black;
-        height : 80%;
+        height : 75%;
         width : 1100px;
     }
 
@@ -76,7 +78,7 @@
     #content-items{ 
        
        /* 2차원 flex */
-
+   
   
     
     }
@@ -261,6 +263,10 @@
         
                 $(document).ready(function(){
 
+                    $('#content-items').removeClass();
+                    $('#content-items').addClass('four');
+
+
                     $('#search-count-toggle').on('click', function(){
                         $('#search-count-list').slideToggle('slow');
 
@@ -327,23 +333,23 @@
                 <div id="search-count-toggle">
                     <li>게시글 보기 갯수</li>
                 </div>
-                <!-- 1_1. a태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법
+                 <!-- 1_1. a태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법 -->
                 <ul id="search-count-list">
                     <li id="search-count-one">
-                        <a href="<%=contextPath%>/main.bo?display=1">1개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?display=1&cpage=<%= currentPage %>">1개씩 보기</a>
                     </li>
                     <li id="search-count-four">
-                        <a href="<%=contextPath%>/main.bo?display=4">4개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?display=4&cpage=<%= currentPage %>">4개씩 보기</a>
                     </li>
                     <li id="search-count-nine">
-                        <a href="<%=contextPath%>/main.bo?display=9">9개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?display=9&cpage=<%= currentPage %>">9개씩 보기</a>
                     </li>
                 </ul>
-                -->
+               
 
                 <!-- 1_2. form&input태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법
                     a태그와 달리 페이지 이동을 하지 않기 때문에 클릭 이벤트 후에도 상태가 유지됨 -->
-                <form action="<%= contextPath %>/main.bo" method="get">
+                <!-- <form action="<%= contextPath %>/main.bo" method="get">
                     <div id="search-count-one">
                         <label for="one"><input type="hidden" id="one" name="display">1개씩 보기</label>
                     </div>
@@ -353,7 +359,8 @@
                     <div id="search-count-nine">
                         <label for="nine"><input type="hidden" id="nine" name="display">9개씩 보기</label>
                     </div>
-                </form>
+                </form> -->
+         
             </article>
            
 			<article>
@@ -404,37 +411,14 @@
             </article>
 <!-- content -->
 
-
-
-
-            
-            
-
-<!--  대신 이렇게 해도 됨 
-
-            <script>
-                $(function(){
-        
-                    $('.thumbnail').click(function(){
-        
-                        // 클릭할 때 마다 url요청 => location.href
-                        const bno = $(this).children().eq(0).val();
-        
-                        location.href = '<%=contextPath%>/detail.th?bno=' + bno;
-        
-                    })
-        
-                })
-            </script>
--->
-       
         </section>
 
  <!-- startPage는 1, endPage는 0이므로 1 < 0가 성립못함 -->
             <div id="pasing-area">
-                
+            
+            <!-- 게시글이 하나도 없을 때 -->
             <% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
+        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage - 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&lt;</button>
             <% } %>
 
             <%if(startPage >= endPage){%>
@@ -444,14 +428,14 @@
             <% for(int i = startPage; i < endPage; i++) { %>
        
             	<% if(currentPage != i) { %>
-            		<button onclick="location.href='<%=contextPath%>/main.bo?cpage=<%=i%>'" class="btn btn-sm btn-info"><%= i %></button>
+            		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= i %>&display=<%= dpCount %>'" class="btn btn-sm btn-info"><%= i %></button>
             	<% } else { %>
             		<button disabled class="btn btn-sm btn-info"><%= i %></button>
             	<% } %>
             <% } %>
             
             <% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%=contextPath %>/main.bo?cpage=<%= currentPage + 1 %>'" class="btn btn-sm btn-info">&gt;</button>
+            	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage + 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&gt;</button>
             <% } %>
             </div>
         </div>
