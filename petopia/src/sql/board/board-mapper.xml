@@ -29,15 +29,14 @@
 																BOARD_CREATE_DATE,
 																USER_NO,
 																CTG_NO,
-																PET_CTG_NO,
+									
 																FILE_PATH||'/'||UPLOAD_NAME FILE_IMG
 																<!--FILE_PATH||'/'||UPLOAD_NAME FILE_IMG  -->
 								                 FROM 
 																TB_BOARD 
 								                  JOIN
 								                       			TB_CATEGORY USING(CTG_NO)
-			                  	                  JOIN
-			                       								TB_PET_CATEGORY USING(PET_CTG_NO)
+			                  	                  
 								                  JOIN 
 								                       			TB_USER USING(USER_NO)
 								                  JOIN
@@ -74,24 +73,23 @@
 
 		SELECT
 		       FILE_NO,
-		       REF_BNO,
+		       <!-- REF_BNO, -->
 		       ORIGINAL_NAME,
 		       UPLOAD_NAME,
-		       FILE_PATH,
-		       FILE_LEVEL
+		       FILE_PATH
+		       <!-- FILE_LEVEL -->
 		  FROM
-		       TB_FILE A
+		       TB_FILE
 		  JOIN
-		       TB_BOARD B ON(B.BOARD_NO = A.REF_BNO)
+		       TB_BOARD ON(BOARD_NO = REF_BNO)
 		 WHERE
-		       FILE_LEVEL = 1 <!-- 썸네일용 -->
-		   AND
-		       BOARD_STATUS = 'Y'
-		   AND 
-		   		BOARD_NO = ?
+				<!-- BOARD_NO = ?-->
+		   		REF_BNO = ?
+<!-- 조건절에 FILE_LEVLE = 1이 있었는데 모두가 썸네일용일순 없으므로 LEVEL2인 파일들은 조회가 안 되었던 것 -->
 		 ORDER
 		    BY
-		       REF_BNO DESC
+		       FILE_NO ASC
+		       
 </entry>
 
 
@@ -170,51 +168,51 @@ SELECT
     COMMENT_COUNT,
     FILE_URL
 
-FROM
-    (SELECT
-        ROWNUM RNUM,
-        BOARD_NO,
-        BOARD_TITLE,
-        BOARD_VIEWS,
-        BOARD_CREATE_DATE,
-        USER_NICKNAME,
-        COMMENT_COUNT,
-        FILE_URL
-    FROM
-        (SELECT 
-            BOARD_NO,
-            BOARD_TITLE,
-            BOARD_VIEWS,
-            BOARD_CREATE_DATE,
-            USER_NICKNAME,
-            COUNT(COMMENT_NO) "COMMENT_COUNT",
-            FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
-        FROM
-            TB_BOARD
-        JOIN TB_FILE ON(BOARD_NO = REF_BNO)
-        JOIN TB_USER USING(USER_NO)
-        LEFT JOIN TB_COMMENT USING(BOARD_NO)
-        GROUP BY 
-            BOARD_NO,
-            BOARD_TITLE,
-            BOARD_VIEWS,
-            BOARD_CREATE_DATE,
-            USER_NICKNAME,
-            FILE_PATH||'/'||UPLOAD_NAME,
-            FILE_LEVEL,
-            BOARD_STATUS,
-            CTG_NO
-        HAVING
-            BOARD_STATUS = 'Y'
-        AND
-            FILE_LEVEL = 1
-        AND
-            11 > CTG_NO
-        ORDER BY
-            BOARD_CREATE_DATE DESC
-        )
+		FROM
+		    (SELECT
+		        ROWNUM RNUM,
+		        BOARD_NO,
+		        BOARD_TITLE,
+		        BOARD_VIEWS,
+		        BOARD_CREATE_DATE,
+		        USER_NICKNAME,
+		        COMMENT_COUNT,
+		        FILE_URL
+						    FROM
+						        (SELECT 
+						            BOARD_NO,
+						            BOARD_TITLE,
+						            BOARD_VIEWS,
+						            BOARD_CREATE_DATE,
+						            USER_NICKNAME,
+						            COUNT(COMMENT_NO) "COMMENT_COUNT",
+						            FILE_PATH||'/'||UPLOAD_NAME "FILE_URL"
+						        FROM
+						            TB_BOARD
+						        JOIN TB_FILE ON(BOARD_NO = REF_BNO)
+						        JOIN TB_USER USING(USER_NO)
+						        LEFT JOIN TB_COMMENT USING(BOARD_NO)
+						        GROUP BY 
+						            BOARD_NO,
+						            BOARD_TITLE,
+						            BOARD_VIEWS,
+						            BOARD_CREATE_DATE,
+						            USER_NICKNAME,
+						            FILE_PATH||'/'||UPLOAD_NAME,
+						            FILE_LEVEL,
+						            BOARD_STATUS,
+						            CTG_NO
+						        HAVING
+						            BOARD_STATUS = 'Y'
+						        AND
+						            FILE_LEVEL = 1
+						        AND
+						            11 > CTG_NO
+						        ORDER BY
+						            BOARD_CREATE_DATE DESC
+						        )
 
-    )
+    				)
 WHERE
     12 >= RNUM
 

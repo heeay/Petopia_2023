@@ -52,7 +52,7 @@ public class DetailBoardController extends HttpServlet {
 			// bno가지고 db조회할 것 ***그전에!!!!! 페이지에 들어와서 조회수 증가시켰는지 먼저 확인해야 
 			// ***new BoardService().selectBoard인데 전처리 작업이 많음 : file, like, ctg도 가져와야함
 			ArrayList<File> fList = new BoardService().selectFile(boardNo);
-			int likeCount = new BoardService().selectLikeCount(boardNo);
+//			int likeCount = new BoardService().selectLikeCount(boardNo);
 			Board board = new BoardService().selectBoard(boardNo);
 			Category category = new BoardService().selectCategory(boardNo);
 			
@@ -70,7 +70,7 @@ public class DetailBoardController extends HttpServlet {
 				} else {
 				
 				request.setAttribute("fList", fList);
-				request.setAttribute("likeCount", likeCount);
+//				request.setAttribute("likeCount", likeCount);
 				request.setAttribute("board", board);
 				request.setAttribute("category", category);
 //				request.setAttribute("checkClick", checkClick);

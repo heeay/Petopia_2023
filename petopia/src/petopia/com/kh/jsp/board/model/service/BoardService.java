@@ -67,7 +67,7 @@ public class BoardService {
 		
 		 return fList;
 	}
-	
+/*
 	public int selectLikeCount(int bno){
 		
 		Connection conn = getConnection();
@@ -78,7 +78,7 @@ public class BoardService {
 		
 		 return likeCount;
 	}
-	
+*/	
 		public Category selectCategory(int bno) {
 			
 		Connection conn = getConnection();
@@ -113,6 +113,7 @@ public class BoardService {
 			
 			 return cList;
 		}
+		
 	public ArrayList<Board> selectSwiperBestBoardList() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -121,6 +122,7 @@ public class BoardService {
 		
 		return list;
 	}
+	
 	public int insertBoard(Board board, ArrayList<File> fList) {
 		
 		Connection conn = getConnection();
@@ -135,7 +137,7 @@ public class BoardService {
 		return (boardInsert*fileInsert);
 	}
 	
-	
+/*	
 	public int checkClickLike(int boardNo, int userNo) {
 		
 		
@@ -181,7 +183,7 @@ public class BoardService {
 		
 		
 	}
-	
+*/	
 
 
 }

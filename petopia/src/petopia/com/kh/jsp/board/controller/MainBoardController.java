@@ -86,7 +86,7 @@ public class MainBoardController extends HttpServlet {
 			default : boardLimit = 4;
 			}
 		} else {
-			boardLimit = 1;
+			boardLimit = 4;
 		}
 		
 		 

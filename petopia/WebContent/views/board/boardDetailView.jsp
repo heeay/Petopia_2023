@@ -3,13 +3,14 @@
     <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
     <% 
         ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
-    	int likeCount = (int)request.getAttribute("likeCount");
-        int checkClick = (int)request.getAttribute("checkClick");
+    
     	Board board = (Board)request.getAttribute("board");
     	Category category = (Category)request.getAttribute("category");
-    %><!-- int increasedCount = (int)request.getAttribute("increasedCount");
-        int decreasedCount = (int)request.getAttribute("decreasedCount"); 
-    controller에서 +-1하는 것보단 jsp화면상에서 하는게 합리적--><!-- increasedCount는 항상 1보다 크거나 같다 -->
+    %><!-- 	int likeCount = (int)request.getAttribute("likeCount");
+            int checkClick = (int)request.getAttribute("checkClick");
+            int increasedCount = (int)request.getAttribute("increasedCount");
+            int decreasedCount = (int)request.getAttribute("decreasedCount"); 
+            controller에서 +-1하는 것보단 jsp화면상에서 하는게 합리적--><!-- increasedCount는 항상 1보다 크거나 같다 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +91,7 @@
         </div>
 
         <div class="title-info">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoSkAEH1y2dT7rSK4fBEi3NOd8p9tR3si6w&usqp=CAU"  id="writer-img"><%=board.getUserNo()%>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoSkAEH1y2dT7rSK4fBEi3NOd8p9tR3si6w&usqp=CAU"  id="writer-img"><%= userInfo.getUserNickname() %>
             <div id="create-date"><%=board.getBoardCreateDate()%></div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
@@ -127,44 +128,17 @@
         </div>
 
         <div id="content-imgs">
-           <div>대표이미지</div>
-            <img src="<%= contextPath %>/<%= fList.get(0).getFilePath() %>/<%= fList.get(0).getUploadName() %>" alt="대표이미지" id="titleImg" width="250" height="180">
+          
             
-            <% for(int i = 1; i < fList.size(); i++){ %>
-            <div>상세이미지 <%= i %></div>
-            <div>
+            <% for(int i = 0; i < fList.size(); i++){ %>
+        
+       
                 <img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180">
-            </div>  
+           
             <% } %>
         </div>
 
-        <!-- 로그인한 상태에서 -->
-        <% if(userInfo != null){ %>
-            
-        <form action="<%= contextPath %>/increaseLike.bo" method="post">
-            <input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-            <input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>">
 
-            <div id="content-like">
-     
-                    <div>
-                    <p><%= likeCount %></p>
-                    <button type="submit" id="like-icon">👍</button>
-                    </div>
-                
-            </div>
-           
-        </form>       
-        <% } else{ %>
-            <div id="content-like">
-                <div>
-                    
-                <p><%= likeCount %></p>
-                <button type="submit" id="like-icon">👍</button>
-                </div>
-            
-            </div>
-        <% } %>
     </div>
     <!-- content-like -->
     <style>
@@ -181,34 +155,7 @@
     
         }
     </style>
-  <!--
-    <script>
-        $(function(){
 
-            // 좋아요버튼 클릭시 실행되는 이벤트
-            $('#like-Icon').on('click', funtion(){
-                if(userInfo != null){
-                    
-                    // 좋아요를 처음 누른 회원일 때
-                    if( <%= checkClick %> == 0 ) {
-                    $('#like-icon').html('😄');
-                        // 이러면 데이터 관리 어려우니까.. 서블릿으로..
-                    $('#like-icon').prev().html(<%=likeCount%> += 1);
-                    
-                    } else{// 좋아요를 누른 적이 있을 때 == 좋아요 취소
-                    $('#like-icon').html('😢');
-                    $('#like-icon').prev().html(<%=likeCount%> -= 1);
-                    }
-                    
-                } else{
-                    alert('로그인한 회원만 좋아요를 할 수 있습니다.');
-                  
-                }
-                //var likeCount = $('#likeCount').attr('id');
-            });
-
-        });
-    -->
 
     
     </script>

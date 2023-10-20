@@ -108,7 +108,7 @@ public class BoardDao {
 				board.setUserNo(rset.getInt("USER_NO"));
 		
 				board.setCtgNo(rset.getInt("CTG_NO"));
-				board.setPetCtgNo(rset.getInt("PET_CTG_NO"));
+			
 				board.setFileImg(rset.getString("FILE_IMG"));
 				
 				bList.add(board);
@@ -186,11 +186,11 @@ public class BoardDao {
 					File file = new File();
 					
 					file.setFileNo(rset.getInt("FILE_NO"));
-					file.setRefBno(rset.getInt("REF_BNO"));
+//					file.setRefBno(rset.getInt("REF_BNO"));
 					file.setOriginalName(rset.getString("ORIGINAL_NAME"));
 					file.setUploadName(rset.getString("UPLOAD_NAME"));
 					file.setFilePath(rset.getString("FILE_PATH"));
-					file.setFileLevel(rset.getInt("FILE_LEVEL"));
+//					file.setFileLevel(rset.getInt("FILE_LEVEL"));
 					
 					
 					fList.add(file);
@@ -212,7 +212,7 @@ public class BoardDao {
 		}
 	
 	
-	
+/*
 	// 게시글 번호를 통해 그 게시글의 좋아요 수를 불러오는 메소드
 		public int selectLikeCount(Connection conn, int bno) {
 			
@@ -247,7 +247,7 @@ public class BoardDao {
 			System.out.println("난 좋아요 총 개수 : " +likeCount);
 			return likeCount;
 		}
-		
+*/		
 		public Category selectCategory(Connection conn, int bno) {
 			
 			Category category = new Category();
@@ -459,7 +459,8 @@ public class BoardDao {
 			}
 			return fileInsert;
 		}
-	
+
+/*
 		public int checkClickLike(Connection conn, int boardNo, int userNo) {
 			
 			int clickLike = 0;
@@ -541,7 +542,7 @@ public class BoardDao {
 
 			return decreasedCount;
 		}
-	
+*/	
 
  //상세조회에서 카테고리 보이는 건 생략	
 	// DB로부터 카테고리 리스트의 번호와 이름을 가져오는 메소드
