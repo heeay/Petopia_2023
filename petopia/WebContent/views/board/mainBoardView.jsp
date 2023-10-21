@@ -336,13 +336,13 @@
                  <!-- 1_1. a태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법 -->
                 <ul id="search-count-list">
                     <li id="search-count-one">
-                        <a href="<%= contextPath %>/main.bo?display=1&cpage=<%= currentPage %>">1개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=1">1개씩 보기</a>
                     </li>
                     <li id="search-count-four">
-                        <a href="<%= contextPath %>/main.bo?display=4&cpage=<%= currentPage %>">4개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=4">4개씩 보기</a>
                     </li>
                     <li id="search-count-nine">
-                        <a href="<%= contextPath %>/main.bo?display=9&cpage=<%= currentPage %>">9개씩 보기</a>
+                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=9">9개씩 보기</a>
                     </li>
                 </ul>
                
@@ -421,22 +421,29 @@
         		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage - 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&lt;</button>
             <% } %>
 
+            <!-- 시작페이지와 끝페이지가 같다는 건 boardLimit보다 작거나 같은 수의 게시글이 있어 총 페이지 수가 1이란 뜻 -->
             <%if(startPage >= endPage){%>
                 <button class="btn btn-sm btn-info" >1</button>
             <%}%>
 
-            <% for(int i = startPage; i < endPage; i++) { %>
+            <!-- 숫자 페이징바 영역 -->
+            <% for(int i = startPage; i <= endPage; i++) { %>
        
-            	<% if(currentPage != i) { %>
+            	<% if(currentPage != i) { %> <!-- 현재페이지가 i가 아니라면 해당 i버튼은 활성화되어야 하고 클릭시 그i페이지로 이동해야-->
             		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= i %>&display=<%= dpCount %>'" class="btn btn-sm btn-info"><%= i %></button>
-            	<% } else { %>
-            		<button disabled class="btn btn-sm btn-info"><%= i %></button>
+            	<% } else { %> <!-- 현재페이지가 i면.. 해당 버튼은 비활성화되어야 함 -->
+            		<button disabled class="btn btn-sm btn-danger"><%= i %></button>
             	<% } %>
+
             <% } %>
             
+            <!-- ***현재페이지가 최대페이지가 아니면 endPage오른쪽에 >이 표시되어야 하고 클릭시엔 현재페이지에서 +1이 더한 페이지가 나와야함 -->
             <% if(currentPage != maxPage) { %>
             	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage + 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&gt;</button>
-            <% } %>
+            <% }  %> 
+                <!--현재페이지가 maxPage면 현재페이지버튼은 비활성화하고 내용은 maxPage-->
+                <!-- <button disabled class="btn btn-sm btn-danger"><%= maxPage %></button> -->
+         
             </div>
         </div>
 

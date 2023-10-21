@@ -81,16 +81,21 @@ public class MainBoardController extends HttpServlet {
 		}
 */		
 			dpCount = request.getParameter("display");
-		
-			if(dpCount != null) {
-				switch(Integer.parseInt(dpCount)) {
-				case 1 : boardLimit = 1; break;
-				case 9 : boardLimit = 9; break;
-				default : boardLimit = 4; // 처음 메인게시판 들어왔을 땐 '이벤트없이' #content-items에 .four클래스 추가해야
-				}
-			}else {
+			boardLimit = 4;
+			
+			try {
+				if(dpCount != null) {
+					switch(Integer.parseInt(dpCount)) {
+					case 1 : boardLimit = 1; break;
+					case 9 : boardLimit = 9; break;
+					default : boardLimit = 4; // 처음 메인게시판 들어왔을 땐 '이벤트없이' #content-items에 .four클래스 추가해야
+					}
+				} 
+			} catch(NumberFormatException e) { // 예외case) ""일 때
 				boardLimit = 4;
 			}
+			
+			
 			
 		// main.bo?display=n은 페이지바가 pageLimit내에서 이동해도 변화가 없어야 함
 		 

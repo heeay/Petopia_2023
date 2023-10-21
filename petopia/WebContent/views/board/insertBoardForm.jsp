@@ -151,7 +151,7 @@
                 <tr class="content-item">
                     <th class="content-item-title">내용</th>
                     <td class="content-item-content">
-                        <textarea id="content" name="content" style="resize:none;" rows="10"></textarea>
+                        <textarea id="content" name="content" style="resize:none;" rows="10" required></textarea>
                     </td>
                 </tr>
 
