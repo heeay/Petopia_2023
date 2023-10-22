@@ -27,7 +27,7 @@
         width: 1100px;
         height: 800px;
         margin: auto;
-        border : 1px solid black;
+       
         box-sizing: border-box;
         background-color: rgb(255, 248, 240);
     }
@@ -36,7 +36,7 @@
         box-sizing: border-box;
         width  : 1100px;
         height : 70%;
-        border : 1px solid black;
+        
         
     }
     
@@ -114,11 +114,11 @@
 
 <div id="wrapper">
     
-    <p>게시글 작성</p>
+  
 
     <section id="content-area">
         <br>
-        <h2 align="center">게시글 작성하기!</h2>
+        <h2 align="center">게시글 작성</h2>
         <br><br>
 
 
@@ -130,7 +130,7 @@
             <table id="content-items" align="center">
                 
                 <tr class="content-item">
-                    <th class="content-item-title">카테고리</th>
+                    <th class="content-item-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;카테고리</th>
                     <td class="content-item-content">
                         <select id="category" name="category">
                             
@@ -143,20 +143,20 @@
                     </td>
                 </tr>
                 <tr class="content-item">
-                    <th class="content-item-title">제목</th>
+                    <th class="content-item-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
                     <td class="content-item-content">
                         <input id="title" type="text" name="title" required>
                     </td>
                 </tr>
                 <tr class="content-item">
-                    <th class="content-item-title">내용</th>
+                    <th class="content-item-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내용</th>
                     <td class="content-item-content">
                         <textarea id="content" name="content" style="resize:none;" rows="10" required></textarea>
                     </td>
                 </tr>
 
                 <tr class="content-item">
-                    <th class="content-item-title">첨부파일</th>
+                    <th class="content-item-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;첨부파일</th>
                     <td class="content-item-content">
                         <label id="upfile1" class="fileUpload">
                             File1🖼️
@@ -199,12 +199,12 @@
             }
             .content-item-title{
                 width : 10%;
-                border : 1px solid black;
+                
             }
             .content-item-content{
                 width : 70%;
                 
-                border : 1px solid black;
+                
             }
             #category{
                 width : 100%;

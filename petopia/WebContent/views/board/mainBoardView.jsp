@@ -5,14 +5,14 @@
    
 	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-    PageInfo pageInfoDisplay = (PageInfo)request.getAttribute("pageInfoDisplay");
-
+    
+	
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
 	int maxPage = pageInfo.getMaxPage();
     int boardLimit = pageInfo.getBoardLimit();
-    String dpCount = pageInfoDisplay.getDpCount();
+    String dpCount = pageInfo.getDpCount();
 
 %>
 <!DOCTYPE html>
@@ -38,14 +38,14 @@
         height: 800px;
         margin: auto;
         
-        border : 1px solid black;
+        
         background-color: rgb(255, 248, 240);
     }
 
     #search-area{
        width : 1100px;
        height : 15%;
-       border : 1px solid black;
+     
        display : flex;
        justify-content: space-around;
        align-items: center;
@@ -53,7 +53,7 @@
 
     #content-area{
 
-        border : 1px solid black;
+       
         height : 75%;
         width : 1100px;
     }
@@ -86,7 +86,7 @@
    
 
    .content-item{
-       border : 1px solid black;
+    
     
       
        
@@ -143,8 +143,6 @@
                  row-gap : 100px;
                  column-gap : 200px;
  
-                 /* grid-auto-rows: minmax(200px, auto);
-                 grid-auto-columns: minmax(300px, auto); */
             }
 
             .nine{
@@ -152,14 +150,12 @@
                  display : grid;
                  justify-content: center;
                  
-                 grid-template-rows : 100px 100px 100px;
-                 grid-template-columns : 100px 100px 100px;
+                 grid-template-rows : 150px 150px 150px;
+                 grid-template-columns : 200px 200px 200px;
                  
-                 row-gap : 35px;
+                 row-gap : 50px;
                  column-gap : 70px;
- 
-                 /* grid-auto-rows: minmax(200px, auto);
-                 grid-auto-columns: minmax(300px, auto); */
+   
              }
  
        
@@ -231,7 +227,12 @@
             }
             #search-count-list{
                 display : none;
-                
+            }
+            #search-count-list li{
+                margin: -5px;
+            }
+            #search-count-toggle button{
+                background-color: rgb(247, 189, 96);
             }
             /* #search-count-default:hover + #search-count-list {
                 display: block;
@@ -254,56 +255,53 @@
     <%@ include file="../common/sideBar.jsp" %>
 	
     <script>
-        $('#insert-board-btn').on('click', function(){
-            location.href  = "<%= contextPath %>/insertForm.bo";
-        });
-   
+	        $('#insert-board-btn').on('click', function(){
+	            location.href  = "<%= contextPath %>/insertForm.bo";
+	        });
+	   
             // <!-- n개씩 보기 기능 -->
       
         
                 $(document).ready(function(){
 
+           
+                    // display 미선택시에 보일 레이아웃???
                     $('#content-items').removeClass();
                     $('#content-items').addClass('four');
-
 
                     $('#search-count-toggle').on('click', function(){
                         $('#search-count-list').slideToggle('slow');
 
                     });
+                   
         
                     // 해당 선택자에 one라는 클래스가 없을 때 one를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
                     $('#search-count-one').on('click', function(){
 
-                        // 2_1. 무식한 방법이지만 하나씩 다 remove 후 마지막에 해당 클래스 추가하기
-                        /*
-                        $('#content-items').removeClass('one');
-                        $('#content-items').removeClass('four');
-                        $('#content-items').removeClass('nine');
-                        $('#content-items').addClass('one');
-                        */
-
-                        //2_2. 더 나은 방법
-                        $('#content-items').removeClass();
-                        $('#content-items').addClass('one');
-
+                        
+                         $('#content-items').removeClass();
+                         $('#content-items').addClass('one');
+                        
                     });
-        
-                    
+
                     $('#search-count-four').on('click', function(){
+
+
                         $('#content-items').removeClass();
                         $('#content-items').addClass('four');
-                         
-                        
+
                     });
-        
-                    // 해당 선택자에 nine라는 클래스가 없을 때 nine를 추가하고, 있다면 삭제(원상복귀 ==  4페이지)
                     $('#search-count-nine').on('click', function(){
+
+              
+
                         $('#content-items').removeClass();
                         $('#content-items').addClass('nine');
-                         
-                        
+
                     });
+                    
+
+                    
 
                 });
 
@@ -314,7 +312,7 @@
 
             <article id="search-header">
 
-                <form action="<%=contextPath%>/main.bo" method="get" id="search-form">
+                
 
                     <div id="search-bar">
                             <input type="text" id="search-text" placeholder="검색어 입력를 입력하세요.">
@@ -326,42 +324,99 @@
                         <input type="radio" name="search-radio">작성자
                     </div>
 
-                
+                   
             </article>
 
             <article id="search-count">
                 <div id="search-count-toggle">
-                    <li>게시글 보기 갯수</li>
+                    <button class="btn btn-sm btn-info">게시글 보기 갯수</button>
                 </div>
+
                  <!-- 1_1. a태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법 -->
-                <ul id="search-count-list">
+                 <ul id="search-count-list">
+
                     <li id="search-count-one">
-                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=1">1개씩 보기</a>
+                        <p id="displayOne"></p>
+                            <a class="display" href="<%= contextPath %>/main.bo?display=1">
+                                1개씩 보기
+                            </a>
+                        
                     </li>
                     <li id="search-count-four">
-                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=4">4개씩 보기</a>
+                        <p id="displayFour"></p>
+                            <a class="display" href="<%= contextPath %>/main.bo?display=4">
+                                4개씩 보기
+                            </a>
+                        
                     </li>
                     <li id="search-count-nine">
-                        <a href="<%= contextPath %>/main.bo?cpage=<%= currentPage %>&display=9">9개씩 보기</a>
+                        <p id="displayNine"></p>
+                            <a class="display" href="<%= contextPath %>/main.bo?display=9">
+                                9개씩 보기
+                            </a>
+                        
                     </li>
-                </ul>
+                </ul> 
+                
+                <script>
+                   
+                     $(document).ready(function(event){
+
+                    // 먼저 콘텐츠영역의 모든 class속성들을 제거
+                    $('#content-items').removeClass();
+
+
+                    $('#displayOne').on('click', function(){  $('#content-items').addClass('one');  });
+                    $('#displayOne').trigger('click');
+
+
+                    $('#displayFour').on('click', function(){  $('#content-items').addClass('one');  });
+                    $('#displayFour').trigger('click');// 총 3번 클릭되어 마지막 속성이 덮어씌움
+
+                    // 해당 버튼 클릭시 콘텐츠영역에 전체레이아웃속성을 변경하는 one class가 추가됨
+                    $('#displayNine').on('click', function(){  $('#content-items').addClass('one');  });
+                    // a태그의 href이동후 해당 버튼의 click이벤트 강제 실행
+                    $('#displayNine').trigger('click');
+                  
+                    }); 
+
+                 </script>
                
 
                 <!-- 1_2. form&input태그를 이용해서 boardLimit을 변경해 화면을 변경하는 방법
                     a태그와 달리 페이지 이동을 하지 않기 때문에 클릭 이벤트 후에도 상태가 유지됨 -->
-                <!-- <form action="<%= contextPath %>/main.bo" method="get">
+     
+                <!-- boardLimit과 레이아웃만 담당 -->
+                 <!-- <form action="<%= contextPath %>/main.bo" method="post" id="displayForm" name="displayForm">
+                   
                     <div id="search-count-one">
-                        <label for="one"><input type="hidden" id="one" name="display">1개씩 보기</label>
+                        <label for="one"><input type="hidden" id="one" name="display" value="1">1개씩 보기</label>
                     </div>
                     <div id="search-count-four">
-                        <label for="four"><input type="hidden" id="four" name="display">4개씩 보기</label>
+                        <label for="four"><input type="hidden" id="four" name="display" value="4">4개씩 보기</label>
                     </div>
                     <div id="search-count-nine">
-                        <label for="nine"><input type="hidden" id="nine" name="display">9개씩 보기</label>
+                        <label for="nine"><input type="hidden" id="nine" name="display" value="9">9개씩 보기</label>
                     </div>
+                 
                 </form> -->
-         
+                
+                <script>
+                    // function displaySubmit(){
+                    //    document.forms["displayForm"].submit();
+                    // }
+            
+               </script> 
+
+
+      
+                <!-- 1_3. Ajax -->
+                <!-- <button onclick="display(event)" class="display" id="one" value="1" type="button">1개씩 보기</button>
+                <button onclick="display(event)" class="display" id="four" value="4" type="button">4개씩 보기</button>
+                <button onclick="display(event)" class="display" id="nine" value="9" type="button">9개씩 보기</button> -->
+
             </article>
+           
            
 			<article>
                 <% if(userInfo != null) { %>
@@ -386,9 +441,8 @@
 
                 <% } else { %>
 
-<!-- 9개씩 조회 == 레이아웃
-     content-items에 class속성을 붙이는데 그 클래스 속성은 css속성들의 집합이다.
-    n개씩 조회=선택자.onchange('class',)
+<!-- n개씩 조회 == 레이아웃
+    content-items에 class속성을 붙이는데 그 클래스 속성은 css속성들의 집합.
 -->
                 <% for(Board board : bList) { %>
                     
@@ -399,8 +453,8 @@
                         <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
                         </a>
                         <p><%= board.getBoardTitle() %></p>
-                        <span><%= board.getBoardViews() %>|</span>
-                        <span><%= board.getBoardCreateDate() %>|</span>
+                        <span><%= board.getBoardViews() %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span><%= board.getBoardCreateDate() %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
                         <span><%= board.getUserNo() %></span>
                     </div>
 
@@ -413,13 +467,13 @@
 
         </section>
 
- <!-- startPage는 1, endPage는 0이므로 1 < 0가 성립못함 -->
+
             <div id="pasing-area">
             
-            <!-- 게시글이 하나도 없을 때 -->
+            <!-- 현재페이지가 1이 아닌이상 <가 있어야함 / 버튼 클릭시엔 cpage - 1 로 이동-->
             <% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage - 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&lt;</button>
-            <% } %>
+        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
+            <% }  %>
 
             <!-- 시작페이지와 끝페이지가 같다는 건 boardLimit보다 작거나 같은 수의 게시글이 있어 총 페이지 수가 1이란 뜻 -->
             <%if(startPage >= endPage){%>
@@ -429,9 +483,12 @@
             <!-- 숫자 페이징바 영역 -->
             <% for(int i = startPage; i <= endPage; i++) { %>
        
-            	<% if(currentPage != i) { %> <!-- 현재페이지가 i가 아니라면 해당 i버튼은 활성화되어야 하고 클릭시 그i페이지로 이동해야-->
+                <!-- 현재페이지가 i가 아니라면 해당 i버튼은 활성화되어야 하고 클릭시 그i페이지로 이동 -->
+            	<% if(currentPage != i) { %> 
             		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= i %>&display=<%= dpCount %>'" class="btn btn-sm btn-info"><%= i %></button>
-            	<% } else { %> <!-- 현재페이지가 i면.. 해당 버튼은 비활성화되어야 함 -->
+                   
+                <!-- 현재페이지가 i면.. 해당 버튼은 비활성화되어야 함 -->
+            	<% } else { %> 
             		<button disabled class="btn btn-sm btn-danger"><%= i %></button>
             	<% } %>
 
@@ -441,15 +498,79 @@
             <% if(currentPage != maxPage) { %>
             	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage + 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&gt;</button>
             <% }  %> 
-                <!--현재페이지가 maxPage면 현재페이지버튼은 비활성화하고 내용은 maxPage-->
-                <!-- <button disabled class="btn btn-sm btn-danger"><%= maxPage %></button> -->
          
             </div>
+       
+
+
         </div>
-
-
 
 <%@ include file="../common/footer.jsp" %>
 
+
+<script>
+  
+    // 전역에서 쓸 변수선언
+            let displayCount;
+
+            function display(e){
+
+                $.ajax({
+                    url : 'display.bo',
+                    type : 'post',
+                    async : false,
+                    data : {
+                        // $(this)말고 $(e.target) 쓴 이유
+                        display :  $(e.target).val(),
+                        //boardLimit : $(e.target).val(),
+                    },
+                    success : function(dpCount) {
+                        alert(dpCount);
+                        displayCount = dpCount;
+                        // 앞서 선언한 전역변수에 값 담기
+                        
+                        //alert(displayCount + '/' + boardLimit);
+
+                        if(displayCount != null){
+                            $('#content-items').removeClass();
+                            switch(displayCount){
+                                case "1" : $('#content-items').addClass('one'); break;
+                                case "9" :  $('#content-items').addClass('nine'); break;
+                                default :  $('#content-items').addClass('four');
+                            }
+
+                        } else{
+                            // display 미선택시에 보일 레이아웃???
+                            
+                            $('#content-items').addClass('four');
+                        }
+                       
+                    }
+             
+                })
+                // display함수의 리턴값
+                return displayCount;
+            };
+
+            function page(e){
+            
+            $.ajax({
+                url : 'page.bo',
+                type : 'post',
+                async : false,
+                data : {
+                    cpage : $(e.target).val(),
+                },
+                success : function(page) {
+                    location.href = "<%= contextPath %>/main.bo?cpage=" + page + "&display=" + displayCount;
+
+                    
+                }
+                
+            })
+
+            }
+
+</script>
 </body>
 </html>

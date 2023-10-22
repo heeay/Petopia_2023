@@ -42,16 +42,16 @@
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
-        border : 1px solid black; 
+         
         width  : 1100px;
         height : 10%;
-        border : 1px solid black;
+        
     }
     #content-area{
         width : 1100px;
         height : 60%;
         box-sizing: border-box;
-        border : 1px solid black;
+        border-bottom : 1px solid rgb(247, 189, 96);
         margin-bottom: 20px;
     }
     #reply-area {
@@ -60,8 +60,10 @@
         height : 20%;
     }
     #pasing-area{
-        border : 1px solid black;
+        
     }
+
+
 
 </style>
 
@@ -165,19 +167,22 @@
     <style>
  
     #content-text{
-      
+        border-top : 1px solid rgb(247, 189, 96);
+        padding : 10px;
     }
   
     #content-imgs{
         display : flex;
         justify-content: space-around;
-      
+        
+        margin-top : 200px;
         
     }
     /* 최대 5개의 사진 첨부 가능 */
     #content-img{ 
         max-width:200px;/*???*/
         max-height: fit-content;
+        height : 50%;
     }
     #content-like{
 		display : flex;
@@ -255,7 +260,7 @@
     }
     
     #reply-view{
-        border : 1px solid black;
+      
     }
     #reply-writer-img{
         width: 40px;

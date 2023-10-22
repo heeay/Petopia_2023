@@ -36,6 +36,7 @@ public class MainBoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 쿼리스트링요청 /jsp/list.bo?cpage=1 GET방식 -> 인코딩 X
+		request.setCharacterEncoding("UTF-8");
 		
 		// 2) request값 뽑기
 		
@@ -49,7 +50,7 @@ public class MainBoardController extends HttpServlet {
 		int maxPage; // 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수) => Math.ceil(listCount/boardLimit) ???
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작 수 => ((currentPage/pageLimit) -1)*pageLimit + 1 = startPage
 		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수 => startPage + pageLimit - 1
-		String dpCount;
+		
 		
 /*여기서부턴 각 변수마다 예외경우의 수 분석 */ 
 		
@@ -80,22 +81,26 @@ public class MainBoardController extends HttpServlet {
 			boardLimit = 4;
 		}
 */		
-			dpCount = request.getParameter("display");
-			boardLimit = 4;
-			
-			try {
-				if(dpCount != null) {
-					switch(Integer.parseInt(dpCount)) {
-					case 1 : boardLimit = 1; break;
-					case 9 : boardLimit = 9; break;
-					default : boardLimit = 4; // 처음 메인게시판 들어왔을 땐 '이벤트없이' #content-items에 .four클래스 추가해야
-					}
-				} 
-			} catch(NumberFormatException e) { // 예외case) ""일 때
-				boardLimit = 4;
+		// 한페이지에 보여질 게시글수
+		boardLimit = 4;
+		
+		// a태그 href에서 ?display= 로 받은 String형 게시글수(==레이아웃을 위한 boardLimit개념)
+		String dpCount = request.getParameter("display");
+		
+		// n개씩 보기 클릭X시(초기화면) display값이 null인 문제 => try/catch로 해결
+		try {
+			if(dpCount != null) {
+				switch(Integer.parseInt(dpCount)) {
+				case 1 : boardLimit = 1; break;
+				case 9 : boardLimit = 9; break;
+				// 처음 메인게시판 들어왔을 땐 '이벤트없이' #content-items에 .four클래스 추가
+				default : boardLimit = 4; 
+				}
 			}
-			
-			
+		} catch(NumberFormatException e) { // 예외case) ""일 때
+			boardLimit = 4;
+		}
+	
 			
 		// main.bo?display=n은 페이지바가 pageLimit내에서 이동해도 변화가 없어야 함
 		 
@@ -205,15 +210,12 @@ public class MainBoardController extends HttpServlet {
 		
 		}
 		
-		// 여기까지 총 7개의 변수를 만들었음!
+		
+		// 여기까지 총 8개의 변수를 만들었음!
 		// 3) VO로 가공
 		PageInfo pageInfo = new PageInfo(listCount, currentPage, pageLimit, 
-								   boardLimit, maxPage, startPage, endPage);
-		
-		PageInfo pageInfoDisplay = new PageInfo(listCount, currentPage, pageLimit, 
 								   boardLimit, maxPage, startPage, endPage, dpCount);
- 
- 
+	
 		// 4) Service로 가자~ // pageInfo를 넘기는 이유 : select할 때 pageInfo이용하니까
 		ArrayList<Board> bList = new BoardService().selectList(pageInfo);
 		
@@ -228,13 +230,12 @@ public class MainBoardController extends HttpServlet {
 			request.getParameter()
 		}
 		*/
+		
+		//
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("pageInfoDisplay", pageInfoDisplay);
 		request.setAttribute("bList", bList);
-		
- 
 		request.getRequestDispatcher("views/board/mainBoardView.jsp").forward(request, response);
-		
+
 	}
 
 	/**
