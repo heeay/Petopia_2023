@@ -87,13 +87,13 @@
         <div class="title-info">
             <div id="bno"><%=board.getBoardNo()%></div> 
             <div id="title"><%=board.getBoardTitle()%></div> 
-            <!-- String형이 필요해 FileImg필드 빌려씀 -->
+           
             <div id="category"><%=category.getCtgName()%></div>
 
         </div>
 
         <div class="title-info">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoSkAEH1y2dT7rSK4fBEi3NOd8p9tR3si6w&usqp=CAU"  id="writer-img"><%= userInfo.getUserNickname() %>
+          
             <div id="create-date"><%=board.getBoardCreateDate()%></div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
@@ -133,8 +133,7 @@
           
             
             <% for(int i = 0; i < fList.size(); i++){ %>
-        
-       
+
                 <img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180">
            
             <% } %>
