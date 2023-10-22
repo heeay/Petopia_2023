@@ -162,82 +162,84 @@
 
 
     <%@include file="../common/header.jsp" %>
+    <section>
 
-    <section id="main">
-        <div id="side-menu-wrap">
-        <div id="side-menu">
-            <ul id="category">
-                <li><a>관심목록</a></li>
-                <li><a>채팅</a></li>
-                <li><a>받은후기</a></li>
-                <li><a>보낸후기</a></li>
-            </ul>
+        <section id="main">
+            <div id="side-menu-wrap">
+            <div id="side-menu">
+                <ul id="category">
+                    <li><a>관심목록</a></li>
+                    <li><a>채팅</a></li>
+                    <li><a>받은후기</a></li>
+                    <li><a>보낸후기</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-
     
-        <section id="info">
-                <div class="image-container">
-                    <img src="https://www.ikbc.co.kr/data/kbc/image/2023/03/23/kbc202303230044.800x.0.png" class="Img" width="130" height="170">
-                    <img src="https://www.ikbc.co.kr/data/kbc/image/2023/03/23/kbc202303230044.800x.0.png" class="Img" width="130" height="170">
-                </div>
-                <div id="name">
-                    <h2 id="user-name"><a href="#"><i class="fas fa-user"></i></a>김순자<span id="user-detail">30대 남성</span></h2>
-                    <h2 id="pet-name"><a href="#"><i class="fas fa-dog"></i></a>절미<span id="pet-detail">리트리버 1살 남</span></h2>
-                </div>   
-                <div>
-                    <h2 id="location"><a href="#"><i class="fas fa-map-marker"></i></a>고양시 덕양구</h2>
-                    <h2 id="time"><i class="far fa-clock"></i>활동 1시간 전</h2>
-                    <div id="grade">
-				<table>
-				    <tr class="heart">
-				       <i class="fas fa-heart"></i> 30 &nbsp;  &nbsp; &nbsp; &nbsp; |   &nbsp; &nbsp; &nbsp; &nbsp;
-				    </tr>
-				    <tr class="return">
-				        응답률 100%    &nbsp; &nbsp; &nbsp; &nbsp; |   &nbsp; &nbsp; &nbsp; &nbsp;
-				    </tr>
-				    <tr class="grade">
-                   	  평점 4.3
-				    </tr>
-				</table>
+        
+            <section id="info">
+                    <div class="image-container">
+                        <img src="https://www.ikbc.co.kr/data/kbc/image/2023/03/23/kbc202303230044.800x.0.png" class="Img" width="130" height="170">
+                        <img src="https://www.ikbc.co.kr/data/kbc/image/2023/03/23/kbc202303230044.800x.0.png" class="Img" width="130" height="170">
                     </div>
-                </div>
-  		 </section>
-            <section id="write">
-                <div id="hope-activity">
-                    <h2>제목</h2>
-                    <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
-                </div>
-                <div id="hope-activity">
-                    <h2>희망 교류 활동</h2>
-                    <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
-                </div>
-                <div id="pet-introduction">
-                    <h2>우리 아이 소개</h2>
-                    <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
-                </div>
-		</section>      
-
-        <section id="request">
-            <div id="like">
-                <button class="w-btn-outline w-btn-gray-outline" type="button">귀여워요</button>
-            </div>
-
-            <div id="chatting">
-                <button class="w-btn-outline w-btn-gray-outline" type="button">1:1 채팅하기</button>
-            </div>
-        </section>
-
-        <div align="center">
-            <a href="">목록으로</a>
-            <a href="">수정하기</a>
-            <a href="">삭제하기</a>
-        </div>
-
-
+                    <div id="name">
+                        <h2 id="user-name"><a href="#"><i class="fas fa-user"></i></a>김순자<span id="user-detail">30대 남성</span></h2>
+                        <h2 id="pet-name"><a href="#"><i class="fas fa-dog"></i></a>절미<span id="pet-detail">리트리버 1살 남</span></h2>
+                    </div>   
+                    <div>
+                        <h2 id="location"><a href="#"><i class="fas fa-map-marker"></i></a>고양시 덕양구</h2>
+                        <h2 id="time"><i class="far fa-clock"></i>활동 1시간 전</h2>
+                        <div id="grade">
+                    <table>
+                        <tr class="heart">
+                           <i class="fas fa-heart"></i> 30 &nbsp;  &nbsp; &nbsp; &nbsp; |   &nbsp; &nbsp; &nbsp; &nbsp;
+                        </tr>
+                        <tr class="return">
+                            응답률 100%    &nbsp; &nbsp; &nbsp; &nbsp; |   &nbsp; &nbsp; &nbsp; &nbsp;
+                        </tr>
+                        <tr class="grade">
+                             평점 4.3
+                        </tr>
+                    </table>
+                        </div>
+                    </div>
+               </section>
+                <section id="write">
+                    <div id="hope-activity">
+                        <h2>제목</h2>
+                        <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
+                    </div>
+                    <div id="hope-activity">
+                        <h2>희망 교류 활동</h2>
+                        <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
+                    </div>
+                    <div id="pet-introduction">
+                        <h2>우리 아이 소개</h2>
+                        <textarea cols=90 rows=10 disabled>읽기만하세요</textarea>
+                    </div>
+            </section>      
     
-    <%@include file="../common/footer.jsp" %>
-	</section>
+            <section id="request">
+                <div id="like">
+                    <button class="w-btn-outline w-btn-gray-outline" type="button">귀여워요</button>
+                </div>
+    
+                <div id="chatting">
+                    <button class="w-btn-outline w-btn-gray-outline" type="button">1:1 채팅하기</button>
+                </div>
+            </section>
+    
+            <div align="center">
+                <a href="">목록으로</a>
+                <a href="">수정하기</a>
+                <a href="">삭제하기</a>
+            </div>
+    
+    
+        
+            <%@include file="../common/footer.jsp" %>
+        </section>
+    </section>
 
 </body>
 </html>
