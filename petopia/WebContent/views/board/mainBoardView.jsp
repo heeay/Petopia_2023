@@ -417,6 +417,70 @@
 
             </article>
            
+           <script>
+  
+    // 전역에서 쓸 변수선언
+            let displayCount;
+
+            function display(e){
+
+                $.ajax({
+                    url : 'display.bo',
+                    type : 'post',
+                    async : false,
+                    data : {
+                        // $(this)말고 $(e.target) 쓴 이유
+                        display :  $(e.target).val(),
+                        //boardLimit : $(e.target).val(),
+                    },
+                    success : function(dpCount) {
+                        alert(dpCount);
+                        displayCount = dpCount;
+                        // 앞서 선언한 전역변수에 값 담기
+                        
+                        //alert(displayCount + '/' + boardLimit);
+
+                        if(displayCount != null){
+                            $('#content-items').removeClass();
+                            switch(displayCount){
+                                case "1" : $('#content-items').addClass('one'); break;
+                                case "9" :  $('#content-items').addClass('nine'); break;
+                                default :  $('#content-items').addClass('four');
+                            }
+
+                        } else{
+                            // display 미선택시에 보일 레이아웃???
+                            
+                            $('#content-items').addClass('four');
+                        }
+                       
+                    }
+             
+                })
+                // display함수의 리턴값
+                return displayCount;
+            };
+
+            function page(e){
+            
+            $.ajax({
+                url : 'page.bo',
+                type : 'post',
+                async : false,
+                data : {
+                    cpage : $(e.target).val(),
+                },
+                success : function(page) {
+                    location.href = "<%= contextPath %>/main.bo?cpage=" + page + "&display=" + displayCount;
+
+                    
+                }
+                
+            })
+
+            }
+
+</script>
            
 			<article>
                 <% if(userInfo != null) { %>
@@ -508,69 +572,6 @@
 <%@ include file="../common/footer.jsp" %>
 
 
-<script>
-  
-    // 전역에서 쓸 변수선언
-            let displayCount;
 
-            function display(e){
-
-                $.ajax({
-                    url : 'display.bo',
-                    type : 'post',
-                    async : false,
-                    data : {
-                        // $(this)말고 $(e.target) 쓴 이유
-                        display :  $(e.target).val(),
-                        //boardLimit : $(e.target).val(),
-                    },
-                    success : function(dpCount) {
-                        alert(dpCount);
-                        displayCount = dpCount;
-                        // 앞서 선언한 전역변수에 값 담기
-                        
-                        //alert(displayCount + '/' + boardLimit);
-
-                        if(displayCount != null){
-                            $('#content-items').removeClass();
-                            switch(displayCount){
-                                case "1" : $('#content-items').addClass('one'); break;
-                                case "9" :  $('#content-items').addClass('nine'); break;
-                                default :  $('#content-items').addClass('four');
-                            }
-
-                        } else{
-                            // display 미선택시에 보일 레이아웃???
-                            
-                            $('#content-items').addClass('four');
-                        }
-                       
-                    }
-             
-                })
-                // display함수의 리턴값
-                return displayCount;
-            };
-
-            function page(e){
-            
-            $.ajax({
-                url : 'page.bo',
-                type : 'post',
-                async : false,
-                data : {
-                    cpage : $(e.target).val(),
-                },
-                success : function(page) {
-                    location.href = "<%= contextPath %>/main.bo?cpage=" + page + "&display=" + displayCount;
-
-                    
-                }
-                
-            })
-
-            }
-
-</script>
 </body>
 </html>
