@@ -7,6 +7,7 @@
 <title>500ERROR</title>
 </head>
 <body>
-<h1>500 ERROR!</h1>
+    <br><br><br><br><br>
+<h1 style="text-align: center; font-size: 50px;"><span style="color: red;">500</span> ERROR!</h1>
 </body>
 </html>
