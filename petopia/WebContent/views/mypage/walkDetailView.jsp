@@ -94,10 +94,12 @@
                     
 
                     <div id="sub-content-back">
+                        
                         <div class="contentSize">
                             <div class="float-left">제목</div>
                             <div class="float-right"><input type="text" class="input-width" name="walkTitle" value="<%=wr.getWalkTitle()%>" required></div>
                         </div>
+
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
@@ -108,6 +110,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <script>
                             $("#selectPetName").val("<%=wr.getPetNo() %>").prop("selected", true);
                         </script>
@@ -119,6 +122,7 @@
                             <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="walkContent" required><%=wr.getWalkContent() %></textarea></div>
                         </div>
                         <br><br>
+
                         <div class="contentSize1">
                             <div>
                                 기존파일
@@ -127,9 +131,11 @@
                                     <input type="hidden" name="walkFileNo" value="<%=pf.getFileNo()%>">
                                 </a>
                             </div>
+
                             <br>
                             <div class="float-left">첨부파일</div>
                             <div><input type="file" name="walkFile" id="walkFile"></div>
+                            
                         </div>
 
                         <div class="btn-right">
