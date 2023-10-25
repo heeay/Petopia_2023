@@ -170,7 +170,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
 	<section>
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
-            <div class="side-content-title" id="access-current">현재 접속자 : <span id="access-cur-num"><%=accessCount %></span></div>
+            <div class="side-content-title" id="access-current">현재 접속자 : <span id="access-cur-num">${applicationScope.accessCount }</span></div>
             <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="access-chart" width="250" height="200"></canvas>
             <script>

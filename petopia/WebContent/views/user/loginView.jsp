@@ -1,20 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.security.SecureRandom" %>
-<%@ page import="java.math.BigInteger" %>
-<%
-String fail = request.getAttribute("fail")!=null ? (String)request.getAttribute("fail") : "";
-String cookieEmail = "";
-Cookie[] cookies = request.getCookies();
-if(cookies!=null){
-	for(int i=0;i<cookies.length;i++){
-		if(cookies[i].getName().equals("rememberEmail")){
-			cookieEmail = cookies[i].getValue();
-		}
-	}
-}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -165,7 +152,7 @@ if(cookies!=null){
     </style>
 </head>
 <body>
-	<%@include file="../common/header-min.jsp" %>
+    <%@include file="../common/header-min.jsp" %>
     <script>
         $(document).ready(function(){
             $("#email-auth").click(function(){
@@ -233,15 +220,15 @@ if(cookies!=null){
                 	이메일로 로그인
                 </div>
             </div>
-            <div id="login-form-wrap" <%if(fail.isEmpty()){ %>style="display: none;"<%} %>>
+            <div id="login-form-wrap" <c:if test="${empty fail}">style="display: none;"</c:if> >
                 <form id="login-form" action="<%=contextPath%>/login.prossess" method="post">
-                	<%if(!fail.isEmpty()){ %>
+                	<c:if test="${not empty fail}" >
                     <div class="login-error-wrap" id="err-fail">
                         이메일 또는 비밀번호를 잘못 입력했습니다.
                     </div>
-                    <%} %>
+                    </c:if>
                     <div class="input-wrap">
-                        <input id="email" type="text" name="email" placeholder=" 이메일" value=<%=cookieEmail %>>
+                        <input id="email" type="text" name="email" placeholder=" 이메일" value="${cookieEmail}">
                         <div class="input-icon">
                             <span class="material-symbols-outlined icon-size">person</span>
                         </div>
@@ -253,7 +240,7 @@ if(cookies!=null){
                         </div>
                     </div>
                     <div class="checkbox-wrap">
-                        <input id="remember" type="checkbox" name="remember" <%if(!cookieEmail.equals("")){ %>checked<%} %>><label for="remember">Remember Me</label>
+                        <input id="remember" type="checkbox" name="remember" <c:if test="${not empty cookieEmail}">checked</c:if>><label for="remember">Remember Me</label>
                     </div>
                     <div class="login-error-wrap" id="err-capslock" style="display: none;">
                         <!--CapsLock이 켜져 있습니다.-->
@@ -270,19 +257,9 @@ if(cookies!=null){
                 </form>
             </div>
         </div>
-        <%
-        String clientId = "8ZYnqypIAIHZc2Ycz4px";//애플리케이션 클라이언트 아이디값";
-        String redirectURI = URLEncoder.encode("http://localhost/petopia/naverLogin", "UTF-8");
-        SecureRandom random = new SecureRandom();
-        String state = new BigInteger(130, random).toString();
-        String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-        apiURL += "&client_id=" + clientId;
-        apiURL += "&redirect_uri=" + redirectURI;
-        apiURL += "&state=" + state;
-        session.setAttribute("state", state);
-        %>
+
         <div class="auth-wrap margin-bottom">
-            <a href="<%=apiURL%>" id="naverIdLogin_loginButton" class="auth-btn">
+            <a href="${apiURL}" id="naverIdLogin_loginButton" class="auth-btn">
                 <img class="auth-icon" src="<%=contextPath %>/resources/images/naver_login_icon.svg">
                 	네이버 로그인
             </a>
@@ -398,6 +375,6 @@ if(cookies!=null){
             //window.open(url, "_blank", "toolbar=no,scrollbars=no,resizable=no,width=1,height=1");
         }
     </script>
-    <%@include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

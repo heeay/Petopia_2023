@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String token = (String)request.getAttribute("token");
-String key = (String)request.getAttribute("key");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,8 +62,8 @@ String key = (String)request.getAttribute("key");
 	<%@include file="../common/header-min.jsp" %>
 	<section>
         <form id="change-pw-form" action="<%=contextPath %>/changePassword.process" method="post">
-            <input type="hidden" name="token" value="<%=token %>">
-            <input type="hidden" name="key" value="<%=key %>">
+            <input type="hidden" name="token" value="${token }">
+            <input type="hidden" name="key" value="{$key }">
             <div class="sub-title">
                 비밀번호 변경
             </div>
