@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.info.model.vo.InfoFile" %>
-<%
-	ArrayList<InfoFile> list = (ArrayList<InfoFile>)request.getAttribute("list");
-	Info in = (Info)request.getAttribute("in");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,62 +121,73 @@
                 <h4>⋮</h4>
                 <div id="edit-option" style="display:none">
                 <!-- 로그인 안 하면 아무것도 안 보임 / 내 글 : 수정, 삭제 -->
-                <% if(userInfo != null && userInfo.getUserNickname().equals(in.getInfoWriter())) { %>
-                    <a href="<%= contextPath %>/updateForm.in?ino=<%= in.getInfoNo() %>">수정</a>
-                    <a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
-                <% } %>
+                
+                <c:if test="${ not empty sessionScope.userInfo && sessionScope.userInfo.userNickname eq requestScope.in.infoWriter}">
+                	<a href="<%= contextPath %>/updateForm.in?ino=${ in.infoNo }">수정</a>
+                    <a href="<%= contextPath %>/delete.in?ictg=${ in.categoryNo }&ino=${ in.infoNo }">삭제</a>
+                </c:if>
+                
                 </div>
            </div>
            <div id="content">
                 
                 <div id="photo-content">
-                    
-                    <% for(int i = 0; i < list.size(); i++) { %>
-                    	<img src="<%= contextPath %>/<%= list.get(i).getFilePath() %>/<%= list.get(i).getUploadName() %>" class="img" alt="이미지">
-                    <% } %>
-                    
+                	
+                	<c:forEach var="img" items="${ requestScope.list }">
+                		<img src="<%= contextPath %>/${ img.filePath }/${ img.uploadName }" class="img" alt="이미지">
+                	</c:forEach>
+
                     <button id="before-btn" class="btn btn-sm btn-secondary"> < </button>
                     <button id="next-btn" class="btn btn-sm btn-secondary"> > </button>
                 </div>
                 <div id="text-content">
                     <table border="1">
                         <tr>
-                            <td width="500px"><%= in.getInfoTitle() %></td>
+                            <td width="500px">${ in.infoTitle }</td>
                         </tr>
                         <tr>
                             <td id="stars">
-                            <!-- 별점을 DB에 보낼 때 클릭한 인덱스 + 1로 했으니까 받아올 때는 별점 수 - 1로 보여주기 -->
-                            <% for(int i = 0; i <in.getStarScore(); i++) { %>
-	                            <a class="star">⭐</a> <!-- 노란 별 -->
-	                        <% } %>
-	                        <!-- 총 별의 개수(5) - 사용자가 클릭한 별의 개수 -->
-	                    	<% for(int i = 0; i < 5 - in.getStarScore(); i++) { %>
-	                    		<a class="star">☆</a>
-	                    	<% } %>
+                            
+                            <c:forEach var="star" begin="0" end="4">
+                            	<c:choose>
+                            		<c:when test="${ star lt requestScope.in.starScore }">
+                            			<a class="star">⭐</a> <!-- 노란 별 -->
+                            		</c:when>
+                            		<c:otherwise>
+                            			<a class="star">☆</a> <!-- 빈별 -->
+                            		</c:otherwise>
+                            	</c:choose>
+                            </c:forEach>
+                            
                             </td>
                         </tr>
                         <tr>
-                            <td><%= in.getInfoWriter() %></td>
+                            <td>${ in.infoWriter }</td>
                         </tr>
                         <tr>
-                            <td><%= in.getInfoCreateDate() %></td>
+                            <td>${ in.infoCreateDate }</td>
                         </tr>
                         <tr>
                             <td height="390px">
-                                	<%= in.getInfoContent() %>
+                            		${ in.infoContent }
                             </td>
                         </tr>
                         <tr>
-                        <% if(userInfo != null) { %>
-                            <td align="center">
-                            	<!-- 빈 하트 -->
-                            	<button id="like" class="like" onclick="clickLike();">🤍</button><span></span>
-                            </td>
-                        <% } else { %>
-                        	<td align="center">
-                        		<button class="like" disabled>🤍</button><span></span>
-                        	</td>
-                        <% } %>
+                        
+                        <c:choose>
+                        	<c:when test="${ not empty sessionScope.userInfo }">
+                        		<td align="center">
+                            		<!-- 빈 하트 -->
+                            		<button id="like" class="like" onclick="clickLike();">🤍</button><span></span>
+                            	</td>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<td align="center">
+                        			<button class="like" disabled>🤍</button><span></span>
+                        		</td>
+                        	</c:otherwise>
+                        </c:choose>
+                        
                         </tr>
                     </table>
                 </div>
@@ -193,21 +200,26 @@
                 	<thead>
                 		<tr>
                 			<th width="100">댓글 작성</th>
-                			<% if(userInfo != null) { %>
-                			<td>
-                				<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
-                			</td>
-                			<td width="150">
-                				<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
-                			</td>
-                			<% } else { %>
-                				<td>
-                					<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
-                				</td>
-                				<td width="150">
-                					<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
-                				</td>
-                			<% } %>
+                			
+                			<c:choose>
+                				<c:when test="${ not empty sessionScope.userInfo }">
+                					<td>
+                						<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
+                					</td>
+                					<td width="150">
+                						<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
+                					</td>
+                				</c:when>
+                				<c:otherwise>
+                					<td>
+	                					<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
+	                				</td>
+	                				<td width="150">
+	                					<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
+	                				</td>
+                				</c:otherwise>
+                			</c:choose>
+                			
                 		</tr>
                 	</thead>
                 	<tbody>
@@ -218,7 +230,7 @@
            </div>
            
            <div id="back">
-           		<a href='<%= contextPath %>/share.in?ictg=<%= in.getCategoryNo() %>&ipage=1'>목록으로</a>
+           		<a href='<%= contextPath %>/share.in?ictg=${ in.categoryNo }&ipage=1'>목록으로</a>
            </div>
     
         </div>
@@ -298,7 +310,7 @@
         	function countLike(){
         		$.ajax({
         			url : 'countLike.in',
-        			data : {ino : <%= in.getInfoNo() %>},
+        			data : {ino : ${ in.infoNo }},
         			success : function(count){
         				// console.log(count);
         				$('.like').next().html(count); // 하트 옆에 읽어온 좋아요 수 출력
@@ -316,7 +328,7 @@
 	        		type : 'get',
 	        		data : {
 	        			// 좋아요 클릭한 게시글 번호
-	        			ino : <%= in.getInfoNo() %>,
+	        			ino : ${ in.infoNo },
 	        		},
 	        		success : function(result){
 	        			if(result > 1) { // '좋아요 -> 좋아요  취소' 하는 경우에만 if문 해당(result에 + 1 했기 때문)
@@ -336,7 +348,7 @@
         	function selectUser(){
         		$.ajax({
         			url : 'selectUser.in',
-        			data : {ino : <%= in.getInfoNo() %>},
+        			data : {ino : ${ in.infoNo }},
         			success : function(result){
         				if(result > 0) { // 해당 게시글의 좋아요를 이미 클릭한 사람이라면
         					$('.like').html('❤'); // 빨간 하트로 보여짐
@@ -368,7 +380,7 @@
         		
         		$.ajax({
         			url : 'commentList.in',
-        			data : {ino : <%= in.getInfoNo() %>},
+        			data : {ino : ${ in.infoNo }},
         			success : function(result){
         				console.log(result);
         				
@@ -397,7 +409,7 @@
         			url : 'commentInsert.in',
         			type : 'post',
         			data : {
-        				ino : <%= in.getInfoNo() %>,
+        				ino : ${ in.infoNo },
         				content : $('#commentContent').val()
         			},
         			success : function(result){
