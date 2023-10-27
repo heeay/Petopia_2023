@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -43,8 +44,9 @@ public class AjaxUserInfoUpdateController extends HttpServlet {
 		u.setUserNo(userNo);
 		u.setUserNickname(nickname);
 		u.setUserPhone(phone);
-		int result = new UserService().updateUserInfo(u);
-		User user = new UserService().reloadUser(userNo);
+		UserService userService = new UserServiceImpl();
+		int result = userService.updateUserInfo(u);
+		User user = userService.reloadUser(userNo);
 		if(result>0) {
 			request.getSession().setAttribute("userInfo", user);
 		}

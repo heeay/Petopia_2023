@@ -3,6 +3,7 @@ package petopia.com.kh.jsp.user.controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -21,9 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.tribes.membership.McastService;
-
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class RegisterEmailAuthController
@@ -53,18 +53,6 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 		String filePath = AjaxRegisterEmailAuthController.class.getResource("/sql/properties/email.properties").getPath();
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(filePath));
-		/*
-		prop.put("mail.transport.protocol", "smtp");
-		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", "587"); //465, 587
-		prop.put("mail.smtp.auth", "true");
-		
-		prop.put("mail.smtp.quitwait", "false");
-		prop.put("mail.smtp.socketFactory.port", "587");
-		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		prop.put("mail.smtp.socketFactory.fallback", "true");
-		prop.put("mail.smtp.starttls.enable", "true");
-		*/
 		
 		Session session = Session.getDefaultInstance(prop);
 		Message message = new MimeMessage(session);
@@ -106,7 +94,10 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			transport.close();
 			System.out.println("이메일 인증 메일 전송 성공");
 			
-			int result = new UserService().insertEmailAuth(toEmail,cNumber);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("emailAuthEmail", toEmail);
+			map.put("emailAuthCode", cNumber);
+			int result = new UserServiceImpl().insertEmailAuth(map);
 			
 			response.getWriter().print(result);
 			
