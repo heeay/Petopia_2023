@@ -26,7 +26,8 @@
 		<result column="PET_PERSONALITY" property="petPersonality"/>
 		<result column="PET_ETC" property="petEtc"/>
 		<result column="USER_NO" property="userNo"/>
-
+	</resultMap>
+	
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
 	<select id="selectHosListCount" parameterType="_int" resultType="_int">

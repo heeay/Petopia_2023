@@ -5,16 +5,7 @@
 <mapper namespace="boardMapper">
 
 
-
-
-
-
-
-
-
-
-
-	<select id="selectBoardCount" parameterType="" resultMap="">
+	<select id="selectBoardCount">
 		SELECT
 						COUNT(*)
 		FROM
@@ -25,7 +16,7 @@
 	</select>
 	
 	
-	<select id="selectSwiperBestBoardList" parameterType="" resultMap="">
+	<select id="selectSwiperBestBoardList">
 		SELECT
 						BOARD_NO,
 						BOARD_TITLE,
@@ -47,7 +38,7 @@
 	</select>
 	
 	
-	<select id="selectBoardList" parameterType="" resultMap="">
+	<select id="selectBoardList">
 		SELECT
 						BOARD_NO,
 						BOARD_TITLE,
@@ -66,7 +57,7 @@
 	</update>
 	
 	
-	<select id="selectBoard" parameterType="" resultMap="">
+	<select id="selectBoard">
 		SELECT
 						BOARD_NO,
 						BOARD_TITLE,
@@ -79,12 +70,12 @@
 	</select>
 	
 	
-	<select id="selectFileList" parameterType="" resultMap="">
+	<select id="selectFileList">
 	
 	</select>
 	
 	
-	<select id="selectCategory" parameterType="" resultMap="">
+	<select id="selectCategory">
 	
 	</select>
 
