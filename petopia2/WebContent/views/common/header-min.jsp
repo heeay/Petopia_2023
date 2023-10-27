@@ -248,7 +248,7 @@
 <body>
     <header>
         <div id="fixed-header-bar-wrap">
-            <div id="header-bar">
+            <div class="header-bar">
                 <div class="header-logo">
                     <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
                     <!--  -->
