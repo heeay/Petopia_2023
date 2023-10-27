@@ -10,11 +10,13 @@
 	
 	<typeAliases>
 		<typeAlias type="petopia.com.kh.jsp.user.model.vo.User" alias="user"/>
+		
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.HosRecords" alias="hos"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="Pet"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="PetFile"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="Sug"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="WalkR"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="pet"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="petFile"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="sug"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="walkR"/>
+		
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Info" alias="info"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoCategory" alias="infoCtg"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoComment" alias="infoComment"/>

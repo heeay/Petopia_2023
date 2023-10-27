@@ -14,6 +14,7 @@ public interface UserService {
 	public int checkUserEmail(String email);
 	public int checkUserNickname(User user);
 	public int selectUserNo(String email);
+
 	public int insertEmailAuth(HashMap<String, String> map);
 	public java.util.Date selectEmailAuth(HashMap<String, String> map);
 	public java.util.Date selectToken(String token);

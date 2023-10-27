@@ -26,11 +26,7 @@
 		<result column="PET_PERSONALITY" property="petPersonality"/>
 		<result column="PET_ETC" property="petEtc"/>
 		<result column="USER_NO" property="userNo"/>
-		<result column="FILE_NO" property="fileNo"/>
-	</resultMap>
-	
-	
-	
+
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
 	<select id="selectHosListCount" parameterType="_int" resultType="_int">
@@ -96,4 +92,12 @@
 		 WHERE USER_NO = #{userNo}
 		 ORDER BY PET_NO
   	</select>
+
+  	
+  	<insert id="insertHos" parameterType="pet">
+  		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
+		VALUES (SEQ_HOS_NO.NEXTVAL, #{hosDate}, #{hosVaccination}, #{hosIllness}, #{hosMedicine}, #{hosContent}, #{petNo})
+  	</insert>
+  	
+
 </mapper>

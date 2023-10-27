@@ -34,11 +34,12 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
+
 	public ArrayList<Pet> selectPetList(SqlSession sqlSession, int userNo, RowBounds rowBounds) {
 		
 		return (ArrayList)sqlSession.selectList("mypageMapper.selectPetList", userNo, rowBounds);
-	}
 
+	}
 	public int insertPet(Connection conn, Pet p) {
 		int result = 0;
 		PreparedStatement pstmt = null;

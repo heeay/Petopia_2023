@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
@@ -55,15 +56,19 @@ public class ChangePasswordController extends HttpServlet {
 		}
 		
 		HashMap<String, String> map = new HashMap<String, String>();
+
 		UserService userService = new UserServiceImpl();
 		map.put("emailAuthEmail", userService.checkUserNo(userNo));
 		map.put("emailAuthCode", token);
 		java.util.Date date = userService.selectEmailAuth(map);
+
 		if(date!=null) {
 			User user = new User();
 			user.setUserNo(userNo);
 			user.setUserPass(pw);
+
 			int result = userService.updateUserPw(user);
+
 			
 			if(result>0) {
 				request.setAttribute("errorMsg", "비밀번호 변경이 완료되었습니다.");
