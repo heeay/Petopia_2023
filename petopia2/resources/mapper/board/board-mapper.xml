@@ -21,8 +21,53 @@
 
 
 
-	<select id="" parameterType="" resultMap="">
+	<select id="selectBoardCount" parameterType="" resultMap="">
+		SELECT
+						COUNT(*)
+		FROM
+						TB_BOARD
+		WHERE
+						BOARD_STATUS = 'Y'
+			
+	</select>
+	
+	
+	<select id="selectSwiperBestBoardList" parameterType="" resultMap="">
+		
+	
+	</select>
+	
+	
+	<select id="selectBoardList" parameterType="" resultMap="">
+	
+	</select>
+	
+	
+	<update id="increaseViewCount">
+	
+	
+	</update>
+	
+	
+	<select id="selectBoard" parameterType="" resultMap="">
+	
+	</select>
+	
+	
+	<select id="selectFileList" parameterType="" resultMap="">
+	
+	</select>
+	
+	
+	<select id="selectCategory" parameterType="" resultMap="">
 	
 	</select>
 
+
+	<insert id="insertBoard">
+	
+	
+	</insert>
+	
+	
 </mapper>

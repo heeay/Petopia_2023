@@ -23,14 +23,14 @@ public interface BoardService {
 	// 세부 조회
 		
 		// 조회수 증가
-		int increaseViewCount();
+		int increaseViewCount(int boardNo);
 			
 			// board객체조회
-			Board selectBoard();
+			Board selectBoard(int boardNo);
 			// fileList조회
-			ArrayList<File> selectFileList();
+			ArrayList<File> selectFileList(int boardNo);
 			// category조회
-			Category selectCategory();
+			Category selectCategory(int boardNo);
 	
 	
 	// 게시글 작성
