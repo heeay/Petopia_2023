@@ -21,6 +21,13 @@
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoFile" alias="infoFile"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Star" alias="star"/>
 		<typeAlias type="petopia.com.kh.jsp.match.model.vo.Match" alias="match"/>
+
+		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Board" alias="board"/>
+		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Category" alias="category"/>
+		<typeAlias type="petopia.com.kh.jsp.board.model.vo.File" alias="file"/>
+		<typeAlias type="petopia.com.kh.jsp.common.model.vo.PageInfo" alias="pageInfo"/>
+		
+
 	</typeAliases>
 	
 	<environments default="development">
@@ -30,7 +37,7 @@
 
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-		        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		        <property name="url" value="jdbc:oracle:thin:@192.168.30.21:1521:xe"/>
 		        <property name="username" value="PETOPIA"/>
 		        <property name="password" value="PETOPIA"/>
 			</dataSource>
@@ -38,9 +45,10 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="/mapper/user-mapper.xml"/>
+		<mapper resource="/mapper/user/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
 		<mapper resource="/mapper/match-mapper.xml" />
+		<mapper resource="/board/board-mapper.xml" />
 		<!-- <mapper resource="/mapper/info-mapper.xml"/> -->
 	</mappers>
 </configuration>
