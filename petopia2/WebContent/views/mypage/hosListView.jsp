@@ -113,7 +113,7 @@
                         	<c:forEach var="hos" items="${ hosList }" varStatus="status">
                                 <tr>
                                     <input type="hidden" name="hno" value="${hos.hosNo}">
-                                    
+
                                     <td>${status.count}</td>
                                     <td>${hos.hosDate}</td>
                                     <td>${hos.petName}</td>
