@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.naming.java.javaURLContextFactory;
+
 import petopia.com.kh.jsp.user.model.service.UserService;
 
 /**
@@ -30,8 +32,8 @@ public class ChangePwdFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String token = request.getParameter("token");
 		String key = request.getParameter("key");
-		boolean result = new UserService().selectToken(token);
-		if(result) {
+		java.util.Date date = new UserService().selectToken(token);
+		if(date!=null) {
 			request.setAttribute("token", token);
 			request.setAttribute("key", key);
 			request.getRequestDispatcher("views/user/changePwdView.jsp").forward(request, response);

@@ -58,6 +58,7 @@ public class KakaoLoginController extends HttpServlet {
 		u.setUserEmail(email);
 		u.setUserPass(id);
 		u.setFileMypageNo(profile);
+		u.setUserNickname("KakaoUser");
 		//System.out.println(profile);
 		
 		User user = new UserService().simpleKakaoAuth(u);

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,10 @@ public class ChangePasswordController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		java.util.Date date = new UserService().selectEmailAuth(new UserService().checkUserNo(userNo), token);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("emailAuthEmail", new UserService().checkUserNo(userNo));
+		map.put("emailAuthCode", token);
+		java.util.Date date = new UserService().selectEmailAuth(map);
 		if(date!=null) {
 			User user = new User();
 			user.setUserNo(userNo);

@@ -67,7 +67,7 @@ public class HosListController extends HttpServlet {
 		
 		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, userNo);
 		//System.out.println(pi);
-		//System.out.println(hosList);
+		System.out.println(hosList);
 
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);

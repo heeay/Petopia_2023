@@ -6,25 +6,25 @@
 
 	<!-- ================== resultMap ================== -->
 	<!-- =============================================== -->
-	<resultMap type="user" id="userResultSet">
-		<result column="USER_NO" property="userNo"/>
-		<result column="USER_METHOD" property="userMethod"/>
-		<result column="USER_EMAIL" property="userEmail"/>
-		<result column="USER_PASS" property="userPass"/>
-		<result column="USER_NICKNAME" property="userNickname"/>
-		<result column="USER_PHONE" property="userPhone"/>
-		<result column="ROLE_NAME" property="roleId"/>
-		<result column="USER_CREATE_DATE" property="userCreateDate"/>
-		<result column="USER_UPDATE_DATE" property="userUpdateDate"/>
-		<result column="USER_ENABLE_STATE" property="userEnableState"/>
-		<result column="FILE_MYPAGE_NO" property="fileMypageNo"/>
-	</resultMap>
-	<resultMap type="petFile" id="petFileResultMap">
-		<result column="FILE_MYPAGE_NO" property="fileNo"/>
-		<result column="ORIGINAL_NAME" property="originalName"/>
-		<result column="UPLOAD_NAME" property="uploadName"/>
-		<result column="FILE_PATH" property="filePath"/>
-	</resultMap>
+<resultMap type="user" id="userResultMap">
+	<result column="USER_NO" property="userNo"/>
+	<result column="USER_METHOD" property="userMethod"/>
+	<result column="USER_EMAIL" property="userEmail"/>
+	<result column="USER_PASS" property="userPass"/>
+	<result column="USER_NICKNAME" property="userNickname"/>
+	<result column="USER_PHONE" property="userPhone"/>
+	<result column="ROLE_NAME" property="roleId"/>
+	<result column="USER_CREATE_DATE" property="userCreateDate"/>
+	<result column="USER_UPDATE_DATE" property="userUpdateDate"/>
+	<result column="USER_ENABLE_STATE" property="userEnableState"/>
+	<result column="PATH" property="fileMypageNo"/>
+</resultMap>
+<resultMap type="petFile" id="petFileResultMap">
+	<result column="FILE_MYPAGE_NO" property="fileNo"/>
+	<result column="ORIGINAL_NAME" property="originalName"/>
+	<result column="UPLOAD_NAME" property="uploadName"/>
+	<result column="FILE_PATH" property="filePath"/>
+</resultMap>
 	
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
