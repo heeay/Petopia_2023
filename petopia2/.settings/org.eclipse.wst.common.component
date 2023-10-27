@@ -2,6 +2,7 @@
     <wb-module deploy-name="petopia">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <property name="context-root" value="petopia"/>
         <property name="java-output-path" value="/petopia/WebContent/WEB-INF/classes"/>
     </wb-module>

@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	ArrayList<Pet> list = (ArrayList<Pet>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,83 +140,6 @@
 	<div class="content-area">
 
         <div class="area-padding">
-            <!--
-            <div class="petImg">
-                <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
-                    
-                    <div id="style-user">
-                        <div style="width: 300px;" id="file-area">
-                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
-                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="150px" height="150px">
-                        	<% } else {%>
-                        	<%
-                			String url = userInfo.getFileMypageNo();
-                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                			%>
-                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
-                			<%} else { %>
-                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본">
-                			<%} %>
-                        	<% } %>
-                        </div>
-                        
-                        <div>
-                            <div style="margin-left: 30px; margin-bottom: 5px; margin-top: 10px;">
-                                <input type="file" id="userProfil" name="userProfil" onchange="loadImg(this, 1);">
-                            </div>
-                            <div style="margin-left: 30px; padding-bottom: 10px;">
-                                <button type="submit" class="btn btn-sm btn-warning">유저프로필 등록</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    프로필 첨부안할시 버튼 비활성화/첨부 시 활성화
-                    <script>
-                        $(document).ready(function() {
-                            $('button[type=submit]').attr('disabled', 'disabled');
-                        
-                            $('input[type=file]').on('input', function() {
-                                if ($(this).val() !== '') {
-                                    $('button').removeAttr("disabled");
-                                }
-                                else {
-                                    $('button').attr('disabled', 'disabled');
-                                }
-                            });
-                        });
-                    </script>
-
-                </form>
-
-            </div>
-            -->
-
-            <!-- 파일 첨부시 첨부된 이미지 보여주는 스크립트 
-            <script>
-               function loadImg(inputFile, num){
-					if(inputFile.files.length == 1){ // 파일이 첨부
-						let reader = new FileReader();
-						reader.readAsDataURL(inputFile.files[0]);
-                        reader.onload = function(e){
-
-							switch(num){
-								case 1 : $('#titleImg').attr('src', e.target.result); break;
-							}
-						}
-
-					}
-					else {
-						const str = '<%=contextPath%>\resources\images/profil.png';
-						switch(num){
-								case 1 : $('#titleImg').attr('src', str); break;
-						}
-					}
-
-				};
-				
-            </script>
-        -->
-
 
             <div class="petProfil-list">
  
@@ -245,39 +159,23 @@
                         </thead>
         
                         <tbody>
-                        
-                        <% if(list.isEmpty()) { %>
-                        	<tr>
-                        		<td colspan="3" align="center" class="pointer-events-none">등록된 프로필이 없습니다.</td>
-                        	</tr>
-                        <% }else { %>
-                        	<% for(int i=0; i<list.size(); i++){ %>
-                                <tr>
-                                    <input type="hidden" name="pno" value="<%=list.get(i).getPetNo() %>">
-                                    <td><%=list.get(i).getRowNum() %></td>
-                                    <td><%=list.get(i).getPetName() %></td>
-                                    <td><%=list.get(i).getPetSpecies() %></td>
-                        	    </tr>
-                        	    <% } %>
-                        <% } %>
-							<!--				
-                            <tr>
-                                <td>1.</td>
-                                <td>제리</td>
-                                <td>강아지</td>
-                                <td style="width: 20px; border-top:none;">
-                                    <btn class="btn btn-sm btn-secondary">—</btn>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>톰</td>
-                                <td>고양이</td>
-                                <td style="width: 20px; border-top:none;">
-                                    <btn class="btn btn-sm btn-secondary">—</btn>
-                                </td>
-                            </tr>
-						    -->	
+                        <c:choose>
+                        <c:when test="${empty list}">
+	                        	<tr>
+	                        		<td colspan="3" align="center" class="pointer-events-none">등록된 프로필이 없습니다.</td>
+	                        	</tr>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<c:forEach var="list" items="${list}">
+	                                <tr>
+	                                    <input type="hidden" name="pno" value="${list.petNo}">
+	                                    <td>${list.rowNum}</td>
+	                                    <td>${list.petName}</td>
+	                                    <td>${list.petSpecies}</td>
+	                        	    </tr>
+	                        	</c:forEach>
+	                        </c:otherwise>
+						</c:choose>	
                         </tbody>
         
                     </table>
@@ -325,7 +223,7 @@
                                         
                                             $('.input_name').focusout(function(){
                                                 let petName = $('.input_name').val();
-                                                let userNo = '<%=userInfo.getUserNo()%>';
+                                                let userNo = '${userInfo.userNo}';
         
                                                 $.ajax({
                                                     url: 'checkPetName.my',
@@ -456,21 +354,22 @@
         </div>
 
         <div class="page-btn" align="center">
-           	<% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
-        	<% } %>
-        	
-        	<% for(int i = startPage; i <= endPage; i++) { %>
-        		<% if(currentPage != i) { %>
-        			<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
-        		<% } else {%>
-        			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
-        		<% } %>
-        	<% } %>
-        	
-        	<% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%=contextPath%>/pet.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
-        	<% } %>
+        	<c:if test="${ pi.currentPage ne 1 }">
+        		<button onclick="location.href='<%=contextPath%>/pet.my?cpage=${pi.currentPage-1}'" class="btn btn-sm btn-secondary">&lt;</button>
+        	</c:if>
+        	<c:forEach var="i" begin="${ pi.startPage }" end="${pi.endPage}">
+        		<c:choose>
+        			<c:when test="${ pi.currentPage ne 1 }">
+	        			<button onclick="location.href='<%=contextPath%>/pet.my?cpage=${i}'" class="btn btn-sm btn-secondary">${i}</button>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<button disabled class="btn btn-sm btn-gracolors">${i}</button>
+	        		</c:otherwise>
+        		</c:choose>
+        	</c:forEach>
+        	<c:if test="${ pi.currentPage ne maxPage }">
+            	<button onclick="location.href='<%=contextPath%>/pet.my?cpage=${pi.currentPage+1}'" class="btn btn-sm btn-secondary">&gt;</button>
+        	</c:if>
         </div>
 
     </div>

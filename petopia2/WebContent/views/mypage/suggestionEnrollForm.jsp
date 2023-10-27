@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-    Suggestion sug = (Suggestion)request.getAttribute("sug");
-	PetFile pt = (PetFile)request.getAttribute("pt");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +87,7 @@
 	 
 	 <div class="content-area">
         <form action="<%=contextPath%>/sugEnroll.my" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="userNo" value="<%=userInfo.getUserNo() %>">
+            <input type="hidden" name="userNo" value="${userInfo.userNo}">
             <div id="sug-content">
 
                 <div>

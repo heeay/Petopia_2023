@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-    HosRecords hr = (HosRecords)request.getAttribute("hr");
-	WalkRecords wr = (WalkRecords)request.getAttribute("wr");
-%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-	<style>
+   <style>
         /*div{border: 1px solid black;}*/
         .content-area{
             position: absolute;
@@ -114,9 +110,9 @@
 </head>
 <body>
 
-	<%@ include file = "mysidebar.jsp" %>
+   <%@ include file = "mysidebar.jsp" %>
 
-	    <div class="content-area">
+       <div class="content-area">
             
             <div class="hos">
 
@@ -128,53 +124,42 @@
 
                             <div>
                                 <div class="hos-text">
-                                	<% if(hr != null) {%>
-	                                    <div class="content-top"></div>
-	                                    <div class="content-top"></div>
-	                                    <div class="text-hidden">이름 : <%=hr.getPetName() %></div>
-	                                    
-	                                    <div>일자 : <%=hr.getHosDate() %></div>
-	                                    
-	                                    <div class="content-top"></div>
-	                                    
-	                                    <% if(hr.getHosVaccination() != null) {%>
-	                                    <div class="text-hidden">예방접종 종류 : <%=hr.getHosVaccination() %></div>
-	                                    <% }else { %>
-	                                    <div class="text-hidden">예방접종 종류 : 작성하지않음</div>
-	                                    <% } %>
-	                                    
-	                                    <% if(hr.getHosIllness() != null) { %>
-	                                    <div class="text-hidden">질병 여부 : <%=hr.getHosIllness() %></div>
-	                                    <% }else { %>
-	                                    <div class="text-hidden">질병 여부 : 작성하지않음</div>
-	                                    <% } %>
-	                                    
-	                                    <% if(hr.getHosMedicine() != null) {%>
-	                                    <div class="text-hidden">약 복용기록 : <%=hr.getHosMedicine() %></div>
-	                                    <% }else { %>
-	                                    <div class="text-hidden">약 복용기록 : 작성하지않음</div>
-	                                     <% } %>
-	                                     
-	                                    <div class="content-top"></div>
-	                                    <% if(hr.getHosContent() != null) {%>
-	                                    <div>기타사항</div>
-	                                    <div class="content-inblock hos-box text-auto">
-	                                        <p><%=hr.getHosContent() %></p>
-	                                    </div>
-	                                    <% }else { %>
-	                                    <div>기타사항</div>
-	                                    <div class="content-inblock hos-box text-auto">
-	                                        <p>작성하지않음</p>
-	                                    </div>
-	                                    <% } %>
-	                                    
-                                    <% } else { %>
+                                
+                                <c:choose>
+                                   <c:when test="${!empty hr}">
+                                   
+                                      <div class="content-top"></div>
+                                      <div class="content-top"></div>
+                                      
+                                       <div class="text-hidden">이름 : ${hr.petName}</div>
+                                       <div>일자 : ${hr.hosDate}</div>
+                                       
+                                       <div class="content-top"></div>
+                                       
+                                     <div class="text-hidden">예방접종 종류 : <c:out value="${ hr.hosVaccination }" default="작성하지 않음" /></div>
+                                     
+                                      <div class="text-hidden">질병 여부 : <c:out value="${ hr.hosIllness }" default="작성하지 않음" /></div>
+                                          
+                                      <div class="text-hidden">약 복용기록 : <c:out value="${ hr.hosMedicine }" default="작성하지 않음" /></div>
+                                           
+                                      <div class="content-top"></div>
+                                          
+                                     <div>기타사항</div>
+                                     <div class="content-inblock hos-box text-auto">
+                                         <p><c:out value="${hr.hosContent}" default="작성하지 않음" /></p>
+                                     </div>
+                                      
+                                   </c:when>
+                                   
+                                   <c:otherwise>    
                                     <div>
                                     <div class="content-top"></div>
                                     <div class="content-top"></div>
                                     <div class="content-inblock hos-box text-auto">내용을 작성해 주세요</div>
                                     </div>
-                                    <% } %>
+                                    </c:otherwise>
+                                    
+                                    </c:choose>
                                 </div>
                                 
                         <div class="btn-right">
@@ -198,31 +183,37 @@
                         
                             
                             <div align="center">
-								<% if(wr == null) {%>
-                                <div class="content-top">
-                                    <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="350" height="250">
-                                </div>
-                                <div class="content-top"></div>
-                                <div class="text-hidden">
-                                    <b>산책기록을 작성해 주세요</b>
-                                </div>
-								<% } else { %>
-								<div class="content-top">
-                                    <img src="<%=contextPath%>/<%=wr.getFileNo() %>" alt="산책기본" width="350" height="250">
-                                </div>
-                                
-                                <div class="content-top"></div>
-                                <div class="text-hidden">
-                                    <b><%=wr.getWalkTitle() %></b>
-                                </div>
-
-                                <div class="content-top"></div>
-                                <div class="content-inblock walk-box text-auto">
-                                    <p><%=wr.getWalkContent() %></p>
-                                </div>
-                            </div>
-							<% } %>
-                        
+                            
+                               <c:choose>
+                               
+                                  <c:when test="${empty wr}">
+                                      <div class="content-top">
+                                          <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="350" height="250">
+                                      </div>
+                                      <div class="content-top"></div>
+                                      <div class="text-hidden">
+                                          <b>산책기록을 작성해 주세요</b>
+                                      </div>
+                                   </c:when>
+                                   
+                                   <c:otherwise>
+                              <div class="content-top">
+                                          <img src="<%=contextPath%>/${wr.fileNo}" alt="산책기본" width="350" height="250">
+                                      </div>
+                                      
+                                      <div class="content-top"></div>
+                                      <div class="text-hidden">
+                                          <b>${wr.walkTitle}</b>
+                                      </div>
+      
+                                      <div class="content-top"></div>
+                                      <div class="content-inblock walk-box text-auto">
+                                          <p>${wr.walkContent}</p>
+                                      </div>
+                                  </div>
+                           </c:otherwise>
+                           
+                           </c:choose>
 
                         <div class="btn-right">
                             <a href="<%=contextPath %>/walkList.my?cpage=1" class="btn btn-sm btn-secondary">more</a>
@@ -235,6 +226,6 @@
 
         </div>
 
-	
+   
 </body>
 </html>

@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-    HosRecords hr = (HosRecords)request.getAttribute("hr");
-	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +76,7 @@
 	<div class="content-area">
 
         <form action="<%=contextPath%>/hosUpdate.my" method="post">
-            <input type="hidden" name="hno" value="<%=hr.getHosNo() %>">
+            <input type="hidden" name="hno" value="${hr.hosNo}">
             <div id="sug-content">
 
                 <div>
@@ -95,15 +91,17 @@
                             <div class="float-left">이름</div>
                             <div class="float-right">
                                 <select class="input-width" id="selectPetName" name="petNo">
-                                	<% for(Pet p : petList) {%>
-                                    	<option value="<%=p.getPetNo()%>"><%=p.getPetName() %></option>
-                                    <% } %>
+                                	
+                                	<c:forEach var="p" items="${petList}">
+                                		<option value="${p.petNo}">${p.petName}</option>
+                                	</c:forEach>
+                                	
                                 </select>
                             </div>
                         </div>
 
                         <script>
-                            $("#selectPetName").val("<%=hr.getPetNo() %>").prop("selected", true);
+                            $("#selectPetName").val("${hr.petNo}").prop("selected", true);
                         </script>
 
                         <div class="contentSize">
@@ -115,7 +113,7 @@
                              $(function () {
 
                                 const dateControl = document.querySelector('input[type="date"]')
-                                dateControl.value = '<%=hr.getHosDate()%>'
+                                dateControl.value = '${hr.hosDate}'
                                 //console.log(dateControl.value)
 
                                 });
@@ -123,39 +121,23 @@
 
                         <div class="contentSize">
                             <div class="float-left">예방접종 종류</div>
-                            <% if(hr.getHosVaccination() == null) { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosVaccination"></div>
-                            <% } else { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosVaccination" value="<%=hr.getHosVaccination()%>"></div>
-                        	<% } %>
+                            <div class="float-right"><input type="text" class="input-width" name="hosVaccination" value="${ hr.hosVaccination }"></div>
                         </div>
 
                         <div class="contentSize">
                             <div class="float-left">질병 여부</div>
-                            <% if(hr.getHosIllness() == null) { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosIllness"></div>
-                            <% } else { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosIllness" value="<%=hr.getHosIllness()%>"></div>
-                            <% } %>
+                            <div class="float-right"><input type="text" class="input-width" name="hosIllness" value="${ hr.hosIllness }"></div>
                         </div>
 
                         <div class="contentSize">
                             <div class="float-left">약 복용 기록</div>
-                            <% if(hr.getHosMedicine() == null) { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosMedicine"></div>
-                            <% } else { %>
-                            <div class="float-right"><input type="text" class="input-width" name="hosMedicine" value="<%=hr.getHosMedicine()%>"></div>
-                            <% } %>
+                            <div class="float-right"><input type="text" class="input-width" name="hosMedicine" value="${ hr.hosMedicine }"></div>
                         </div>
                         <br>
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <% if(hr.getHosContent() == null) { %>
-                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="hosContent"> </textarea></div>
-                            <% } else { %>
-                            	<div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="hosContent"><%=hr.getHosContent()%></textarea></div>
-                        	<% } %>
+                            	<div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="hosContent">${ hr.hosContent }</textarea></div>
                         </div>
 
                         <div class="btn-right">

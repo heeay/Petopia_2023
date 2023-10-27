@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	ArrayList<HosRecords> hosList = (ArrayList<HosRecords>)request.getAttribute("hosList");
-
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +62,7 @@
                 <form action="<%=contextPath %>/hosList.my">
                 <div class="btn-right pad-top" style="border-top:none;">
                     <input type="date" name="startDate"> ~ <input type="date" name="endDate">
-                    <input type="hidden" name="cpage" value="<%=currentPage%>">
+                    <input type="hidden" name="cpage" value="${currentPage}">
                     <button type="submit" class="btn-sm btn-secondary">조회</button>
                 </div>
                 </form>
@@ -113,32 +103,27 @@
                 </thead>
 
                 <tbody>
-                	<% if(hosList.isEmpty()) { %>
+                	<c:choose>
+                		<c:when test="${empty hosList}">
                         	<tr>
                         		<td colspan="3" align="center" class="pointer-events-none">등록된 기록이 없습니다.</td>
                         	</tr>
-                        <% }else { %>
-                       		<% for(int i=hosList.size(); i>0; i--){ %>
+                        </c:when>
+                        <c:otherwise>
+                        	<c:forEach var="hos" items="${ hosList }" varStatus="status">
                                 <tr>
-                                    <input type="hidden" name="hno" value="<%=hosList.get(i-1).getHosNo() %>">
+                                    <input type="hidden" name="hno" value="${hos.hosNo}">
                                     
-                                    <td><%=i%></td>
-                                    <td><%=hosList.get(i-1).getHosDate() %></td>
-                                    <td><%=hosList.get(i-1).getPetName() %></td>
+                                    <td>${status.count}</td>
+                                    <td>${hos.hosDate}</td>
+                                    <td>${hos.petName}</td>
                                     <td style="width: 20px; border-top:none;">
-				                        <a href="<%=contextPath%>/deleteHos.my?hno=<%=hosList.get(i-1).getHosNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+				                        <a href="<%=contextPath%>/deleteHos.my?hno=${hos.hosNo}" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
 				                    </td>
                         	    </tr>
-                        	<% } %>
-                        <% } %>
-                	<!-- 
-                    <td>1.</td>
-                    <td>2023-09-27</td>
-                    <td>제리</td>
-                    <td style="width: 20px; border-top:none;">
-                        <button type="button" class="btn btn-sm btn-secondary">—</button>
-                    </td>
-                     -->
+                        	</c:forEach>
+                        </c:otherwise>
+                	</c:choose>
                 </tbody>
 
             </table>
@@ -156,21 +141,22 @@
         </div>
 
         <div class="page-btn">
-           	<% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
-        	<% } %>
-        	
-        	<% for(int i = startPage; i <= endPage; i++) { %>
-        		<% if(currentPage != i) { %>
-        			<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
-        		<% } else {%>
-        			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
-        		<% } %>
-        	<% } %>
-        	
-        	<% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
-        	<% } %>
+        	<c:if test="${ pi.currentPage ne 1 }">
+        		<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${pi.currentPage-1}'" class="btn btn-sm btn-secondary">&lt;</button>
+        	</c:if>
+        	<c:forEach var="i" begin="${ pi.startPage }" end="${pi.endPage}">
+        		<c:choose>
+        			<c:when test="${ pi.currentPage ne 1 }">
+	        			<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${i}'" class="btn btn-sm btn-secondary">${i}</button>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<button disabled class="btn btn-sm btn-gracolors">${i}</button>
+	        		</c:otherwise>
+        		</c:choose>
+        	</c:forEach>
+        	<c:if test="${ pi.currentPage ne maxPage }">
+            	<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${pi.currentPage+1}'" class="btn btn-sm btn-secondary">&gt;</button>
+        	</c:if>
         </div>
 
 	</div>

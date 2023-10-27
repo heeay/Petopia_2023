@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	ArrayList<Suggestion> sugList = (ArrayList<Suggestion>)request.getAttribute("sugList");
-
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,25 +74,28 @@
                 </thead>
 
                 <tbody>
-                	<% if(sugList.isEmpty()) { %>
+                <c:choose>
+                	<c:when test="${empty sugList}">
                         	<tr>
                         		<td colspan="4" align="center" class="pointer-events-style">요청된 건의사항이 없습니다.</td>
                         	</tr>
-                        <% }else { %>
-                       		<% for(int i= 0; i<sugList.size(); i++){ %>
+                        </c:when>
+                        <c:otherwise>
+                        	<c:forEach var="sug" items="${sugList}">
                                 <tr>
-                                    <input type="hidden" name="sno" value="<%=sugList.get(i).getSugNo() %>">
+                                    <input type="hidden" name="sno" value="${sug.sugNo}">
                                     
-                                    <td><%=sugList.get(i).getInd() %></td>
-                                    <td><%=sugList.get(i).getSugTitle() %></td>
-                                    <td><%=sugList.get(i).getUserEmail() %></td>
-                                    <td><%=sugList.get(i).getSugDate() %></td>
+                                    <td>${sug.ind}</td>
+                                    <td>${sug.sugTitle}</td>
+                                    <td>${sug.userEmail}</td>
+                                    <td>${sug.sugDate}</td>
                                     <td style="width: 20px; border-top:none;">
-				                        <a href="<%=contextPath%>/deleteSug.my?sno=<%=sugList.get(i).getSugNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+				                        <a href="<%=contextPath%>/deleteSug.my?sno=${sug.sugNo}" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
 				                    </td>
                         	    </tr>
-                        	<% } %>
-                        <% } %>
+                        	</c:forEach>
+                        	</c:otherwise>
+                        </c:choose>
                 </tbody>
 
             </table>
@@ -120,21 +113,22 @@
         </div>
 
         <div class="page-btn">
-           	<% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
-        	<% } %>
-        	
-        	<% for(int i = startPage; i <= endPage; i++) { %>
-        		<% if(currentPage != i) { %>
-        			<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
-        		<% } else {%>
-        			<button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
-        		<% } %>
-        	<% } %>
-        	
-        	<% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
-        	<% } %>
+        	<c:if test="${ pi.currentPage ne 1 }">
+        		<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=${pi.currentPage-1}'" class="btn btn-sm btn-secondary">&lt;</button>
+        	</c:if>
+        	<c:forEach var="i" begin="${ pi.startPage }" end="${pi.endPage}">
+        		<c:choose>
+        			<c:when test="${ pi.currentPage ne 1 }">
+	        			<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=${i}'" class="btn btn-sm btn-secondary">${i}</button>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<button disabled class="btn btn-sm btn-gracolors">${i}</button>
+	        		</c:otherwise>
+        		</c:choose>
+        	</c:forEach>
+        	<c:if test="${ pi.currentPage ne maxPage }">
+            	<button onclick="location.href='<%=contextPath%>/sugList.my?cpage=${pi.currentPage+1}'" class="btn btn-sm btn-secondary">&gt;</button>
+        	</c:if>
         </div>
 
 	</div>

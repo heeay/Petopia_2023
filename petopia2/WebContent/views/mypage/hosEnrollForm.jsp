@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,9 +89,9 @@
                             <div class="float-left">이름</div>
                             <div class="float-right">
                                 <select class="input-width" name="petNo">
-                                	<% for(Pet p : petList) {%>
-                                    	<option value="<%=p.getPetNo() %>"><%=p.getPetName() %></option>
-                                    <% } %>
+                                	<c:forEach var="p" items="${ petList }">
+                                    	<option value="${p.petNo}">${p.petName}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>

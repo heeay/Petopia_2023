@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="petopia.com.kh.jsp.user.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String contextPath = request.getContextPath();
 	User userInfo = (User)session.getAttribute("userInfo");
@@ -180,10 +181,9 @@
             $(document).bind("", function(){return false});
         })
 
-        const msg = '<%= alertMsg %>';
-        if(msg != 'null') {
+        if(${alertMsg} != 'null') {
             alert(msg);
-            <% session.removeAttribute("alertMsg"); %>
+            <c:remove var="alertMsg" scope="session" />
         }
     </script>
 
@@ -215,21 +215,28 @@
 
             <div class="profil-bar">
                 <div class="profil">
-                <% if(userInfo.getFileMypageNo().equals("/")) {%>
-                	<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필" width="200px" height="200px">
-                <% } else {%>
-                <%
-                String url = userInfo.getFileMypageNo();
-                if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                %>
-                	<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
-                <%} else { %>
-                	<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
-                <%} %>
-                <% } %>
+                
+                <c:choose>
+                	<c:when test="${ empty userInfo.fileMypageNo}">
+                		<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필" width="200px" height="200px">
+                	</c:when>
+                	
+                	<c:otherwise>
+	                	<c:choose>
+	                		<c:when test="${ !userInfo.fileMypageNo.substring(0, userInfo.fileMypageNo.indexOf('/')).equals('https:')&&!userInfo.fileMypageNo.substring(0, userInfo.fileMypageNo.indexOf('/')).equals('http:')}">
+		                		<img src="<%=contextPath%>/${userInfo.fileMypageNo}" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
+		                	</c:when>
+		                	
+		                	<c:otherwise>
+		                		<img src="${userInfo.fileMypageNo}" class="rounded-circle" alt="프로필기본" width="200px" height="200px">
+		                	</c:otherwise>
+		                </c:choose>
+	                </c:otherwise>
+                </c:choose>
+                
                 </div>
                 <br>
-                <div id="profil-name"><b><%=userInfo.getUserNickname() %> 님</b></div>
+                <div id="profil-name"><b>${userInfo.userNickname} 님</b></div>
             </div>
 
             <div id="sidemenu">

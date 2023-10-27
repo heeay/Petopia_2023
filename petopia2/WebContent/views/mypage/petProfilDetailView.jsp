@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	Pet p = (Pet)request.getAttribute("p");
-	// 번호, 카테고리명, 제목, 내용, 작성자 아이디, 작성일
-	
-	PetFile pt = (PetFile)request.getAttribute("pt");
-	// 파일번호, 원본명, 수정된이름, 저장경로 || null
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,7 +121,7 @@
             <div class="mg-a">
 
                 <form action="<%=contextPath%>/petUpdate.my" enctype="multipart/form-data" method="post">
-                    <input type="hidden" name="pno" value="<%=p.getPetNo()%>">
+                    <input type="hidden" name="pno" value="${p.petNo}">
                     <div>
                         <p class="profil-content-name">프로필 상세보기</p>
                         <div>
@@ -138,7 +131,7 @@
 
                                     <div class="profil-name">
                                         이름
-                                        <div class="profil-align-right"><input type="text" name="petName" value="<%=p.getPetName()%>"></div>
+                                        <div class="profil-align-right"><input type="text" name="petName" value="${p.petName}"></div>
                                     </div>
 
                                     <div class="profil-name">
@@ -155,18 +148,18 @@
                                         </div>
                                     </div>
                                     <script>
-                                        $('#petSpecies option[value=<%=p.getPetSpecies()%>]').attr('selected','selected');
+                                        $('#petSpecies option[value=${p.petSpecies}]').attr('selected','selected');
                                     </script>
                                     
                                     
                                     <div class="profil-name">
                                         세부종
-                                        <div class="profil-align-right"><input type="text" name="petSpecific" value="<%=p.getPetSpecific()%>"></div>
+                                        <div class="profil-align-right"><input type="text" name="petSpecific" value="${p.petSpecific}"></div>
                                     </div>
                                     
                                     <div class="profil-name">
                                         몸무게
-                                        <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" class="petWeight-width" value="<%=p.getPetWeight()%>">&nbsp; Kg</div>
+                                        <div class="profil-align-right"><input type="number" name="petWeight" min="0" max="100" class="petWeight-width" value="${p.petWeight}">&nbsp; Kg</div>
                                     </div>
 
                                     <div class="profil-name">
@@ -182,7 +175,7 @@
                                     </div>
                                     
                                     <script>
-                                        $("input:radio[name='petGender']:radio[value='<%=p.getPetGender()%>']").prop('checked', true);
+                                        $("input:radio[name='petGender']:radio[value='${p.petGender}']").prop('checked', true);
                                     </script>
                                     
                             </div>
@@ -192,18 +185,21 @@
                                     <div class="profil-name">
                                     성격
                                         <div class="profil-align-right">
-                                            <input type="text" name="petPersonality" value="<%=p.getPetPersonality()%>">
+                                            <input type="text" name="petPersonality" value="${p.petPersonality}">
                                         </div>
                                     </div>
         
                                     <div class="profil-name2">
                                         기타사항
                                         <div class="profil-align-right">
-                                        <% if(p.getPetEtc() != null) { %>
-                                            <textarea name="petEtc" cols="35" rows="7"><%=p.getPetEtc()%></textarea>
-                                        <% } else {%>
-                                            <textarea name="petEtc" cols="35" rows="7"></textarea>
-                                        <% } %>
+                                        <c:choose>
+                                        <c:when test="${!empty p.petEtc}">
+	                                            <textarea name="petEtc" cols="35" rows="7">${p.petEtc}</textarea>
+	                                        </c:when>
+	                                        <c:otherwise>
+	                                            <textarea name="petEtc" cols="35" rows="7"></textarea>
+	                                        </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <div class="profil-name3">
@@ -214,16 +210,16 @@
                                 </div>
                                 <div class="profil-name3">
                                     기존사진 : 
-                                    <a href="<%=contextPath%>/<%=pt.getFilePath()%>/<%=pt.getUploadName()%>" download="<%=pt.getOriginalName()%>">
-                                        <%=pt.getOriginalName()%>
-                                        <input type="hidden" name="petFileNo" value="<%=pt.getFileNo()%>">
+                                    <a href="<%=contextPath%>/${pt.filePath}/${pt.uploadName}" download="${pt.originalName}">
+                                        ${pt.originalName}
+                                        <input type="hidden" name="petFileNo" value="${pt.fileNo}">
                                     </a>
                                 </div>
                             </div>
 
                             <div class="btn-wid">
                                 <button type="submit" class="btn btn-sm btn-secondary">수정하기</button>
-                                <a href="<%=contextPath%>/deletePet.my?pno=<%=p.getPetNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 관련된 모든 기능이 같이 삭제되어 복구할수 없습니다. \n정말 삭제하시겠습니까??')){return false;}">삭제하기</a>
+                                <a href="<%=contextPath%>/deletePet.my?pno=${p.petNo}" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 관련된 모든 기능이 같이 삭제되어 복구할수 없습니다. \n정말 삭제하시겠습니까??')){return false;}">삭제하기</a>
                             </div>
 
                         </div>

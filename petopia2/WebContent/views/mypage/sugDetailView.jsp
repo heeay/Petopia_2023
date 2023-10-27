@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="petopia.com.kh.jsp.mypage.model.vo.*, java.util.ArrayList"%>
-    <%
-        Suggestion sug = (Suggestion)request.getAttribute("sug");
-        ArrayList<PetFile> file = (ArrayList)request.getAttribute("file");
-    %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,7 +92,7 @@
                 <div>
                     
                     <div>
-                        <div id="suggestion">건의사항 No.<%=sug.getSugNo() %></div>
+                        <div id="suggestion">건의사항 No.${sug.sugNo}</div>
                     </div>
                     
 
@@ -105,42 +101,44 @@
                         <div class="contentSize">
                             <div class="float-left">일자</div>
                             <div class="float-right sug-size">
-                                <span class="sug-text"><%=sug.getSugDate() %></span>
+                                <span class="sug-text">${sug.sugDate}</span>
                             </div>
                         </div>
                         
                         <div class="contentSize">
                             <div class="float-left">제목</div>
                             <div class="float-right sug-size">
-                                <span class="sug-text"><%=sug.getSugTitle() %></span>
+                                <span class="sug-text">${sug.sugTitle}</span>
                             </div>
                         </div>
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
                             <div class="float-right2">
-                                <textarea cols="82" rows="9" class="sug-text text-auto radius" readonly><%=sug.getSugContent() %></textarea>
+                                <textarea cols="82" rows="9" class="sug-text text-auto radius" readonly>${sug.sugContent}</textarea>
                             </div>
                         </div>
 
                         <div class="contentSize3">
-                            <% if(!file.isEmpty()) { %>
-                                <% for(int i=0; i<file.size(); i++) { %>
-                                    <div class="contentSize">
-                                        <div class="float-left">첨부파일<%= i+1 %></div>
-                                        
-                                        <div class="float-right">
-                                            <a href="<%=contextPath%>/<%= file.get(i).getFilePath() %>/<%=file.get(i).getUploadName() %>" download="<%=file.get(i).getOriginalName()%>">
-                                                <%=file.get(i).getOriginalName()%>
-                                            </a>
-                                        </div>
-                                    </div>
-                                <% } %>    
-                            <% } else {%>
-                                <br><br>
-                                <div>첨부파일이 존재하지 않습니다.</div>
-                            <% } %>
-                           
+                        	<c:choose>
+                        		<c:when test="${!empty file}">
+                        			<c:forEach var="file" items="${file}">
+	                                    <div class="contentSize">
+	                                        <div class="float-left">첨부파일</div>
+	                                        
+	                                        <div class="float-right">
+	                                            <a href="<%=contextPath%>/${file.filePath}/${file.uploadName}" download="${file.originalName}">
+	                                                ${file.originalName}
+	                                            </a>
+	                                        </div>
+	                                    </div>
+	                                </c:forEach>
+	                            </c:when>
+	                            <c:otherwise>    
+	                                <br><br>
+	                                <div>첨부파일이 존재하지 않습니다.</div>
+	                            </c:otherwise>
+                           </c:choose>
                         </div>
 
                         <div class="btn-right">

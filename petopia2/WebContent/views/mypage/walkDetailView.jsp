@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	WalkRecords wr = (WalkRecords)request.getAttribute("wr");
-    PetFile pf = (PetFile)request.getAttribute("pf");
-	ArrayList<Pet> petList = (ArrayList<Pet>)request.getAttribute("petList");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +78,7 @@
 
     <div class="content-area">
         <form action="<%=contextPath%>/walkUpdate.my" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="wno" value="<%=wr.getWalkNo() %>">
+            <input type="hidden" name="wno" value="${wr.walkNo}">
             <div id="sug-content">
 
                 <div>
@@ -97,38 +92,38 @@
                         
                         <div class="contentSize">
                             <div class="float-left">제목</div>
-                            <div class="float-right"><input type="text" class="input-width" name="walkTitle" value="<%=wr.getWalkTitle()%>" required></div>
+                            <div class="float-right"><input type="text" class="input-width" name="walkTitle" value="${wr.walkTitle}" required></div>
                         </div>
 
                         <div class="contentSize">
                             <div class="float-left">이름</div>
                             <div class="float-right">
                                 <select class="input-width" name="petNo" style="border: none;" id="selectPetName">
-                                	<% for(Pet p : petList) {%>
-                                    	<option value="<%=p.getPetNo() %>"><%=p.getPetName() %></option>
-                                    <% } %>
+                                	<c:forEach var="p" items="${petList}">
+                                    	<option value="${p.petNo}">${p.petName}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
 
                         <script>
-                            $("#selectPetName").val("<%=wr.getPetNo() %>").prop("selected", true);
+                            $("#selectPetName").val("${wr.petNo}").prop("selected", true);
                         </script>
 
                         <input type="hidden" name="walkDate">
 
                         <div class="contentSize2">
                             <div class="float-left">내용</div>
-                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="walkContent" required><%=wr.getWalkContent() %></textarea></div>
+                            <div class="float-right2"><textarea cols="85" rows="9" style="resize:none;" name="walkContent" required>${wr.walkContent}</textarea></div>
                         </div>
                         <br><br>
 
                         <div class="contentSize1">
                             <div>
                                 기존파일
-                        	    <a href="<%=contextPath%>/<%=pf.getFilePath()%>/<%=pf.getUploadName()%>" download="<%=pf.getOriginalName()%>">
-                                    <%=pf.getOriginalName()%>
-                                    <input type="hidden" name="walkFileNo" value="<%=pf.getFileNo()%>">
+                        	    <a href="<%=contextPath%>/${pf.filePath}/${pf.uploadName}" download="${pf.originalName}">
+                                    ${pf.originalName}
+                                    <input type="hidden" name="walkFileNo" value="${pf.fileNo}">
                                 </a>
                             </div>
 

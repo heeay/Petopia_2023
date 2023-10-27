@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	String bcount = (String)request.getAttribute("bcount");
-	String lastDate = (String)request.getAttribute("lastDate");
-	String getRoleId = (String)request.getAttribute("getRoleId");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,7 +128,7 @@
                 <div class="cricle">
 
                     <div class="text-null"></div>
-                    <div class="text-bold"><%=userInfo.getRoleId() %></div>
+                    <div class="text-bold">${userInfo.roleId}</div>
 
                     <div class="text-null"></div>
                     <div class="text-null"></div>
@@ -145,54 +140,53 @@
                     </div>
 
                     <script>
-                        //console.log('<%=userInfo.getRoleId() %>');
-                        if('<%=userInfo.getRoleId() %>' === '관리자'){
-                            let variable = document.getElementById('percent');
-                            //variable.dataset.width;
-                            variable.dataset.width = 100;
-
-                            variable.innerHTML = '관리자입니다';
-                        }
-                        else if('<%=userInfo.getRoleId() %>' === '초급'){
-                            var grade =11;
-                        }
-                        else if('<%=userInfo.getRoleId() %>' === '중급'){
-                            var grade = 31;
-                        }
-                        else if('<%=userInfo.getRoleId() %>' === '고급'){
-                            let variable = document.getElementById('percent');
-
-                           // variable.dataset.width;
-                            variable.dataset.width = 100;
-
-                            variable.innerHTML = '최종 등급입니다';
-                       }
+                        <c:choose>
+	                        <c:when test="${userInfo.roleId eq '관리자'}" >
+	                        	var variable = document.getElementById('percent');
+	                            //variable.dataset.width;
+	                            variable.dataset.width = 100;
+	
+	                            variable.innerHTML = '관리자입니다';
+	                        </c:when>
+	                        <c:when test="${userInfo.roleId eq '초급'}" >
+	                            var grade =11;
+	                        </c:when>
+	                        <c:when test="${userInfo.roleId eq '중급'}" >
+	                            var grade = 31;
+	                        </c:when>
+	                        <c:otherwise>
+		                        var variable = document.getElementById('percent');
+		
+		                        //variable.dataset.width;
+		                        variable.dataset.width = 100;
+		
+		                        variable.innerHTML = '최종 등급입니다';
+	                       </c:otherwise>
+                       </c:choose> 
+                       var myInt = '${bcount}';
+                       var myGrade = Math.abs(grade-myInt);
+                       var percent = Math.ceil((myInt/grade)*100);
                         
-                        let myInt = '<%=bcount %>';
-                        let myGrade = Math.abs(grade-myInt);
-                        let percent = Math.ceil((myInt/grade)*100);
-                        
-                        //console.log(myInt);
-                        //console.log(myGrade);
+                       var str = document.getElementById("count");
+                       str.innerHTML = percent+'%';
 
-                        let str = document.getElementById("count");
-                        str.innerHTML = percent+'%';
-
-                        let variable = document.getElementById('percent');
-                        //variable.dataset.width;
-                        variable.dataset.width = percent;
-                       // console.log(variable.dataset.width);
+                       var variable = document.getElementById('percent');
+                       //variable.dataset.width;
+                       variable.dataset.width = percent;
                     </script>
 
                     <div class="text-null"></div>
-                    <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b><%=bcount %></b>개</div>
+                    <div class="text-stand">게시글 수&nbsp;:&nbsp;&nbsp;<b>${bcount}</b>개</div>
                     
                     <div class="text-null2"></div>
-                    <% if(lastDate!= null) {%>
-                        <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b><%=lastDate %></b></div>
-                    <% } else { %>
-                        <div class="text-stand">마지막 게시글&nbsp;: <b>게시글</b>을 <b>작성</b>하세요!</div>
-                    <% }  %>
+                    <c:choose>
+                    	<c:when test="${!empty lastDate}" >
+	                        <div class="text-stand">마지막 게시글&nbsp;:&nbsp;&nbsp;<b>${lastDate}</b></div>
+	                    </c:when>
+	                    <c:otherwise>
+	                        <div class="text-stand">마지막 게시글&nbsp;: <b>게시글</b>을 <b>작성</b>하세요!</div>
+	                    </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <div class="text-null"></div>
@@ -204,54 +198,28 @@
         <div class="content2 top">
             <div class="point">
                 <div class="cricle cricle-margin">
-                    <!--
-                    
-                    <div class="text-null"></div>
-                    <div class="text-bold">❤ 0</div>
-
-                    <div class="text-null"></div>
-                    <div class="text-null"></div>
-                    <div class="text-stand">나의 매칭&nbsp;:&nbsp;&nbsp;0건</div>
-                    
-                    <div class="text-null"></div>
-                    <div class="text-null2"></div>
-
-                    <div class="text-stand">평균 점수&nbsp;: 
-                        <div class="stars">⭐(0.0)</div>
-                    </div>
-
-                    <div class="text-null2"></div>
-
-                    <div class="text-stand">최근 점수&nbsp;:
-                        <div class="stars">⭐(0.0)</div>
-                        <p class="text-small">* 최근 10건의 평균 점수 입니다.</p>
-                    </div>
-                    
-                </div>
-
-                <div class="text-null"></div>
-                <div class="text-bold">내 점수</div>
-            -->
                 <div class="petImg">
                 <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
                     
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
-                            <!--기존코드: userInfo.getFileMypageNo().equals("/") -->
-                            <!--강사님 수정코드: "/".equals(userInfo.getFileMypageNo()) -->
-                        	<% if("/".equals(userInfo.getFileMypageNo())) {%>
-                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
-                        	<% } else {%>
-                        	<%
-                			String url = userInfo.getFileMypageNo();
-                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                			%>
-                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본" id="titleImg" width="200px" height="200px">
-                			<%} else { %>
-                                <!-- 인터넷 이미지-->
-                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필기본"  id="titleImg" width="200px" height="200px">
-                			<%} %>
-                        	<% } %>
+                        	<c:choose>
+			                	<c:when test="${ empty userInfo.fileMypageNo}">
+			                		<img src="resources\images\profil.png" alt="기본프로필" width="200px" height="200px" id="titleImg">
+			                	</c:when>
+			                	
+			                	<c:otherwise>
+				                	<c:choose>
+				                		<c:when test="${ !userInfo.fileMypageNo.substring(0, userInfo.fileMypageNo.indexOf('/')).equals('https:')&&!userInfo.fileMypageNo.substring(0, userInfo.fileMypageNo.indexOf('/')).equals('http:')}">
+					                		<img src="${userInfo.fileMypageNo}" class="rounded-circle" alt="프로필기본" width="200px" height="200px" id="titleImg">
+					                	</c:when>
+					                	
+					                	<c:otherwise>
+					                		<img src="${userInfo.fileMypageNo}" class="rounded-circle" alt="프로필기본" width="200px" height="200px" id="titleImg">
+					                	</c:otherwise>
+					                </c:choose>
+				                </c:otherwise>
+			                </c:choose>
                         </div>
                         
                         <div class="text-null2"></div>

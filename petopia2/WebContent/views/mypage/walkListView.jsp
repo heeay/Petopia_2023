@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.mypage.model.vo.*"%>
-<%
-	ArrayList<WalkRecords> walkList = (ArrayList<WalkRecords>)request.getAttribute("walkList");
-	PetFile pf = (PetFile)request.getAttribute("pf");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,6 +74,7 @@
             padding-bottom: 110px;
         }
         .btn-right{float: right;}
+        .pointer-events-none{pointer-events: none;}
     </style>
     
 </head>
@@ -103,7 +94,7 @@
                     <form action="<%=contextPath %>/walkList.my">  
                         <p class="walk-date">
                             <input type="date" name="startDate"> ~ <input type="date" name="endDate">
-                            <input type="hidden" name="cpage" value="<%=currentPage%>">
+                            <input type="hidden" name="cpage" value="${pi.currentPage}">
                             <button type="submit" class="btn-sm btn-secondary">조회</button>
                         </p>
                     </form>
@@ -142,83 +133,33 @@
                 </script>
 
                 <div class="walk-list" id="list-area">
-                    <% if(walkList.isEmpty()) { %>
-                        	<div>
-                        		<div align="center">등록된 기록이 없습니다.</div>
-                        	</div>
-                        <% }else { %>
-                       		<% for(int i=0; i<walkList.size(); i++){ %>
-                            <div class="walkcontent content1">
-                                <input type="hidden" name="wno" value="<%=walkList.get(i).getWalkNo() %>">
-        
-                                <div class="btn-right">
-                                    <a href="<%=contextPath%>/deleteWalk.my?wno=<%=walkList.get(i).getWalkNo() %>" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
-                                </div>
-
-                                <div>
-                                    <img src="<%=contextPath%>/<%=walkList.get(i).getFileNo() %>" alt="산책기본" width="300" height="200">
-                                </div>
-
-                                <div>
-                                    <p class="walk-1"><%=walkList.get(i).getWalkTitle() %></p>
-                                    <p class="walk-2"><%=walkList.get(i).getWalkDate() %></p>
-                                </div>
-        
-                            </div>
-                            <% } %>
-                        <% } %>    
-                        <!--
-                        <div class="walkcontent content1">
-
-                            <div>
-                                <input type="checkbox" class="check" style="margin: 0;">
-                            </div>
-
-                            <div>
-                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
-                            </div>
-
-                            <div>
-                                <p class="walk-1">오늘의 산책기록1</p>
-                                <p class="walk-2">2023-10-04</p>
-                            </div>
-
-                        </div>
-
-                        <div class="walkcontent content2">
-
-                            <div>
-                                <input type="checkbox" class="check" style="margin: 0;">
-                            </div>
-
-                            <div>
-                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
-                            </div>
-
-                            <div>
-                                <p class="walk-1">오늘의 산책기록2</p>
-                                <p class="walk-2">2023-10-04</p>
-                            </div>
-
-                        </div>
-
-                        <div class="walkcontent content3">
-
-                            <div>
-                                <input type="checkbox" class="check" style="margin: 0;">
-                            </div>
-
-                            <div>
-                                <img src="<%=contextPath%>\resources\images\walk.png" alt="산책기본" width="300" height="200">
-                            </div>
-
-                            <div>
-                                <p class="walk-1">오늘의 산책기록3</p>
-                                <p class="walk-2">2023-10-04</p>
-                            </div>
-
-                        </div>
-                    	-->
+                	<c:choose>
+                		<c:when test="${empty walkList}">
+	                        <div>
+	                        	<div align="center" class="pointer-events-none">등록된 기록이 없습니다.</div>
+	                        </div>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<c:forEach var="walk" items="${walkList}" varStatus="status">
+	                            <div class="walkcontent content1">
+	                                <input type="hidden" name="wno" value="${walk.walkNo}">
+	                                <div class="btn-right">
+	                                    <a href="<%=contextPath%>/deleteWalk.my?wno=${walk.walkNo}" class="btn btn-sm btn-danger" onclick="if(!confirm('삭제하시면 복구할수 없습니다. \n삭제하시겠습니까??')){return false;}">—</a>
+	                                </div>
+	
+	                                <div>
+	                                    <img src="<%=contextPath%>/${walk.fileNo}" alt="산책기본" width="300" height="200">
+	                                </div>
+	
+	                                <div>
+	                                    <p class="walk-1">${walk.walkTitle}</p>
+	                                    <p class="walk-2">${walk.walkDate}</p>
+	                                </div>
+	                            </div>
+	                        </c:forEach>
+	                    </c:otherwise>
+                            
+                   </c:choose>     
                     
                     <div class="btn btn-sm btn-secondary btn-right"><a href="<%=contextPath %>/walkEnroll.my" class="color-black">작성하기</a></div>
                 </div>
@@ -227,7 +168,6 @@
                     $(function(){
                         $('#list-area>div').click(function(){
                             location.href="<%= contextPath %>/walkDetail.my?wno=" + $(this).children().eq(0).val();
-                           
                         });
                     })
     
@@ -236,21 +176,23 @@
             </div>
 
             <div class="page-btn">
-                <% if(currentPage != 1) { %>
-                    <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=currentPage-1%>'" class="btn btn-sm btn-secondary">&lt;</button>
-                <% } %>
                 
-                <% for(int i = startPage; i <= endPage; i++) { %>
-                    <% if(currentPage != i) { %>
-                        <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=i%>'" class="btn btn-sm btn-secondary"><%= i %></button>
-                    <% } else {%>
-                        <button disabled class="btn btn-sm btn-gracolors"><%= i %></button>
-                    <% } %>
-                <% } %>
-                
-                <% if(currentPage != maxPage) { %>
-                    <button onclick="location.href='<%=contextPath%>/walkList.my?cpage=<%=currentPage+1%>'" class="btn btn-sm btn-secondary">&gt;</button>
-                <% } %>
+                <c:if test="${ pi.currentPage ne 1 }">
+        			<button onclick="location.href='<%=contextPath%>/walkList.my?cpage=${pi.currentPage-1}'" class="btn btn-sm btn-secondary">&lt;</button>
+        		</c:if>
+        		<c:forEach var="i" begin="${ pi.startPage }" end="${pi.endPage}">
+        		<c:choose>
+        			<c:when test="${ pi.currentPage ne 1 }">
+	        			<button onclick="location.href='<%=contextPath%>/walkList.my?cpage=${i}'" class="btn btn-sm btn-secondary">${i}</button>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<button disabled class="btn btn-sm btn-gracolors">${i}</button>
+	        		</c:otherwise>
+        		</c:choose>
+        		</c:forEach>
+        		<c:if test="${ pi.currentPage ne maxPage }">
+            		<button onclick="location.href='<%=contextPath%>/walkList.my?cpage=${pi.currentPage+1}'" class="btn btn-sm btn-secondary">&gt;</button>
+        		</c:if>
             </div>
 
         </div>

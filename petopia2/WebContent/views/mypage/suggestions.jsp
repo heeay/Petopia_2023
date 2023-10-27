@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,23 +144,28 @@
 	
         <div class="tbody">
             <div class="left-box">
-            <% if(!userInfo.getRoleId().equals("관리자")) { %>
-                <div class="sug-background">
-                    <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black">
-                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
-                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-                        <p class="font-size-15 padding-top-11">건의사항이 있을 시 클릭해주세요</p>
-                    </a>
-                </div>
-                <% } else { %>
-                	<div class="sug-background">
-                    <a href="<%=contextPath %>/sugList.my?cpage=1" class="color-black">
-                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 확인</p>
-                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-                        <p class="font-size-15 padding-top-11">건의사항내용 확인하기</p>
-                    </a>
-                </div>
-                <% } %>
+            
+	            <c:choose>
+	            <c:when test="${userInfo.roleId ne '관리자'}">
+	                <div class="sug-background">
+	                    <a href="<%=contextPath %>/views/mypage/suggestionEnrollForm.jsp" class="color-black">
+	                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 작성</p>
+	                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+	                        <p class="font-size-15 padding-top-11">건의사항이 있을 시 클릭해주세요</p>
+	                    </a>
+	                </div>
+	                </c:when>
+	                <c:otherwise>
+	                	<div class="sug-background">
+	                    <a href="<%=contextPath %>/sugList.my?cpage=1" class="color-black">
+	                        <p class="padding-top-10">&nbsp;&nbsp;&nbsp;💌&nbsp;&nbsp;1:1 건의사항 확인</p>
+	                        <p class="font-size-25">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+	                        <p class="font-size-15 padding-top-11">건의사항내용 확인하기</p>
+	                    </a>
+	                </div>
+	                </c:otherwise>
+	            </c:choose>
+            
                 <div class="sug-background sub-blank">
                     <a href="<%=contextPath %>/main.no" class="color-black">
                         <p class="padding-top-10">&nbsp;&nbsp;&nbsp;🔍&nbsp;&nbsp;공지사항 바로가기</p>
@@ -291,7 +297,6 @@
                         FaqBox__init();
                 </script>
 
-                
 
             </div>
 

@@ -33,6 +33,8 @@ public class MainBoardController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    // 새로 만들었어요!
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 쿼리스트링요청 /jsp/list.bo?cpage=1 GET방식 -> 인코딩 X
