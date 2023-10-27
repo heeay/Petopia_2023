@@ -1,15 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.InfoCategory, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.info.model.vo.InfoFile" %>
-<!-- 카테고리 중 인포에 관한 리스트를 불러옴 -->
-<%
-	ArrayList<InfoCategory> ctgList = (ArrayList<InfoCategory>)request.getAttribute("ctgList");
-	Info in = (Info)request.getAttribute("in");
-	ArrayList<InfoFile> fileList = (ArrayList<InfoFile>)request.getAttribute("fileList");
-%>
---%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,13 +144,6 @@
                 		<img src="<%= contextPath %>/${ file.filePath }/${ file.uploadName }" class="original-img">
                 		<input type="hidden" name="originalFileNo" value="${ file.fileNo }">
                 	</c:forEach>
-                	
-                	<%--
-                	<% for(int i = 0; i < fileList.size(); i++) { %>
-                		<img src="<%= contextPath %>/<%= fileList.get(i).getFilePath() %>/<%= fileList.get(i).getUploadName() %>" class="original-img">
-                		<input type="hidden" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
-                	<% } %>
-                	--%>
                 
                 </div>
                 
