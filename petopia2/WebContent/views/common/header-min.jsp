@@ -208,7 +208,7 @@
 
             /* alertMsg가 ""이면?? */
             	//alert('${ alertMsg }');
-            	<c:remove var="alertMsg" /> 
+            	//<c:remove var="alertMsg" /> 
         })
     </script>
     
@@ -253,7 +253,7 @@
         <div id="fixed-header-bar-wrap">
             <div id="header-bar">
                 <div class="header-logo">
-                    <a href="/petopia"><img class="logo" src="/resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
+                    <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
                     <!--  -->
                 </div>
                 <ul class="header-navi">
@@ -263,7 +263,7 @@
                     <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                	<c:choose>
+               <c:choose>
                 		<c:when test="${ empty userInfo }">
                     		<li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
                     	</c:when>
@@ -273,13 +273,13 @@
 	                                
 	                             <c:choose>
 	                             		<c:when test="${ userInfo.fileMypageNo eq '/' }">
-	                                    	<img src="/resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+	                                    	<img src="./resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
 	                                	</c:when>
 	                                	<c:otherwise>
 			                             	<c:set var="url" value="${ userInfo.fileMypageNo }" />
 			                             	<c:choose>
 				                             	<c:when test="${(url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
-				                                    <img src="<%=contextPath%>/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                    <img src="/petopia/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 				                                </c:when>
 			                
 				                                <c:otherwise>
@@ -293,7 +293,7 @@
 	                        </a></span>님</li>
 	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
-                    </c:choose>
+                </c:choose>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                         <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
