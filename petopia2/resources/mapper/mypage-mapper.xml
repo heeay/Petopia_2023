@@ -16,7 +16,9 @@
 		<result column="PET_NO" property="petNo"/>
 	</resultMap>
 	
-	<select id="selectHosListCount" resultType="_int" parameterType="hos">
+	<!-- ===================== SQL ===================== -->
+	<!-- =============================================== -->
+	<select id="selectHosListCount" parameterType="_int" resultType="_int">
 		 SELECT 
 				COUNT(*) 
 		   FROM 
@@ -24,12 +26,36 @@
 		   JOIN 
 		  		TB_PET USING (PET_NO) 
 		  WHERE 
-		 		USER_NO = #{userNo} 
+		 		USER_NO = #{userNo}
 	</select>
 	
-	
-	<!-- ===================== SQL ===================== -->
-	<!-- =============================================== -->
-	
+	<select id="selectHosList" parameterType="_int" resultMap="hosResultSet">
+		 SELECT * 
+           FROM (SELECT ROWNUM IND,
+					    HOS_NO,
+					    TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+						PET_NAME
+				   FROM TB_HOS_RECORDS 
+				   JOIN TB_PET USING (PET_NO) 
+				  WHERE USER_NO = #{userNo} 
+				  ORDER BY HOS_NO DESC) 
+		  ORDER BY IND DESC
+	</select>
+	<select id="selectDayList">
+		SELECT * 
+		  FROM (SELECT * 
+	              FROM (SELECT ROWNUM IND,
+						       HOS_NO,
+						       TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+							   PET_NAME
+					      FROM TB_HOS_RECORDS 
+					      JOIN TB_PET USING (PET_NO) 
+					     WHERE USER_NO = #{userNo} 
+					     ORDER BY HOS_NO DESC) 
+			     ORDER BY IND DESC)
+		 WHERE HOS_DATE BETWEEN TO_DATE (#{startDate} AND TO_DATE (#{endDate})+1
+		  
+
+	</select>
   
 </mapper>

@@ -7,7 +7,9 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
@@ -21,6 +23,9 @@ import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public class PetService {
+	
+	private PetDao petDao = new PetDao();
+	
 
 	public ArrayList<Pet> selectPetList(PageInfo pi, User loginUser) {
 		Connection conn = getConnection();
@@ -127,18 +132,17 @@ public class PetService {
 		return result1*result2;
 	}
 
-	public int selectHosListCount(User loginUser) {
+	public int selectHosListCount(int userNo) {
 		SqlSession sqlSession = Template.getSqlSession();
-		int hosListCount = new PetDao().selectHosListCount(sqlSession, loginUser);
+		int result = petDao.selectHosListCount(sqlSession, userNo);
 		sqlSession.close();
-		return hosListCount;
+		return result;
 	}
 
-	public ArrayList<HosRecords> selectHosList(PageInfo pi, User loginUser, String startDate, String endDate) {
-		Connection conn = getConnection();
-		ArrayList<HosRecords> hosList = new PetDao().selectHosList(conn, pi, loginUser, startDate, endDate);
-		//System.out.println(hosList);
-		close(conn);
+	public ArrayList<HosRecords> selectHosList(PageInfo pi, int userNo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		ArrayList<HosRecords> hosList = petDao.selectHosList(sqlSession, pi, userNo);
+		sqlSession.close();
 		return hosList;
 	}
 
@@ -383,6 +387,15 @@ public class PetService {
 		String result = new PetDao().selectR3(conn, loginUser);
 		commit(conn);
 		return result;
+	}
+
+	public ArrayList<HosRecords> selectDayList(PageInfo pi, HashMap<String, String> map) {
+		SqlSession sqlSession = Template.getSqlSession();
+		RowBounds rowBounds = new RowBounds(((pi.getCurrentPage()-1)*pi.getBoardLimit())
+											 ,pi.getBoardLimit());
+		ArrayList<HosRecords> searchList = petDao.selectDayList(sqlSession, map, rowBounds);
+		sqlSession.close();
+		return searchList;
 	}
 
 	
