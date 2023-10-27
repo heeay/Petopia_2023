@@ -1,11 +1,7 @@
 package petopia.com.kh.jsp.user.model.service;
 
 import java.sql.Connection;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
-import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.common.JDBCTemplate;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.dao.UserDao;

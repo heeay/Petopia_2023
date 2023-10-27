@@ -2,11 +2,7 @@ package petopia.com.kh.jsp.user.model.service;
 
 import java.util.HashMap;
 
-import org.apache.ibatis.session.SqlSession;
-
-import petopia.com.kh.jsp.common.template.Template;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
-import petopia.com.kh.jsp.user.model.dao.UserDao;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public interface UserService {
