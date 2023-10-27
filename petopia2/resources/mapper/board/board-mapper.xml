@@ -47,13 +47,18 @@
 						BOARD_CREATE_DATE,
 						FILE_IMG
 		FROM
-						BOARD
+						TB_BOARD
 	</select>
 	
 	
 	<update id="increaseViewCount">
-	
-	
+		UPDATE
+						TB_BOARD
+		SET
+						BOARD_VIEWS = BOARD_VIEWS + 1
+		WHERE
+						BOARD_NO = #{ boardNo}
+		
 	</update>
 	
 	
@@ -66,17 +71,36 @@
 						BOARD_CREATE_DATE,
 						FILE_IMG
 		FROM
-						BOARD
+						TB_BOARD
+		WHERE
+						BOARD_NO = #{ boardNo }
 	</select>
 	
 	
 	<select id="selectFileList">
-	
+		SELECT
+						FILE_NO, 
+						UPLOAD_NAME,
+						FILE_PATH
+		FROM
+						TB_FILE
+		JOIN
+						TB_BOARD ON (TB_FILE.REF_BNO = TB_BOARD.BOARD_NO)
+		WHERE
+						REF_BNO = #{ boardNo }
 	</select>
 	
 	
 	<select id="selectCategory">
-	
+		SELECT
+						CTG_NO,
+						CTG_NAME
+		FROM
+						TB_CATEGORY
+		JOIN
+						TB_BOARD USING (CTG_NO)
+		WHERE
+						BOARD_NO = #{ boardNo 
 	</select>
 
 
