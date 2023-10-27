@@ -37,7 +37,7 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="/mapper/user-mapper.xml"/>
+		<mapper resource="/mapper/user/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
 		<mapper resource="/mapper/info-mapper.xml"/>
 	</mappers>

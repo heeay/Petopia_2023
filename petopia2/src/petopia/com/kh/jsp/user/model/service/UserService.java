@@ -1,135 +1,129 @@
 package petopia.com.kh.jsp.user.model.service;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import petopia.com.kh.jsp.board.model.vo.Board;
-import petopia.com.kh.jsp.common.JDBCTemplate;
+import org.apache.ibatis.session.SqlSession;
+
+import petopia.com.kh.jsp.common.template.Template;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.dao.UserDao;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 public class UserService {
+	private UserDao userDao = new UserDao();
+	
 	public User loginUser(User u) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		User user = new UserDao().loginUser(conn, u);
-		JDBCTemplate.close(conn);
+		User user = userDao.loginUser(sqlSession, u);
+		sqlSession.close();
 		
 		return user;
 	}
 	public User reloadUser(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		User user = new UserDao().reloadUser(conn, userNo);
-		JDBCTemplate.close(conn);
+		User user = userDao.reloadUser(sqlSession, userNo);
+		sqlSession.close();
 		
 		return user;
 	}
 	public int insertUser(User user) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		int result = new UserDao().insertUser(conn, user);
+		int result = userDao.insertUser(sqlSession, user);
 		
-		if(result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		JDBCTemplate.close(conn);
+		if(result > 0)
+			sqlSession.commit();
+		
+		sqlSession.close();
 		
 		return result;
 	}
 	
 	public String checkUserNo(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		String userEmail = new UserDao().checkUserNo(conn, userNo);
-		JDBCTemplate.close(conn);
+		String userEmail = userDao.checkUserNo(sqlSession, userNo);
+		sqlSession.close();
 		
 		return userEmail;
 	}
 	public int checkUserEmail(String email) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		int userNo = new UserDao().checkUserEmail(conn, email);
-		JDBCTemplate.close(conn);
+		int userNo = new UserDao().checkUserEmail(sqlSession, email);
+		sqlSession.close();
 		
 		return userNo;
 	}
-	public boolean checkUserNickname(String nickname, int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
+	public int checkUserNickname(User user) {
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		boolean isThere = true;
-		System.out.println(userNo);
-		if(userNo==0) {
-			isThere = new UserDao().checkUserNickname(conn, nickname);
-		} else {
-			isThere = new UserDao().checkUserNickname(conn, nickname, userNo);
-		}
-		JDBCTemplate.close(conn);
+		int result = userDao.checkUserNickname(sqlSession, user);
 		
-		return isThere;
-	}
-	public int insertEmailAuth(String toEmail, String cNumber) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result=new UserDao().updateEmailAuth(conn, toEmail, cNumber);
-		
-		if(result==0) {
-			result=new UserDao().insertEmailAuth(conn, toEmail, cNumber);
-		}
-		
-		if(result>0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
+		if(result > 0)
+			sqlSession.commit();
+		sqlSession.close();
 		
 		return result;
 	}
-	public java.util.Date selectEmailAuth(String email, String authCode) {
-		Connection conn = JDBCTemplate.getConnection();
+	public int selectUserNo(String email) {
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		java.util.Date date = new UserDao().selectEmailAuth(conn, email, authCode);
-		if(date!=null) {
-			if(new UserDao().deleteEmailAuth(conn, email)>0){
-				JDBCTemplate.commit(conn);
-			} else {
-				JDBCTemplate.rollback(conn);
-			}
+		int userNo = new UserDao().selectUserNo(sqlSession, email);
+		sqlSession.close();
+		
+		return userNo;
+	}
+	public int insertEmailAuth(HashMap<String, String> map) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result=userDao.updateEmailAuth(sqlSession, map);
+		
+		if(result==0) {
+			result=userDao.insertEmailAuth(sqlSession, map);
 		}
 		
-		JDBCTemplate.close(conn);
+		if(result > 0)
+			sqlSession.commit();
+		
+		sqlSession.close();
+		
+		return result;
+	}
+	public java.util.Date selectEmailAuth(HashMap<String, String> map) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		java.util.Date date = userDao.selectEmailAuth(sqlSession, map);
+		if(date!=null)
+			if(new UserDao().deleteEmailAuth(sqlSession, map.get("email"))>0)
+				sqlSession.commit();
+		
+		sqlSession.close();
 		
 		return date;
 	}
-	public boolean selectToken(String token) {
-		Connection conn = JDBCTemplate.getConnection();
+	public java.util.Date selectToken(String token) {
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		boolean result = new UserDao().selectToken(conn, token);
+		java.util.Date date = userDao.selectToken(sqlSession, token);
 		
-		JDBCTemplate.close(conn);
+		sqlSession.close();
 		
-		return result;
+		return date;
 	}
 	
 	public User simpleAuth(User u) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		User user = new UserDao().loginSimpleAuth(conn, u);
+		User user = userDao.loginSimpleAuth(sqlSession, u);
 		if(user == null) {
 			String profile = u.getFileMypageNo();
 			if(profile==null) {
-				if(new UserDao().insertUser(conn, u)>0) {
-					JDBCTemplate.commit(conn);
-					user = new UserDao().loginSimpleAuth(conn, u);
-				} else {
-					JDBCTemplate.rollback(conn);
+				if(userDao.insertUser(sqlSession, u)>0) {
+					sqlSession.commit();
+					user = userDao.loginSimpleAuth(sqlSession, u);
 				}
 			} else {
 				PetFile pf = new PetFile();
@@ -138,30 +132,26 @@ public class UserService {
 				pf.setUploadName(profile.substring(index+1));
 				u.setFileMypageNo(String.valueOf(new UserService().insertOAuthProfile(pf)));
 				
-				if(new UserDao().insertUserAndProfile(conn, u)>0) {
-					JDBCTemplate.commit(conn);
-					user = new UserDao().loginSimpleAuth(conn, u);
-				} else {
-					JDBCTemplate.rollback(conn);
+				if(userDao.insertUserAndProfile(sqlSession, u)>0) {
+					sqlSession.commit();
+					user = userDao.loginSimpleAuth(sqlSession, u);
 				}
 			}
 		}
-		JDBCTemplate.close(conn);
+		sqlSession.close();
 		
 		return user;
 	}
 	public User simpleKakaoAuth(User u) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		User user = new UserDao().loginSimpleAuth(conn, u);
+		User user = userDao.loginSimpleAuth(sqlSession, u);
 		if(user == null) {
 			String profile = u.getFileMypageNo();
 			if(profile==null) {
-				if(new UserDao().insertKakaoUser(conn, u)>0) {
-					JDBCTemplate.commit(conn);
-					user = new UserDao().loginSimpleAuth(conn, u);
-				} else {
-					JDBCTemplate.rollback(conn);
+				if(userDao.insertKakaoUser(sqlSession, u)>0) {
+					sqlSession.commit();
+					user = userDao.loginSimpleAuth(sqlSession, u);
 				}
 			} else {
 				PetFile pf = new PetFile();
@@ -170,75 +160,63 @@ public class UserService {
 				pf.setUploadName(profile.substring(index+1));
 				u.setFileMypageNo(String.valueOf(new UserService().insertOAuthProfile(pf)));
 				
-				if(new UserDao().insertKakaoUserAndProfile(conn, u)>0) {
-					JDBCTemplate.commit(conn);
-					user = new UserDao().loginSimpleAuth(conn, u);
-				} else {
-					JDBCTemplate.rollback(conn);
+				if(userDao.insertKakaoUserAndProfile(sqlSession, u)>0) {
+					sqlSession.commit();
+					user = userDao.loginSimpleAuth(sqlSession, u);
 				}
 			}
 		}
 		
-		JDBCTemplate.close(conn);
+		sqlSession.close();
 		
 		return user;
 	}
 	public int insertOAuthProfile(PetFile pf) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new UserDao().insertOAuthProfile(conn, pf);
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = new UserDao().insertOAuthProfile(sqlSession, pf);
 		int fileNo = 0;
 		if(result>0) {
-			JDBCTemplate.commit(conn);
-			fileNo = new UserDao().currProfileNo(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
+			sqlSession.commit();
+			fileNo = userDao.currProfileNo(sqlSession);
 		}
-		JDBCTemplate.close(conn);
+		sqlSession.close();
 		return fileNo;
 	}
 	
 	public int updateUserPw(User user) {
-		Connection conn = JDBCTemplate.getConnection();
+		SqlSession sqlSession = Template.getSqlSession();
 		
-		int result = new UserDao().updateUserPw(conn, user);
+		int result = userDao.updateUserPw(sqlSession, user);
 		if(result>0)
-			JDBCTemplate.commit(conn);
-		else
-			JDBCTemplate.rollback(conn);
+			sqlSession.commit();
 		
-		JDBCTemplate.close(conn);
+		sqlSession.close();
 		
 		return result;
 	}
 	
 	public int updateUserInfo(User u) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new UserDao().updateUserInfo(conn, u);
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = userDao.updateUserInfo(sqlSession, u);
 		if(result>0)
-			JDBCTemplate.commit(conn);
-		else
-			JDBCTemplate.rollback(conn);
-		JDBCTemplate.close(conn);
+			sqlSession.commit();
+		sqlSession.close();
 		return result;
 	}
 	public int deleteUser(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new UserDao().deleteUser(conn, userNo);
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = userDao.deleteUser(sqlSession, userNo);
 		if(result>0)
-			JDBCTemplate.commit(conn);
-		else
-			JDBCTemplate.rollback(conn);
-		JDBCTemplate.close(conn);
+			sqlSession.commit();
+		sqlSession.close();
 		return result;
 	}
 	public int deleteOAuthUser(int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-		int result = new UserDao().deleteOAuthUser(conn, userNo);
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = userDao.deleteOAuthUser(sqlSession, userNo);
 		if(result>0)
-			JDBCTemplate.commit(conn);
-		else
-			JDBCTemplate.rollback(conn);
-		JDBCTemplate.close(conn);
+			sqlSession.commit();
+		sqlSession.close();
 		return result;
 	}
 }

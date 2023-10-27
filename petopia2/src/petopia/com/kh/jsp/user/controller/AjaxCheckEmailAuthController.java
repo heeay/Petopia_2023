@@ -2,6 +2,7 @@ package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,10 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		String authCode = request.getParameter("authCode");
 		
 		Date curDate = new Date();
-		Date date = new UserService().selectEmailAuth(email, authCode);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("emailAuthEmail", email);
+		map.put("emailAuthCode", authCode);
+		Date date = new UserService().selectEmailAuth(map);
 		
 		//System.out.println(date);
 		String result="";

@@ -36,11 +36,14 @@ public class AjaxCheckNicknameController extends HttpServlet {
 		
 		User userInfo = ((User)request.getSession().getAttribute("userInfo"));
 		int userNo = userInfo!=null ? userInfo.getUserNo() : 0;
+		User user = new User();
+		user.setUserNo(userNo);
+		user.setUserNickname(nickname);
 		
-		boolean isThere = new UserService().checkUserNickname(nickname, userNo);
+		int result = new UserService().checkUserNickname(user);
 		
 		response.setContentType("text/html; charset=UTF-8");
-		if(isThere) {
+		if(result>0) {
 			response.getWriter().print("N");
 		} else {
 			response.getWriter().print("Y");
