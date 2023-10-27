@@ -16,6 +16,20 @@
 		<result column="PET_NO" property="petNo"/>
 	</resultMap>
 	
+	<resultMap type="pet" id="petResultSet">
+		<result column="PET_NO" property="petNo"/>
+		<result column="PET_NAME" property="petName"/>
+		<result column="PET_SPECIES" property="petSpecies"/>
+		<result column="PET_SPECIFIC" property="petSpecific"/>
+		<result column="PET_WEIGHT" property="petWeight"/>
+		<result column="PET_GENDER" property="petGender"/>
+		<result column="PET_PERSONALITY" property="petPersonality"/>
+		<result column="PET_ETC" property="petEtc"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="FILE_MYPAGE_NO" property="fileNo"/>
+		
+	</resultMap>
+	
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
 	<select id="selectHosListCount" parameterType="_int" resultType="_int">
@@ -71,5 +85,16 @@
   		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
 		VALUES (SEQ_HOS_NO.NEXTVAL, #{hosDate}, #{hosVaccination}, #{hosIllness}, #{hosMedicine}, #{hosContent}, #{petNo})
   	</insert>
+  	
+  	<select id="selectPetList" parameterType="user" resultMap="petResultSet">
+  		SELECT ROWNUM IND,
+			   PET_NO,
+			   PET_NAME,
+			   PET_SPECIES,
+			   FILE_MYPAGE_NO
+		  FROM TB_PET
+		 WHERE USER_NO = #{userNo}
+		 ORDER BY PET_NO
+  	</select>
 
 </mapper>

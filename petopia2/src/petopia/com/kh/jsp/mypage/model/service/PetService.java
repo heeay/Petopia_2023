@@ -28,9 +28,11 @@ public class PetService {
 	
 
 	public ArrayList<Pet> selectPetList(PageInfo pi, User loginUser) {
-		Connection conn = getConnection();
-		ArrayList<Pet> list = new PetDao().selectPetList(conn, pi ,loginUser);
-		close(conn);
+		SqlSession sqlSession = Template.getSqlSession();
+		RowBounds rowBounds = new RowBounds(((pi.getCurrentPage()-1)*pi.getBoardLimit())
+											,pi.getBoardLimit());
+		ArrayList<Pet> list = petDao.selectPetList(sqlSession, loginUser, rowBounds);
+		sqlSession.close();
 		return list;
 	}
 
@@ -94,7 +96,7 @@ public class PetService {
 
 	public int petDelete(int petNo) {
 		Connection conn = getConnection();
-		//int result2 = new PetDao().petImgDelete(conn, petFileNo);
+		
 		int result1 = new PetDao().petDelete(conn, petNo);
 		
 		if(result1>0) {

@@ -55,20 +55,8 @@ public class HosListController extends HttpServlet {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		int maxPage;		// 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
-		int startPage;		// 페이지 하단에 보여질 페이징바의 시작수
-		int endPage;		// 페이지 하단에 보여질 페이징바의 끝 수
-		
-		//System.out.println(currentPage);
-		
-		//PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, 
-		//						boardLimit, maxPage, startPage, endPage);
-		//System.out.println(loginUser.getUserNo());
-		
 		ArrayList<HosRecords> hosList = new PetService().selectHosList(pi, userNo);
-		//System.out.println(pi);
-		//System.out.println(hosList);
-
+		
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
 		

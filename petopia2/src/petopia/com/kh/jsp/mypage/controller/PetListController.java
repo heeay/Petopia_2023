@@ -40,7 +40,6 @@ public class PetListController extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
-		
 		User loginUser = ((User)session.getAttribute("userInfo"));
 		
 		

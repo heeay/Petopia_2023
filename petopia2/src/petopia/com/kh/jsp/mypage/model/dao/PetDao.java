@@ -34,42 +34,9 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Pet> selectPetList(Connection conn, PageInfo pi, User loginUser) {
-		ArrayList<Pet> list = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+	public ArrayList<Pet> selectPetList(SqlSession sqlSession, User loginUser, RowBounds rowBounds) {
 		
-		String sql = prop.getProperty("selectPetList");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endrow = startRow+pi.getBoardLimit()-1;
-			
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endrow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Pet p = new Pet();
-				p.setPetNo(rset.getInt("PET_NO"));
-				p.setPetName(rset.getString("PET_NAME"));
-				p.setPetSpecies(rset.getString("PET_SPECIES"));
-				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
-				p.setRowNum(rset.getInt("IND"));
-				
-				list.add(p);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectPetList", loginUser, rowBounds);
 	}
 
 	public int insertPet(Connection conn, Pet p) {
