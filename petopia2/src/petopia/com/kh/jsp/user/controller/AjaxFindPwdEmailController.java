@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
 
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
-import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class FindPwdEmailController
@@ -84,7 +82,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			int userNo = new UserServiceImpl().selectUserNo(toEmail);
+			int userNo = new UserService().checkUserEmail(toEmail);
 			String url = request.getRequestURL().toString();
 			
 			url = url.substring(0, url.lastIndexOf("/"));
@@ -105,10 +103,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			transport.close();
 			System.out.println("비밀번호 재설정 링크 메일 전송 성공");
 			
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("emailAuthEmail", toEmail);
-			map.put("emailAuthCode", token);
-			int result = new UserServiceImpl().insertEmailAuth(map);
+			int result = new UserService().insertEmailAuth(toEmail,token);
 			
 			if(result>0) {
 				success = true;

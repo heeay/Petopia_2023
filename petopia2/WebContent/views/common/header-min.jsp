@@ -43,6 +43,11 @@
             height: 80px;
             background-color: rgb(255, 248, 240);
         }
+        #header-wrap{
+            width: 1200px;
+            height: 100%;
+            margin: auto;
+        }
         .header-logo{
             width: 180px;
             height: 100%;
@@ -60,6 +65,7 @@
         .header-navi{
             height: 100%;
             float: left;
+            
         }
         .header-navi-item{
             width: 120px;
@@ -82,6 +88,7 @@
         }
         .user-navi{
             float: right;
+
         }
         .user-navi-item{
             width: 200px;
@@ -108,11 +115,20 @@
             float: left;
             position: relative;
         }
+        #fixed-header-bar-wrap{
+            width: 100%;
+            height: 80px;
+            position: fixed;
+            z-index: 10;
+            top: 0px;
+            left: 0px;
+            background-color: rgb(224, 198, 180);
+        }
         #header-bar-wrap{
             width: 100%;
             height: 80px;
         }
-        #fixed-header-bar-wrap{
+        #header-bar-wrap{
             width: 100%;
             height: 80px;
             position: fixed;
@@ -232,7 +248,7 @@
 <body>
     <header>
         <div id="fixed-header-bar-wrap">
-            <div class="header-bar">
+            <div id="header-bar">
                 <div class="header-logo">
                     <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
                     <!--  -->
@@ -245,7 +261,7 @@
                 </ul>
                 <ul class="header-navi user-navi">
                <c:choose>
-                		<c:when test="${ empty userInfo }">
+                		<c:when test="${ empty sessionScope.userInfo }">
                     		<li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
                     	</c:when>
                     	<c:otherwise>
@@ -270,7 +286,7 @@
 	                                	</c:otherwise>
 	                             </c:choose>
 	                            </div>
-	                            ${ sessionScope.userInfo.userNickname }
+	                            ${ sessionScope.userInfo.userNickName }
 	                        </a></span>님</li>
 	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
@@ -286,12 +302,11 @@
                 </ul>
             </div>
         </div>
-
-     <!--   <div id="header-wrap">
+        <!--  <div id="header-wrap">
             <div id="header-bar-wrap">
                 <div class="header-bar">
                     <div class="header-logo">
-                        <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a>
+                        <a href="/petopia"><img class="logo" src="/petopia/resources/images/logo.png" alt=""></a>
                     </div>
                     <ul class="header-navi">
                         <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
@@ -311,7 +326,7 @@
                                 	
                                 <c:choose>
                                     <c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
-                                        <img src=".\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+                                        <img src="/petopia\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
                                     </c:when>
                                     <c:otherwise>
 		
@@ -343,8 +358,7 @@
                     </ul>
                 </div>
             </div>
-        </div>-->  
-
+        </div>-->
     </header>
     <script>
         $(document).ready(function(){

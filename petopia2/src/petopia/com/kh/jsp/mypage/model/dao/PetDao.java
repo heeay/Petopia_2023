@@ -34,9 +34,42 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Pet> selectPetList(SqlSession sqlSession, int userNo, RowBounds rowBounds) {
+	public ArrayList<Pet> selectPetList(Connection conn, PageInfo pi, User loginUser) {
+		ArrayList<Pet> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectPetList", userNo, rowBounds);
+		String sql = prop.getProperty("selectPetList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endrow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endrow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Pet p = new Pet();
+				p.setPetNo(rset.getInt("PET_NO"));
+				p.setPetName(rset.getString("PET_NAME"));
+				p.setPetSpecies(rset.getString("PET_SPECIES"));
+				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
+				p.setRowNum(rset.getInt("IND"));
+				
+				list.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 	public int insertPet(Connection conn, Pet p) {
@@ -734,13 +767,49 @@ public class PetDao {
 		}
 		return result;
 	}
-	public String selectBoardCount(SqlSession sqlSession, int userNo) {
+	public String selectBoardCount(Connection conn, User loginUser) {
 		String bcount = "작성된 게시글이 없습니다";
-		return sqlSession.selectOne("mypageMapper.selectBoardCount", userNo);
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bcount = rset.getString("COUNT(BOARD_NO)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bcount;
 	}
-	public String selectBoardDate(SqlSession sqlSession, int userNo) {
+	public String selectBoardDate(Connection conn, User loginUser) {
 		String lastDate = "작성된 게시글이 없습니다.";
-		return sqlSession.selectOne("mypageMapper.selectBoardDate", userNo);
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardDate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUser.getUserNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lastDate = rset.getString("LASTDATE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return lastDate;
 	}
 	public ArrayList<Suggestion> selectSugList(Connection conn, PageInfo pi) {
 		ArrayList<Suggestion> sugList = new ArrayList();
