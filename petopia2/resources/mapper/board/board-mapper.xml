@@ -33,7 +33,22 @@
 	
 	
 	<select id="selectSwiperBestBoardList" parameterType="" resultMap="">
-		
+		SELECT
+						BOARD_NO,
+						BOARD_TITLE,
+						USER_NO,
+						BOARD_VIEWS,
+						BOARD_CREATE_DATE
+		FROM
+						BOARD
+		JOIN
+						MEMBER USING(USER_NO)
+		WHERE
+						BOARD_STATUS = 'Y'
+		ORDER
+		BY	
+						BOARD_CREATE_DATE DESC
+						
 	
 	</select>
 	
