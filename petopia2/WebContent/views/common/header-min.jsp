@@ -302,7 +302,7 @@
                 </ul>
             </div>
         </div>
-        <div id="header-wrap">
+     <!--   <div id="header-wrap">
             <div id="header-bar-wrap">
                 <div class="header-bar">
                     <div class="header-logo">
@@ -358,7 +358,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>-->  
     </header>
     <script>
         $(document).ready(function(){
