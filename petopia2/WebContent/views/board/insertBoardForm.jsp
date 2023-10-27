@@ -127,9 +127,9 @@
                     <th class="content-item-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;카테고리</th>
                     <td class="content-item-content">
                         <select id="ctg" name="category">
-                            <c:forEach var="category" items="cList">
-								<option value="${ requestScope.category.categoryNo }">
-									${ requestScope.category.categoryName }
+                            <c:forEach var="category" items="${ cList }">
+								<option value="${ category.ctgNo }">
+									${ category.ctgName }
 								</option>                            
                             </c:forEach>
                         </select>

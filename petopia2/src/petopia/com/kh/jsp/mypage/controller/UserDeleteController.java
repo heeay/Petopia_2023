@@ -1,13 +1,14 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -36,9 +37,9 @@ public class UserDeleteController extends HttpServlet {
 		//int result = new UserService().deleteUser(userNo);
 		int result = 0;
 		if(userMethod == 0) {
-			result = new UserService().deleteUser(userNo);
+			result = new UserServiceImpl().deleteUser(userNo);
 		} else {
-			result = new UserService().deleteOAuthUser(userNo);
+			result = new UserServiceImpl().deleteOAuthUser(userNo);
 		}
 		
 		if(result>0) {

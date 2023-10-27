@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
+<%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -65,9 +65,9 @@
 </head>
 <body>
 
-<%@ include file="../common/header-min.jsp" %>
+<jsp:include page="../common/header-min.jsp" />
 
-<%@ include file="../common/sideBar.jsp" %>
+<jsp:include page="../common/sideBar.jsp" />
 
 <div id="wrapper">
     
@@ -76,17 +76,17 @@
     <div id="title-area">
 
         <div class="title-info">
-            <div id="bno">${ requestScope.board.boardNo }</div> 
+            <div id="bno">${ board.boardNo }</div> 
             
-            <div id="title">${ requestScope.board.board }</div> 
+            <div id="title">${ board.board }</div> 
            
-            <div id="category">${ requestScope.category.ctgName }</div>
+            <div id="category">${ category.ctgName }</div>
 
         </div>
 
         <div class="title-info">
           
-            <div id="create-date">${ requestScope.board.boardCreateDate }</div>
+            <div id="create-date">${ board.boardCreateDate }</div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
 
@@ -118,13 +118,14 @@
     <div id="content-area">
 
         <div id="content-text">  
-           ${ requestScope.board.boardContent }
+           ${ board.boardContent }
         </div>
 
         <div id="content-imgs">
       
-			<c:forEach var="i" begin="0" end="${ requestScope.fList }">
-			 	<img src="<%= contextPath %>/${ requestScope.fList.get(${i}).filePath }/${ requestScope.fList.get(${i}).uploadName }" alt="상세이미지${ i }" id="contentImg${i }" width="250" height="180">
+      <!-- "/petopia/${    fList.get(${i}).filePath    }/${ fList.get(${i}).uploadName }" -->
+			<c:forEach var="file"  items="${ requestScope.fList }">
+			 	<img src="/petopia/${ file.filePath }/${file.uploadName}" width="250" height="180" />
 			</c:forEach>                                                                  
                
         </div>
@@ -292,6 +293,6 @@
 </div>
 
 
-<%@ include file="../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

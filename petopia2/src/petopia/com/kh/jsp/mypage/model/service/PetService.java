@@ -27,10 +27,12 @@ public class PetService {
 	private PetDao petDao = new PetDao();
 	
 
-	public ArrayList<Pet> selectPetList(PageInfo pi, User loginUser) {
-		Connection conn = getConnection();
-		ArrayList<Pet> list = new PetDao().selectPetList(conn, pi ,loginUser);
-		close(conn);
+	public ArrayList<Pet> selectPetList(PageInfo pi, int userNo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		RowBounds rowBounds = new RowBounds(((pi.getCurrentPage()-1)*pi.getBoardLimit())
+											,pi.getBoardLimit());
+		ArrayList<Pet> list = new PetDao().selectPetList(sqlSession, userNo, rowBounds);
+		sqlSession.close();
 		return list;
 	}
 
@@ -290,17 +292,17 @@ public class PetService {
 	}
 
 
-	public String selectBoardCount(User loginUser) {
-		Connection conn = getConnection();
-		String bcount = new PetDao().selectBoardCount(conn, loginUser);
-		close(conn);
+	public String selectBoardCount(int userNo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		String bcount = petDao.selectBoardCount(sqlSession, userNo);
+		sqlSession.close();
 		return bcount;
 	}
 
-	public String selectBoardDate(User loginUser) {
-		Connection conn = getConnection();
-		String lastDate = new PetDao().selectBoardDate(conn, loginUser);
-		close(conn);
+	public String selectBoardDate(int userNo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		String lastDate = petDao.selectBoardDate(sqlSession, userNo);
+		sqlSession.close();
 		return lastDate;
 	}
 

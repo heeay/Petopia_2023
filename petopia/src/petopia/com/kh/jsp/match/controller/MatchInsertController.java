@@ -44,14 +44,17 @@ public class MatchInsertController extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			 
+			// 전송 용량 제한(10Mbyte)
 			int maxSize = 1024 * 1024 * 10;
 			
+			// 저장 경로
 			
 			
 			HttpSession session = request.getSession();
 			ServletContext application = session.getServletContext();
 			String savePath = application.getRealPath("/resources/thumbnail_upfiles/");
 		
+			//System.out.println(savePath);
 			
 			MultipartRequest multiRequest = 
 			new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
@@ -68,6 +71,7 @@ public class MatchInsertController extends HttpServlet {
 			m.setHopeActivity(hopeActivity);
 			m.setUserNo(userNo); 
 			m.setPetNo(petNo);
+			
 			ArrayList<File> list = new ArrayList();
 			
 			for(int i = 1; i <= 2; i++) {
@@ -87,6 +91,7 @@ public class MatchInsertController extends HttpServlet {
 					}
 					
 					list.add(fi);
+					System.out.println(fi);
 				}
 				
 			}

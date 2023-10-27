@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import petopia.com.kh.jsp.board.model.service.BoardService;
+import petopia.com.kh.jsp.board.model.service.BoardServiceImpl;
 import petopia.com.kh.jsp.board.model.vo.Board;
 import petopia.com.kh.jsp.user.model.service.UserService;
 
@@ -35,7 +36,7 @@ public class AjaxSwiperBestBoardController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Board> list = new BoardService().selectSwiperBestBoardList();
+		ArrayList<Board> list = new BoardServiceImpl().selectSwiperBestBoardList();
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());

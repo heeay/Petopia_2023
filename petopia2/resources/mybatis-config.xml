@@ -20,14 +20,14 @@
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoComment" alias="infoComment"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoFile" alias="infoFile"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Star" alias="star"/>
-		<typeAlias type="petopia.com.kh.jsp.match.model.vo.Match" alias="match"/>
-
+		
 		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Board" alias="board"/>
 		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Category" alias="category"/>
 		<typeAlias type="petopia.com.kh.jsp.common.model.vo.File" alias="file"/>
 		<typeAlias type="petopia.com.kh.jsp.common.model.vo.PageInfo" alias="pageInfo"/>
 		
-
+		
+		
 	</typeAliases>
 	
 	<environments default="development">
@@ -47,10 +47,7 @@
 	<mappers>
 		<mapper resource="/mapper/user/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
-
 		<mapper resource="/mapper/board/board-mapper.xml" />
-
-
 		<!-- <mapper resource="/mapper/info-mapper.xml"/> -->
 	</mappers>
 </configuration>

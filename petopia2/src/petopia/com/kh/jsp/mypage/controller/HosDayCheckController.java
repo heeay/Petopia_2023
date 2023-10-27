@@ -21,7 +21,7 @@ import petopia.com.kh.jsp.user.model.vo.User;
 /**
  * Servlet implementation class HosDayCheckController
  */
-@WebServlet("/HosDay.my")
+@WebServlet("/hosDay.my")
 public class HosDayCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,6 @@ public class HosDayCheckController extends HttpServlet {
      */
     public HosDayCheckController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -56,6 +55,8 @@ public class HosDayCheckController extends HttpServlet {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		
+		//System.out.println(map);
+		
 		int listCount = new PetService().selectHosListCount(userNo);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		int pageLimit = 10;		// 페이지 하단에 보여질 페이징바의 최대 개수
@@ -65,11 +66,12 @@ public class HosDayCheckController extends HttpServlet {
 		ArrayList<HosRecords> hosList = new PetService().selectDayList(pi, map);
 		//System.out.println(pi);
 		//System.out.println(hosList);
-
+		System.out.println(map);
+		
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
-		
-		
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/hosListView.jsp");
 		view.forward(request, response);
