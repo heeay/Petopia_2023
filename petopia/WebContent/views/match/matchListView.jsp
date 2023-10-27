@@ -4,12 +4,10 @@
 	import="petopia.com.kh.jsp.mypage.model.vo.Pet ,java.util.ArrayList, 
  	petopia.com.kh.jsp.match.model.vo.Match, petopia.com.kh.jsp.common.model.vo.PageInfo,
 	petopia.com.kh.jsp.user.model.vo.User"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 
-<%
 
-    ArrayList<Pet> petInfo = (ArrayList<Pet>)request.getAttribute("petInfo");
-    ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
- %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -216,7 +214,7 @@
 <body>
 
 
-	<%@include file="../common/header.jsp"%>
+	<jsp:include page="../common/header.jsp" />
 
 
 	<section>
@@ -262,8 +260,6 @@
 
 					</div>
 
-
-
 					<div id="search-view">
 						<select name="" id="">
 							<option value="">게시글 4개씩 보기</option>
@@ -279,90 +275,38 @@
 				<div id="content-area">
 					<div class="content-box">
 
-						<% if(list.isEmpty()) { %>
-						등록된 게시글이 없습니다. <br>
-						<% } else { %>
-						<% for(Match m : list) { %>
+			<c:choose>
+				<c:when test="${empty list}">
+					등록된 게시글이 없습니다. <br>
+				</c:when>
+				
+				<c:otherwise>
+					<c:forEach var="m" items="${list}">
 						<div class="content">
 							<div>
-								<img id="img-thumbnail"
-									src="<%= contextPath %>/<%= m.getTitleImg() %>">
+								<img id="img-thumbnail" src="${m.titleImg}">
 							</div>
-							<h2 id="title"><%= m.getMeetBoardTitle() %></h2>
-							<span id="meet-board-no"><%= m.getMeetBoardNo() %></span>
+							<h2 id="title">${m.meetBoardTitle}</h2>
+							<span id="meet-board-no">${m.meetBoardNo}</span>
 							<div id="content-info">
 								<i class="far fa-heart fa-3x"></i>
 								<div class="info">
-									<%  for (Pet pet : petInfo) { %>
-									<% if(m.getPetNo() == pet.getPetNo())  {%>
-									<span id="pet-detail"><%= pet.getPetName() %>|</span>
-									<%  } %>
-									<% } %>
-									<span id="user-detail"><%= m.getUserNickname() %></span>
+									<c:forEach var="pet" items="${petInfo}">
+										<c:if test="${m.petNo == pet.petNo}">
+											<span id="pet-detail">${pet.petName}|</span>
+										</c:if>
+									</c:forEach>
+									<span id="user-detail">${m.userNickname}</span>
 								</div>
 								<div class="info">
-									<span id="review">조회수 : <%= m.getMeetBoardViews() %></span> <span
-										id="like">관심:30</span> <span id="chatting">채팅:30</span>
+									<span id="review">조회수 : ${m.meetBoardViews}</span>
 								</div>
 							</div>
 						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 
-						<% } %>
-						<% } %>
-						<!-- 
-                </div>
-                   <div class="content">
-                        <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                        <h2 id="title">강아지 목욕 꿀팁!</h2>
-
-                    <div id="content-info">
-                        <i class="far fa-heart fa-3x"></i>
-                        <div class="info">
-                        <span id="pet-detail">13살 푸들 남자 |</span>
-                        <span id="user-detail">30대 남성</span>
-                        </div>
-                        <div class="info">
-                        <span id="review">조회수:3</span>
-                        <span id="like">관심:30</span>
-                        <span id="chatting">채팅:30</span>
-                        </div>
-                    </div>
-                    </div>
-                <div class="content-box">
-                    <div class="content">
-                        <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                        <h2 id="title">강아지 목욕 꿀팁!</h2>
-
-                    <div id="content-info">
-                        <i class="far fa-heart fa-3x"></i>
-                        <div class="info">
-                        <span id="pet-detail">13살 푸들 남자 |</span>
-                        <span id="user-detail">30대 남성</span>
-                        </div>
-                        <div class="info">
-                        <span id="review">조회수:3</span>
-                        <span id="like">관심:30</span>
-                        <span id="chatting">채팅:30</span>
-                        </div>
-                    </div>
-                    </div>
-                   <div class="content">
-                        <div><img id="img-thumbnail" src="https://image-notepet.akamaized.net/resize/620x-/seimage/20180309/86dc83a3dcf9b085c43903a83d814d96.png" alt=""></div>
-                        <h2 id="title">강아지 목욕 꿀팁!</h2>
-
-                    <div id="content-info">
-                        <i class="far fa-heart fa-3x"></i>
-                        <div class="info">
-                        <span id="pet-detail">13살 푸들 남자 |</span>
-                        <span id="user-detail">30대 남성</span>
-                        </div>
-                        <div class="info">
-                        <span id="review">조회수:3</span>
-                        <span id="like">관심:30</span>
-                        <span id="chatting">채팅:30</span>
-                        </div>
-                    </div>
-    	 -->
 					</div>
 				</div>
 
@@ -372,7 +316,7 @@
 
 					const  nno= $(this).find('#meet-board-no').text();
                             
-                            location.href = "<%=contextPath%>/detail.pb?nno=" + nno;
+                            location.href = "/petopia/detail.pb?nno=" + nno;
                         
                     });
                 });
@@ -387,17 +331,21 @@
 					<button type="button" class="btn btn-dark">5</button>
 					<button type="button" class="btn btn-dark">></button>
 				</div>
-
-				<% if(userInfo != null) { %>
-				<div id="write-button">
-					<a href="<%=contextPath%>/enroller.pb"
+			
+			
+				<c:if test="${ userInfo ne null }">
+								<div id="write-button">
+					<a href="/petopia/enroller.pb"
 						class="w-btn-outline w-btn-gray-outline" type="submit">글쓰기 </a>
 				</div>
-				<% } %>
+				</c:if>
+
+
+				
 			</div>
 		</div>
 		</div>
 	</section>
-	<%@include file="../common/footer.jsp"%>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

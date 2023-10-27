@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
+import petopia.com.kh.jsp.user.model.service.UserService;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -142,7 +143,7 @@ public class GoogleLoginController extends HttpServlet {
 		u.setUserPhone("");
 		u.setUserMethod(3);
 
-		User user = new UserServiceImpl().simpleAuth(u);
+		User user = new UserService().simpleAuth(u);
 		if(user == null) {
 			request.setAttribute("errorMsg", "간편 로그인 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
