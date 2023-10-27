@@ -86,15 +86,4 @@
 		VALUES (SEQ_HOS_NO.NEXTVAL, #{hosDate}, #{hosVaccination}, #{hosIllness}, #{hosMedicine}, #{hosContent}, #{petNo})
   	</insert>
   	
-  	<select id="selectPetList" parameterType="user" resultMap="petResultSet">
-  		SELECT ROWNUM IND,
-			   PET_NO,
-			   PET_NAME,
-			   PET_SPECIES,
-			   FILE_MYPAGE_NO
-		  FROM TB_PET
-		 WHERE USER_NO = #{userNo}
-		 ORDER BY PET_NO
-  	</select>
-
 </mapper>
