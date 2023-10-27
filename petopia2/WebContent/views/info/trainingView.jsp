@@ -22,7 +22,8 @@
 </head>
 <body>
 	<section>
-		<%@ include file="infoSidebar.jsp" %>
+	
+		<jsp:include page="infoSidebar.jsp" />
 		
 		<div id="wrap">
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/QkbVyXkhOEc" title="[강아지 훈련] 엎드려 개인기 가르치기 l 펫을부탁해" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -31,7 +32,7 @@
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/_xwnmbOWK6o" title="짖는 강아지, 블로킹을 통한 완벽한 교육법! [왜그랬개]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		</div>
 		</section>
-		
-		<%@ include file="../common/footer.jsp" %>
+
+		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

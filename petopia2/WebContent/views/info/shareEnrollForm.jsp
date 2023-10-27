@@ -54,7 +54,7 @@
 
 	<section>
 	
-        <%@ include file="infoSidebar.jsp" %>
+        <jsp:include page="infoSidebar.jsp" />
         
         <div id="wrap">
         
@@ -62,7 +62,7 @@
             <br>
 
 			<!-- 매핑값 : insert.in / 이미지 파일을 무조건 한 개는 넘겨야 하기에 post 방식 선택 -->
-            <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
+            <form action="/petopia/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
 			
 				<!-- 게시글을 작성한 작성자 번호를 hidden으로 넘김 (userInfo는 include한 infoSidebar 파일에서 include한 header-min 파일에 포함) -->
 				<input type="hidden" name="userNo" value="${ sessionScope.userInfo.userNo }">

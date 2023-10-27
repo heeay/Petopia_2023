@@ -113,7 +113,7 @@
 
 	<section>
 	
-        <%@ include file="infoSidebar.jsp" %>
+        <jsp:include page="infoSidebar.jsp" />
         
         <div id="wrap">
         
@@ -123,8 +123,8 @@
                 <!-- 로그인 안 하면 아무것도 안 보임 / 내 글 : 수정, 삭제 -->
                 
                 <c:if test="${ not empty sessionScope.userInfo && sessionScope.userInfo.userNickname eq requestScope.in.infoWriter}">
-                	<a href="<%= contextPath %>/updateForm.in?ino=${ in.infoNo }">수정</a>
-                    <a href="<%= contextPath %>/delete.in?ictg=${ in.categoryNo }&ino=${ in.infoNo }">삭제</a>
+                	<a href="/petopia/updateForm.in?ino=${ in.infoNo }">수정</a>
+                    <a href="/petopia/delete.in?ictg=${ in.categoryNo }&ino=${ in.infoNo }">삭제</a>
                 </c:if>
                 
                 </div>
@@ -134,7 +134,7 @@
                 <div id="photo-content">
                 	
                 	<c:forEach var="img" items="${ requestScope.list }">
-                		<img src="<%= contextPath %>/${ img.filePath }/${ img.uploadName }" class="img" alt="이미지">
+                		<img src="/petopia/${ img.filePath }/${ img.uploadName }" class="img" alt="이미지">
                 	</c:forEach>
 
                     <button id="before-btn" class="btn btn-sm btn-secondary"> < </button>
@@ -230,14 +230,14 @@
            </div>
            
            <div id="back">
-           		<a href='<%= contextPath %>/share.in?ictg=${ in.categoryNo }&ipage=1'>목록으로</a>
+           		<a href='/petopia/share.in?ictg=${ in.categoryNo }&ipage=1'>목록으로</a>
            </div>
     
         </div>
         
         </section>
         
-        <%@ include file="../common/footer.jsp" %>
+        <jsp:include page="../common/footer.jsp" />
 
 		<!-- 사진 관련 스크립트 -->
         <script>
