@@ -73,7 +73,7 @@
 
 	<section>
 	
-        <%@ include file="infoSidebar.jsp" %>
+        <jsp:include page="infoSidebar.jsp" />
         
         <div id="wrap">
         
@@ -81,7 +81,7 @@
             <br>
 
 			<!-- 매핑값 : update.in / 이미지 파일을 무조건 한 개는 넘겨야 하기에 post 방식 선택 -->
-            <form action="<%= contextPath %>/update.in" enctype="multipart/form-data" name="update" id="update-form" method="post">
+            <form action="/petopia/update.in" enctype="multipart/form-data" name="update" id="update-form" method="post">
 			
 				<!-- 게시글 번호를 넘김 -->
 				<input type="hidden" name="infoNo" value="${ in.infoNo }">
@@ -141,7 +141,7 @@
                 <div class="img-area">
                 	
                 	<c:forEach var="file" items="${ requestScope.fileList }">
-                		<img src="<%= contextPath %>/${ file.filePath }/${ file.uploadName }" class="original-img">
+                		<img src="/petopia/${ file.filePath }/${ file.uploadName }" class="original-img">
                 		<input type="hidden" name="originalFileNo" value="${ file.fileNo }">
                 	</c:forEach>
                 
