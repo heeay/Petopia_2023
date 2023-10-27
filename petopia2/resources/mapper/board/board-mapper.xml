@@ -38,7 +38,8 @@
 						BOARD_TITLE,
 						USER_NO,
 						BOARD_VIEWS,
-						BOARD_CREATE_DATE
+						BOARD_CREATE_DATE,
+						FILE_IMG
 		FROM
 						BOARD
 		JOIN
@@ -54,7 +55,15 @@
 	
 	
 	<select id="selectBoardList" parameterType="" resultMap="">
-	
+		SELECT
+						BOARD_NO,
+						BOARD_TITLE,
+						USER_NO,
+						BOARD_VIEWS,
+						BOARD_CREATE_DATE,
+						FILE_IMG
+		FROM
+						BOARD
 	</select>
 	
 	
@@ -65,7 +74,15 @@
 	
 	
 	<select id="selectBoard" parameterType="" resultMap="">
-	
+		SELECT
+						BOARD_NO,
+						BOARD_TITLE,
+						USER_NO,
+						BOARD_VIEWS,
+						BOARD_CREATE_DATE,
+						FILE_IMG
+		FROM
+						BOARD
 	</select>
 	
 	
