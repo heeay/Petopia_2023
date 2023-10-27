@@ -336,28 +336,9 @@ public class PetDao {
 		}
 		return PetList;
 	}
-	public int insertHos(Connection conn, HosRecords hr) {
-		int result = 0;
-		PreparedStatement pstmt = null;
+	public int insertHos(SqlSession sqlSession, HosRecords hr) {
 		
-		String sql = prop.getProperty("insertHos");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, hr.getHosDate());
-			pstmt.setString(2, hr.getHosVaccination());
-			pstmt.setString(3, hr.getHosIllness());
-			pstmt.setString(4, hr.getHosMedicine());
-			pstmt.setString(5, hr.getHosContent());
-			pstmt.setInt(6, hr.getPetNo());
-			
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		//System.out.println(hr.getHosIllness());
-		return result;
+		return sqlSession.insert("mypageMapper.insertHos", hr);
 	}
 	public HosRecords selectHosContent(Connection conn, int hosNo) {
 		HosRecords hr = null;

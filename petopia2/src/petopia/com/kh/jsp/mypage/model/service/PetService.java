@@ -156,14 +156,9 @@ public class PetService {
 	}
 
 	public int insertHos(HosRecords hr) {
-		Connection conn = getConnection();
-		int result = new PetDao().insertHos(conn, hr);
-		
-		if(result>0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = petDao.insertHos(sqlSession, hr);
+		if(result>0) sqlSession.commit();
 		return result;
 	}
 
