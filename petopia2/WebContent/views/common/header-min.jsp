@@ -269,24 +269,24 @@
 	                            <div id="file-area">
 	                                
 	                             <c:choose>
-	                             		<c:when test="${ userInfo.fileMypageNo eq '/' }">
+	                             		<c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
 	                                    	<img src="./resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
 	                                	</c:when>
 	                                	<c:otherwise>
-			                             	<c:set var="url" value="${ userInfo.fileMypageNo }" />
+			                             	<c:set var="url" value="${ sessionScope.userInfo.fileMypageNo }" />
 			                             	<c:choose>
 				                             	<c:when test="${(url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
 				                                    <img src="/petopia/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 				                                </c:when>
 			                
 				                                <c:otherwise>
-				                                    <img src="${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                    <img src="${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 				                                </c:otherwise>
 				                            </c:choose>
 	                                	</c:otherwise>
 	                             </c:choose>
 	                            </div>
-	                            ${ requestScope.userInfo.userNickName }
+	                            ${ sessionScope.userInfo.userNickName }
 	                        </a></span>님</li>
 	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
