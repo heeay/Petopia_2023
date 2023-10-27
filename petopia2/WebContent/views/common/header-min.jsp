@@ -286,7 +286,7 @@
 	                                	</c:otherwise>
 	                             </c:choose>
 	                            </div>
-	                            ${ sessionScope.userInfo.userNickName }
+	                            ${ sessionScope.userInfo.userNickname }
 	                        </a></span>님</li>
 	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
@@ -306,7 +306,7 @@
             <div id="header-bar-wrap">
                 <div class="header-bar">
                     <div class="header-logo">
-                        <a href="/petopia"><img class="logo" src="/petopia/resources/images/logo.png" alt=""></a>
+                        <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a>
                     </div>
                     <ul class="header-navi">
                         <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
@@ -326,7 +326,7 @@
                                 	
                                 <c:choose>
                                     <c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
-                                        <img src="/petopia\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+                                        <img src=".\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
                                     </c:when>
                                     <c:otherwise>
 		
