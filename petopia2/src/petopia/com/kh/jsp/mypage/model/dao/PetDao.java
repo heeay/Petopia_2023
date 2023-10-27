@@ -414,7 +414,7 @@ public class PetDao {
 				hr.setHosContent(rset.getString("HOS_CONTENT"));
 				hr.setPetNo(rset.getInt("PET_NO"));
 			}
-			System.out.println(hr.getHosNo());
+			//System.out.println(hr.getHosNo());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

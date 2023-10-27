@@ -48,7 +48,10 @@ public class HosDayCheckController extends HttpServlet {
 		
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
-	
+		
+		//System.out.println(startDate);
+		//System.out.println(endDate);
+		
 		HashMap<String, String> map = new HashMap();
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
@@ -65,6 +68,8 @@ public class HosDayCheckController extends HttpServlet {
 
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);
+		
+		
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/hosListView.jsp");
 		view.forward(request, response);
