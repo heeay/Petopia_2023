@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.InfoCategory, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.info.model.vo.InfoFile" %>
 <!-- 카테고리 중 인포에 관한 리스트를 불러옴 -->
 <%
@@ -7,6 +9,7 @@
 	Info in = (Info)request.getAttribute("in");
 	ArrayList<InfoFile> fileList = (ArrayList<InfoFile>)request.getAttribute("fileList");
 %>
+--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +93,7 @@
             <form action="<%= contextPath %>/update.in" enctype="multipart/form-data" name="update" id="update-form" method="post">
 			
 				<!-- 게시글 번호를 넘김 -->
-				<input type="hidden" name="infoNo" value="<%= in.getInfoNo() %>">
+				<input type="hidden" name="infoNo" value="${ in.infoNo }">
 				<!-- 자바스크립트 영역의 starNum에 담긴 값을 value로 받아서 hidden으로 넘김 -->
 				<input type="hidden" name="star" value="">
 
@@ -98,23 +101,23 @@
 
                     <tr>
                         <th width="150">제목</th>
-                        <td witdh="600"><input type="text" name="title" required value="<%= in.getInfoTitle() %>"></td>
+                        <td witdh="600"><input type="text" name="title" required value="${ in.infoTitle }"></td>
                     </tr>
                     <tr>
                         <th>카테고리</th>
                         <td>
                             <select name="category">
-                                <% for(InfoCategory ic : ctgList) { %> <!-- ctgList의 값을 ic에 담음 -->
-                                	<option value="<%= ic.getCategoryNo() %>"> <!-- select의 option의 value에 ic에서 카테고리 번호를 뽑아서 담음 -->
-                                		<%= ic.getCategoryName() %> <!-- 텍스트 영역에는 ic의 카테고리명을 담음 -->
+                                <c:forEach var="ctg" items="${ requestScope.ctgList }">
+                            		<option value="${ ctg.categoryNo }">
+                                		${ ctg.categoryName }
                                 	</option>
-                                <% } %>
+                            	</c:forEach>
                             </select>
                             <script>
                             // 사용자가 게시글 작성할 때 선택했던 option이 선택된 상태로 나타남
                             	$(function(){
                             		$('#update-form option').each(function(){
-                            			if($(this).text().trim() == '<%= in.getCategory() %>') {
+                            			if($(this).text().trim() == '${ in.category }') {
                             				$(this).attr('selected', 'true');
                             			}
                             		});
@@ -126,27 +129,37 @@
                         <th>별점</th>
                         <td id="stars">
                         <!-- 사용자가 클릭했던 별의 수만큼 -->
-                        <% for(int i = 0; i <in.getStarScore(); i++) { %>
-	                    	<a class="star">⭐</a> <!-- 노란 별 -->
-	                    <% } %>
-	                    <!-- 총 별의 개수(5) - 사용자가 클릭한 별의 개수 -->
-	                    <% for(int i = 0; i < 5 - in.getStarScore(); i++) { %>
-	                    	<a class="star">☆</a>
-	                    <% } %>
+                        <c:forEach var="star" begin="0" end="4">
+                            	<c:choose>
+                            		<c:when test="${ star lt requestScope.in.starScore }">
+                            			<a class="star">⭐</a> <!-- 노란 별 -->
+                            		</c:when>
+                            		<c:otherwise>
+                            			<a class="star">☆</a> <!-- 빈별 -->
+                            		</c:otherwise>
+                            	</c:choose>
+                            </c:forEach>
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td><textarea name="content" rows="20" style="resize: none;"><%= in.getInfoContent() %></textarea></td>
+                        <td><textarea name="content" rows="20" style="resize: none;">${ in.infoContent }</textarea></td>
                     </tr>
                 </table>
                 
                 <div class="img-area">
-                
+                	
+                	<c:forEach var="file" items="${ requestScope.fileList }">
+                		<img src="<%= contextPath %>/${ file.filePath }/${ file.uploadName }" class="original-img">
+                		<input type="hidden" name="originalFileNo" value="${ file.fileNo }">
+                	</c:forEach>
+                	
+                	<%--
                 	<% for(int i = 0; i < fileList.size(); i++) { %>
                 		<img src="<%= contextPath %>/<%= fileList.get(i).getFilePath() %>/<%= fileList.get(i).getUploadName() %>" class="original-img">
                 		<input type="hidden" name="originalFileNo" value="<%= fileList.get(i).getFileNo() %>">
                 	<% } %>
+                	--%>
                 
                 </div>
                 

@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.info.model.vo.InfoFile" %>
-<%
-	ArrayList<InfoFile> list = (ArrayList<InfoFile>)request.getAttribute("list");
-	Info in = (Info)request.getAttribute("in");
-%>
---%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,12 +127,6 @@
                     <a href="<%= contextPath %>/delete.in?ictg=${ in.categoryNo }&ino=${ in.infoNo }">삭제</a>
                 </c:if>
                 
-                <%--
-                <% if(userInfo != null && userInfo.getUserNickname().equals(in.getInfoWriter())) { %>
-                    <a href="<%= contextPath %>/updateForm.in?ino=<%= in.getInfoNo() %>">수정</a>
-                    <a href="<%= contextPath %>/delete.in?ictg=<%= in.getCategoryNo() %>&ino=<%= in.getInfoNo() %>">삭제</a>
-                <% } %>
-                --%>
                 </div>
            </div>
            <div id="content">
@@ -149,13 +136,7 @@
                 	<c:forEach var="img" items="${ requestScope.list }">
                 		<img src="<%= contextPath %>/${ img.filePath }/${ img.uploadName }" class="img" alt="이미지">
                 	</c:forEach>
-                    
-                    <%--
-                    <% for(int i = 0; i < list.size(); i++) { %>
-                    	<img src="<%= contextPath %>/<%= list.get(i).getFilePath() %>/<%= list.get(i).getUploadName() %>" class="img" alt="이미지">
-                    <% } %>
-                    --%>
-                    
+
                     <button id="before-btn" class="btn btn-sm btn-secondary"> < </button>
                     <button id="next-btn" class="btn btn-sm btn-secondary"> > </button>
                 </div>
@@ -178,16 +159,6 @@
                             	</c:choose>
                             </c:forEach>
                             
-                            <%--
-                            <!-- 별점을 DB에 보낼 때 클릭한 인덱스 + 1로 했으니까 받아올 때는 별점 수 - 1로 보여주기 -->
-                            <% for(int i = 0; i <in.getStarScore(); i++) { %>
-	                            <a class="star">⭐</a> <!-- 노란 별 -->
-	                        <% } %>
-	                        <!-- 총 별의 개수(5) - 사용자가 클릭한 별의 개수 -->
-	                    	<% for(int i = 0; i < 5 - in.getStarScore(); i++) { %>
-	                    		<a class="star">☆</a>
-	                    	<% } %>
-	                    	--%>
                             </td>
                         </tr>
                         <tr>
@@ -217,18 +188,6 @@
                         	</c:otherwise>
                         </c:choose>
                         
-                        <%--
-                        <% if(userInfo != null) { %>
-                            <td align="center">
-                            	<!-- 빈 하트 -->
-                            	<button id="like" class="like" onclick="clickLike();">🤍</button><span></span>
-                            </td>
-                        <% } else { %>
-                        	<td align="center">
-                        		<button class="like" disabled>🤍</button><span></span>
-                        	</td>
-                        <% } %>
-                        --%>
                         </tr>
                     </table>
                 </div>
@@ -261,23 +220,6 @@
                 				</c:otherwise>
                 			</c:choose>
                 			
-                			<%--
-                			<% if(userInfo != null) { %>
-                			<td>
-                				<textarea id="commentContent" cols="75" rows="1" style="resize:none;"></textarea>
-                			</td>
-                			<td width="150">
-                				<button class="comment-btn btn btn-sm btn-secondary" onclick="insertComment()";>댓글등록</button>
-                			</td>
-                			<% } else { %>
-                				<td>
-                					<textarea readonly cols="75" rows="1" style="resize:none;">로그인 후 이용 가능합니다.</textarea>
-                				</td>
-                				<td width="150">
-                					<button class="comment-btn btn btn-sm btn-secondary" disabled>댓글등록</button>
-                				</td>
-                			<% } %>
-                			--%>
                 		</tr>
                 	</thead>
                 	<tbody>
