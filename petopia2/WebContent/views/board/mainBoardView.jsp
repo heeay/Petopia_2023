@@ -226,12 +226,12 @@
 </head>
 <body>
 
-    <%@include file="../common/header-min.jsp" %>
-    <%@include file="../common/sideBar.jsp" %>
+    <jsp:include page="../common/header-min.jsp" />
+    <jsp:include page="../common/sideBar.jsp" />
 	
     <script>
 	        $('#insert-board-btn').on('click', function(){
-	            location.href  = "<%= contextPath %>/insertForm.bo";
+	        }location.href  = "${pageContext.request.getContextPath}/insertForm.bo";
 	        });
 	   
             // <!-- n개씩 보기 기능 -->

@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
 <%
-	String contextPath = request.getContextPath();
+String contextPath = request.getContextPath();
+User userInfo = (User)session.getAttribute("userInfo");
 %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -337,37 +337,28 @@
                 <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
-                
- <c:choose>
-        <c:when test="${ userInfo ne null }">
+                <%if(userInfo == null){ %>
                     <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-       </c:when>
-       <c:otherwise>
+                <%} else { %>
                     <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                         <div id="file-area">
-                        	
-              <c:choose>
-                       <c:when test="${ userInfo.fileMypageNo eq '/' }">
+                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
                             	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
-                       </c:when>
-                       <c:otherwise>
-                			<c:set var="url" value="${ userInfo.fileMypageNo }" />
-                			<c:choose>
-                				<c:when test="${ ( url.substring(0, url.indexOf('/')) ne 'https:' ) and ( url.substring(0, url.indexOf('/')) ne 'http:')"}
-                				<img src="<%=contextPath%>/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
-                				</c:when>
-                				<c:otherwise>
-                				<img src="${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
-                				</c:otherwise>
-                			</c:choose>
-                	  </c:otherwise>
-              </c:choose>
-      </c:otherwise>
+                        	<% } else {%>
+                        	<%
+                			String url = userInfo.getFileMypageNo();
+                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
+                			%>
+                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
+                			<%} else { %>
+                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
+                			<%} %>
+                        	<% } %>
                         </div>
-                      ${ userInfo.userNickname }
+                        <%=userInfo.getUserNickname() %>
                     </a></span>님</li>
                     <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
- </c:choose>
+                <%} %>
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                     <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
@@ -395,29 +386,15 @@
                         <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                     </ul>
                     <ul class="header-navi user-navi">
-                        
-				<c:choose>
-						<c:when test="${ empty userInfo  }>
+                        <%if(userInfo == null){ %>
                             <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-      					</c:when>
-      				<c:otherwise>         
+                        <%} else { %>
                             <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
                             <li class="user-navi-item"><a 
-                    
-                            <c:choose>
-                            	<c:when test="${ userInfo.userMethod == 1}">
-                            		onclick="naverLogout();"
-                            	</c:when>
-                           		<c:otherwise>
-                           			<c:if test="${ userInfo.userMethod == 2}">
-                           			onclick="kakaoLogout();"
-                           			</c:if>
-                           		</c:otherwise>
-                            
-                            </c:choose>
-							 href="<%=contextPath %>/logout">로그아웃</a></li>
-						</c:otherwise>
-			</c:choose>
+                                <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
+                                else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
+                                href="<%=contextPath %>/logout">로그아웃</a></li>
+                        <%} %>
                         <li class="user-navi-icon-btn">
                             <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                             <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
