@@ -2,43 +2,26 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
- <!-- 
- 	이 문서의 형식이 configuration(==환경설정)임을 아렬줌
- 	=> configuration태그가 전체를 감싸고 있음
- 	DTD: 유효성 검사를 해줌(자식 요소들이 configuration태그안에 존재할 수 있는지 태그)
--->
+
 <configuration>
-	<!-- settings: Mybatis를 구동시 선언할 설정들을 작성하는 영역 -->
 	<settings>
-		<!-- 만약에 null로 데이터가 전달되었다면 빈 칸이 아닌 NULL로 인식하겠다.(무조건 대문자 NULL로 작성해야함 -->
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
-	<!-- typeAliases: VO/DTO클래스의 풀클래스명을 단순 별칭으로 사용하기위해 등록할 수 있는 영역 -->
 	<typeAliases>
 		<typeAlias type="petopia.com.kh.jsp.user.model.vo.User" alias="user"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.HosRecords" alias="hos"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="Pet"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="PetFile"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="Sug"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="WalkR"/>
 	</typeAliases>
 	
-	<!--
-		environments: MyBatis에서 연동할 DB정보드을 등록하는 영역(여러 개의 DB정보를 등록가능)
-		=> default속성으로 여러개의 id중 어떤 DB를 기본 DB로 사용할 건지 꼭 지정을 해줘야함
-	-->
 	<environments default="development">
 		<environment id="development">
-			<!-- 
-				* transactionManager는 JDBC와 MANAGED 둘 중 하나를 선택할 수 있음
-				- JDBC: 트랜잭션을 내가 직접 관리하겠다.(수동 commit)
-				- MANAGED: 개발자가 트랜잭션에 대해 어떤 영향도 행사하지 않겠다.(자동 commit)
-			-->
+
 			<transactionManager type="JDBC"/>
-			
-			<!-- 
-				* dataSource의 type속성으로는 POOLED와 UNPOOLED 둘 중 하나를 선태할 수 있음(ConnectionPool)
-				- connectionPool : Connection객체를 담아둘 수 있는 영역
-								     한 번 생성된 Connection객체를 담아두고 재사용해서 쓸 수 있음
-				=> POOLED: connectionPool을 사용하겠다
-				=> UNPOOLED: connectionPool을 사용안하겠다
-			 -->
+
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
 		        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
@@ -48,9 +31,9 @@
 		</environment>
 	</environments>
 	
-	<!-- mappers: 실행할 SQL문을 기록해둔 mapper파일을 등록하는 영역 -->
 	<mappers>
 		<mapper resource="/mapper/user-mapper.xml"/>
+		<mapper resource="/mapper/mypage-mapper.xml"/>
 	</mappers>
 </configuration>
  

@@ -8,10 +8,12 @@ import static petopia.com.kh.jsp.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import petopia.com.kh.jsp.board.model.vo.Board;
+import org.apache.ibatis.session.SqlSession;
+
+import petopia.com.kh.jsp.common.model.vo.PageInfo;
+import petopia.com.kh.jsp.common.template.Template;
 import petopia.com.kh.jsp.mypage.model.dao.PetDao;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
-import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
@@ -126,9 +128,9 @@ public class PetService {
 	}
 
 	public int selectHosListCount(User loginUser) {
-		Connection conn = getConnection();
-		int hosListCount = new PetDao().selectHosListCount(conn, loginUser);
-		close(conn);
+		SqlSession sqlSession = Template.getSqlSession();
+		int hosListCount = new PetDao().selectHosListCount(sqlSession, loginUser);
+		sqlSession.close();
 		return hosListCount;
 	}
 

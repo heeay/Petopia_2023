@@ -1,5 +1,7 @@
 package petopia.com.kh.jsp.mypage.model.dao;
 
+import static petopia.com.kh.jsp.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,16 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import petopia.com.kh.jsp.board.model.vo.Board;
+import org.apache.ibatis.session.SqlSession;
+
+import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.HosRecords;
-import petopia.com.kh.jsp.mypage.model.vo.PageInfo;
 import petopia.com.kh.jsp.mypage.model.vo.Pet;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
 import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
-
-import static petopia.com.kh.jsp.common.JDBCTemplate.*;
 
 public class PetDao {
 	
@@ -332,27 +333,9 @@ public class PetDao {
 		}
 		return result;
 	}
-	public int selectHosListCount(Connection conn, User loginUser) {
-		int hosListCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+	public int selectHosListCount(SqlSession sqlSession, User loginUser) {
 		
-		String sql = prop.getProperty("selectHosListCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				hosListCount = rset.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return hosListCount;
+		return sqlSession.selectOne("mypageMapper.selectHosListCount", loginUser);
 	}
 	public ArrayList<HosRecords> selectHosList(Connection conn, PageInfo pi, User loginUser, String startDate, String endDate) {
 		ArrayList<HosRecords> hosList = new ArrayList();
