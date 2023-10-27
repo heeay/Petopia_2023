@@ -59,10 +59,11 @@
 
                 <div class="btn-right"><a href="<%=contextPath %>/hosEnrollForm.my" class="btn btn-secondary">글작성</a></div>
                 
-                <form action="<%=contextPath %>/hosList.my">
+                <form action="<%=contextPath %>/hosDay.my">
                 <div class="btn-right pad-top" style="border-top:none;">
+                    <input type="hidden" name="cpage" value="1">
+                    
                     <input type="date" name="startDate" value="${startDate}"> ~ <input type="date" name="endDate" value="${endDate}">
-                    <input type="hidden" name="cpage" value="${cpage}">
                     <button type="submit" class="btn-sm btn-secondary">조회</button>
                 </div>
                 </form>
@@ -72,10 +73,6 @@
 
                 const startDate = urlParams.get('startDate');
                 const endDate = urlParams.get('endDate');
-
-
-                console.log(startDate);
-                console.log(endDate);
 
                 $(function () {
 
@@ -112,7 +109,7 @@
                         <c:otherwise>
                         	<c:forEach var="hos" items="${ hosList }" varStatus="status">
                                 <tr>
-                                    <input type="hidden" name="hno" value="${hos.hosNo}">
+                                    <input type="hidden" name="hno" value="${hos.hosNo}" varStatus="status">
 
                                     <td>${status.count}</td>
                                     <td>${hos.hosDate}</td>
@@ -147,7 +144,7 @@
 						<a href="hosList.my?cpage=${p}">[${p}]</a>
 					</c:when>
 					<c:otherwise>
-						<a href="HosDay.my?cpage=${p}&startDate=${startDate}&endDate=${endDate}">[${p}]</a>
+						<a href="hosDay.my?cpage=${p}&startDate=${startDate}&endDate=${endDate}">[${p}]</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>

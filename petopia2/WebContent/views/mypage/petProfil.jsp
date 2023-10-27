@@ -166,10 +166,10 @@
 	                        	</tr>
 	                        </c:when>
 	                        <c:otherwise>
-	                        	<c:forEach var="list" items="${list}">
+	                        	<c:forEach var="list" items="${list}" varStatus="status">
 	                                <tr>
 	                                    <input type="hidden" name="pno" value="${list.petNo}">
-	                                    <td>${list.rowNum}</td>
+	                                    <td>${status.count}</td>
 	                                    <td>${list.petName}</td>
 	                                    <td>${list.petSpecies}</td>
 	                        	    </tr>
