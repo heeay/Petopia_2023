@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -40,7 +41,7 @@ public class AjaxCheckNicknameController extends HttpServlet {
 		user.setUserNo(userNo);
 		user.setUserNickname(nickname);
 		
-		int result = new UserService().checkUserNickname(user);
+		int result = new UserServiceImpl().checkUserNickname(user);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		if(result>0) {

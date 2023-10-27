@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class FindPwdEmailController
@@ -83,7 +84,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-			int userNo = new UserService().selectUserNo(toEmail);
+			int userNo = new UserServiceImpl().selectUserNo(toEmail);
 			String url = request.getRequestURL().toString();
 			
 			url = url.substring(0, url.lastIndexOf("/"));
@@ -107,7 +108,7 @@ public class AjaxFindPwdEmailController extends HttpServlet {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("emailAuthEmail", toEmail);
 			map.put("emailAuthCode", token);
-			int result = new UserService().insertEmailAuth(map);
+			int result = new UserServiceImpl().insertEmailAuth(map);
 			
 			if(result>0) {
 				success = true;
