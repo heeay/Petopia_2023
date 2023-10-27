@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
@@ -333,60 +335,15 @@ public class PetDao {
 		}
 		return result;
 	}
-	public int selectHosListCount(SqlSession sqlSession, User loginUser) {
+	public int selectHosListCount(SqlSession sqlSession, int userNo) {
 		
-		return sqlSession.selectOne("mypageMapper.selectHosListCount", loginUser);
+		return sqlSession.selectOne("mypageMapper.selectHosListCount", userNo); 
 	}
-	public ArrayList<HosRecords> selectHosList(Connection conn, PageInfo pi, User loginUser, String startDate, String endDate) {
-		ArrayList<HosRecords> hosList = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+	public ArrayList<HosRecords> selectHosList(SqlSession sqlSession, PageInfo pi, int userNo) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		String sql = prop.getProperty("selectHosList");
-		String hosDate = "AND HOS_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1";
-		
-		if(startDate != null) {
-			sql += hosDate;
-		}
-		
-		try {
-			
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endrow = startRow+pi.getBoardLimit()-1;
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, loginUser.getUserNo());
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endrow);
-			//System.out.println(loginUser.getUserNo());
-			//System.out.println(startRow);
-			//System.out.println(endrow);
-			//System.out.println(pstmt);
-			
-			if(startDate != null) {
-				pstmt.setString(4, startDate);
-				pstmt.setString(5, endDate);
-			}
-			//System.out.println(sql);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				HosRecords hr = new HosRecords();
-				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getString("HOS_DATE"));
-				hr.setPetName(rset.getString("PET_NAME"));
-				hr.setRowNum(rset.getInt("IND"));
-				
-				hosList.add(hr);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		//System.out.println(hosList);
-		return hosList;
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectHosList", userNo, rowBounds);
 	}
 	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
 		ArrayList<Pet> PetList = new ArrayList();
@@ -457,7 +414,7 @@ public class PetDao {
 				hr.setHosContent(rset.getString("HOS_CONTENT"));
 				hr.setPetNo(rset.getInt("PET_NO"));
 			}
-			System.out.println(hr.getHosNo());
+			//System.out.println(hr.getHosNo());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1080,6 +1037,11 @@ public class PetDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public ArrayList<HosRecords> selectDayList(SqlSession sqlSession, HashMap<String, String> map,
+			RowBounds rowBounds) {
+		
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectDayList", map, rowBounds);
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

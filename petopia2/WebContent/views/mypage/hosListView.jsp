@@ -61,8 +61,8 @@
                 
                 <form action="<%=contextPath %>/hosList.my">
                 <div class="btn-right pad-top" style="border-top:none;">
-                    <input type="date" name="startDate"> ~ <input type="date" name="endDate">
-                    <input type="hidden" name="cpage" value="${currentPage}">
+                    <input type="date" name="startDate" value="${startDate}"> ~ <input type="date" name="endDate" value="${endDate}">
+                    <input type="hidden" name="cpage" value="${cpage}">
                     <button type="submit" class="btn-sm btn-secondary">조회</button>
                 </div>
                 </form>
@@ -113,7 +113,7 @@
                         	<c:forEach var="hos" items="${ hosList }" varStatus="status">
                                 <tr>
                                     <input type="hidden" name="hno" value="${hos.hosNo}">
-                                    
+
                                     <td>${status.count}</td>
                                     <td>${hos.hosDate}</td>
                                     <td>${hos.petName}</td>
@@ -141,22 +141,16 @@
         </div>
 
         <div class="page-btn">
-        	<c:if test="${ pi.currentPage ne 1 }">
-        		<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${pi.currentPage-1}'" class="btn btn-sm btn-secondary">&lt;</button>
-        	</c:if>
-        	<c:forEach var="i" begin="${ pi.startPage }" end="${pi.endPage}">
-        		<c:choose>
-        			<c:when test="${ pi.currentPage ne 1 }">
-	        			<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${i}'" class="btn btn-sm btn-secondary">${i}</button>
-	        		</c:when>
-	        		<c:otherwise>
-	        			<button disabled class="btn btn-sm btn-gracolors">${i}</button>
-	        		</c:otherwise>
-        		</c:choose>
-        	</c:forEach>
-        	<c:if test="${ pi.currentPage ne maxPage }">
-            	<button onclick="location.href='<%=contextPath%>/hosList.my?cpage=${pi.currentPage+1}'" class="btn btn-sm btn-secondary">&gt;</button>
-        	</c:if>
+        	<c:forEach var="p" begin="${requestScope.pi.startPage}" end="${requestScope.pi.endPage}">
+				<c:choose>
+					<c:when test="${empty startDate}">
+						<a href="hosList.my?cpage=${p}">[${p}]</a>
+					</c:when>
+					<c:otherwise>
+						<a href="HosDay.my?cpage=${p}&startDate=${startDate}&endDate=${endDate}">[${p}]</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
         </div>
 
 	</div>
