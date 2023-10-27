@@ -43,11 +43,6 @@
             height: 80px;
             background-color: rgb(255, 248, 240);
         }
-        #header-wrap{
-            width: 1200px;
-            height: 100%;
-            margin: auto;
-        }
         .header-logo{
             width: 180px;
             height: 100%;
@@ -65,7 +60,6 @@
         .header-navi{
             height: 100%;
             float: left;
-            
         }
         .header-navi-item{
             width: 120px;
@@ -88,7 +82,6 @@
         }
         .user-navi{
             float: right;
-
         }
         .user-navi-item{
             width: 200px;
@@ -115,20 +108,11 @@
             float: left;
             position: relative;
         }
+        #header-bar-wrap{
+            width: 100%;
+            height: 80px;
+        }
         #fixed-header-bar-wrap{
-            width: 100%;
-            height: 80px;
-            position: fixed;
-            z-index: 10;
-            top: 0px;
-            left: 0px;
-            background-color: rgb(224, 198, 180);
-        }
-        #header-bar-wrap{
-            width: 100%;
-            height: 80px;
-        }
-        #header-bar-wrap{
             width: 100%;
             height: 80px;
             position: fixed;
@@ -300,63 +284,6 @@
                     </li>
                     <li class="user-navi-icon-btn"><button class="header-tool" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
                 </ul>
-            </div>
-        </div>
-        <div id="header-wrap">
-            <div id="header-bar-wrap">
-                <div class="header-bar">
-                    <div class="header-logo">
-                        <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a>
-                    </div>
-                    <ul class="header-navi">
-                        <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
-                        <li class="header-navi-item"><a href="/petopia/share.in?ictg=12&ipage=1">정보</a></li>
-                       
-                        <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
-                    </ul>
-                    <ul class="header-navi user-navi">
-                    <c:choose>
-                        
-                        <c:when test="${ empty userInfo }">
-                            <li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
-                       	</c:when>
-                       	<c:otherwise>
-                            <li class="user-navi-item user-nickname"><span><a href="/petopia/main.my">
-                                <div style="width: 50px;" id="file-area">
-                                	
-                                <c:choose>
-                                    <c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
-                                        <img src=".\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
-                                    </c:when>
-                                    <c:otherwise>
-		
-		                                    <c:set var="url" value="${ sessionScope.userInfo.fileMypageNo }" />
-		                                    <c:choose>
-			                                    <c:when test="${ (url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
-				                                        <img src="/petopia/${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
-			                                    </c:when> 
-			                                    <c:otherwise>
-				                                        <img src="${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
-				                                </c:otherwise>
-			                                </c:choose>
-                                    </c:otherwise>
-                                </c:choose>
-                                </div>
-                                ${ sessionScope.userInfo.userNickname }
-                            </a></span>님</li>
-                            <li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
-                      	</c:otherwise>
-                     </c:choose>
-                        <li class="user-navi-icon-btn">
-                            <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
-                            <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
-                                <input class="header-search-bar" type="text" name="query">
-                                <button type="submit" class="header-search-btn"><span class="material-symbols-outlined icon-size">search</span></button>
-                            </form>
-                        </li>
-                        <li class="user-navi-icon-btn"><button class="header-tool" onclick=""><span class="material-symbols-outlined icon-size">menu</span></button></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </header>
