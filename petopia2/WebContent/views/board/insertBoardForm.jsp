@@ -105,8 +105,8 @@
 </head>
 <body>
 
-<%@include file="../common/header-min.jsp"%>
-<%@include file="../common/sideBar.jsp"%>
+<jsp:include page="../common/header-min.jsp" />
+<jsp:include page="../common/sideBar.jsp" />
 
 <div id="wrapper">
 
@@ -117,9 +117,9 @@
 
 
 		<!--파일을 첨부하는 요청을 할 때는 반드시 form태그에 enctype="multipart/form-data" 를 추가해줘야함!!-->
-        <form enctype="multipart/form-data" action="<%=contextPath%>/insert.bo" id="insert-form" method="post">
+        <form enctype="multipart/form-data" action="/petopia/insert.bo" id="insert-form" method="post">
             <!-- 제목*, 내용*, 카테고리*, 글쓴이*, 첨부파일*, 제출버튼* -->
-			<input type="hidden" name="userNo" value="${ requestScope.userInfo.userNo }">
+			<input type="hidden" name="userNo" value="${ userInfo.userNo }">
             <!-- 작성자의 회원번호를 hidden으로 같이 넘겨서 board테이블에 INSERT--> 
             <table id="content-items" align="center">
                 
@@ -237,6 +237,6 @@
 </div>
 
 
-<%@ include file="../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
