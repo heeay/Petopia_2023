@@ -16,21 +16,6 @@
 		<result column="PET_NO" property="petNo"/>
 	</resultMap>
 	
-	<resultMap type="pet" id="petResultSet">
-		<result column="PET_NO" property="petNo"/>
-		<result column="PET_NAME" property="petName"/>
-		<result column="PET_SPECIES" property="petSpecies"/>
-		<result column="PET_SPECIFIC" property="petSpecific"/>
-		<result column="PET_WEIGHT" property="petWeight"/>
-		<result column="PET_GENDER" property="petGender"/>
-		<result column="PET_PERSONALITY" property="petPersonality"/>
-		<result column="PET_ETC" property="petEtc"/>
-		<result column="USER_NO" property="userNo"/>
-		<result column="FILE_NO" property="fileNo"/>
-	</resultMap>
-	
-	
-	
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
 	<select id="selectHosListCount" parameterType="_int" resultType="_int">
@@ -56,7 +41,7 @@
 				  ORDER BY HOS_NO DESC) 
 		  ORDER BY IND DESC
 	</select>
-	<select id="selectDayList"  parameterType="hashmap" resultMap="hosResultSet">
+	<select id="selectDayList">
 		SELECT * 
 		  FROM (SELECT * 
 	              FROM (SELECT ROWNUM IND,
@@ -70,30 +55,5 @@
 			     ORDER BY IND DESC)
 		 WHERE HOS_DATE BETWEEN TO_DATE (#{startDate}) AND TO_DATE (#{endDate})+1
 	</select>
-	
-	<select id="selectBoardCount" parameterType="_int" resultType="string">
-		SELECT COUNT(BOARD_NO)
-		  FROM TB_ROLE
-		  JOIN TB_USER USING(ROLE_ID)
-		  JOIN TB_BOARD USING(USER_NO)
-		 WHERE USER_NO= #{userNo} 
-	</select>
-	
-	<select id="selectBoardDate" parameterType="_int" resultType="string">
-		SELECT TO_CHAR(MAX(BOARD_CREATE_DATE), 'YYYY-MM-DD')"LASTDATE" 
-		  FROM TB_BOARD
-		 WHERE USER_NO = #{userNo}
-		   AND BOARD_STATUS = 'Y'
-	</select>
   
-  	<select id="selectPetList" parameterType="_int" resultMap="petResultSet">
-  		SELECT ROWNUM IND,
-			   PET_NO,
-			   PET_NAME,
-			   PET_SPECIES,
-			   FILE_MYPAGE_NO
-		  FROM TB_PET
-		 WHERE USER_NO = #{userNo}
-		 ORDER BY PET_NO
-  	</select>
 </mapper>

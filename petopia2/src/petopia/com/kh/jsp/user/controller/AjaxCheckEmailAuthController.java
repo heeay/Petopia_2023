@@ -2,7 +2,6 @@ package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
+import petopia.com.kh.jsp.user.model.service.UserService;
 
 /**
  * Servlet implementation class AjaxCheckEmailAuthController
@@ -35,10 +34,7 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		String authCode = request.getParameter("authCode");
 		
 		Date curDate = new Date();
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("emailAuthEmail", email);
-		map.put("emailAuthCode", authCode);
-		Date date = new UserServiceImpl().selectEmailAuth(map);
+		Date date = new UserService().selectEmailAuth(email, authCode);
 		
 		//System.out.println(date);
 		String result="";

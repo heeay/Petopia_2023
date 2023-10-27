@@ -3,11 +3,9 @@
      <%@ page import="petopia.com.kh.jsp.mypage.model.vo.Pet, java.util.ArrayList,
       petopia.com.kh.jsp.match.model.vo.Match, petopia.com.kh.jsp.common.model.vo.PageInfo,
        petopia.com.kh.jsp.user.model.vo.User" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%   
-ArrayList<Pet> petInfo = (ArrayList<Pet>)request.getAttribute("petInfo");
-ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
- %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +95,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
 <body>
 
 
-    <%@include file="../common/header.jsp" %>
+    <jsp:include page="../common/header.jsp" />
 
     <section>
     <div id="main">
@@ -112,10 +110,10 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
             </ul>
         </div>
         </div>
-        <form action="<%=contextPath%>/insert.pb" id="write" method="post" enctype="multipart/form-data">
+        <form action="/petopia/insert.pb" id="write" method="post" enctype="multipart/form-data">
 
-			<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
-            
+			<input type="hidden" name="userNo" value="${ userInfo.userNo }">
+           
 
 
             <section id="pet-img">
@@ -128,15 +126,31 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
    
 
 			<select name="petNo">
-			    <% for(Pet p : petInfo) { %>
-			        <option value="<%= p.getPetNo() %>">
-			            <% if(p.getUserNo() == userInfo.getUserNo()) { %>
-			                <%= p.getPetName() %></option>
-			            <% } else { %>
-			         	<option>등록하신 펫이 없습니다.</option>  
-			         <% } %>
-			    <% } %>
+				
+				
+				
+				<c:set var="hasMatchingPet" value="false" />
+			<c:forEach var="p" items="${petInfo}">
+			  <c:if test="${p.userNo eq userInfo.userNo}">
+			    <c:set var="hasMatchingPet" value="true" />
+			    <option value="${p.petNo}">
+			      ${p.petName}
+			    </option>
+			  </c:if>
+			</c:forEach>
+			
+			<c:choose>
+			  <c:when test="${not hasMatchingPet}">
+			    <option>등록하신 펫이 없습니다.</option>
+			  </c:when>
+			</c:choose>
+
+		
+
 			</select>
+
+
+
          
                 <div id="meetBoardTitle">
                     <h2>제목</h2>
@@ -213,7 +227,7 @@ ArrayList<Match> list = (ArrayList<Match>)request.getAttribute("list");
             </script>
     </div>
 	</section>
-    <%@include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>
