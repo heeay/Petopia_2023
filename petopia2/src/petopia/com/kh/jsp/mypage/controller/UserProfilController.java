@@ -17,7 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
-import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
