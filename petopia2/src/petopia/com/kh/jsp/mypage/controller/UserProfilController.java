@@ -61,7 +61,7 @@ public class UserProfilController extends HttpServlet {
 			
 			
 			if(result>0) {
-				request.getSession().setAttribute("userInfo", new UserService().reloadUser(loginUser.getUserNo()));
+				request.getSession().setAttribute("userInfo", new UserServiceImpl().reloadUser(loginUser.getUserNo()));
 				response.sendRedirect(request.getContextPath()+"/main.my");
 			}else {
 				// 첨푸파일을 넣었지만 insert 실패했을때
