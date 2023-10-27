@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>정보제공 관련 SQL문</comment>
+
+	<!-- 게시글 작성 폼에서 카테고리 리스트를 보여줄 SQL -->
+	<entry key="selectInfoCategory">
+		SELECT
+			   CTG_NO,
+			   CTG_NAME
+		  FROM 
+		  	   TB_CATEGORY
+		 WHERE 
+		 	   CTG_NO BETWEEN 12 AND 14
+		 ORDER 
+		 	BY 
+		 	   CTG_NO ASC
+	</entry>
+	
+	<!-- 게시글을 INSERT하는 SQL -->
+	<entry key="insertShareInfo">
+		INSERT
+		  INTO
+		  	   TB_BOARD
+		  	   (
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   BOARD_CONTENT,
+		  	   BOARD_CREATE_DATE,
+		  	   USER_NO,
+		  	   CTG_NO
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.NEXTVAL,
+			   ?,
+			   ?,
+			   SYSDATE,
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	<!-- 별점을 INSERT하는 SQL -->
+	<entry key="insertStar">
+		INSERT
+		  INTO
+		  	   TB_STAR
+		  	   (
+		  	   BOARD_NO,
+		  	   STAR_SCORE
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.CURRVAL,
+			   ?
+			   )
+	</entry>
+	
+	<!-- 첨부파일 리스트를 INSERT하는 SQL -->
+	<entry key="insertFileList">
+		INSERT
+		  INTO
+		  	   TB_FILE
+		  	   	(
+		  	   	FILE_NO,
+		  	   	REF_BNO,
+		  	   	ORIGINAL_NAME,
+		  	   	UPLOAD_NAME,
+		  	   	FILE_PATH,
+		  	   	FILE_LEVEL
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    SEQ_BOARD_NO.CURRVAL,
+		 	    ?,
+		 	    ?,
+		 	    ?,
+		 	    ?
+		 	    )
+	</entry>
+	
+	<!-- 게시글 수를 구하는 SQL -->
+	<entry key="selectListCount">
+		SELECT
+			   COUNT(BOARD_NO) BOARD_COUNT
+		  FROM 
+		  	   TB_BOARD
+		 WHERE 
+		 	   CTG_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	<!-- 카테고리별 게시글 리스트를 구하는 SQL -->
+	<entry key="selectList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+		  		  FROM (SELECT
+		  		  			   BOARD_NO,
+		  		  			   BOARD_TITLE,
+		  		  			   CASE WHEN LENGTH(BOARD_CONTENT) > 30 THEN SUBSTR(BOARD_CONTENT, 1, 30)||'...'
+		  		  			   		ELSE SUBSTR(BOARD_CONTENT, 1, 30)
+		  		  			   END AS SUB_CONTENT,
+		  		  			   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
+		  		  	      FROM 
+		  		  	      	   TB_BOARD
+		  		  	      JOIN
+		  		  	      	   TB_FILE ON(BOARD_NO = REF_BNO)
+		  		  	     WHERE 
+		  		  	     	   FILE_LEVEL = 1
+		  		  	       AND
+		  		  	       	   CTG_NO = ?
+		  		  	       AND
+		  		  	     	   BOARD_STATUS = 'Y'
+		  		  	     ORDER
+		  		  	     	BY 
+		  		  	     	   BOARD_NO DESC) A)
+				 WHERE RNUM BETWEEN ? AND ?		  		
+	</entry>
+	
+	<entry key="selectShare">
+		SELECT
+			   BOARD_NO,
+			   CTG_NO,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   BOARD_CREATE_DATE,
+			   USER_NICKNAME,
+			   STAR_SCORE,
+			   CTG_NAME
+		  FROM 
+		  	   TB_BOARD
+		  JOIN
+		  	   TB_USER USING(USER_NO)
+		  JOIN 
+		  	   TB_STAR USING(BOARD_NO)
+		  JOIN
+		  	   TB_CATEGORY USING(CTG_NO)
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectInfoFile">
+		SELECT
+			   FILE_NO,
+			   ORIGINAL_NAME,
+			   UPLOAD_NAME,
+			   FILE_PATH
+		  FROM 
+		  	   TB_FILE
+		 WHERE 
+		 	   REF_BNO = ?
+		 ORDER
+		 	BY
+		 	   FILE_NO ASC
+	</entry>
+	
+	<entry key="deleteShare">
+		UPDATE
+			   TB_BOARD
+		   SET 
+		   	   BOARD_STATUS = 'N'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요를 Y로 한 사람이라면 1 -->
+	<entry key="checkLike">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND
+		   	   LIKE_YN = 'Y'
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요를 N으로 한 사람이라면 1 -->
+	<entry key="checkNoLike">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND
+		   	   LIKE_YN = 'N'
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요 Y로 INSERT -->
+	<entry key="insertLike">
+		INSERT
+		  INTO
+		  	   TB_LIKE
+		  	   (
+		  	   BOARD_NO,
+		  	   USER_NO,
+		  	   LIKE_YN
+		  	   )
+		VALUES 
+			   (
+			   ?,
+			   ?,
+			   'Y'
+			   )
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요가 Y이면 N으로  UPDATE -->
+	<entry key="deleteLike">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'N'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND 
+		       LIKE_YN = 'Y'
+	</entry>
+	
+	<!-- 현재 로그인한 사람이 클릭한 게시글의 좋아요가 N이면 Y로  UPDATE -->	
+	<entry key="updateLike">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'Y'
+		 WHERE 
+		 	   BOARD_NO = ?
+		   AND 
+		   	   USER_NO = ?
+		   AND 
+		       LIKE_YN = 'N'
+	</entry>
+	
+	<!-- 클릭한 게시글의 좋아요 수 count -->
+	<entry key="countLike">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   LIKE_YN = 'Y'
+		   AND 
+		   	   BOARD_NO = ?
+	</entry>
+
+	<entry key="updateInfo">
+		UPDATE
+			   TB_BOARD
+		   SET
+		   	   BOARD_TITLE = ?,
+		   	   BOARD_CONTENT = ?,
+		   	   BOARD_UPDATE_DATE = SYSDATE,
+		   	   CTG_NO = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
+	<entry key="deleteOriginFile">
+		DELETE
+		  FROM 
+		  	   TB_FILE
+		 WHERE 
+		 	   REF_BNO = ?	   
+	</entry>
+	
+	<entry key="insertNewFile">
+		INSERT
+		  INTO
+		  	   TB_FILE
+		  	   (
+		  	   FILE_NO,
+		  	   REF_BNO,
+		  	   ORIGINAL_NAME,
+		  	   UPLOAD_NAME,
+		  	   FILE_PATH,
+		  	   FILE_LEVEL
+		  	   )
+		VALUES 
+			   (
+			   SEQ_FILE_NO.NEXTVAL,
+			   ?,
+			   ?,
+			   ?,
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	<entry key="updateStar">
+		UPDATE
+		       TB_STAR
+		   SET 	
+		   	   STAR_SCORE = ?
+		 WHERE 
+		 	   BOARD_NO = ?
+	</entry>
+	
+	<entry key="insertComment">
+		INSERT
+		  INTO
+		  	   TB_COMMENT
+		  	   	(
+		  	   	COMMENT_NO,
+		  	   	COMMENT_CONTENT,
+		  	   	COMMENT_CREATE_DATE,
+		  	   	COMMENT_UPDATE_DATE,
+		  	   	USER_NO,
+		  	   	BOARD_NO,
+		  	   	COMMENT_GROUP
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_COMMENT_NO.NEXTVAL,
+		 	    ?,
+		 	    SYSDATE,
+		 	    SYSDATE,
+		 	    ?,
+		 	    ?,
+		 	    1
+		 	    )
+	</entry>
+	
+	<entry key="selectCommentList">
+		SELECT
+			   COMMENT_NO,
+			   COMMENT_CONTENT,
+			   COMMENT_CREATE_DATE,
+			   USER_NICKNAME
+		  FROM 
+		  	   TB_COMMENT
+		  JOIN 
+		  	   TB_USER USING(USER_NO)
+		 WHERE 
+		 	   BOARD_NO = ?
+		 ORDER 
+	 	 	BY
+	 	 	   COMMENT_CREATE_DATE DESC
+	</entry>
+
+</properties>

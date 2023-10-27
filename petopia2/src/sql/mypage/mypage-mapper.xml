@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>마이페이지 관련 SQL문</comment>
+	
+	<!-- ====================내등급 및 점수 조회==================== -->
+	<!-- 내정보: 게시글 수 -->
+	<entry key="selectBoardCount">
+		SELECT COUNT(BOARD_NO)
+		  FROM TB_ROLE
+		  JOIN TB_USER USING(ROLE_ID)
+		  JOIN TB_BOARD USING(USER_NO)
+		 WHERE USER_NO=?
+	</entry>
+	
+	<!-- 내정보: 마지막으로 작성한 게시글 날짜 -->
+	<entry key="selectBoardDate">
+		SELECT TO_CHAR(MAX(BOARD_CREATE_DATE), 'YYYY-MM-DD')"LASTDATE" 
+		  FROM TB_BOARD
+		 WHERE USER_NO = ?
+		   AND BOARD_STATUS = 'Y'
+	</entry>
+	
+	<!-- 내정보: 초급>중급으로 업데이트 -->
+	<entry key="updateGradeR1">
+		UPDATE TB_USER
+		   SET ROLE_ID = 'R2'
+		 WHERE USER_NO=?
+	</entry>
+	
+	<!-- 내정보: 중급>고급으로 업데이트 -->
+	<entry key="updateGradeR2">
+		UPDATE TB_USER
+		   SET ROLE_ID = 'R3'
+		 WHERE USER_NO=?
+	</entry>
+	<!-- 내정보: 등급조회 -->
+	<entry key="selectR2">
+		 SELECT ROLE_ID, ROLE_NAME, USER_NO
+		   FROM TB_USER
+		   JOIN TB_ROLE USING(ROLE_ID)
+		  WHERE USER_NO=?
+	</entry>
+		
+	<!-- ==============펫 프로필 등록============== -->
+	<!-- 펫프로필: 펫이름 중복확인 -->
+	<entry key="checkPetName">
+		SELECT PET_NAME
+		  FROM TB_PET
+		 WHERE USER_NO=?
+		   AND PET_NAME = ?
+	</entry>
+	
+	<!-- 펫프로필: 유저프로필 첨부 -->
+	<entry key="insertUserProfil">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
+	<!-- 펫프로필: 유저 첨부파일 업데이트 -->
+	<entry key="updateUserProfil">
+		 UPDATE TB_USER
+		    SET FILE_MYPAGE_NO = SEQ_MYPAGE_FILE_NO.CURRVAL
+		  WHERE USER_NO=?
+	</entry>
+	
+	<!-- 펫프로필: 페이징  -->
+	<entry key="selectPetList">
+		  SELECT *
+			FROM (SELECT ROWNUM RNUM, A.*
+					FROM (SELECT *
+					FROM (SELECT
+							    ROWNUM IND,
+							    PET_NO,
+							    PET_NAME,
+							    PET_SPECIES,
+							    FILE_MYPAGE_NO
+							FROM
+							    TB_PET
+							WHERE
+							    USER_NO = ?
+							ORDER BY PET_NO)
+				ORDER BY IND DESC) A)
+			WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 펫프로필: 등록  -->
+	<entry key="insertPet">
+		 INSERT 
+		   INTO 
+		   		TB_PET
+		   		(
+		   		PET_NO, 
+				PET_NAME, 
+				PET_SPECIES, 
+				PET_SPECIFIC, 
+				PET_WEIGHT, 
+				PET_GENDER, 
+				PET_PERSONALITY, 
+				PET_ETC, 
+				USER_NO,
+				FILE_MYPAGE_NO
+		   		)
+		 VALUES 
+	 			(
+	 			SEQ_PET_NO.NEXTVAL,
+	 			?,
+	 			?,
+	 			?,
+	 			?,
+	 			?,
+	 			?,
+	 			?,
+	 			?,
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
+	 			)
+	</entry>
+	
+	<!-- 펫프로필: 이미지 첨부 -->
+	<entry key="insertPetImg">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
+	<!-- 펫프로필: 전체 리스트 -->
+	<entry key="selectPetListCount">
+		 SELECT 
+				COUNT(*)
+		   FROM 
+				TB_PET 
+		  WHERE 
+				USER_NO = ? 
+	</entry>
+	
+	<!-- 펫프로필: 자세히 보기 -->
+	<entry key="selectPetProfil">
+		 SELECT 
+		 		PET_NO,
+				PET_NAME,
+				PET_SPECIES,
+				PET_SPECIFIC,
+				PET_WEIGHT,
+				PET_GENDER,
+				PET_PERSONALITY,
+				PET_ETC 
+		   FROM 
+		   		TB_PET 
+		  WHERE 
+		  		PET_NO=?
+	</entry>
+	
+	<!-- 펫프로필: 이미지 다운용 -->
+	<entry key="selectPetFile">
+		  SELECT 
+				FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH 
+		   FROM 
+		   		TB_MYPAGE_FILE 
+		   JOIN 
+		   		TB_PET USING(FILE_MYPAGE_NO) 
+		  WHERE 
+		  		PET_NO=?
+		   		
+	</entry>
+	<!-- 펫프로필: 펫 이미지 업데이트용 -->
+	<entry key="updatePetImg">
+		 UPDATE 
+				TB_MYPAGE_FILE 
+			SET 
+				ORIGINAL_NAME=?,
+				UPLOAD_NAME=?,
+				FILE_PATH=? 
+		  WHERE 
+		  		FILE_MYPAGE_NO=?
+	</entry>
+	
+	<!-- 펫 프로필: 프로필 정보 업데이트용 -->
+	<entry key="updatePet">
+		 UPDATE
+		 		TB_PET
+		 	SET 
+				PET_NAME=?,
+				PET_SPECIES=?,
+				PET_SPECIFIC=?,
+				PET_WEIGHT=?,
+				PET_GENDER=?,
+				PET_PERSONALITY=?,
+				PET_ETC=? 
+		  WHERE 
+		  		PET_NO=? 
+	</entry>
+	
+	<!-- 펫프로필: 삭제 -->
+	<entry key="petDelete">
+		 DELETE 
+		   FROM 
+		   		TB_PET 
+    	  WHERE 
+    	  		PET_NO=? 
+	</entry>
+	
+	<!-- 
+	<entry key="petImgDelete">
+		 DELETE 
+		   FROM 
+		   		TB_MYPAGE_FILE 
+    	  WHERE 
+    	  		FILE_MYPAGE_NO=? 
+	</entry> -->
+	
+	
+	<!-- ====================펫다이어리==================== -->
+	<!-- 병원기록: 전체 리스트 -->
+	<entry key="selectHosListCount">
+		 SELECT 
+				COUNT(*) 
+		   FROM 
+		  		TB_HOS_RECORDS 
+		   JOIN 
+		  		TB_PET USING (PET_NO) 
+		  WHERE 
+		 		USER_NO = ? 
+	</entry>
+	
+	<!-- 병원기록: 페이징 -->
+	<entry key="selectHosList">
+		 SELECT * 
+  		   FROM (SELECT * 
+          		   FROM (SELECT 
+		          		  		ROWNUM IND,
+								HOS_NO,
+								TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+								PET_NAME
+						   FROM 
+								TB_HOS_RECORDS 
+						   JOIN 
+								TB_PET USING (PET_NO) 
+						  WHERE 
+								USER_NO = ? 
+						  ORDER BY HOS_NO DESC) 
+				   ORDER BY IND DESC) 
+		  WHERE IND BETWEEN ? AND ? 
+	</entry>
+	
+	<!-- 병원기록, 산책기록: 옵션에 들어갈 정보 -->
+	<entry key="selectPetName">
+		SELECT PET_NAME, PET_NO
+		  FROM TB_PET
+		 WHERE USER_NO=?
+	</entry>
+	
+	<!-- 병원기록: 기록작성 -->
+	<entry key="insertHos">
+		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
+		VALUES (SEQ_HOS_NO.NEXTVAL,?,?,?,?,?,?)
+	</entry>
+	
+	<!-- 병원기록: 자세히보기 -->
+	<entry key="selectHosContent">
+		 SELECT 
+		 		HOS_NO,
+                TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+                HOS_VACCINATION,
+                HOS_ILLNESS,
+                HOS_MEDICINE,
+                HOS_CONTENT,
+                PET_NO
+		   FROM 
+		   		TB_HOS_RECORDS 
+		  WHERE 
+		  		HOS_NO=?
+	</entry>
+	
+	<!-- 병원기록: 메인페이지 뷰 -->
+	<entry key="selectHosMain">
+		SELECT  
+                HOS_NO,
+                TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+                HOS_VACCINATION,
+                HOS_ILLNESS,
+                HOS_MEDICINE,
+                HOS_CONTENT,
+                PET_NO,
+                PET_NAME
+		   FROM 
+		   		TB_HOS_RECORDS
+           JOIN TB_PET USING(PET_NO)
+           JOIN TB_USER USING(USER_NO)
+		  WHERE 
+		  		USER_NO = ?
+            AND HOS_NO = (SELECT MAX(HOS_NO) FROM TB_HOS_RECORDS)
+            
+	</entry>
+	
+	<!-- 병원기록: 수정 -->
+	<entry key="updateHos">
+		UPDATE
+		 		TB_HOS_RECORDS
+		 	SET 
+				PET_NO = ?,
+                HOS_DATE = ?,
+                HOS_VACCINATION = ?,
+                HOS_ILLNESS = ?,
+                HOS_MEDICINE = ?,
+                HOS_CONTENT = ?
+		  WHERE 
+		  		HOS_NO = ?
+	</entry>
+	
+	<!-- 병원기록: 삭제 -->
+	<entry key="deleteHos">
+		 DELETE 
+		   FROM 
+		   		TB_HOS_RECORDS 
+    	  WHERE 
+    	  		Hos_NO=? 
+	</entry>
+	
+	<!-- 산책기록: 전체보기 -->
+	<entry key="selectWalkListCount">
+		 SELECT 
+				COUNT(*) 
+		   FROM 
+		  		TB_WALK_RECORDS 
+		   JOIN 
+		  		TB_PET USING (PET_NO) 
+		  WHERE 
+		 		USER_NO = ? 
+	</entry>
+	
+	<!-- 산책기록: 리스트보기 -->
+	<entry key="selectWalkList">		 
+		SELECT *
+          FROM (SELECT ROWNUM IND,
+					   WALK_NO,
+					   TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+					   WALK_TITLE,
+					   FILE_PATH||'/'||UPLOAD_NAME "PATH"
+				  FROM TB_WALK_RECORDS 
+				  JOIN TB_PET USING (PET_NO)
+				  LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO) 
+				 WHERE USER_NO = ? 
+	</entry>
+	
+	<!-- 산책기록: 글쓰기 -->
+	<entry key="insertWalk">
+		 INSERT 
+		   INTO 
+		   		TB_WALK_RECORDS
+		   		(
+		   		WALK_NO,
+                WALK_DATE,
+                WALK_CONTENT,
+                WALK_TITLE,
+                PET_NO,
+                FILE_MYPAGE_NO
+		   		)
+		 VALUES 
+	 			(
+	 			SEQ_WALK_NO.NEXTVAL,
+	 			SYSDATE,
+	 			?,
+	 			?,
+	 			?,
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
+	 			)
+	</entry>
+	
+	<!-- 산책기록: 자세히보기 -->
+	<entry key="selectWalkContent">
+		SELECT WALK_NO,
+		       TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+		       WALK_CONTENT,
+		       WALK_TITLE,
+		       PET_NO
+		  FROM TB_WALK_RECORDS
+		 WHERE WALK_NO = ?
+	</entry>
+	
+	<!-- 산책기록: 첨부파일 다운 -->
+	<entry key="selectWalkFile">
+		SELECT FILE_MYPAGE_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH 
+		  FROM TB_MYPAGE_FILE 
+		  JOIN TB_WALK_RECORDS USING(FILE_MYPAGE_NO) 
+		 WHERE WALK_NO = ?
+	</entry>
+	
+	<!-- 산책기록: 수정 -->
+	<entry key="updateWalk">
+		UPDATE TB_WALK_RECORDS
+		   SET WALK_DATE = SYSDATE,
+		       WALK_CONTENT = ?,
+		       WALK_TITLE = ?,
+		       PET_NO = ?
+		 WHERE WALK_NO= ?
+	</entry>
+	
+	<!-- 산책기록: 메인페이지 뷰 -->
+	<entry key="selectWalkMain">
+		SELECT WALK_CONTENT,
+		       WALK_TITLE,
+		       FILE_PATH||'/'||UPLOAD_NAME "PATH"
+		  FROM TB_WALK_RECORDS
+		  JOIN TB_PET USING(PET_NO)
+		  JOIN TB_USER USING(USER_NO)
+		  LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO)
+		 WHERE USER_NO = ?
+		   AND WALK_NO = (SELECT MAX(WALK_NO) FROM TB_WALK_RECORDS)
+	</entry>
+	
+	<!-- 산책기록: 삭제 -->
+	<entry key="deleteWalk">
+		 DELETE 
+		   FROM 
+		   		TB_WALK_RECORDS 
+    	  WHERE 
+    	  		WALK_NO=?
+	</entry>
+	
+	
+	<!-- ====================건의사항==================== -->
+	<!-- 건의사항: 글작성 -->
+	<entry key="insertSuggestion">
+		 INSERT 
+		   INTO 
+		   		TB_SUGGESTION
+		    	(
+		    	SUG_NO,
+		    	SUG_TITLE,
+				SUG_CONTENT,
+				SUG_DATE,
+				USER_NO
+		    	)
+		 VALUES 
+				(
+				SEQ_SUG_NO.NEXTVAL,
+				?,
+				?,
+				SYSDATE,
+				?
+				)
+	</entry>
+	
+	<!-- 건의사항: 파일등록 -->
+	<entry key="insertSuggestionFile">
+		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+		   		SUG_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				SEQ_SUG_NO.CURRVAL,
+				?, 
+				?,
+				?
+				)
+	</entry>
+	
+	<!-- 건의사항: 페이징 -->
+	<entry key="selectSugList">
+		SELECT * 
+  FROM(SELECT ROWNUM IND,A.*
+         FROM (SELECT SUG_NO,
+                      SUG_TITLE,
+                      SUG_CONTENT,
+                      SUG_DATE,
+                      USER_NO,
+                      USER_EMAIL
+                 FROM TB_SUGGESTION
+                 JOIN TB_USER USING(USER_NO)
+                ORDER BY SUG_NO DESC)A
+        ORDER BY IND)
+ WHERE IND BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 건의사항: 전체리스트 수 -->
+	<entry key="selectSugListCount">
+		SELECT COUNT(*)
+  		  FROM TB_SUGGESTION
+	</entry>
+	
+	<!-- 건의사항: 건의사항 상세보기 -->
+	<entry key="selectSugContent">
+		SELECT SUG_NO,
+			   SUG_TITLE,
+		       SUG_CONTENT,
+		       SUG_DATE,
+		       USER_EMAIL
+		  FROM TB_SUGGESTION
+		  JOIN TB_USER USING (USER_NO)
+		  WHERE SUG_NO = ?
+	</entry>
+	
+	<!-- 건의사항: 건의사항 첨부파일 -->
+	<entry key="selectSugFile">
+		SELECT FILE_MYPAGE_NO,
+		       SUG_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH
+		  FROM TB_MYPAGE_FILE 
+		  JOIN TB_SUGGESTION USING(SUG_NO)  
+		  WHERE SUG_NO = ?
+	</entry>
+	
+	<!-- 건의사항: 삭제 -->
+	<entry key="deleteSug">
+		 DELETE 
+		   FROM 
+		   		TB_SUGGESTION 
+    	  WHERE 
+    	  		SUG_NO=?
+	</entry>
+</properties>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>유저 관련 SQL문</comment>
+<entry key="loginUser">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_EMAIL = ?
+AND
+	USER_PASS = ?
+AND
+	USER_METHOD = 0
+AND
+	USER_ENABLE_STATE = 'Y'
+</entry>
+<entry key="reloadUser">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_NO = ?
+AND
+	USER_ENABLE_STATE = 'Y'
+</entry>
+<entry key="insertUser">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?,
+	?
+)
+</entry>
+<entry key="insertUserAndProfile">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+)
+</entry>
+<entry key="checkUserNo">
+SELECT
+	USER_EMAIL
+FROM
+	TB_USER
+WHERE
+	USER_NO = ?
+AND
+	USER_METHOD = 0
+</entry>
+<entry key="checkUserEmail">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_EMAIL = ?
+AND
+	USER_METHOD = 0
+</entry>
+<entry key="checkUserNickname">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_NICKNAME = ?
+AND
+	USER_METHOD = 0
+</entry>
+<entry key="checkUserNicknameUserNo">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_NICKNAME = ?
+AND
+	USER_METHOD = 0
+AND
+	USER_NO != ?
+</entry>
+<entry key="updateEmailAuth">
+UPDATE
+	TB_EMAIL_AUTH
+SET
+	EMAIL_AUTH_CODE = ?,
+	EMAIL_AUTH_DATE = SYSDATE
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+</entry>
+<entry key="insertEmailAuth">
+INSERT INTO
+	TB_EMAIL_AUTH(
+		EMAIL_AUTH_EMAIL,
+		EMAIL_AUTH_CODE
+	)
+VALUES(
+	?,
+	?
+)
+</entry>
+<entry key="selectEmailAuth">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+AND
+	EMAIL_AUTH_CODE = ?
+</entry>
+<entry key="selectToken">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_CODE = ?
+</entry>
+<entry key="deleteEmailAuth">
+DELETE FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = ?
+</entry>
+
+<entry key="loginSimpleAuth">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_EMAIL = ?
+AND
+	USER_PASS = ?
+AND
+	USER_METHOD != 0
+AND
+	USER_ENABLE_STATE = 'Y'
+</entry>
+<entry key="insertKakaoUser">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?||SEQ_USER_NO.CURRVAL
+)
+</entry>
+<entry key="insertKakaoUserAndProfile">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	?,
+	?,
+	?,
+	?||SEQ_USER_NO.CURRVAL,
+	?
+)
+</entry>
+<entry key="insertOAuthProfile">
+INSERT INTO 
+TB_MYPAGE_FILE(
+	FILE_MYPAGE_NO,
+	ORIGINAL_NAME,
+	UPLOAD_NAME,
+	FILE_PATH
+)
+VALUES(
+	SEQ_MYPAGE_FILE_NO.NEXTVAL,
+	'인터넷이미지', 
+	?,
+	?
+)
+</entry>
+<entry key="currProfileNo">
+SELECT
+	SEQ_MYPAGE_FILE_NO.CURRVAL
+FROM
+	DUAL
+</entry>
+<entry key="updateUserPw">
+UPDATE
+	TB_USER
+SET
+	USER_PASS = ?,
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="updateUserInfo">
+UPDATE
+	TB_USER
+SET
+	USER_NICKNAME = ?,
+	USER_PHONE = ?,
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="deleteUser">
+UPDATE
+	TB_USER
+SET
+	USER_ENABLE_STATE = 'N',
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = ?
+</entry>
+<entry key="deleteOAuthUser">
+DELETE FROM
+	TB_USER
+WHERE
+	USER_NO = ?
+</entry>
+</properties>
