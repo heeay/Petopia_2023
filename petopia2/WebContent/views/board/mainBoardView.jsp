@@ -231,7 +231,7 @@
 	
     <script>
 	        $('#insert-board-btn').on('click', function(){
-	        }location.href  = "${pageContext.request.getContextPath}/insertForm.bo";
+	        location.href  = "/petopia/insertForm.bo";
 	        });
 	   
             // <!-- n개씩 보기 기능 -->
@@ -312,21 +312,21 @@
 
                     <li id="search-count-one">
                         <p id="displayOne"></p>
-                            <a class="display" href="<%= contextPath %>/main.bo?display=1">
+                            <a class="display" href="/petopia/main.bo?display=1">
                                 1개씩 보기
                             </a>
                         
                     </li>
                     <li id="search-count-four">
                         <p id="displayFour"></p>
-                            <a class="display" href="<%= contextPath %>/main.bo?display=4">
+                            <a class="display" href="/petopia/main.bo?display=4">
                                 4개씩 보기
                             </a>
                         
                     </li>
                     <li id="search-count-nine">
                         <p id="displayNine"></p>
-                            <a class="display" href="<%= contextPath %>/main.bo?display=9">
+                            <a class="display" href="/petopia/main.bo?display=9">
                                 9개씩 보기
                             </a>
                         
@@ -362,7 +362,7 @@
                     a태그와 달리 페이지 이동을 하지 않기 때문에 클릭 이벤트 후에도 상태가 유지됨 -->
      
                 <!-- boardLimit과 레이아웃만 담당 -->
-                 <!-- <form action="<%= contextPath %>/main.bo" method="post" id="displayForm" name="displayForm">
+                 <!-- <form action="/petopia/main.bo" method="post" id="displayForm" name="displayForm">
                    
                     <div id="search-count-one">
                         <label for="one"><input type="hidden" id="one" name="display" value="1">1개씩 보기</label>
@@ -446,7 +446,7 @@
                     cpage : $(e.target).val(),
                 },
                 success : function(page) {
-                    location.href = "<%= contextPath %>/main.bo?cpage=" + page + "&display=" + displayCount;
+                    location.href = "/petopia/main.bo?cpage=" + page + "&display=" + displayCount;
 
                     
                 }
@@ -459,7 +459,7 @@
            
 			<article>
 				<c:if test="${ !empty sessionScope.userInfo }">
-              	 	<div id="insert-board-btn" class="btn btn-sm btn-info"><a href="<%= contextPath %>/insertForm.bo">글쓰기</a></div>
+              	 	<div id="insert-board-btn" class="btn btn-sm btn-info"><a href="/petopia/insertForm.bo">글쓰기</a></div>
            		</c:if>
             </article>
        
@@ -484,8 +484,8 @@
                     <c:forEach var="board" items="${ bList }">
 	                    <div class="content-item">
 	                   
-	                        <a href="<%= contextPath %>/detail.bo?bno=${ board.boardNo }">
-	                         	<img src="<%= contextPath %>/${ board.fileImg }" alt="">
+	                        <a href="/petopia/detail.bo?bno=${ board.boardNo }">
+	                         	<img src="/petopia/${ board.fileImg }" alt="">
 	                        </a>
 	                        <p>${ board.boardTitle }</p>
 	                        <span>${ board.boardViews }&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
@@ -507,7 +507,7 @@
             <!-- 현재페이지가 1이 아닌이상 <가 있어야함 / 버튼 클릭시엔 cpage - 1 로 이동-->
            
             <c:if test="${ requestScope.pageInfo.currentPage ne 1 }" >
-        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ requestScope.pageInfo.currentPage - 1 }'" class="btn btn-sm btn-info">&lt;</button>
+        		<button onclick="location.href='/petopia/main.bo?cpage=${ requestScope.pageInfo.currentPage - 1 }'" class="btn btn-sm btn-info">&lt;</button>
             </c:if>
 
             <!-- 시작페이지와 끝페이지가 같다는 건 boardLimit보다 작거나 같은 수의 게시글이 있어 총 페이지 수가 1이란 뜻 -->
@@ -521,7 +521,7 @@
 	            
 	            	<c:choose>
 	            		<c:when test="${ requestScope.pageInfo.currentPage ne i }">
-	            			<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ i }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">${ i }</button>
+	            			<button onclick="location.href='/petopia/main.bo?cpage=${ i }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">${ i }</button>
 	            	 	</c:when>
 		            	 <c:otherwise>
 		            		<button disabled class="btn btn-sm btn-danger">${ i }</button>
@@ -533,7 +533,7 @@
             <!-- ***현재페이지가 최대페이지가 아니면 endPage오른쪽에 >이 표시되어야 하고 클릭시엔 현재페이지에서 +1이 더한 페이지가 나와야함 -->
             
             <c:if test="${ requestScope.pageInfo.currentPage ne requestScope.pageInfo.maxPage }">
-            	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ requestScope.pageInfo.currentPage + 1 }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">&gt;</button>
+            	<button onclick="location.href='/petopia/main.bo?cpage=${ requestScope.pageInfo.currentPage + 1 }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">&gt;</button>
             </c:if>
          
             </div>
@@ -542,7 +542,7 @@
 
         </div>
 
-<%@ include file="../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp" />
 
 
 
