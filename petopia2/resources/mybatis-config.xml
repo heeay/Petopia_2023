@@ -15,6 +15,11 @@
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="PetFile"/>
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="Sug"/>
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="WalkR"/>
+		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Info" alias="info"/>
+		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoCategory" alias="infoCtg"/>
+		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoComment" alias="infoComment"/>
+		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoFile" alias="infoFile"/>
+		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Star" alias="star"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -34,6 +39,7 @@
 	<mappers>
 		<mapper resource="/mapper/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
+		<mapper resource="/mapper/info-mapper.xml"/>
 	</mappers>
 </configuration>
  
