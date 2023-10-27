@@ -11,6 +11,10 @@
 	<typeAliases>
 		<typeAlias type="petopia.com.kh.jsp.user.model.vo.User" alias="user"/>
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.HosRecords" alias="hos"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="Pet"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="PetFile"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="Sug"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="WalkR"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -30,7 +34,6 @@
 	<mappers>
 		<mapper resource="/mapper/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
-		
 	</mappers>
 </configuration>
  
