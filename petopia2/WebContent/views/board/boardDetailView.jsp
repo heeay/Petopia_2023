@@ -124,8 +124,8 @@
         <div id="content-imgs">
       
       <!-- "/petopia/${    fList.get(${i}).filePath    }/${ fList.get(${i}).uploadName }" -->
-			<c:forEach var="file"  items="${ fList }">
-			 	<img src="/petopia/${ file.filePath }/${file.uploadName}" alt="상세이미지${ i }" id="contentImg${i }" width="250" height="180">
+			<c:forEach var="file"  items="${ requestScope.fList }">
+			 	<img src="/petopia/${ file.filePath }/${file.uploadName}" width="250" height="180" />
 			</c:forEach>                                                                  
                
         </div>
