@@ -23,7 +23,7 @@
 		
 		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Board" alias="board"/>
 		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Category" alias="category"/>
-		<typeAlias type="petopia.com.kh.jsp.board.model.vo.File" alias="file"/>
+		<typeAlias type="petopia.com.kh.jsp.common.model.vo.File" alias="file"/>
 		<typeAlias type="petopia.com.kh.jsp.common.model.vo.PageInfo" alias="pageInfo"/>
 		
 		
@@ -47,7 +47,7 @@
 	<mappers>
 		<mapper resource="/mapper/user/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
-		<mapper resource="/board/board-mapper.xml" />
+		<mapper resource="/mapper/board-mapper.xml" />
 		<!-- <mapper resource="/mapper/info-mapper.xml"/> -->
 	</mappers>
 </configuration>
