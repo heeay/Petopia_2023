@@ -47,7 +47,7 @@
 	<mappers>
 		<mapper resource="/mapper/user/user-mapper.xml"/>
 		<mapper resource="/mapper/mypage-mapper.xml"/>
-		<mapper resource="/mapper/board-mapper.xml" />
+		<mapper resource="/mapper/board/board-mapper.xml" />
 		<!-- <mapper resource="/mapper/info-mapper.xml"/> -->
 	</mappers>
 </configuration>
