@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.InfoCategory" %>
-<!-- 카테고리 중 인포에 관한 리스트를 불러옴 -->
-<%
-	ArrayList<InfoCategory> list = (ArrayList<InfoCategory>)request.getAttribute("list");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +65,7 @@
             <form action="<%= contextPath %>/insert.in" enctype="multipart/form-data" name="enroll" id="enroll-form" method="post">
 			
 				<!-- 게시글을 작성한 작성자 번호를 hidden으로 넘김 (userInfo는 include한 infoSidebar 파일에서 include한 header-min 파일에 포함) -->
-				<input type="hidden" name="userNo" value="<%= userInfo.getUserNo() %>">
+				<input type="hidden" name="userNo" value="${ sessionScope.userInfo.userNo }">
 				<!-- 자바스크립트 영역의 starNum에 담긴 값을 value로 받아서 hidden으로 넘김 -->
 				<input type="hidden" name="star" value="">
 
@@ -83,11 +79,13 @@
                         <th>카테고리</th>
                         <td>
                             <select name="category">
-                                <% for(InfoCategory ic : list) { %> <!-- list의 값을 ic에 담음 -->
-                                	<option value="<%= ic.getCategoryNo() %>"> <!-- select의 option의 value에 ic에서 카테고리 번호를 뽑아서 담음 -->
-                                		<%= ic.getCategoryName() %> <!-- 텍스트 영역에는 ic의 카테고리명을 담음 -->
+                            	
+                            	<c:forEach var="ctg" items="${ requestScope.list }">
+                            		<option value="${ ctg.categoryNo }">
+                                		${ ctg.categoryName }
                                 	</option>
-                                <% } %>
+                            	</c:forEach>
+                            	
                             </select>
                         </td>
                     </tr>
