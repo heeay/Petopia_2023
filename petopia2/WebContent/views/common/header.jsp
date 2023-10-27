@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
-<%
-String contextPath = request.getContextPath();
-User userInfo = (User)session.getAttribute("userInfo");
-%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -326,39 +323,54 @@ User userInfo = (User)session.getAttribute("userInfo");
     <div id="fixed-header-bar-wrap">
         <div class="header-bar">
             <div class="header-logo">
-                <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a>
             </div>
             <ul class="header-navi">
 
-                <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
+                <li class="header-navi-item"><a href="/petopia/share.in?ictg=12&ipage=1">정보</a></li>
 
                 <!--<li class="header-navi-item"><a href="#">행사</a></li>-->
-                <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
             </ul>
             <ul class="header-navi user-navi">
-                <%if(userInfo == null){ %>
-                    <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                <%} else { %>
-                    <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
+                
+    <c:choose>
+                <c:when test="${ empty userInfo }">
+                    <li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
+          
+                </c:when>
+                <c:otherwise>
+                    <li class="user-navi-item user-nickname"><span><a href="/petopia/main.my">
                         <div id="file-area">
-                        	<% if(userInfo.getFileMypageNo().equals("/")) {%>
-                            	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
-                        	<% } else {%>
-                        	<%
-                			String url = userInfo.getFileMypageNo();
-                			if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                			%>
-                				<img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                			<%} else { %>
-                				<img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                			<%} %>
-                        	<% } %>
+                    
+                        	<c:choose>
+		                        	<c:when test="${userInfo.fileMypageNo eq '/'}">
+		                        	<img src="./resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+		                        	</c:when>
+		                        	<c:otherwise>
+                        			
+                     
+		                					<c:set var="url" value="${userInfo.fileMypageNo }" />
+		                					<c:choose>
+		                					<c:when test="${( url.substring(0,url.indexOf('/')) eq 'https:' ) and ( url.substring(0,url.indexOf('/')) eq 'http:' )}">
+		                					
+		                							<img src="/petopia/${userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+		                															
+		                					</c:when>
+		                					<c:otherwise>
+		                				<img src="${userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+		                					</c:otherwise>
+		                					</c:choose>
+		                			</c:otherwise>	
+	                        	</c:choose>
                         </div>
-                        <%=userInfo.getUserNickname() %>
+                        ${userInfo.userNickname }
                     </a></span>님</li>
-                    <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
-                <%} %>
+                    <li class="user-navi-icon-btn"><button class="header-tool" type="button" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
+               </c:otherwise>
+ </c:choose>
+                
                 <li class="user-navi-icon-btn">
                     <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                     <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
@@ -371,30 +383,40 @@ User userInfo = (User)session.getAttribute("userInfo");
         </div>
     </div>
     <header>
-        <div id="header-empty"></div>
+  <!-- <div id="header-empty"></div>
         <div id="header-wrap">
             <div id="header-bar-wrap"></div>
-            <!--<div id="header-bar-wrap">
+           <div id="header-bar-wrap">
                 <div class="header-bar">
                     <div class="header-logo">
-                        <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                        <a href="/petopia"><img class="logo" src=".../resources/images/logo.png" alt=""></a>
                     </div>
                     <ul class="header-navi">
-                        <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                        <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                        <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
+                        <li class="header-navi-item"><a href="/petopia/share.in?ictg=12&ipage=1">정보</a></li>
                         <li class="header-navi-item"><a href="#">행사</a></li>
-                        <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                        <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
                     </ul>
                     <ul class="header-navi user-navi">
-                        <%if(userInfo == null){ %>
-                            <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                        <%} else { %>
-                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/views/mypage/mygradeView.jsp"><%=userInfo.getUserNickname() %></a></span>님</li>
+                        
+        <c:choose>
+               <c:when test="${ empty userInfo }">
+                            <li class="user-navi-item"><a href="<petopia/login">로그인</a></li>
+                </c:when>
+                <c:otherwise>
+                            <li class="user-navi-item user-nickname"><span><a href="/petopia/views/mypage/mygradeView.jsp">${ userInfo.userNickname }</a></span>님</li>
                             <li class="user-navi-item"><a 
-                                <%if(userInfo.getUserMethod()==1){%>onclick="naverLogout();"<%}
-                                else if(userInfo.getUserMethod()==2){%>onclick="kakaoLogout();"<%}%> 
-                                href="<%=contextPath %>/logout">로그아웃</a></li>
-                        <%} %>
+                                <c:choose>
+                                	<c:when test="${ userInfo.userMethod == 1 }">
+                                	       onclick="naverLogout();"
+                                	</c:when>
+                                	<c:when test="${ userInfo.userMethod == 2 }">
+                                			onclick="kakaoLogout();"
+                                	</c:when>
+                                </c:choose>
+                                href="/petopia/logout">로그아웃</a></li>
+                </c:otherwise>
+          </c:choose>
                         <li class="user-navi-icon-btn">
                             <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                             <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">

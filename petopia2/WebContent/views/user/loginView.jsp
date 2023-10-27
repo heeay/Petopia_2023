@@ -153,6 +153,7 @@
 </head>
 <body>
     <%@include file="../common/header-min.jsp" %>
+    <c:set var="contextPath" value="/petopia/"/>
     <script>
         $(document).ready(function(){
             $("#email-auth").click(function(){
@@ -221,7 +222,7 @@
                 </div>
             </div>
             <div id="login-form-wrap" <c:if test="${empty fail}">style="display: none;"</c:if> >
-                <form id="login-form" action="<%=contextPath%>/login.prossess" method="post">
+                <form id="login-form" action="${contextPath}login.prossess" method="post">
                 	<c:if test="${not empty fail}" >
                     <div class="login-error-wrap" id="err-fail">
                         이메일 또는 비밀번호를 잘못 입력했습니다.
@@ -260,25 +261,25 @@
 
         <div class="auth-wrap margin-bottom">
             <a href="${apiURL}" id="naverIdLogin_loginButton" class="auth-btn">
-                <img class="auth-icon" src="<%=contextPath %>/resources/images/naver_login_icon.svg">
+                <img class="auth-icon" src="${contextPath}resources/images/naver_login_icon.svg">
                 	네이버 로그인
             </a>
         </div>
         <div class="auth-wrap margin-bottom">
             <div id="kakao-auth" class="auth-btn" onclick="kakaoLogin();">
-                <img class="auth-icon" src="<%=contextPath %>/resources/images/kakao_login_icon.svg">
+                <img class="auth-icon" src="${contextPath}resources/images/kakao_login_icon.svg">
                 	카카오 로그인
             </div>
         </div>
         <div class="auth-wrap margin-bottom">
             <div id="GgCustomLogin" class="auth-btn" onclick="googleLogin();">
-                <img class="auth-icon" src="<%=contextPath %>/resources/images/Fill_google.svg">
+                <img class="auth-icon" src="${contextPath}resources/images/Fill_google.svg">
                	    구글 로그인
             </div>
         </div>
         <div class="find-wrap">
-            <a href="<%=contextPath %>/findPassword">비밀번호 찾기</a> /
-            <a href="<%=contextPath %>/register">회원가입</a>
+            <a href="${contextPath}findPassword">비밀번호 찾기</a> /
+            <a href="${contextPath}register">회원가입</a>
         </div>
     </section>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -296,7 +297,7 @@
                       console.log(response["id"]);
                       console.log(response["kakao_account"]["email"]);
                       console.log(response["kakao_account"]["profile"]["profile_image_url"]);
-                      location.href="<%= contextPath %>/kakaoLogin?email="+response["kakao_account"]["email"]+
+                      location.href="${contextPath}kakaoLogin?email="+response["kakao_account"]["email"]+
                     		  "&id="+response["id"]+
                     		  "&profile="+response["kakao_account"]["profile"]["profile_image_url"];
                       

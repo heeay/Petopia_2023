@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
-<%
-	String contextPath = request.getContextPath();
 
-%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -208,7 +205,7 @@
 
             /* alertMsg가 ""이면?? */
             	//alert('${ alertMsg }');
-            	<c:remove var="alertMsg" /> 
+            	//<c:remove var="alertMsg" /> 
         })
     </script>
     
@@ -253,7 +250,7 @@
         <div id="fixed-header-bar-wrap">
             <div id="header-bar">
                 <div class="header-logo">
-                    <a href="/petopia"><img class="logo" src="/resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
+                    <a href="/petopia"><img class="logo" src="./resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
                     <!--  -->
                 </div>
                 <ul class="header-navi">
@@ -263,7 +260,7 @@
                     <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                	<c:choose>
+               <c:choose>
                 		<c:when test="${ empty userInfo }">
                     		<li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
                     	</c:when>
@@ -272,28 +269,28 @@
 	                            <div id="file-area">
 	                                
 	                             <c:choose>
-	                             		<c:when test="${ userInfo.fileMypageNo eq '/' }">
-	                                    	<img src="/resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+	                             		<c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
+	                                    	<img src="./resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
 	                                	</c:when>
 	                                	<c:otherwise>
-			                             	<c:set var="url" value="${ userInfo.fileMypageNo }" />
+			                             	<c:set var="url" value="${ sessionScope.userInfo.fileMypageNo }" />
 			                             	<c:choose>
 				                             	<c:when test="${(url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
-				                                    <img src="<%=contextPath%>/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                    <img src="/petopia/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 				                                </c:when>
 			                
 				                                <c:otherwise>
-				                                    <img src="${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                    <img src="${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 				                                </c:otherwise>
 				                            </c:choose>
 	                                	</c:otherwise>
 	                             </c:choose>
 	                            </div>
-	                            ${ requestScope.userInfo.userNickName }
+	                            ${ sessionScope.userInfo.userNickName }
 	                        </a></span>님</li>
 	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
-                    </c:choose>
+                </c:choose>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                         <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">

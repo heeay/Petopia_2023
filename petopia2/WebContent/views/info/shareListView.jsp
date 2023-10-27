@@ -65,14 +65,14 @@
 
 	<section>
 	
-	<%@ include file="infoSidebar.jsp" %>
+	<jsp:include page="infoSidebar.jsp" />
 	
 	<div id="wrap">
 	
         <div id="content-area">
         	
         	<c:if test="${ not empty sessionScope.userInfo }">
-        		<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
+        		<a href="/petopia/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
         	</c:if>
         	
         </div>
@@ -111,12 +111,12 @@
         	</c:when>
         	<c:otherwise>
         		<c:if test="${ requestScope.pi.currentPage != 1 }">
-        			<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage - 1 }'" class="share-btn">&lt;</button>
+        			<button onclick="location.href='/petopia/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage - 1 }'" class="share-btn">&lt;</button>
         		</c:if>
         		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
         			<c:choose>
         				<c:when test="${ pi.currentPage != p }">
-        					<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ p }'" class="share-btn">${ p }</button>
+        					<button onclick="location.href='/petopia/share.in?ictg=${ ctgNo }&ipage=${ p }'" class="share-btn">${ p }</button>
         				</c:when>
         				<c:otherwise>
         					<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">${ p }</button>
@@ -124,7 +124,7 @@
         			</c:choose>
         		</c:forEach>
         		<c:if test="${ pi.currentPage != pi.maxPage }">
-        			<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage + 1 }'" class="share-btn">&gt;</button>
+        			<button onclick="location.href='/petopia/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage + 1 }'" class="share-btn">&gt;</button>
         		</c:if>
         	</c:otherwise>
         </c:choose>
@@ -134,7 +134,7 @@
     <script>
     	$(function() {
     		$('.click-area').click(function(){
-    			location.href = '<%= contextPath %>/detailShare.in?ino=' + $(this).children().eq(0).text();
+    			location.href = '/petopia/detailShare.in?ino=' + $(this).children().eq(0).text();
     		});
     	});
     </script>

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-int accessCount = application.getAttribute("accessCount")!=null ? (Integer)application.getAttribute("accessCount") : 0;
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,7 +164,7 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
     </style>
 </head>
 <body>
-	<%@include file="views/common/header.jsp" %>
+	<jsp:include page="views/common/header.jsp" />
 	<section>
     <div id="section-wrap">
         <div id="left-side-menu-wrap">
@@ -353,15 +351,15 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
                             var swiperSlide = $("<div></div>").addClass("swiper-slide");
                             for(var i=0;i<result.length;i++){
                                 var str=
-                                "<a class='board-item' href='<%=contextPath%>/detail.bo?bno="+result[i]["boardNo"]+"'>"+
+                                "<a class='board-item' href='/petopia/detail.bo?bno="+result[i]["boardNo"]+"'>"+
                                 "<div class='board-thumbnail-wrap'>"+
                                 "<img src='"+result[i]["fileImg"]+"'>"+
                                 "</div>"+
                                 "<div>"+result[i]["boardTitle"]+" ["+result[i]["userNo"]+"]</div>"+
-                                "<div class='text'><img class='text-icon' src='<%=contextPath %>/resources/images/writer.svg'>"+result[i]["boardContent"]+"</div>"+
+                                "<div class='text'><img class='text-icon' src='./resources/images/writer.svg'>"+result[i]["boardContent"]+"</div>"+
                                 "<div class='text'>"+
-                                "<img class='text-icon' src='<%=contextPath %>/resources/images/create_date.svg'>"+result[i]["boardCreateDate"]+
-                                " <img class='text-icon' src='<%=contextPath %>/resources/images/views.svg'> "+result[i]["boardViews"]+
+                                "<img class='text-icon' src='./resources/images/create_date.svg'>"+result[i]["boardCreateDate"]+
+                                " <img class='text-icon' src='./resources/images/views.svg'> "+result[i]["boardViews"]+
                                 "</div>"+
                                 "</a>";
                                 swiperSlide.append(str);
@@ -506,6 +504,6 @@ int accessCount = application.getAttribute("accessCount")!=null ? (Integer)appli
         });
         </script>
 </section>
-	<%@include file="views/common/footer.jsp" %>
+	<jsp:include page="views/common/footer.jsp" />
 </body>
 </html>

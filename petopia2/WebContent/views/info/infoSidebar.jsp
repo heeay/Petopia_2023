@@ -45,19 +45,19 @@
 </head>
 <body>
 
-	<%@ include file="../common/header-min.jsp" %>
+	<jsp:include page="../common/header-min.jsp" />
     
     <div id="info-side-wrap">
         <div id="info-side">
             <ul id="info-category">
                 <li><a id="info-board">📢정보공유</a>
                     <ul id="sub-info" style="display: none;">
-                    	<li><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">🐾애견동반</a></li>
-                        <li><a href="<%= contextPath %>/share.in?ictg=13&ipage=1">🦴애견용품</a></li>
-                        <li><a href="<%= contextPath %>/share.in?ictg=14&ipage=1">🏥병원</a></li>
+                    	<li><a href="/petopia/share.in?ictg=12&ipage=1">🐾애견동반</a></li>
+                        <li><a href="/petopia/share.in?ictg=13&ipage=1">🦴애견용품</a></li>
+                        <li><a href="/petopia/share.in?ictg=14&ipage=1">🏥병원</a></li>
                     </ul>
                 </li>
-                <li><a href="<%= contextPath %>/training">⚾트레이닝 센터</a></li>
+                <li><a href="/petopia/training">⚾트레이닝 센터</a></li>
                 <li><a href="https://namu.wiki/w/%EA%B2%AC%EC%A2%85#s-5" target="_blank">📂애완동물 도감</a></li>
                 <li><a href="https://www.weather.go.kr/w/weather/forecast/short-term.do" target="_blank">⛅날씨</a></li>
                 <li><a href="https://www.pet-news.or.kr/" target="_blank">📄뉴스레터</a></li>
