@@ -93,7 +93,6 @@
 		 WHERE USER_NO = #{userNo}
 		 ORDER BY PET_NO
   	</select>
-
   	
   	<insert id="insertHos" parameterType="pet">
   		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
