@@ -121,9 +121,10 @@
 </head>
 <body>
     <%@include file="../common/header-min.jsp" %>
+    <c:set var="contextPath" value="/petopia/"/>
     <section>
         <div id="register-form-wrap">
-            <form id="register-form" action="<%=contextPath %>/register.prossess" method="post">
+            <form id="register-form" action="${contextPath}register.prossess" method="post">
                 <div class="input-wrap">
                     <input id="email" type="text" name="email" placeholder=" 이메일" autocomplete="off">
                     <div class="input-icon">
