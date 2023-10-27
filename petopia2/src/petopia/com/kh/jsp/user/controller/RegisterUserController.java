@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -59,7 +59,7 @@ public class RegisterUserController extends HttpServlet {
 		user.setUserPass(pw);
 		user.setUserPhone(phone);
 
-		int result = new UserService().insertUser(user);
+		int result = new UserServiceImpl().insertUser(user);
 
 		if(result>0) {
 			response.sendRedirect(request.getContextPath()+"/login");
