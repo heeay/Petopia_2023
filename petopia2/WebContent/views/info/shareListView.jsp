@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, petopia.com.kh.jsp.info.model.vo.Info, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
-<%
-	ArrayList<Info> list = (ArrayList<Info>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	int ctgNo = (int)request.getAttribute("ctgNo");
-	
-	int currentPage = pi.getCurrentPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,70 +70,64 @@
 	<div id="wrap">
 	
         <div id="content-area">
-        	<% if(userInfo != null) { %>
-        		<!-- 매핑값 : insertForm.in -->
-		    	<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
-        	<% } %>
+        	
+        	<c:if test="${ not empty sessionScope.userInfo }">
+        		<a href="<%= contextPath %>/insertForm.in" class="btn btn-sm btn-warning">글쓰기</a>
+        	</c:if>
+        	
         </div>
 
         <table class="info-list">
-			
-			<% if(list.isEmpty()) { %>
-            <tr>
-                <td id="no-list">조회된 게시글이 없습니다.</td>
-            </tr>
-            <% } else { %>
-
-                <% for(Info in : list) { %>
-                    <tr class="click-area">
-                    	<!-- 각 게시글 번호를 알아내기 위한 td (css영역에서 display:none으로 안 보이게 함) -->
-                    	<td id="info-no"><%= in.getInfoNo() %></td>
-                        <td rowspan="2" width="400px" height="150px"><img src="<%= in.getTitleImg() %>"></td>
-                        <td width="600px"><%= in.getInfoTitle() %></td>
-                    </tr>
-	                <tr>
-	                    <td><%= in.getInfoContent() %></td>
-	                </tr>
-                <% } %>
-        
-            <% } %>
-			
-			<!--
-            <tr>
-                <td rowspan="2" width="400px" height="150px"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTdfMjM3%2FMDAxNjcxMjU4NDYzODU3.dwwsILxgh7etBvjzNnjpJrerNu5wUtU6yv7wVMysiPsg.3IZ1WxFc-d0_SJ2uJRlTdeTrOCKC9lzEhm35IfX-Lw0g.JPEG.moakym%2F1000000301.jpg&type=a340"></td>
-                <td width="600px">맛있는 음식점 방문</td>
-            </tr>
-            <tr>
-                <td>한 페이지에 11개 들어가면 딱 맞음</td>
-            </tr>
-            <tr height="10px"></tr>
-            -->
+        	
+        	<c:choose>
+        		<c:when test="${ empty list }">
+        			<tr>
+                		<td id="no-list">조회된 게시글이 없습니다.</td>
+            		</tr>
+        		</c:when>
+        		<c:otherwise>
+        			<c:forEach var="info" items="${ requestScope.list }">
+        				<tr class="click-area">
+                    		<!-- 각 게시글 번호를 알아내기 위한 td (css영역에서 display:none으로 안 보이게 함) -->
+                    		<td id="info-no">${ info.infoNo }</td>
+                        	<td rowspan="2" width="400px" height="150px"><img src="${ info.titleImg }"></td>
+                        	<td width="600px">${ info.infoTitle }</td>
+                    	</tr>
+	                	<tr>
+	                    	<td>${ info.infoContent }</td>
+	                	</tr>
+        			</c:forEach>
+        		</c:otherwise>
+        	</c:choose>
             
         </table>
     </div>
 
     <div class="pagin-area" align="center">
         
-        <% if(list.isEmpty()) { %>
-            <button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">1</button>
-            
-        <% } else { %>
-			<% if(currentPage != 1) { %>
-				<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage - 1 %>'" class="share-btn">&lt;</button>
-			<% } %>
-			
-			<% for(int i = startPage; i <= endPage; i++) { %>
-				<% if(currentPage != i) { %>
-					<button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= i %>'" class="share-btn"><%= i %></button>
-				<% } else { %>
-					<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)"><%= i %></button>
-				<% } %>
-			<% } %>
-			
-			<% if(currentPage != maxPage) { %>
-	            <button onclick="location.href='<%= contextPath %>/share.in?ictg=<%= ctgNo %>&ipage=<%= currentPage + 1 %>'" class="share-btn">&gt;</button>
-	        <% } %>
-	    <% } %>
+        <c:choose>
+        	<c:when test="${ empty list }">
+        		<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">1</button>
+        	</c:when>
+        	<c:otherwise>
+        		<c:if test="${ requestScope.pi.currentPage != 1 }">
+        			<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage - 1 }'" class="share-btn">&lt;</button>
+        		</c:if>
+        		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+        			<c:choose>
+        				<c:when test="${ pi.currentPage != p }">
+        					<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ p }'" class="share-btn">${ p }</button>
+        				</c:when>
+        				<c:otherwise>
+        					<button disabled class="share-btn" style="background:rgba(228, 156, 92, 0.5)">${ p }</button>
+        				</c:otherwise>
+        			</c:choose>
+        		</c:forEach>
+        		<c:if test="${ pi.currentPage != pi.maxPage }">
+        			<button onclick="location.href='<%= contextPath %>/share.in?ictg=${ ctgNo }&ipage=${ pi.currentPage + 1 }'" class="share-btn">&gt;</button>
+        		</c:if>
+        	</c:otherwise>
+        </c:choose>
         
     </div>
     
@@ -157,7 +141,7 @@
     
     </section>
     
-    <%@ include file="../common/footer.jsp" %>
+    <jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>
