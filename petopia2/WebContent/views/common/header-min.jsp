@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@page import="petopia.com.kh.jsp.user.model.vo.User"%>
 <%
-String contextPath = request.getContextPath();
-User userInfo = (User)session.getAttribute("userInfo");
-String alertMsg = (String)session.getAttribute("alertMsg");
+	String contextPath = request.getContextPath();
+
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -200,18 +200,19 @@ String alertMsg = (String)session.getAttribute("alertMsg");
             height: 28px;
         }
     </style>
+
     <script>
         $(document).ready(function(){
             $(document).bind("dragstart", function(){return false});
             $(document).bind("", function(){return false});
-            
-            const msg = '<%= alertMsg %>';
-            if(msg != 'null') {
-            	alert(msg);
-            	<% session.removeAttribute("alertMsg"); %>
-            }
+
+            /* alertMsg가 ""이면?? */
+            	alert('${ alertMsg }');
+            	<c:remove var="alertMsg" /> 
         })
     </script>
+    
+    
 <!--<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
     //네이버 로그아웃
@@ -261,28 +262,37 @@ String alertMsg = (String)session.getAttribute("alertMsg");
                     <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
-                	<%if(userInfo == null){ %>
-                    	<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                    <%} else { %>
-                    	<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
-                            <div id="file-area">
-                                <% if(userInfo.getFileMypageNo().equals("/")) {%>
-                                    <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
-                                <% } else {%>
-                                <%
-                                String url = userInfo.getFileMypageNo();
-                                if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                                %>
-                                    <img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                                <%} else { %>
-                                    <img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                                <%} %>
-                                <% } %>
-                            </div>
-                            <%=userInfo.getUserNickname() %>
-                        </a></span>님</li>
-                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
-                    <%} %>
+                	<c:choose>
+                		<c:when test="${ empty userInfo }">
+                    		<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
+	                            <div id="file-area">
+	                                
+	                             <c:choose>
+	                             		<c:when test="${ userInfo.fileMypageNo eq '/' }">
+	                                    	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+	                                	</c:when>
+	                                	<c:otherwise>
+			                             	<c:set var="url" value="${ userInfo.fileMypageNo }" />
+			                             	<c:choose>
+				                             	<c:when test="${(url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
+				                                    <img src="<%=contextPath%>/${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                </c:when>
+			                
+				                                <c:otherwise>
+				                                    <img src="${ userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                </c:otherwise>
+				                            </c:choose>
+	                                	</c:otherwise>
+	                             </c:choose>
+	                            </div>
+	                            ${ requestScope.userInfo.userNickName }
+	                        </a></span>님</li>
+	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
+                   		</c:otherwise>
+                    </c:choose>
                     <li class="user-navi-icon-btn">
                         <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                         <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">
@@ -303,32 +313,42 @@ String alertMsg = (String)session.getAttribute("alertMsg");
                     <ul class="header-navi">
                         <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
                         <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
-                        <!--<li class="header-navi-item"><a href="#">행사</a></li>-->
+                       
                         <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
                     </ul>
                     <ul class="header-navi user-navi">
-                        <%if(userInfo == null){ %>
+                    <c:choose>
+                        
+                        <c:when test="${ empty userInfo }">
                             <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
-                        <%} else { %>
+                       	</c:when>
+                       	<c:otherwise>
                             <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
                                 <div style="width: 50px;" id="file-area">
-                                    <% if(userInfo.getFileMypageNo().equals("/")) {%>
+                                	
+                                <c:choose>
+                                    <c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
                                         <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
-                                    <% } else {%>
-                                    <%
-                                    String url = userInfo.getFileMypageNo();
-                                    if(!url.substring(0, url.indexOf('/')).equals("https:")&&!url.substring(0, url.indexOf('/')).equals("http:")){
-                                    %>
-                                        <img src="<%=contextPath%>/<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                                    <%} else { %>
-                                        <img src="<%=userInfo.getFileMypageNo()%>" class="rounded-circle" alt="프로필사진">
-                                    <%} %>
-                                    <% } %>
+                                    </c:when>
+                                    <c:otherwise>
+		
+		                                    <c:set var="url" value="${ sessionScope.userInfo.fileMypageNo }" />
+		                                    <c:choose>
+			                                    <c:when test="${ (url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
+				                                        <img src="<%=contextPath%>/${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+			                                    </c:when> 
+			                                    <c:otherwise>
+				                                        <img src="${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                </c:otherwise>
+			                                </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 </div>
-                                <%=userInfo.getUserNickname() %>
+                                ${ sessionScope.userInfo.userNickname }
                             </a></span>님</li>
                             <li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
-                        <%} %>
+                      	</c:otherwise>
+                     </c:choose>
                         <li class="user-navi-icon-btn">
                             <button class="header-tool header-search-tool"><span class="material-symbols-outlined icon-size">search</span></button>
                             <form class="header-search-bar-wrap" style="display: none;" action="test" method="get">

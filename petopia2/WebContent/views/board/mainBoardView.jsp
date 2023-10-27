@@ -1,20 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.common.model.vo.PageInfo" %>
-<%
-   
-	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-    
-	
-	int currentPage = pageInfo.getCurrentPage();
-	int startPage = pageInfo.getStartPage();
-	int endPage = pageInfo.getEndPage();
-	int maxPage = pageInfo.getMaxPage();
-    int boardLimit = pageInfo.getBoardLimit();
-    String dpCount = pageInfo.getDpCount();
-
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,18 +48,6 @@
 </style>
 
 
-
-
-
-
-
-<!-- <script>
-    $(function){
-        $('#search-count-default').hover(function(){
-            $('#search-count-list').css('display', 'block');
-        });
-    }
-</script> -->
 <style>
 
     #content-items{ 
@@ -251,8 +226,8 @@
 </head>
 <body>
 
-    <%@ include file="../common/header-min.jsp" %>
-    <%@ include file="../common/sideBar.jsp" %>
+    <%@include file="../common/header-min.jsp" %>
+    <%@include file="../common/sideBar.jsp" %>
 	
     <script>
 	        $('#insert-board-btn').on('click', function(){
@@ -483,10 +458,9 @@
 </script>
            
 			<article>
-                <% if(userInfo != null) { %>
-			<!-- button안에 a태그는 지양 -->
-               <div id="insert-board-btn" class="btn btn-sm btn-info"><a href="<%= contextPath %>/insertForm.bo">글쓰기</a></div>
-                <% } %>
+				<c:if test="${ !empty sessionScope.userInfo }">
+              	 	<div id="insert-board-btn" class="btn btn-sm btn-info"><a href="<%= contextPath %>/insertForm.bo">글쓰기</a></div>
+           		</c:if>
             </article>
        
         </form>
@@ -497,35 +471,31 @@
             <article id="content-items" >
 
  
-                <% if(bList.isEmpty()) { %>
-
+                
+		<c:choose>
+			<c:when test="${ empty bList }">
 	                <div class="content-item">
 	                    조회된 게시글이 없습니다.
 	                </div>
+			</c:when>
+            <c:otherwise>   
+		
 
-                <% } else { %>
-
-<!-- n개씩 조회 == 레이아웃
-    content-items에 class속성을 붙이는데 그 클래스 속성은 css속성들의 집합.
--->
-                <% for(Board board : bList) { %>
-                    
-                    <div class="content-item">
-                    <!-- boardNo(bno), userNo(uno)를 다 넘기면 userNo가 있을 때만 전체 게시글 조회가 가능-->
-                        <a href="<%= contextPath %>/detail.bo?bno=<%= board.getBoardNo() %>">
-                        <!-- <a href="<%=contextPath%>/detail.bo?bno=<%= board.getBoardNo() %>"> -->
-                        <img src="<%= contextPath %>/<%= board.getFileImg() %>" alt="">
-                        </a>
-                        <p><%= board.getBoardTitle() %></p>
-                        <span><%= board.getBoardViews() %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-                        <span><%= board.getBoardCreateDate() %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-                        <span><%= board.getUserNo() %></span>
-                    </div>
-
-                <% } %>
-
-            <% } %>
-             
+                    <c:forEach var="board" items="${ bList }">
+	                    <div class="content-item">
+	                   
+	                        <a href="<%= contextPath %>/detail.bo?bno=${ board.boardNo }">
+	                         	<img src="<%= contextPath %>/${ board.fileImg }" alt="">
+	                        </a>
+	                        <p>${ board.boardTitle }</p>
+	                        <span>${ board.boardViews }&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+	                        <span>${ board.boardCreateDate }&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+	                        <span>${ board.userNo }</span>
+	                    </div>
+					</c:forEach>
+					
+             </c:otherwise>
+          </c:choose>  
             </article>
 <!-- content -->
 
@@ -535,33 +505,36 @@
             <div id="pasing-area">
             
             <!-- 현재페이지가 1이 아닌이상 <가 있어야함 / 버튼 클릭시엔 cpage - 1 로 이동-->
-            <% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
-            <% }  %>
+           
+            <c:if test="${ requestScope.pageInfo.currentPage ne 1 }" >
+        		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ requestScope.pageInfo.currentPage - 1 }'" class="btn btn-sm btn-info">&lt;</button>
+            </c:if>
 
             <!-- 시작페이지와 끝페이지가 같다는 건 boardLimit보다 작거나 같은 수의 게시글이 있어 총 페이지 수가 1이란 뜻 -->
-            <%if(startPage >= endPage){%>
+            
+            <c:if test="${ requestScope.pageInfo.startPage >= requestScope.pageInfo.endPage }">
                 <button class="btn btn-sm btn-info" >1</button>
-            <%}%>
+            </c:if>
 
             <!-- 숫자 페이징바 영역 -->
-            <% for(int i = startPage; i <= endPage; i++) { %>
-       
-                <!-- 현재페이지가 i가 아니라면 해당 i버튼은 활성화되어야 하고 클릭시 그i페이지로 이동 -->
-            	<% if(currentPage != i) { %> 
-            		<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= i %>&display=<%= dpCount %>'" class="btn btn-sm btn-info"><%= i %></button>
-                   
-                <!-- 현재페이지가 i면.. 해당 버튼은 비활성화되어야 함 -->
-            	<% } else { %> 
-            		<button disabled class="btn btn-sm btn-danger"><%= i %></button>
-            	<% } %>
+       		<c:forEach var="i" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }">
+	            
+	            	<c:choose>
+	            		<c:when test="${ requestScope.pageInfo.currentPage ne i }">
+	            			<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ i }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">${ i }</button>
+	            	 	</c:when>
+		            	 <c:otherwise>
+		            		<button disabled class="btn btn-sm btn-danger">${ i }</button>
+		            	</c:otherwise>
+	            	</c:choose>
 
-            <% } %>
-            
+ 			</c:forEach>
+          
             <!-- ***현재페이지가 최대페이지가 아니면 endPage오른쪽에 >이 표시되어야 하고 클릭시엔 현재페이지에서 +1이 더한 페이지가 나와야함 -->
-            <% if(currentPage != maxPage) { %>
-            	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=<%= currentPage + 1 %>&display=<%= dpCount %>'" class="btn btn-sm btn-info">&gt;</button>
-            <% }  %> 
+            
+            <c:if test="${ requestScope.pageInfo.currentPage ne requestScope.pageInfo.maxPage }">
+            	<button onclick="location.href='<%= contextPath %>/main.bo?cpage=${ requestScope.pageInfo.currentPage + 1 }&display=${ requestScope.pageInfo.dpCount }'" class="btn btn-sm btn-info">&gt;</button>
+            </c:if>
          
             </div>
        

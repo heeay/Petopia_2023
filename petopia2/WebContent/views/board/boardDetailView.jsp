@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="petopia.com.kh.jsp.board.model.vo.Board, petopia.com.kh.jsp.board.model.vo.Category, petopia.com.kh.jsp.common.model.vo.File, java.util.ArrayList" %>
-    <% 
-        ArrayList<File> fList = (ArrayList<File>)request.getAttribute("fList");
-    
-    	Board board = (Board)request.getAttribute("board");
-    	Category category = (Category)request.getAttribute("category");
-    %><!-- 	int likeCount = (int)request.getAttribute("likeCount");
-            int checkClick = (int)request.getAttribute("checkClick");
-            int increasedCount = (int)request.getAttribute("increasedCount");
-            int decreasedCount = (int)request.getAttribute("decreasedCount"); 
-            controller에서 +-1하는 것보단 jsp화면상에서 하는게 합리적--><!-- increasedCount는 항상 1보다 크거나 같다 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,16 +76,17 @@
     <div id="title-area">
 
         <div class="title-info">
-            <div id="bno"><%=board.getBoardNo()%></div> 
-            <div id="title"><%=board.getBoardTitle()%></div> 
+            <div id="bno">${ requestScope.board.boardNo }</div> 
+            
+            <div id="title">${ requestScope.board.board }</div> 
            
-            <div id="category"><%=category.getCtgName()%></div>
+            <div id="category">${ requestScope.category.ctgName }</div>
 
         </div>
 
         <div class="title-info">
           
-            <div id="create-date"><%=board.getBoardCreateDate()%></div>
+            <div id="create-date">${ requestScope.board.boardCreateDate }</div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
 
@@ -126,17 +118,15 @@
     <div id="content-area">
 
         <div id="content-text">  
-           <%= board.getBoardContent()%>
+           ${ requestScope.board.boardContent }
         </div>
 
         <div id="content-imgs">
-          
-            
-            <% for(int i = 0; i < fList.size(); i++){ %>
-
-                <img src="<%= contextPath %>/<%= fList.get(i).getFilePath() %>/<%= fList.get(i).getUploadName() %>" alt="상세이미지<%= i %>" id="contentImg<%= i %>" width="250" height="180">
-           
-            <% } %>
+      
+			<c:forEach var="i" begin="0" end="${ requestScope.fList }">
+			 	<img src="<%= contextPath %>/${ requestScope.fList.get(${i}).filePath }/${ requestScope.fList.get(${i}).uploadName }" alt="상세이미지${ i }" id="contentImg${i }" width="250" height="180">
+			</c:forEach>                                                                  
+               
         </div>
 
 
