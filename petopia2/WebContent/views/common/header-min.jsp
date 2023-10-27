@@ -207,7 +207,7 @@
             $(document).bind("", function(){return false});
 
             /* alertMsg가 ""이면?? */
-            	alert('${ alertMsg }');
+            	//alert('${ alertMsg }');
             	<c:remove var="alertMsg" /> 
         })
     </script>
@@ -253,26 +253,27 @@
         <div id="fixed-header-bar-wrap">
             <div id="header-bar">
                 <div class="header-logo">
-                    <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                    <a href="/petopia"><img class="logo" src="/resources/images/logo.png" alt=""></a><!-- 3번 올라가면 ../../../ -->
+                    <!--  -->
                 </div>
                 <ul class="header-navi">
-                    <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                    <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                    <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
+                    <li class="header-navi-item"><a href="/petopia/share.in?ictg=12&ipage=1">정보</a></li>
                     <!--<li class="header-navi-item"><a href="#">행사</a></li>-->
-                    <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                    <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
                 </ul>
                 <ul class="header-navi user-navi">
                 	<c:choose>
                 		<c:when test="${ empty userInfo }">
-                    		<li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                    		<li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
+                    		<li class="user-navi-item user-nickname"><span><a href="/petopia/main.my">
 	                            <div id="file-area">
 	                                
 	                             <c:choose>
 	                             		<c:when test="${ userInfo.fileMypageNo eq '/' }">
-	                                    	<img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+	                                    	<img src="/resources/images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
 	                                	</c:when>
 	                                	<c:otherwise>
 			                             	<c:set var="url" value="${ userInfo.fileMypageNo }" />
@@ -290,7 +291,7 @@
 	                            </div>
 	                            ${ requestScope.userInfo.userNickName }
 	                        </a></span>님</li>
-	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
+	                    	<li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                    		</c:otherwise>
                     </c:choose>
                     <li class="user-navi-icon-btn">
@@ -308,34 +309,34 @@
             <div id="header-bar-wrap">
                 <div class="header-bar">
                     <div class="header-logo">
-                        <a href="<%=contextPath %>"><img class="logo" src="<%=contextPath %>/resources/images/logo.png" alt=""></a>
+                        <a href="/petopia"><img class="logo" src="/petopia/resources/images/logo.png" alt=""></a>
                     </div>
                     <ul class="header-navi">
-                        <li class="header-navi-item"><a href="<%= contextPath %>/main.bo">커뮤니티</a></li>
-                        <li class="header-navi-item"><a href="<%= contextPath %>/share.in?ictg=12&ipage=1">정보</a></li>
+                        <li class="header-navi-item"><a href="/petopia/main.bo">커뮤니티</a></li>
+                        <li class="header-navi-item"><a href="/petopia/share.in?ictg=12&ipage=1">정보</a></li>
                        
-                        <li class="header-navi-item"><a href="<%=contextPath %>/main.pb">매칭</a></li>
+                        <li class="header-navi-item"><a href="/petopia/main.pb">매칭</a></li>
                     </ul>
                     <ul class="header-navi user-navi">
                     <c:choose>
                         
                         <c:when test="${ empty userInfo }">
-                            <li class="user-navi-item"><a href="<%=contextPath %>/login">로그인</a></li>
+                            <li class="user-navi-item"><a href="/petopia/login">로그인</a></li>
                        	</c:when>
                        	<c:otherwise>
-                            <li class="user-navi-item user-nickname"><span><a href="<%=contextPath %>/main.my">
+                            <li class="user-navi-item user-nickname"><span><a href="/petopia/main.my">
                                 <div style="width: 50px;" id="file-area">
                                 	
                                 <c:choose>
                                     <c:when test="${ sessionScope.userInfo.fileMypageNo eq '/' }">
-                                        <img src="<%=contextPath%>\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
+                                        <img src="/petopia\resources\images/profil.png" class="rounded-circle" alt="프로필기본" id="titleImg">
                                     </c:when>
                                     <c:otherwise>
 		
 		                                    <c:set var="url" value="${ sessionScope.userInfo.fileMypageNo }" />
 		                                    <c:choose>
 			                                    <c:when test="${ (url.substring(0, url.indexOf('/')) ne 'https:') and (url.substring(0, url.indexOf('/')) ne 'http:')}">
-				                                        <img src="<%=contextPath%>/${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
+				                                        <img src="/petopia/${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
 			                                    </c:when> 
 			                                    <c:otherwise>
 				                                        <img src="${ sessionScope.userInfo.fileMypageNo }" class="rounded-circle" alt="프로필사진">
@@ -346,7 +347,7 @@
                                 </div>
                                 ${ sessionScope.userInfo.userNickname }
                             </a></span>님</li>
-                            <li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='<%=contextPath %>/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
+                            <li class="user-navi-icon-btn"><button class="header-tool" onclick="location.href='/petopia/logout'"><span class="material-symbols-outlined icon-size">logout</span></button></li>
                       	</c:otherwise>
                      </c:choose>
                         <li class="user-navi-icon-btn">
