@@ -20,6 +20,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -143,7 +144,7 @@ public class GoogleLoginController extends HttpServlet {
 		u.setUserPhone("");
 		u.setUserMethod(3);
 
-		User user = new UserService().simpleAuth(u);
+		User user = new UserServiceImpl().simpleAuth(u);
 		if(user == null) {
 			request.setAttribute("errorMsg", "간편 로그인 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

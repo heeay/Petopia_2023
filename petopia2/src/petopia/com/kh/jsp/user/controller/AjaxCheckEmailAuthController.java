@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class AjaxCheckEmailAuthController
@@ -38,7 +38,7 @@ public class AjaxCheckEmailAuthController extends HttpServlet {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("emailAuthEmail", email);
 		map.put("emailAuthCode", authCode);
-		Date date = new UserService().selectEmailAuth(map);
+		Date date = new UserServiceImpl().selectEmailAuth(map);
 		
 		//System.out.println(date);
 		String result="";

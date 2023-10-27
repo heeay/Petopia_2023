@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -57,7 +58,7 @@ public class LoginUserController extends HttpServlet {
 		User u = new User();
 		u.setUserEmail(email);
 		u.setUserPass(pw);
-		User user = new UserService().loginUser(u);
+		User user = new UserServiceImpl().loginUser(u);
 		
 		if(user == null) {
 			request.setAttribute("fail", "fail");

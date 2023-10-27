@@ -27,6 +27,7 @@ import org.json.simple.parser.ParseException;
 
 import petopia.com.kh.jsp.mypage.model.vo.PetFile;
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
@@ -158,7 +159,7 @@ public class NaverLoginController extends HttpServlet {
 			u.setUserPhone(phone);
 			u.setFileMypageNo(profile);
 			
-			User user = new UserService().simpleAuth(u);
+			User user = new UserServiceImpl().simpleAuth(u);
 			
 			if(user == null) {
 				request.setAttribute("errorMsg", "간편 로그인 실패");

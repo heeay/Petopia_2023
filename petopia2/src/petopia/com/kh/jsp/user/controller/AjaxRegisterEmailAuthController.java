@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class RegisterEmailAuthController
@@ -96,7 +97,7 @@ public class AjaxRegisterEmailAuthController extends HttpServlet {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("emailAuthEmail", toEmail);
 			map.put("emailAuthCode", cNumber);
-			int result = new UserService().insertEmailAuth(map);
+			int result = new UserServiceImpl().insertEmailAuth(map);
 			
 			response.getWriter().print(result);
 			
