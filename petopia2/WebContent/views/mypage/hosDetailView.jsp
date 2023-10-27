@@ -72,10 +72,10 @@
 </head>
 <body>
 
-	<%@ include file = "mysidebar.jsp" %>
+	<jsp:include page ="../mypage/mysidebar.jsp"/>
 	<div class="content-area">
 
-        <form action="<%=contextPath%>/hosUpdate.my" method="post">
+        <form action="/petopia/hosUpdate.my" method="post">
             <input type="hidden" name="hno" value="${hr.hosNo}">
             <div id="sug-content">
 
