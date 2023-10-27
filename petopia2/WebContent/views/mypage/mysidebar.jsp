@@ -217,7 +217,7 @@
                 <div class="profil">
                 
                 <c:choose>
-                	<c:when test="${ empty userInfo.fileMypageNo}">
+                	<c:when test="${userInfo.fileMypageNo eq '/'}">
                 		<img src="<%=contextPath%>\resources\images\profil.png" alt="기본프로필" width="200px" height="200px">
                 	</c:when>
                 	
