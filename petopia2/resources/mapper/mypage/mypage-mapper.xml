@@ -350,7 +350,7 @@
                HOS_MEDICINE,
                HOS_CONTENT,
                PET_NO,
-               PET_NAME
+               PET_NAME petName
 		  FROM TB_HOS_RECORDS
           JOIN TB_PET USING(PET_NO)
           JOIN TB_USER USING(USER_NO)
