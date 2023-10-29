@@ -6,17 +6,7 @@
 
 	<!-- ================== resultMap ================== -->
 	<!-- =============================================== -->
-	<resultMap type="hos" id="hosResultSet">
-		<result column="HOS_NO" property="hosNo"/>
-		<result column="HOS_DATE" property="hosDate"/>
-		<result column="HOS_VACCINATION" property="hosVaccination"/>
-		<result column="HOS_ILLNESS" property="hosIllness"/>
-		<result column="HOS_MEDICINE" property="hosMedicine"/>
-		<result column="HOS_CONTENT" property="hosContent"/>
-		<result column="PET_NO" property="petNo"/>
-	</resultMap>
-	
-	<resultMap type="pet" id="petResultSet">
+	<resultMap type="pet" id="petResultMap">
 		<result column="PET_NO" property="petNo"/>
 		<result column="PET_NAME" property="petName"/>
 		<result column="PET_SPECIES" property="petSpecies"/>
@@ -26,11 +16,61 @@
 		<result column="PET_PERSONALITY" property="petPersonality"/>
 		<result column="PET_ETC" property="petEtc"/>
 		<result column="USER_NO" property="userNo"/>
+		<result column="FILE_MYPAGE_NO" property="fileNo"/>
+	</resultMap>
+	
+	<resultMap type="petFile" id="petFileResultMap">
+		<result column="FILE_MYPAGE_NO" property="fileNo"/>
+		<result column="ORIGINAL_NAME" property="originalName"/>
+		<result column="UPLOAD_NAME" property="uploadName"/>
+		<result column="FILE_PATH" property="filePath"/>
+	</resultMap>
+	
+	<resultMap type="user" id="userResultMap">
+		<result column="USER_NO" property="userNo"/>
+		<result column="USER_METHOD" property="userMethod"/>
+		<result column="USER_EMAIL" property="userEmail"/>
+		<result column="USER_PASS" property="userPass"/>
+		<result column="USER_NICKNAME" property="userNickname"/>
+		<result column="USER_PHONE" property="userPhone"/>
+		<result column="ROLE_NAME" property="roleId"/>
+		<result column="USER_CREATE_DATE" property="userCreateDate"/>
+		<result column="USER_UPDATE_DATE" property="userUpdateDate"/>
+		<result column="USER_ENABLE_STATE" property="userEnableState"/>
+		<result column="PATH" property="fileMypageNo"/>
+	</resultMap>
+	
+	<resultMap type="sug" id="sugResultMap">
+		<result column="SUG_NO" property="sugNo"/>
+		<result column="SUG_TITLE" property="sugTitle"/>
+		<result column="SUG_CONTENT" property="sugContent"/>
+		<result column="SUG_DATE" property="sugDate"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="FILE_NO" property="fileNo"/>
+	</resultMap>
+	
+	<resultMap type="walk" id="walkResultMap">
+		<result column="WALK_NO" property="walkNo"/>
+		<result column="WALK_DATE" property="walkDate"/>
+		<result column="WALK_CONTENT" property="walkContent"/>
+		<result column="WALK_TITLE" property="walkTitle"/>
+		<result column="PET_NO" property="petNo"/>
+		<result column="FILE_NO" property="fileNo"/>
+	</resultMap>
+	
+	<resultMap type="hos" id="hosResultMap">
+		<result column="HOS_NO" property="hosNo"/>
+		<result column="HOS_DATE" property="hosDate"/>
+		<result column="HOS_VACCINATION" property="hosVaccination"/>
+		<result column="HOS_ILLNESS" property="hosIllness"/>
+		<result column="HOS_MEDICINE" property="hosMedicine"/>
+		<result column="HOS_CONTENT" property="hosContent"/>
+		<result column="PET_NO" property="petNo"/>
 	</resultMap>
 	
 	<!-- ===================== SQL ===================== -->
 	<!-- =============================================== -->
-	<select id="selectHosListCount" parameterType="_int" resultType="_int">
+	<select id="selectHosListCount" parameterType="string" resultType="_int">
 		 SELECT 
 				COUNT(*) 
 		   FROM 
@@ -41,7 +81,7 @@
 		 		USER_NO = #{userNo}
 	</select>
 	
-	<select id="selectHosList" parameterType="_int" resultMap="hosResultSet">
+	<select id="selectHosList" parameterType="string" resultMap="hosResultMap">
 		 SELECT * 
            FROM (SELECT ROWNUM IND,
 					    HOS_NO,
@@ -53,7 +93,8 @@
 				  ORDER BY HOS_NO DESC) 
 		  ORDER BY IND DESC
 	</select>
-	<select id="selectDayList"  parameterType="hashmap" resultMap="hosResultSet">
+	
+	<select id="selecthosDayList" parameterType="hashmap" resultMap="hosResultMap">
 		SELECT * 
 		  FROM (SELECT * 
 	              FROM (SELECT ROWNUM IND,
@@ -66,6 +107,20 @@
 					     ORDER BY HOS_NO DESC) 
 			     ORDER BY IND DESC)
 		 WHERE HOS_DATE BETWEEN TO_DATE (#{startDate}) AND TO_DATE (#{endDate})+1
+	</select>
+	
+	<select id="selectWalkDayList" parameterType="hashmap" resultMap="walkResultMap">
+		SELECT *
+          FROM (SELECT ROWNUM IND,
+					   WALK_NO,
+					   TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+					   WALK_TITLE,
+					   FILE_PATH filePath ||'/'||UPLOAD_NAME UploadName "PATH"
+				  FROM TB_WALK_RECORDS 
+				  JOIN TB_PET USING (PET_NO)
+				  LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO) 
+				 WHERE USER_NO = #{userNo})
+		 WHERE WALK_DATE BETWEEN TO_DATE (#{startDate}) AND TO_DATE (#{endDate})+1		 
 	</select>
 	
 	<select id="selectBoardCount" parameterType="_int" resultType="string">
@@ -83,7 +138,7 @@
 		   AND BOARD_STATUS = 'Y'
 	</select>
   
-  	<select id="selectPetList" parameterType="_int" resultMap="petResultSet">
+  	<select id="selectPetList" parameterType="_int" resultMap="petResultMap">
   		SELECT ROWNUM IND,
 			   PET_NO,
 			   PET_NAME,
@@ -94,10 +149,365 @@
 		 ORDER BY PET_NO
   	</select>
   	
-  	<insert id="insertHos" parameterType="pet">
-  		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
-		VALUES (SEQ_HOS_NO.NEXTVAL, #{hosDate}, #{hosVaccination}, #{hosIllness}, #{hosMedicine}, #{hosContent}, #{petNo})
+  	<select id="selectPetListCount" parameterType="user" resultType="_int">
+  		SELECT COUNT(*)
+		  FROM TB_PET 
+		 WHERE USER_NO = #{userNo}
+  	</select>
+  	
+  	<select id="selectPetProfil" parameterType="_int" resultMap="petResultMap">
+  		SELECT PET_NO,
+			   PET_NAME,
+			   PET_SPECIES,
+			   PET_SPECIFIC,
+			   PET_WEIGHT,
+			   PET_GENDER,
+			   PET_PERSONALITY,
+			   PET_ETC 
+		  FROM TB_PET 
+		 WHERE PET_NO=#{petNo}
+  	</select>
+  	
+  	<select id="selectPetFile" parameterType="_int" resultMap="petFileResultMap">
+  		 SELECT FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH 
+		   FROM TB_MYPAGE_FILE 
+		   JOIN TB_PET USING(FILE_MYPAGE_NO) 
+		  WHERE PET_NO=#{petNo}
+  	</select>
+  	
+  	<insert id="insertPetImg" parameterType="petFile">
+  		INSERT INTO 
+		   	   TB_MYPAGE_FILE
+		   	   (
+		   	   FILE_MYPAGE_NO,
+			   ORIGINAL_NAME,
+			   UPLOAD_NAME,
+			   FILE_PATH
+		   	   )
+		VALUES (
+			   SEQ_MYPAGE_FILE_NO.NEXTVAL,
+			   #{originalName}, 
+			   #{uploadName},
+			   #{filePath}
+			   )
   	</insert>
   	
+  	<insert id="insertPet"  parameterType="pet">
+  		 INSERT INTO 
+		   		TB_PET
+		   		(
+		   		PET_NO, 
+				PET_NAME, 
+				PET_SPECIES, 
+				PET_SPECIFIC, 
+				PET_WEIGHT, 
+				PET_GENDER, 
+				PET_PERSONALITY, 
+				PET_ETC, 
+				USER_NO,
+				FILE_MYPAGE_NO
+		   		)
+		 VALUES 
+	 			(
+	 			SEQ_PET_NO.NEXTVAL,
+	 			#{petName},
+	 			#{petSpecies},
+	 			#{petSpecific},
+	 			#{petWeight},
+	 			#{petGender},
+	 			#{petPersonality},
+	 			#{petEtc},
+	 			#{userNo}
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
+	 			)
+  	</insert>
+  	
+  	<update id="updatePetImg" parameterType="petFile">
+  		UPDATE TB_MYPAGE_FILE 
+		   SET ORIGINAL_NAME=#{originalName},
+			   UPLOAD_NAME=#{uploadName},
+			   FILE_PATH=#{filePath} 
+	     WHERE FILE_MYPAGE_NO=#{fileNo}
+  	</update>
+  	
+  	<update id="updatePet" parameterType="pet">
+  		 UPDATE TB_PET
+		 	SET PET_NAME=#{petName},
+				PET_SPECIES=#{petSpecies},
+				PET_SPECIFIC=#{petSpecific},
+				PET_WEIGHT=#{petWeight},
+				PET_GENDER=#{petGender},
+				PET_PERSONALITY=#{petPersonality},
+				PET_ETC=#{petEtc} 
+		  WHERE 
+		  		PET_NO=#{petNo}
+  	</update>
+  	
+  	<delete id="petDelete" parameterType="_int">
+  		 DELETE 
+		   FROM TB_PET 
+    	  WHERE PET_NO=#{petNo}
+  	</delete>
+  	
+  	<insert id="insertSuggestion" parameterType="sug">
+  		 INSERT 
+		   INTO 
+		   		TB_SUGGESTION
+		    	(
+		    	SUG_NO,
+		    	SUG_TITLE,
+				SUG_CONTENT,
+				SUG_DATE,
+				USER_NO
+		    	)
+		 VALUES 
+				(
+				SEQ_SUG_NO.NEXTVAL,
+				#{sugNo},
+				#{sugTitle},
+				SYSDATE,
+				#{userNo}
+				)
+  	</insert>
+  	
+  	<insert id="insertSuggestionFile" parameterType="arraylist">
+  		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+		   		SUG_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				SEQ_SUG_NO.CURRVAL,
+				#{originalName}, 
+				#{uploadName},
+				#{filePath}
+				)
+  	</insert>
+  	
+  	<insert id="insertUserProfil" parameterType="petfile">
+  		 INSERT 
+		   INTO 
+		   		TB_MYPAGE_FILE
+		   		(
+		   		FILE_MYPAGE_NO,
+				ORIGINAL_NAME,
+				UPLOAD_NAME,
+				FILE_PATH
+		   		)
+		VALUES 
+				(
+				SEQ_MYPAGE_FILE_NO.NEXTVAL,
+				#{originalName}, 
+				#{uploadName},
+				#{filePath}
+				)
+  	</insert>
 
+	<update id="updateUserProfil" parameterType="user">
+		 UPDATE TB_USER
+		    SET FILE_MYPAGE_NO = SEQ_MYPAGE_FILE_NO.CURRVAL
+		  WHERE USER_NO=#{userNo}
+	</update>
+	
+	<select id="selectPetName" parameterType="user" resultMap="petResultMap">
+		SELECT PET_NAME, PET_NO
+		  FROM TB_PET
+		 WHERE USER_NO=#{userNo}
+	</select>
+	
+	<insert id="insertHos" parameterType="hos">
+		INSERT INTO TB_HOS_RECORDS(HOS_NO,HOS_DATE,HOS_VACCINATION,HOS_ILLNESS,HOS_MEDICINE,HOS_CONTENT,PET_NO) 
+		VALUES (SEQ_HOS_NO.NEXTVAL,#{hosDate},#{hosVaccination},#{hosIllness},#{hosMedicine},#{hosContent},#{petNo})
+	</insert>
+	
+	<select id="selectHosContent" parameterType="_int" resultMap="hosResultMap">
+		 SELECT HOS_NO,
+                TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+                HOS_VACCINATION,
+                HOS_ILLNESS,
+                HOS_MEDICINE,
+                HOS_CONTENT,
+                PET_NO
+		   FROM TB_HOS_RECORDS 
+		  WHERE HOS_NO=#{hosNo}
+	</select>
+	
+	<select id="selectHosMain" parameterType="user" resultMap="hosResultMap">
+		SELECT HOS_NO,
+               TO_CHAR(HOS_DATE,'YYYY-MM-DD') "HOS_DATE",
+               HOS_VACCINATION,
+               HOS_ILLNESS,
+               HOS_MEDICINE,
+               HOS_CONTENT,
+               PET_NO,
+               PET_NAME
+		  FROM TB_HOS_RECORDS
+          JOIN TB_PET USING(PET_NO)
+          JOIN TB_USER USING(USER_NO)
+		 WHERE USER_NO = #{userNo}
+           AND HOS_NO = (SELECT MAX(HOS_NO) FROM TB_HOS_RECORDS)
+	</select>
+	
+	<update id="updateHos" parameterType="hos">
+		UPDATE TB_HOS_RECORDS
+		   SET PET_NO = #{petNo},
+               HOS_DATE = #{hosDate},
+               HOS_VACCINATION = #{hosVaccination},
+               HOS_ILLNESS = #{hosIllness},
+               HOS_MEDICINE = #{hosMedicine},
+               HOS_CONTENT = #{hosContent}
+		 WHERE HOS_NO = #{hosNo}
+	</update>
+	
+	<delete id="deleteHos" parameterType="_int">
+		DELETE 
+		  FROM TB_HOS_RECORDS 
+    	 WHERE HOS_NO=#{hosNo}
+	</delete>
+	
+	<select id="selectWalkListCount" parameterType="user" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM TB_WALK_RECORDS 
+		  JOIN TB_PET USING (PET_NO) 
+		 WHERE USER_NO = #{userNo} 
+	</select>
+	
+	<select id="selectWalkList" parameterType="user" resultMap="walkResultMap">
+		SELECT ROWNUM IND,
+					   WALK_NO,
+					   TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+					   WALK_TITLE,
+					   FILE_PATH||'/'||UPLOAD_NAME "PATH"
+				  FROM TB_WALK_RECORDS 
+				  JOIN TB_PET USING (PET_NO)
+				  LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO) 
+				 WHERE USER_NO = #{userNo}
+	</select>
+	
+	<insert id="insertWalk" parameterType="walk">
+		INSERT 
+		   INTO 
+		   		TB_WALK_RECORDS
+		   		(
+		   		WALK_NO,
+                WALK_DATE,
+                WALK_CONTENT,
+                WALK_TITLE,
+                PET_NO,
+                FILE_MYPAGE_NO
+		   		)
+		 VALUES 
+	 			(
+	 			SEQ_WALK_NO.NEXTVAL,
+	 			SYSDATE,
+	 			#{walkContent},
+	 			#{walkTitle},
+	 			#{petNo},
+	 			SEQ_MYPAGE_FILE_NO.CURRVAL
+	 			)
+	</insert>
+	
+	<select id="selectWalkContent" parameterType="walk" resultMap="walkResultMap">
+		SELECT WALK_NO,
+		       TO_CHAR(WALK_DATE,'YYYY-MM-DD') "WALK_DATE",
+		       WALK_CONTENT,
+		       WALK_TITLE,
+		       PET_NO
+		  FROM TB_WALK_RECORDS
+		 WHERE WALK_NO = #{walkNo}
+	</select>
+	
+	<select id="selectWalkFile" parameterType="_int" resultMap="petFileResultMap">
+		SELECT FILE_MYPAGE_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH 
+		  FROM TB_MYPAGE_FILE 
+		  JOIN TB_WALK_RECORDS USING(FILE_MYPAGE_NO) 
+		 WHERE WALK_NO = #{walkNo}
+	</select>
+	
+	<update id="updateWalk" parameterType="walk">
+		UPDATE TB_WALK_RECORDS
+		   SET WALK_DATE = SYSDATE,
+		       WALK_CONTENT = #[walkContent],
+		       WALK_TITLE = #{walkTitle},
+		       PET_NO = #{petNo}
+		 WHERE WALK_NO= #{walkNo}
+	</update>
+	
+	<select id="selectWalkMain" parameterType="user" resultMap="walkResultMap">
+		SELECT WALK_CONTENT,
+		       WALK_TITLE,
+		       FILE_PATH||'/'||UPLOAD_NAME "PATH"
+		  FROM TB_WALK_RECORDS
+		  JOIN TB_PET USING(PET_NO)
+		  JOIN TB_USER USING(USER_NO)
+		  LEFT JOIN TB_MYPAGE_FILE ON (TB_WALK_RECORDS.FILE_MYPAGE_NO = TB_MYPAGE_FILE.FILE_MYPAGE_NO)
+		 WHERE USER_NO = #{userNo}
+		   AND WALK_NO = (SELECT MAX(WALK_NO) FROM TB_WALK_RECORDS)
+	</select>
+	
+	<delete id="deleteWalk" parameterType="_int">
+		 DELETE 
+		   FROM 
+		   		TB_WALK_RECORDS 
+    	  WHERE 
+    	  		WALK_NO=#{walkNo}
+	</delete>
+	
+	<select id="selectSugListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+  		  FROM TB_SUGGESTION
+	</select>
+	
+	<select id="selectSugList" resultMap="sugResultMap">
+		SELECT ROWNUM IND,A.*
+		  FROM (SELECT SUG_NO,
+		               SUG_TITLE,
+		               SUG_CONTENT,
+		               SUG_DATE,
+		               USER_NO,
+		               USER_EMAIL
+		          FROM TB_SUGGESTION
+		          JOIN TB_USER USING(USER_NO)
+		         ORDER BY SUG_NO DESC)A
+		 ORDER BY IND
+	</select>
+	
+	<select id="selectSugFile" parameterType="_int" resultMap="petFileResultMap">
+		SELECT FILE_MYPAGE_NO,
+		       SUG_NO,
+		       ORIGINAL_NAME,
+		       UPLOAD_NAME,
+		       FILE_PATH
+		  FROM TB_MYPAGE_FILE 
+		  JOIN TB_SUGGESTION USING(SUG_NO)  
+		  WHERE SUG_NO = #{sugNo}
+	</select>
+	
+	<delete id="deleteSug" parameterType="_int">
+		DELETE 
+		  FROM 
+		   	   TB_SUGGESTION 
+    	 WHERE 
+    	  	   SUG_NO=#{sugNo}
+	</delete>
+	
+	<select id="checkPetName" parameterType="hashmap" resultType="_int">
+		SELECT PET_NAME
+		  FROM TB_PET
+		 WHERE USER_NO = #{userNo}
+		   AND PET_NAME = #{petName}
+	</select>
 </mapper>

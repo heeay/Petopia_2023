@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,23 +19,25 @@ import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class WalkListController
+ * Servlet implementation class WalkDayCheckController
  */
-@WebServlet("/walkList.my")
-public class WalkListController extends HttpServlet {
+@WebServlet("/walkDay.my")
+public class WalkDayCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WalkListController() {
+    public WalkDayCheckController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		if(request.getSession().getAttribute("userInfo")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
@@ -59,32 +62,22 @@ public class WalkListController extends HttpServlet {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
-		ArrayList<WalkRecords> walkList = new PetService().selectWalkList(pi, loginUser);
-		
-		
-		//System.out.println(listCount);
-		//System.out.println(currentPage);
-		//System.out.println(pageLimit);
-		//System.out.println(maxPage);
-		//System.out.println(startPage);
-		//System.out.println(endPage);
-		
-		//System.out.println(startDate);
-		//System.out.println(endDate);
-		//System.out.println(walkList);
-	
-		
-		
+		ArrayList<WalkRecords> walkList = new PetService().selectWalkDayList(pi, map);
 		request.setAttribute("walkList", walkList);
 		request.setAttribute("pi", pi);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
 		
-		request.getRequestDispatcher("/views/mypage/walkListView.jsp").forward(request, response);
+		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/walkListView.jsp");
+		view.forward(request, response);
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

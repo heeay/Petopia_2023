@@ -43,7 +43,7 @@ public class HosListController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
-		int userNo = loginUser.getUserNo();
+		String userNo = Integer.toString(loginUser.getUserNo());
 		
 		//System.out.println(startDate);
 		//System.out.println(endDate);

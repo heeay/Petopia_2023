@@ -43,7 +43,7 @@ public class HosDayCheckController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
-		int userNo = loginUser.getUserNo();
+		String userNo = Integer.toString(loginUser.getUserNo());
 		
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
@@ -54,8 +54,9 @@ public class HosDayCheckController extends HttpServlet {
 		HashMap<String, String> map = new HashMap();
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
+		map.put("userNo", userNo);
 		
-		//System.out.println(map);
+		System.out.println(map);
 		
 		int listCount = new PetService().selectHosListCount(userNo);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
@@ -63,10 +64,10 @@ public class HosDayCheckController extends HttpServlet {
 		int boardLimit = 8;		// 한 페이지에 보여질 게시글의 초대 개수
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		ArrayList<HosRecords> hosList = new PetService().selectDayList(pi, map);
+		ArrayList<HosRecords> hosList = new PetService().selecthosDayList(pi, map);
 		//System.out.println(pi);
 		//System.out.println(hosList);
-		System.out.println(map);
+		//System.out.println(map);
 		
 		request.setAttribute("hosList", hosList);
 		request.setAttribute("pi", pi);

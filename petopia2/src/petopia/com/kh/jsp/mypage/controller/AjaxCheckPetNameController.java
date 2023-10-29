@@ -1,6 +1,7 @@
 package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,9 +32,16 @@ public class AjaxCheckPetNameController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String petName = request.getParameter("petName");
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		String userNo = request.getParameter("userNo");
 		
-		int checkName = new PetService().checkPetName(petName, userNo);
+		HashMap<String, String> map = new HashMap();
+		map.put("petName", petName);
+		map.put("userNo", userNo);
+		
+		System.out.println(map);
+		
+		int checkName = new PetService().checkPetName(map);
+		System.out.println(checkName);
 		
 		if(checkName == 0) {
 			//System.out.println("이미 존재하는 이름");
