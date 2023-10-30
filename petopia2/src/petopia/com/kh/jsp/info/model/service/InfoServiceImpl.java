@@ -13,6 +13,7 @@ import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoComment;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
+
 public class InfoServiceImpl implements InfoService {
     
     private InfoDao infoDao = new InfoDao();
@@ -26,6 +27,16 @@ public class InfoServiceImpl implements InfoService {
         
         return list;
     }
+    
+	@Override
+	public int selectFileNo() {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int fileNo = infoDao.selectFileNo(sqlSession);
+		
+		return fileNo;
+	}
+    
     @Override
     public int insertShareInfo(Info in, int star, ArrayList<InfoFile> list) {
         SqlSession sqlSession = Template.getSqlSession();

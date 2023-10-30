@@ -37,6 +37,10 @@ public class ShareInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// mapper에서 fileNo를 SEQ_FILE_NO.CURRVAL로 하면 unique 제약조건에 위배된다고 나옴 => 현재까지 파일 테이블에 등록된 파일넘버 중 가장 큰 값을 조회
+		int fileNo = new InfoServiceImpl().selectFileNo();
+		// System.out.println(fileNo);
 		
 		// POST 방식으로 받아왔음 => 인코딩 설정
 		request.setCharacterEncoding("UTF-8");
@@ -89,7 +93,7 @@ public class ShareInsertController extends HttpServlet {
 					infoFile.setOriginalName(multiRequest.getOriginalFileName(key)); // 파일 원본명
 					infoFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
 					infoFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
-					
+					infoFile.setFileNo(++fileNo); // 가져온 파일번호에서 +1한 번호부터 차례로 파일 INSERT
 					// 파일 레벨을 지정하는 조건문
 					if(i == 1) {
 						infoFile.setFileLevel(1); // file1의 파일 레벨은 1 (썸네일로 사용)

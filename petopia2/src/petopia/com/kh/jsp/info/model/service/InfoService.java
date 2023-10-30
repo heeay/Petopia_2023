@@ -13,6 +13,9 @@ public interface InfoService {
     // 게시글 작성 폼에서 카테고리 리스트를 보여줄 메소드
     ArrayList<InfoCategory> selectInfoCategory();
     
+    // 현재까지 등록된 마지막 파일번호를 받아오는 메소드
+    int selectFileNo();
+    
     // 게시글을 INSERT하는 메소드
     int insertShareInfo(Info in, int star, ArrayList<InfoFile> list);
     

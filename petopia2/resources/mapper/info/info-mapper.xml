@@ -22,15 +22,13 @@
 		<result column="CTG_NAME" property="category" />
 	</resultMap>
 
-	<!--type 정확하지 않음 확인할것-->
-	<resultMap id="fileResultSet" type="file">
+	<resultMap id="fileResultSet" type="infoFile">
 		<result column="FILE_NO" property="fileNo" />
 		<result column="ORIGINAL_NAME" property="originalName" />
 		<result column="UPLOAD_NAME" property="uploadName" />
 		<result column="FILE_PATH" property="filePath" />
 	</resultMap>
 
-	<!-- infoComment로 config에 등록되어있나 확인 -->
 	<resultMap id="commentResultSet" type="infoComment">
 		<result column="COMMENT_NO" property="commentNo" />
 		<result column="COMMENT_CONTENT" property="commentContent" />
@@ -89,9 +87,15 @@
 			   )
 	</insert>
 	
-	<!-- insertFileList 아직 성공 X -->
+	<select id="selectFileNo" resultType="_int">
+		SELECT
+			   MAX(FILE_NO)
+		  FROM 
+		  	   TB_FILE
+	</select>
+	
 	<insert id="insertFileList" parameterType="list">
-	<foreach item="file" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+		 <foreach item="file" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
 		  INTO
 		  	   TB_FILE
 		  	   	(
@@ -104,7 +108,7 @@
 		  	   	)
 		 VALUES 
 		 	    (
-		 	    SEQ_FILE_NO.NEXTVAL,
+		 	  	#{ file.fileNo },
 		 	    SEQ_BOARD_NO.CURRVAL,
 		 	    #{ file.originalName },
 		 	    #{ file.uploadName },
@@ -148,7 +152,6 @@
 		  	   BOARD_NO DESC
 	</select>
 
-	<!-- 여기서부터 집에서 한 거 -->
 	<select id="selectShare" parameterType="_int" resultMap="infoResultSet">
 		SELECT
 			   BOARD_NO,
@@ -225,7 +228,6 @@
 		   	   LIKE_YN = 'N'
 	</select>
 
-	<!-- config에 board에 있는 like VO 추가하기 -->
 	<insert id="insertLike" parameterType="like">
 		INSERT
 		  INTO
@@ -335,7 +337,6 @@
 		 	   BOARD_NO = #{ infoNo }
 	</update>
 
-	<!-- infoComment config에 등록되어있나 확인 -->
 	<insert id="insertComment" parameterType="infoComment">
 		INSERT
 		  INTO
@@ -361,7 +362,7 @@
 		 	    )
 	</insert>
 
-	<select id="selectCommentList" parameterType="_info" resultMap="commentResultSet">
+	<select id="selectCommentList" parameterType="_int" resultMap="commentResultSet">
 		SELECT
 			   COMMENT_NO,
 			   COMMENT_CONTENT,

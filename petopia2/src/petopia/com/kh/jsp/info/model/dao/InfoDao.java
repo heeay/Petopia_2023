@@ -11,9 +11,15 @@ import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 import petopia.com.kh.jsp.info.model.vo.InfoComment;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 public class InfoDao {
+	
     // 게시글 작성 폼에서 카테고리 리스트를 보여줄 메소드
     public ArrayList<InfoCategory> selectInfoCategory(SqlSession sqlSession) {
         return (ArrayList)sqlSession.selectList("infoMapper.selectInfoCategory");
+    }
+    
+    //  현재까지 등록된 마지막 파일 번호를 알려줄 메소드
+    public int selectFileNo(SqlSession sqlSession) {
+    	return sqlSession.selectOne("infoMapper.selectFileNo");
     }
     
     //게시글을 INSERT할 메소드
