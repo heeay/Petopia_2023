@@ -14,7 +14,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 
 import petopia.com.kh.jsp.common.MyFileRenamePolicy;
-import petopia.com.kh.jsp.info.model.service.InfoService;
+import petopia.com.kh.jsp.info.model.service.InfoServiceImpl;
 import petopia.com.kh.jsp.info.model.vo.Info;
 import petopia.com.kh.jsp.info.model.vo.InfoFile;
 
@@ -101,7 +101,7 @@ public class ShareInsertController extends HttpServlet {
 			}
 			
 			// InfoService의 insertShareInfo 메소드를 호출해서 받아온 값을 result에 담음
-			int result = new InfoService().insertShareInfo(in, star, list); // Info VO와 별점수, 첨부파일 list 넘김
+			int result = new InfoServiceImpl().insertShareInfo(in, star, list); // Info VO와 별점수, 첨부파일 list 넘김
 			
 			// 결과에 따른 응답 뷰 지정
 			if(result > 0) { // 성공
@@ -111,9 +111,9 @@ public class ShareInsertController extends HttpServlet {
 				request.setAttribute("errorMsg", "게시글 작성에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response); // 에러페이지로 가서 에러메시지 보여줌
 			}
-			
+
 		}
-		
+
 	}
 
 	/**

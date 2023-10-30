@@ -31,7 +31,7 @@ public class AjaxInsertCommentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		request.setCharacterEncoding("UTF-8");
 		
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
@@ -51,6 +51,7 @@ public class AjaxInsertCommentController extends HttpServlet {
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
+		*/
 	}
 
 	/**

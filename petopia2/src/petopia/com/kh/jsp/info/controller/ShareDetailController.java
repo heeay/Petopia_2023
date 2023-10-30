@@ -32,7 +32,7 @@ public class ShareDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
 		Info in = new InfoService().selectShare(infoNo);
@@ -42,7 +42,7 @@ public class ShareDetailController extends HttpServlet {
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/info/shareDetailView.jsp").forward(request, response);
-		
+		*/
 	}
 
 	/**

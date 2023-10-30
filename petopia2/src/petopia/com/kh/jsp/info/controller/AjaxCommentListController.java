@@ -34,13 +34,13 @@ public class AjaxCommentListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int infoNo = Integer.parseInt(request.getParameter("ino"));
+		//int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
-		ArrayList<InfoComment> list = new InfoService().selectCommentList(infoNo);
+		//ArrayList<InfoComment> list = new InfoService().selectCommentList(infoNo);
 		
-		response.setContentType("application/json; charset=UTF-8");
+		//response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
+		//new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

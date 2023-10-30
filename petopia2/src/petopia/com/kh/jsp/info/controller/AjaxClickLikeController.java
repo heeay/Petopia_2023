@@ -31,7 +31,7 @@ public class AjaxClickLikeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		int infoNo = Integer.parseInt(request.getParameter("ino")); // 게시글 번호
 		int userNo = 0;
 		if((User)request.getSession().getAttribute("userInfo") != null) {
@@ -44,6 +44,7 @@ public class AjaxClickLikeController extends HttpServlet {
 		
 		// System.out.println(check);❤
 		// System.out.println(checkNo);
+		
 		
 		if(check == 1) { // 게시글에 좋아요가 클릭되어있는 경우 (LIKE_YN == 'Y')
 			result = new InfoService().deleteLike(infoNo, userNo); // LIKE_YN = 'N'으로 변경 (성공 1, 실패 0)
@@ -65,6 +66,7 @@ public class AjaxClickLikeController extends HttpServlet {
 		
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
+		*/
 	}
 
 	/**

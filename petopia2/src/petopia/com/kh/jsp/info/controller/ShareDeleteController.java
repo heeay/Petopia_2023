@@ -29,7 +29,7 @@ public class ShareDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		int category = Integer.parseInt(request.getParameter("ictg"));
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
@@ -42,6 +42,7 @@ public class ShareDeleteController extends HttpServlet {
 			request.setAttribute("errorMsg", "게시글 삭제에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		*/
 		
 	}
 

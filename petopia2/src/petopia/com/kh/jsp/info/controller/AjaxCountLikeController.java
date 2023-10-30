@@ -29,12 +29,12 @@ public class AjaxCountLikeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int infoNo = Integer.parseInt(request.getParameter("ino"));
+		//int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
-		int count = new InfoService().countLike(infoNo);
+		//int count = new InfoService().countLike(infoNo);
 		
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(count);
+		//response.setContentType("text/html; charset=UTF-8");
+		//response.getWriter().print(count);
 	}
 
 	/**

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.info.model.service.InfoService;
+import petopia.com.kh.jsp.info.model.service.InfoServiceImpl;
 import petopia.com.kh.jsp.info.model.vo.InfoCategory;
 
 /**
@@ -34,7 +34,7 @@ public class ShareEnrollFormController extends HttpServlet {
 		
 		// 인포서비스의 selectInfoCategory메소드 호출해서 받아온 값을 InfoCategory만 담을 수 있는 ArrayList인 list에 담음
 		// 게시글 작성 폼의 카테고리 리스트를 채울 list
-		ArrayList<InfoCategory> list = new InfoService().selectInfoCategory();
+		ArrayList<InfoCategory> list = new InfoServiceImpl().selectInfoCategory();
 		
 		request.setAttribute("list", list);
 		

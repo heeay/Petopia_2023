@@ -41,6 +41,7 @@ public class AjaxSelectUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
 		
 		int userNo = 0;
@@ -54,6 +55,7 @@ public class AjaxSelectUserController extends HttpServlet {
 		// 응답 데이터에 한글이 있을 수 있으니까 그에 따른 UTF-8 인코딩 설정, text/html : 응답할 데이터 타입
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
+		*/
 	}
 
 	/**

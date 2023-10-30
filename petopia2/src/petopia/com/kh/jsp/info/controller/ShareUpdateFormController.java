@@ -33,7 +33,7 @@ public class ShareUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
 		ArrayList<InfoCategory> ctgList = new InfoService().selectInfoCategory();
 		
 		int infoNo = Integer.parseInt(request.getParameter("ino"));
@@ -47,6 +47,7 @@ public class ShareUpdateFormController extends HttpServlet {
 		request.setAttribute("fileList", fileList);
 		
 		request.getRequestDispatcher("views/info/shareUpdateForm.jsp").forward(request, response);
+		*/
 	}
 
 	/**

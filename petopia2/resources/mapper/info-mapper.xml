@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="infoMapper">
+
+	<resultMap id="categoryResultSet" type="infoCtg">
+		<result column="CTG_NO" property="categoryNo" />
+		<result column="CTG_NAME" property="categoryName" />
+	</resultMap>
+	
+	<resultMap id="infoResultSet" type="info">
+		<result column="BOARD_NO" property="infoNo" />
+		<result column="BOARD_TITLE" property="infoTitle" />
+		<result column="SUB_CONTENT" property="infoContent" />
+		<result column="TITLE_IMG" property="titleImg" />
+	</resultMap>
+
+	<select id="selectInfoCategory" resultMap="categoryResultSet">
+		SELECT
+			   CTG_NO,
+			   CTG_NAME
+		  FROM 
+		  	   TB_CATEGORY
+		 WHERE 
+		 	   CTG_NO BETWEEN 12 AND 14
+		 ORDER 
+		 	BY 
+		 	   CTG_NO ASC
+	</select>
+	
+	<insert id="insertShareInfo" parameterType="info">
+		INSERT
+		  INTO
+		  	   TB_BOARD
+		  	   (
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   BOARD_CONTENT,
+		  	   BOARD_CREATE_DATE,
+		  	   USER_NO,
+		  	   CTG_NO
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.NEXTVAL,
+			   #{ infoTitle },
+			   #{ infoContent },
+			   SYSDATE,
+			   #{ userNo },
+			   #{ category }
+			   )
+	</insert>
+	
+	<insert id="insertStar" parameterType="_int">
+		INSERT
+		  INTO
+		  	   TB_STAR
+		  	   (
+		  	   BOARD_NO,
+		  	   STAR_SCORE
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.CURRVAL,
+			   #{ star }
+			   )
+	</insert>
+	
+	<insert id="insertFileList" parameterType="list">
+	<foreach item="file" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+		  INTO
+		  	   TB_FILE
+		  	   	(
+		  	   	FILE_NO,
+		  	   	REF_BNO,
+		  	   	ORIGINAL_NAME,
+		  	   	UPLOAD_NAME,
+		  	   	FILE_PATH,
+		  	   	FILE_LEVEL
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    SEQ_BOARD_NO.CURRVAL,
+		 	    #{ file.originalName },
+		 	    #{ file.uploadName },
+		 	    #{ file.filePath },
+		 	    #{ file.fileLevel }
+		 	    )
+		 </foreach>
+	</insert>
+
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(BOARD_NO) BOARD_COUNT
+		  FROM 
+		  	   TB_BOARD
+		 WHERE 
+		 	   CTG_NO = #{ ctgNo }
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="infoResultSet">
+		SELECT
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   CASE WHEN LENGTH(BOARD_CONTENT) > 30 THEN SUBSTR(BOARD_CONTENT, 1, 30)||'...'
+		  			ELSE SUBSTR(BOARD_CONTENT, 1, 30)
+		  	   END AS SUB_CONTENT,
+		  	   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
+	      FROM 
+		  	   TB_BOARD
+	      JOIN
+		  	   TB_FILE ON(BOARD_NO = REF_BNO)
+		 WHERE 
+		  	   FILE_LEVEL = 1
+		   AND
+		  	   CTG_NO = #{ ctgNo }
+		   AND
+		  	   BOARD_STATUS = 'Y'
+         ORDER
+		  	BY 
+		  	   BOARD_NO DESC
+	</select>
+
+
+</mapper>

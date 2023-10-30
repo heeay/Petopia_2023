@@ -97,7 +97,7 @@ public class ShareUpdateController extends HttpServlet {
 			
 			// name이 originalFileNo인 파일들 삭제 (기존 게시글 작성 시 올렸던 파일들) => name 속성이 같은 여러 개 받아올 때는 getParameterValues 사용
 			new File(savePath + multiRequest.getParameterValues("originalFileNo")).delete();
-			
+			/*
 			int result = new InfoService().updateInfo(in, list, star, infoNo);
 			
 			if(result > 0) { // 게시글 수정 성공
@@ -106,6 +106,7 @@ public class ShareUpdateController extends HttpServlet {
 				request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
+			*/
 				
 		}
 	}
