@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="infoMapper">
+
+	<resultMap id="categoryResultSet" type="infoCtg">
+		<result column="CTG_NO" property="categoryNo" />
+		<result column="CTG_NAME" property="categoryName" />
+	</resultMap>
+	
+	<resultMap id="infoResultSet" type="info">
+		<result column="BOARD_NO" property="infoNo" />
+		<result column="BOARD_TITLE" property="infoTitle" />
+		<result column="SUB_CONTENT" property="infoContent" />
+		<result column="TITLE_IMG" property="titleImg" />
+		<result column="CTG_NO" property="categoryNo" />
+		<result column="BOARD_CONTENT" property="infoContent" />
+		<result column="BOARD_CREATE_DATE" property="infoCreateDate" />
+		<result column="USER_NICKNAME" property="infoWriter" />
+		<result column="STAR_SCORE" property="starScore" />
+		<result column="CTG_NAME" property="category" />
+	</resultMap>
+
+	<!--type 정확하지 않음 확인할것-->
+	<resultMap id="fileResultSet" type="file">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="ORIGINAL_NAME" property="originalName" />
+		<result column="UPLOAD_NAME" property="uploadName" />
+		<result column="FILE_PATH" property="filePath" />
+	</resultMap>
+
+	<!-- infoComment로 config에 등록되어있나 확인 -->
+	<resultMap id="commentResultSet" type="infoComment">
+		<result column="COMMENT_NO" property="commentNo" />
+		<result column="COMMENT_CONTENT" property="commentContent" />
+		<result column="COMMENT_CREATE_DATE" property="commentCreateDate" />
+		<result column="USER_NICKNAME" property="userNickname" />
+	</resultMap>
+
+	<select id="selectInfoCategory" resultMap="categoryResultSet">
+		SELECT
+			   CTG_NO,
+			   CTG_NAME
+		  FROM 
+		  	   TB_CATEGORY
+		 WHERE 
+		 	   CTG_NO BETWEEN 12 AND 14
+		 ORDER 
+		 	BY 
+		 	   CTG_NO ASC
+	</select>
+	
+	<insert id="insertShareInfo" parameterType="info">
+		INSERT
+		  INTO
+		  	   TB_BOARD
+		  	   (
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   BOARD_CONTENT,
+		  	   BOARD_CREATE_DATE,
+		  	   USER_NO,
+		  	   CTG_NO
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.NEXTVAL,
+			   #{ infoTitle },
+			   #{ infoContent },
+			   SYSDATE,
+			   #{ userNo },
+			   #{ category }
+			   )
+	</insert>
+	
+	<insert id="insertStar" parameterType="_int">
+		INSERT
+		  INTO
+		  	   TB_STAR
+		  	   (
+		  	   BOARD_NO,
+		  	   STAR_SCORE
+		  	   )
+		VALUES 
+			   (
+			   SEQ_BOARD_NO.CURRVAL,
+			   #{ star }
+			   )
+	</insert>
+	
+	<!-- insertFileList 아직 성공 X -->
+	<insert id="insertFileList" parameterType="list">
+	<foreach item="file" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+		  INTO
+		  	   TB_FILE
+		  	   	(
+		  	   	FILE_NO,
+		  	   	REF_BNO,
+		  	   	ORIGINAL_NAME,
+		  	   	UPLOAD_NAME,
+		  	   	FILE_PATH,
+		  	   	FILE_LEVEL
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    SEQ_BOARD_NO.CURRVAL,
+		 	    #{ file.originalName },
+		 	    #{ file.uploadName },
+		 	    #{ file.filePath },
+		 	    #{ file.fileLevel }
+		 	    )
+		 </foreach>
+	</insert>
+
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(BOARD_NO) BOARD_COUNT
+		  FROM 
+		  	   TB_BOARD
+		 WHERE 
+		 	   CTG_NO = #{ ctgNo }
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="infoResultSet">
+		SELECT
+		  	   BOARD_NO,
+		  	   BOARD_TITLE,
+		  	   CASE WHEN LENGTH(BOARD_CONTENT) > 30 THEN SUBSTR(BOARD_CONTENT, 1, 30)||'...'
+		  			ELSE SUBSTR(BOARD_CONTENT, 1, 30)
+		  	   END AS SUB_CONTENT,
+		  	   FILE_PATH||'/'||UPLOAD_NAME TITLE_IMG
+	      FROM 
+		  	   TB_BOARD
+	      JOIN
+		  	   TB_FILE ON(BOARD_NO = REF_BNO)
+		 WHERE 
+		  	   FILE_LEVEL = 1
+		   AND
+		  	   CTG_NO = #{ ctgNo }
+		   AND
+		  	   BOARD_STATUS = 'Y'
+         ORDER
+		  	BY 
+		  	   BOARD_NO DESC
+	</select>
+
+	<!-- 여기서부터 집에서 한 거 -->
+	<select id="selectShare" parameterType="_int" resultMap="infoResultSet">
+		SELECT
+			   BOARD_NO,
+			   CTG_NO,
+			   BOARD_TITLE,
+			   BOARD_CONTENT,
+			   BOARD_CREATE_DATE,
+			   USER_NICKNAME,
+			   STAR_SCORE,
+			   CTG_NAME
+		  FROM 
+		  	   TB_BOARD
+		  JOIN
+		  	   TB_USER USING(USER_NO)
+		  JOIN 
+		  	   TB_STAR USING(BOARD_NO)
+		  JOIN
+		  	   TB_CATEGORY USING(CTG_NO)
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</select>
+
+	<select id="selectInfoFileList" parameterType="_int" resultMap="fileResultSet">
+		SELECT
+			   FILE_NO,
+			   ORIGINAL_NAME,
+			   UPLOAD_NAME,
+			   FILE_PATH
+		  FROM 
+		  	   TB_FILE
+		 WHERE 
+		 	   REF_BNO = #{ infoNo }
+		 ORDER
+		 	BY
+		 	   FILE_NO ASC
+	</select>
+
+	<update id="deleteShare" parameterType="_int">
+		UPDATE
+			   TB_BOARD
+		   SET 
+		   	   BOARD_STATUS = 'N'
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   BOARD_STATUS = 'Y'
+	</update>
+
+	<select id="checkLike" parameterType="hashmap" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   USER_NO = #{ userNo }
+		   AND
+		   	   LIKE_YN = 'Y'
+	</select>
+
+	<select id="checkNoLike" parameterType="hashmap" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   USER_NO = #{ userNo }
+		   AND
+		   	   LIKE_YN = 'N'
+	</select>
+
+	<!-- config에 board에 있는 like VO 추가하기 -->
+	<insert id="insertLike" parameterType="like">
+		INSERT
+		  INTO
+		  	   TB_LIKE
+		  	   (
+		  	   BOARD_NO,
+		  	   USER_NO,
+		  	   LIKE_YN
+		  	   )
+		VALUES 
+			   (
+			   #{ boardNo },
+			   #{ userNo },
+			   'Y'
+			   )
+	</insert>
+
+	<update id="deleteLike" parameterType="hashmap">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'N'
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   USER_NO = #{ userNo }
+		   AND 
+		       LIKE_YN = 'Y'
+	</update>
+
+	<update id="updateLike" parameterType="hashmap">
+		UPDATE
+			   TB_LIKE
+		   SET
+		   	   LIKE_YN = 'Y'
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		   AND 
+		   	   USER_NO = #{ userNo }
+		   AND 
+		       LIKE_YN = 'N'
+	</update>
+
+	<select id="countLike" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_LIKE
+		 WHERE 
+		 	   LIKE_YN = 'Y'
+		   AND 
+		   	   BOARD_NO = #{ infoNo }
+	</select>
+
+	<!-- CTG_NO category? categoryNo? 둘 중에 뭐지 -->
+	<update id="updateInfo" parameterType="info">
+		UPDATE
+			   TB_BOARD
+		   SET
+		   	   BOARD_TITLE = #{ infoTitle },
+		   	   BOARD_CONTENT = #{ infoContent },
+		   	   BOARD_UPDATE_DATE = SYSDATE,
+		   	   CTG_NO = #{ category }
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+	</update>
+
+	<delete id="deleteOriginFile" parameterType="_int">
+		DELETE
+		  FROM 
+		  	   TB_FILE
+		 WHERE 
+		 	   REF_BNO = #{ infoNo }
+	</delete>
+
+	<!-- file insert 고치고 이것도 고쳐야 됨 -->
+	<insert id="insertNewFile" parameterType="list">
+	<foreach item="file" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+		  INTO
+		  	   TB_FILE
+		  	   	(
+		  	   	FILE_NO,
+		  	   	REF_BNO,
+		  	   	ORIGINAL_NAME,
+		  	   	UPLOAD_NAME,
+		  	   	FILE_PATH,
+		  	   	FILE_LEVEL
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    #{ file.refBno },
+		 	    #{ file.originalName },
+		 	    #{ file.uploadName },
+		 	    #{ file.filePath },
+		 	    #{ file.fileLevel }
+		 	    )
+		 </foreach>
+	</insert>
+
+	<update id="updateStar" parameterType="hashmap">
+		UPDATE
+		       TB_STAR
+		   SET 	
+		   	   STAR_SCORE = #{ star }
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+	</update>
+
+	<!-- infoComment config에 등록되어있나 확인 -->
+	<insert id="insertComment" parameterType="infoComment">
+		INSERT
+		  INTO
+		  	   TB_COMMENT
+		  	   	(
+		  	   	COMMENT_NO,
+		  	   	COMMENT_CONTENT,
+		  	   	COMMENT_CREATE_DATE,
+		  	   	COMMENT_UPDATE_DATE,
+		  	   	USER_NO,
+		  	   	BOARD_NO,
+		  	   	COMMENT_GROUP
+		  	   	)
+		 VALUES 
+		 	    (
+		 	    SEQ_COMMENT_NO.NEXTVAL,
+		 	    #{ commentContent },
+		 	    SYSDATE,
+		 	    SYSDATE,
+		 	    #{ userNo },
+		 	    #{ boardNo },
+		 	    1
+		 	    )
+	</insert>
+
+	<select id="selectCommentList" parameterType="_info" resultMap="commentResultSet">
+		SELECT
+			   COMMENT_NO,
+			   COMMENT_CONTENT,
+			   COMMENT_CREATE_DATE,
+			   USER_NICKNAME
+		  FROM 
+		  	   TB_COMMENT
+		  JOIN 
+		  	   TB_USER USING(USER_NO)
+		 WHERE 
+		 	   BOARD_NO = #{ infoNo }
+		 ORDER 
+	 	 	BY
+	 	 	   COMMENT_CREATE_DATE DESC
+	</select>
+
+</mapper>
