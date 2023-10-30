@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+
+	<!-- ================== resultMap ================== -->
+	<!-- =============================================== -->
+<resultMap type="user" id="userResultMap">
+	<result column="USER_NO" property="userNo"/>
+	<result column="USER_METHOD" property="userMethod"/>
+	<result column="USER_EMAIL" property="userEmail"/>
+	<result column="USER_PASS" property="userPass"/>
+	<result column="USER_NICKNAME" property="userNickname"/>
+	<result column="USER_PHONE" property="userPhone"/>
+	<result column="ROLE_NAME" property="roleId"/>
+	<result column="USER_CREATE_DATE" property="userCreateDate"/>
+	<result column="USER_UPDATE_DATE" property="userUpdateDate"/>
+	<result column="USER_ENABLE_STATE" property="userEnableState"/>
+	<result column="PATH" property="fileMypageNo"/>
+</resultMap>
+<resultMap type="petFile" id="petFileResultMap">
+	<result column="FILE_MYPAGE_NO" property="fileNo"/>
+	<result column="ORIGINAL_NAME" property="originalName"/>
+	<result column="UPLOAD_NAME" property="uploadName"/>
+	<result column="FILE_PATH" property="filePath"/>
+</resultMap>
+	
+	<!-- ===================== SQL ===================== -->
+	<!-- =============================================== -->
+<select id="loginUser" parameterType="user" resultMap="userResultMap">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_EMAIL = #{userEmail}
+AND
+	USER_PASS = #{userPass}
+AND
+	USER_METHOD = 0
+AND
+	USER_ENABLE_STATE = 'Y'
+</select>
+<select id="reloadUser" parameterType="_int" resultMap="userResultMap">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_NO = #{userNo}
+AND
+	USER_ENABLE_STATE = 'Y'
+</select>
+<insert id="insertUser" parameterType="user">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	#{userMethod},
+	#{userEmail},
+	#{userPass},
+	#{userNickname},
+	#{userPhone}
+)
+</insert>
+<insert id="insertUserAndProfile" parameterType="user">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		USER_PHONE,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	#{userMethod},
+	#{userEmail},
+	#{userPass},
+	#{userNickname},
+	#{userPhone},
+	#{fileMypageNo}
+)
+</insert>
+<select id="checkUserNo" parameterType="_int" resultType="string">
+SELECT
+	USER_EMAIL
+FROM
+	TB_USER
+WHERE
+	USER_NO = #{userNo}
+AND
+	USER_METHOD = 0
+</select>
+<select id="checkUserEmail" parameterType="string" resultType="_int">
+SELECT
+	COUNT(*)
+FROM
+	TB_USER
+WHERE
+	USER_EMAIL = #{userEmail}
+AND
+	USER_METHOD = 0
+</select>
+<select id="checkUserNickname" parameterType="user" resultType="_int">
+SELECT
+	COUNT(*)
+FROM
+	TB_USER
+WHERE
+	USER_NICKNAME = #{userNickname}
+AND
+	USER_METHOD = 0
+	<if test="userNo!=0">
+		AND USER_NO != #{userNo}
+	</if>
+</select>
+<select id="selectUserNo" parameterType="string" resultType="_int">
+SELECT
+	USER_NO
+FROM
+	TB_USER
+WHERE
+	USER_EMAIL = #{userEmail}
+AND
+	USER_METHOD = 0
+</select>
+<update id="updateEmailAuth" parameterType="hashmap">
+UPDATE
+	TB_EMAIL_AUTH
+SET
+	EMAIL_AUTH_CODE = #{emailAuthCode},
+	EMAIL_AUTH_DATE = SYSDATE
+WHERE
+	EMAIL_AUTH_EMAIL = #{emailAuthEmail}
+</update>
+<insert id="insertEmailAuth" parameterType="hashmap">
+INSERT INTO
+	TB_EMAIL_AUTH(
+		EMAIL_AUTH_EMAIL,
+		EMAIL_AUTH_CODE
+	)
+VALUES(
+	#{emailAuthEmail},
+	#{emailAuthCode}
+)
+</insert>
+<select id="selectEmailAuth" parameterType="hashmap" resultType="date">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = #{emailAuthEmail}
+AND
+	EMAIL_AUTH_CODE = #{emailAuthCode}
+</select>
+<select id="selectToken" parameterType="string" resultType="date">
+SELECT
+	EMAIL_AUTH_DATE
+FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_CODE = #{emailAuthCode}
+</select>
+<delete id="deleteEmailAuth" parameterType="string">
+DELETE FROM
+	TB_EMAIL_AUTH
+WHERE
+	EMAIL_AUTH_EMAIL = #{emailAuthEmail}
+</delete>
+
+<select id="loginSimpleAuth" parameterType="user" resultMap="userResultMap">
+SELECT
+	USER_NO,
+	USER_METHOD,
+	USER_EMAIL,
+	USER_PASS,
+	USER_NICKNAME,
+	USER_PHONE,
+	ROLE_NAME,
+	USER_CREATE_DATE,
+	USER_UPDATE_DATE,
+	USER_ENABLE_STATE,
+	FILE_PATH||'/'||UPLOAD_NAME "PATH"
+FROM
+	TB_USER
+JOIN TB_ROLE USING(ROLE_ID)
+LEFT JOIN TB_MYPAGE_FILE USING(FILE_MYPAGE_NO)
+WHERE
+	USER_EMAIL = #{userEmail}
+AND
+	USER_PASS = #{userPass}
+AND
+	USER_METHOD != 0
+AND
+	USER_ENABLE_STATE = 'Y'
+</select>
+<insert id="insertKakaoUser" parameterType="user">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	#{userMethod},
+	#{userEmail},
+	#{userPass},
+	#{userNickname}||SEQ_USER_NO.CURRVAL
+)
+</insert>
+<insert id="insertKakaoUserAndProfile" parameterType="user">
+INSERT INTO
+	TB_USER(
+		USER_NO,
+		USER_METHOD,
+		USER_EMAIL,
+		USER_PASS,
+		USER_NICKNAME,
+		FILE_MYPAGE_NO
+	)
+VALUES(
+	SEQ_USER_NO.NEXTVAL,
+	#{userMethod},
+	#{userEmail},
+	#{userPass},
+	#{userNickname}||SEQ_USER_NO.CURRVAL,
+	#{fileMypageNo}
+)
+</insert>
+<insert id="insertOAuthProfile" parameterType="petFile">
+INSERT INTO 
+TB_MYPAGE_FILE(
+	FILE_MYPAGE_NO,
+	ORIGINAL_NAME,
+	UPLOAD_NAME,
+	FILE_PATH
+)
+VALUES(
+	SEQ_MYPAGE_FILE_NO.NEXTVAL,
+	'인터넷이미지', 
+	#{uploadName},
+	#{filePath}
+)
+</insert>
+<select id="currProfileNo" resultType="_int">
+SELECT
+	SEQ_MYPAGE_FILE_NO.CURRVAL
+FROM
+	DUAL
+</select>
+<update id="updateUserPw" parameterType="user">
+UPDATE
+	TB_USER
+SET
+	USER_PASS = #{userPass},
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = #{userNo}
+</update>
+<update id="updateUserInfo" parameterType="user">
+UPDATE
+	TB_USER
+SET
+	USER_NICKNAME = #{userNickname},
+	USER_PHONE = #{userPhone},
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = #{userNo}
+</update>
+<update id="deleteUser" parameterType="_int">
+UPDATE
+	TB_USER
+SET
+	USER_ENABLE_STATE = 'N',
+	USER_UPDATE_DATE = SYSDATE
+WHERE
+	USER_NO = #{userNo}
+</update>
+<delete id="deleteOAuthUser" parameterType="_int">
+DELETE FROM
+	TB_USER
+WHERE
+	USER_NO = #{userNo}
+</delete>
+</mapper>

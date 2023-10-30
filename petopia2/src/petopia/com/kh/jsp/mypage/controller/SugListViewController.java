@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
+import petopia.com.kh.jsp.common.template.Pagination;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
 import petopia.com.kh.jsp.mypage.model.vo.Suggestion;
 import petopia.com.kh.jsp.user.model.vo.User;
@@ -43,35 +44,17 @@ public class SugListViewController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
+		String userNo = Integer.toString(loginUser.getUserNo());
 		
-		int listCount;		
-		int currentPage;	
-		int pageLimit;		
-		int boardLimit;		
-
-		int maxPage;		
-		int startPage;
-		int endPage;
+		int listCount = new PetService().selectSugListCount();		
+		int currentPage = Integer.parseInt(request.getParameter("cpage"));	
+		int pageLimit = 10;		
+		int boardLimit = 8;		
 		
-		listCount = new PetService().selectSugListCount();
-		
-		currentPage = Integer.parseInt(request.getParameter("cpage"));
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		
 		//System.out.println(currentPage);
 		
-		pageLimit = 10;
-		boardLimit = 8;
-		
-		maxPage = (int)Math.ceil((double)listCount/boardLimit);
-		
-		startPage = ((currentPage-1)/pageLimit)*pageLimit+1;
-		endPage = startPage + pageLimit -1;
-		
-		if(endPage > maxPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		ArrayList<Suggestion> sugList = new PetService().selectSugList(pi);
 		
 		request.setAttribute("sugList", sugList);

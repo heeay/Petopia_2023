@@ -60,10 +60,11 @@
 </head>
 <body>
 	<%@include file="../common/header-min.jsp" %>
+	<c:set var="contextPath" value="/petopia/"/>
 	<section>
-        <form id="change-pw-form" action="<%=contextPath %>/changePassword.process" method="post">
+        <form id="change-pw-form" action="${contextPath}changePassword.process" method="post">
             <input type="hidden" name="token" value="${token }">
-            <input type="hidden" name="key" value="{$key }">
+            <input type="hidden" name="key" value="${key }">
             <div class="sub-title">
                 비밀번호 변경
             </div>

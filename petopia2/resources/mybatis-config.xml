@@ -10,16 +10,26 @@
 	
 	<typeAliases>
 		<typeAlias type="petopia.com.kh.jsp.user.model.vo.User" alias="user"/>
+		
 		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.HosRecords" alias="hos"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="Pet"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="PetFile"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="Sug"/>
-		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="WalkR"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Pet" alias="pet"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.PetFile" alias="petFile"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.Suggestion" alias="sug"/>
+		<typeAlias type="petopia.com.kh.jsp.mypage.model.vo.WalkRecords" alias="walkR"/>
+		
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Info" alias="info"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoCategory" alias="infoCtg"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoComment" alias="infoComment"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.InfoFile" alias="infoFile"/>
 		<typeAlias type="petopia.com.kh.jsp.info.model.vo.Star" alias="star"/>
+		
+		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Board" alias="board"/>
+		<typeAlias type="petopia.com.kh.jsp.board.model.vo.Category" alias="category"/>
+		<typeAlias type="petopia.com.kh.jsp.common.model.vo.File" alias="file"/>
+		<typeAlias type="petopia.com.kh.jsp.common.model.vo.PageInfo" alias="pageInfo"/>
+		
+		
+		
 	</typeAliases>
 	
 	<environments default="development">
@@ -29,7 +39,7 @@
 
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-		        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		        <property name="url" value="jdbc:oracle:thin:@192.168.30.21:1521:xe"/>
 		        <property name="username" value="PETOPIA"/>
 		        <property name="password" value="PETOPIA"/>
 			</dataSource>
@@ -37,8 +47,9 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="/mapper/user-mapper.xml"/>
-		<mapper resource="/mapper/mypage-mapper.xml"/>
+		<mapper resource="/mapper/user/user-mapper.xml"/>
+		<mapper resource="/mapper/mypage/mypage-mapper.xml"/>
+		<mapper resource="/mapper/board/board-mapper.xml" />
 		<!-- <mapper resource="/mapper/info-mapper.xml"/> -->
 	</mappers>
 </configuration>

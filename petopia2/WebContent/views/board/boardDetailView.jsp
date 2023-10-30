@@ -76,17 +76,17 @@
     <div id="title-area">
 
         <div class="title-info">
-            <div id="bno">${ requestScope.board.boardNo }</div> 
+            <div id="bno">${ board.boardNo }</div> 
             
-            <div id="title">${ requestScope.board.board }</div> 
+            <div id="title">${ board.board }</div> 
            
-            <div id="category">${ requestScope.category.ctgName }</div>
+            <div id="category">${ category.ctgName }</div>
 
         </div>
 
         <div class="title-info">
           
-            <div id="create-date">${ requestScope.board.boardCreateDate }</div>
+            <div id="create-date">${ board.boardCreateDate }</div>
             <i class="fas fa-ellipsis-v"></i>
         </div>
 
@@ -118,13 +118,14 @@
     <div id="content-area">
 
         <div id="content-text">  
-           ${ requestScope.board.boardContent }
+           ${ board.boardContent }
         </div>
 
         <div id="content-imgs">
       
-			<c:forEach var="i" begin="0" end="${ requestScope.fList }">
-			 	<img src="/petopia/${ requestScope.fList.get(${i}).filePath }/${ requestScope.fList.get(${i}).uploadName }" alt="상세이미지${ i }" id="contentImg${i }" width="250" height="180">
+      <!-- "/petopia/${    fList.get(${i}).filePath    }/${ fList.get(${i}).uploadName }" -->
+			<c:forEach var="file"  items="${ requestScope.fList }">
+			 	<img src="/petopia/${ file.filePath }/${file.uploadName}" width="250" height="180" />
 			</c:forEach>                                                                  
                
         </div>

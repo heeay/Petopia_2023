@@ -2,6 +2,7 @@ package petopia.com.kh.jsp.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,54 +15,62 @@ import javax.servlet.http.HttpSession;
 import petopia.com.kh.jsp.common.model.vo.PageInfo;
 import petopia.com.kh.jsp.common.template.Pagination;
 import petopia.com.kh.jsp.mypage.model.service.PetService;
-import petopia.com.kh.jsp.mypage.model.vo.Pet;
+import petopia.com.kh.jsp.mypage.model.vo.WalkRecords;
 import petopia.com.kh.jsp.user.model.vo.User;
 
 /**
- * Servlet implementation class PetListController
+ * Servlet implementation class WalkDayCheckController
  */
-@WebServlet("/pet.my")
-public class PetListController extends HttpServlet {
+@WebServlet("/walkDay.my")
+public class WalkDayCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetListController() {
+    public WalkDayCheckController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		if(request.getSession().getAttribute("userInfo")==null) {
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
+		
 		HttpSession session = request.getSession();
 		User loginUser = ((User)session.getAttribute("userInfo"));
-		int userNo = loginUser.getUserNo();
+		String userNo = Integer.toString(loginUser.getUserNo());
 		
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		
-		int listCount = new PetService().selectPetListCount(loginUser);
+		HashMap<String, String> map = new HashMap();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("userNo", userNo);
+		
+		int listCount = new PetService().selectWalkListCount(loginUser);
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
-		int pageLimit = 10;		// 페이지 하단에 보여질 페이징바의 최대 개수 => 10개로 고정
-		int boardLimit = 8;		// 한 페이지에 보여질 게시글의 초대 개수 => 10개로 고정
-		
-		//System.out.println(listCount);
-		//System.out.println(currentPage);
-		
+		int pageLimit = 10;		// 페이지 하단에 보여질 페이징바의 최대 개수
+		int boardLimit = 3;		// 한 페이지에 보여질 게시글의 초대 개수
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-
-		ArrayList<Pet> list = new PetService().selectPetList(pi, userNo);
 		
-		request.setAttribute("list", list);
+		ArrayList<WalkRecords> walkList = new PetService().selectWalkDayList(pi, map);
+		request.setAttribute("walkList", walkList);
 		request.setAttribute("pi", pi);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/petProfil.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/views/mypage/walkListView.jsp");
 		view.forward(request, response);
+	
 	}
 
 	/**

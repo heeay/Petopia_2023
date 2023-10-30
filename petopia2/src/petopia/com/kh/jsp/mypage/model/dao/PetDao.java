@@ -34,940 +34,140 @@ public class PetDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Pet> selectPetList(Connection conn, PageInfo pi, User loginUser) {
-		ArrayList<Pet> list = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPetList");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endrow = startRow+pi.getBoardLimit()-1;
-			
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endrow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Pet p = new Pet();
-				p.setPetNo(rset.getInt("PET_NO"));
-				p.setPetName(rset.getString("PET_NAME"));
-				p.setPetSpecies(rset.getString("PET_SPECIES"));
-				p.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
-				p.setRowNum(rset.getInt("IND"));
-				
-				list.add(p);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
+	
+	public ArrayList<Pet> selectPetList(SqlSession sqlSession, int userNo, RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectPetList", userNo, rowBounds);
 	}
-
-	public int insertPet(Connection conn, Pet p) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertPet");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, p.getPetName());
-			pstmt.setString(2, p.getPetSpecies());
-			pstmt.setString(3, p.getPetSpecific());
-			pstmt.setInt(4, p.getPetWeight());
-			pstmt.setString(5, p.getPetGender());
-			pstmt.setString(6, p.getPetPersonality());
-			pstmt.setString(7, p.getPetEtc());
-			pstmt.setInt(8, p.getUserNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
+	public int insertPet(SqlSession sqlSession, Pet p) {
+		return sqlSession.insert("mypageMapper.insertPet", p);
 	}
-	public int insertPetImg(Connection conn, PetFile pt) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertPetImg");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, pt.getOriginalName());
-			pstmt.setString(2, pt.getUploadName());
-			pstmt.setString(3, pt.getFilePath());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
+	public int insertPetImg(SqlSession sqlSession, PetFile pt) {
+		return sqlSession.insert("mapageMapper.insertPetImg", pt);
 	}
-	public int selectPetListCount(Connection conn, User loginUser) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPetListCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
+	public int selectPetListCount(SqlSession sqlSession, User loginUser) {
+		return sqlSession.selectOne("mypageMapper.selectPetListCount", loginUser);
 	}
-	public Pet selectPetProfil(Connection conn, int petNo) {
-		Pet p = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPetProfil");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1,  petNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				p = new Pet();
-				p.setPetNo(rset.getInt("PET_NO"));
-				p.setPetName(rset.getString("PET_NAME"));
-				p.setPetSpecies(rset.getString("PET_SPECIES"));
-				p.setPetSpecific(rset.getString("PET_SPECIFIC"));
-				p.setPetWeight(rset.getInt("PET_WEIGHT"));
-				p.setPetGender(rset.getString("PET_GENDER"));
-				p.setPetPersonality(rset.getString("PET_PERSONALITY"));
-				p.setPetEtc(rset.getString("PET_ETC"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return p;
+	public Pet selectPetProfil(SqlSession sqlSession, int petNo) {
+		return sqlSession.selectOne("mypageMapper.selectPetProfil", petNo);
 	}
-	public PetFile selectPetFile(Connection conn, int petNo) {
-		PetFile pt = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPetFile");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, petNo);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				pt = new PetFile();
-				pt.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
-				pt.setOriginalName(rset.getString("ORIGINAL_NAME"));
-				pt.setUploadName(rset.getString("UPLOAD_NAME"));
-				pt.setFilePath(rset.getString("FILE_PATH"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return pt;
+	public PetFile selectPetFile(SqlSession sqlSession, int petNo) {
+		return sqlSession.selectOne("mypageMapper.selectPetFile", petNo);
 	}
-	public int updatePetImg(Connection conn, PetFile pt) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updatePetImg");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, pt.getOriginalName());
-			pstmt.setString(2, pt.getUploadName());
-			pstmt.setString(3, pt.getFilePath());
-			pstmt.setInt(4, pt.getFileNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int updatePetImg(SqlSession sqlSession, PetFile pt) {
+		return sqlSession.update("mypageMapper.updatePetImg", pt);
+	}
+	public int updatePet(SqlSession sqlSession, Pet p) {
+		return sqlSession.update("mypageMapper.updatePet", p);
+	}
+	public int petDelete(SqlSession sqlSession, int petNo) {
+		return sqlSession.delete("mypageMapper.petDelete", petNo);
 	}
 	
-	public int updatePet(Connection conn, Pet p) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updatePet");
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, p.getPetName());
-			pstmt.setString(2, p.getPetSpecies());
-			pstmt.setString(3, p.getPetSpecific());
-			pstmt.setInt(4, p.getPetWeight());
-			pstmt.setString(5, p.getPetGender());
-			pstmt.setString(6, p.getPetPersonality());
-			pstmt.setString(7, p.getPetEtc());
-			pstmt.setInt(8, p.getPetNo());
-			
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int insertSuggestion(SqlSession sqlSession, Suggestion sug) {
+		return sqlSession.insert("mypageMapper.insertSuggestion", sug);
+	}
+	public int insertSuggestionFile(SqlSession sqlSession, ArrayList<PetFile> list) {
+		return sqlSession.insert("mypageMapper.insertSuggestionFile", list);
 	}
 	
-	public int petDelete(Connection conn, int petNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("petDelete");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, petNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int insertUserProfil(SqlSession sqlSession, PetFile pt) {
+		return sqlSession.insert("mypageMapper.insertUserProfil", pt);
 	}
-	public int insertSuggestion(Connection conn, Suggestion sug) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertSuggestion");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sug.getSugTitle());
-			pstmt.setString(2, sug.getSugContent());
-			pstmt.setInt(3, sug.getUserNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int updateUserProfil(SqlSession sqlSession, User loginUser) {
+		return sqlSession.update("mypageMapper.updateUserProfil", loginUser);
 	}
-	public int insertSuggestionFile(Connection conn, ArrayList<PetFile> list) {
-		int result = 1;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertSuggestionFile");
-		
-		try {
-			for(PetFile pt : list) {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, pt.getOriginalName());
-				pstmt.setString(2, pt.getUploadName());
-				pstmt.setString(3, pt.getFilePath());
-				
-				result *= pstmt.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	public int insertUserProfil(Connection conn, PetFile pt) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertUserProfil");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, pt.getOriginalName());
-			pstmt.setString(2, pt.getUploadName());
-			pstmt.setString(3, pt.getFilePath());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	public int updateUserProfil(Connection conn, User loginUser) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateUserProfil");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	public int selectHosListCount(SqlSession sqlSession, int userNo) {
-		
+	
+	public int selectHosListCount(SqlSession sqlSession, String userNo) {
 		return sqlSession.selectOne("mypageMapper.selectHosListCount", userNo); 
 	}
-	public ArrayList<HosRecords> selectHosList(SqlSession sqlSession, PageInfo pi, int userNo) {
+	public ArrayList<HosRecords> selectHosList(SqlSession sqlSession, PageInfo pi, String userNo) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
 		return (ArrayList)sqlSession.selectList("mypageMapper.selectHosList", userNo, rowBounds);
 	}
-	public ArrayList<Pet> selectPetName(Connection conn, User loginUser) {
-		ArrayList<Pet> PetList = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectPetName");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				Pet p = new Pet();
-				p.setPetName(rset.getString("PET_NAME"));
-				p.setPetNo(rset.getInt("PET_NO"));
-				PetList.add(p);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return PetList;
+	
+	public ArrayList<Pet> selectPetName(SqlSession sqlSession, User loginUser) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectPetName", loginUser);
 	}
-	public int insertHos(Connection conn, HosRecords hr) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertHos");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, hr.getHosDate());
-			pstmt.setString(2, hr.getHosVaccination());
-			pstmt.setString(3, hr.getHosIllness());
-			pstmt.setString(4, hr.getHosMedicine());
-			pstmt.setString(5, hr.getHosContent());
-			pstmt.setInt(6, hr.getPetNo());
-			
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		//System.out.println(hr.getHosIllness());
-		return result;
+	
+	public int insertHos(SqlSession sqlSession, HosRecords hr) {
+		return sqlSession.insert("mypageMapper.insertHos", hr);
 	}
-	public HosRecords selectHosContent(Connection conn, int hosNo) {
-		HosRecords hr = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectHosContent");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1,  hosNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				hr = new HosRecords();
-				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getString("HOS_DATE"));
-				hr.setHosVaccination(rset.getString("HOS_VACCINATION"));
-				hr.setHosIllness(rset.getString("HOS_ILLNESS"));
-				hr.setHosMedicine(rset.getString("HOS_MEDICINE"));
-				hr.setHosContent(rset.getString("HOS_CONTENT"));
-				hr.setPetNo(rset.getInt("PET_NO"));
-			}
-			//System.out.println(hr.getHosNo());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return hr;
+	public HosRecords selectHosContent(SqlSession sqlSession, int hosNo) {
+		return sqlSession.selectOne("mypageMapper.selectHosContent", hosNo);
 	}
-	public HosRecords selectHosMain(Connection conn, User loginUser) {
-		HosRecords hr = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectHosMain");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				hr = new HosRecords();
-				hr.setHosNo(rset.getInt("HOS_NO"));
-				hr.setHosDate(rset.getString("HOS_DATE"));
-				hr.setHosVaccination(rset.getString("HOS_VACCINATION"));
-				hr.setHosIllness(rset.getString("HOS_ILLNESS"));
-				hr.setHosMedicine(rset.getString("HOS_MEDICINE"));
-				hr.setHosContent(rset.getString("HOS_CONTENT"));
-				hr.setPetNo(rset.getInt("PET_NO"));
-				hr.setPetName(rset.getString("PET_NAME"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return hr;
+	public HosRecords selectHosMain(SqlSession sqlSession, User loginUser) {
+		return sqlSession.selectOne("mypageMapper.selectHosMain", loginUser);
 	}
-	public int updateHos(Connection conn, HosRecords hr) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateHos");
-		
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1, hr.getPetNo());
-			pstmt.setString(2, hr.getHosDate());
-			pstmt.setString(3, hr.getHosVaccination());
-			pstmt.setString(4, hr.getHosIllness());
-			pstmt.setString(5, hr.getHosMedicine());
-			pstmt.setString(6, hr.getHosContent());
-			pstmt.setInt(7, hr.getHosNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int updateHos(SqlSession sqlSession, HosRecords hr) {
+		return sqlSession.update("mypageMapper.updateHos", hr);
 	}
-	public int deleteHos(Connection conn, int hosNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteHos");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, hosNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int deleteHos(SqlSession sqlSession, int hosNo) {
+		return sqlSession.delete("mypageMapper.deleteHos", hosNo);
 	}
-	public int selectWalkListCount(Connection conn, User loginUser) {
-		int walkListCount=0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectWalkListCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				walkListCount =  rset.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return walkListCount;
+	public int selectWalkListCount(SqlSession sqlSession, User loginUser) {
+		return sqlSession.selectOne("mypageMapper.selectWalkListCount", loginUser);
 	}
-	public ArrayList<WalkRecords> selectWalkList(Connection conn, PageInfo pi, User loginUser, String startDate, String endDate) {
-		ArrayList<WalkRecords> walkList= new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectWalkList");
-		String walkDate = "AND WALK_DATE BETWEEN TO_DATE(?) AND TO_DATE(?)+1      \r\n" + 
-				"								  ORDER BY WALK_NO DESC)\r\n" + 
-				"		  WHERE IND BETWEEN ? AND ?";
-		
-		String sql2 = " ORDER BY WALK_NO DESC)\r\n" + 
-				"		  WHERE IND BETWEEN ? AND ?";
-		
-		if(startDate == null) {
-			sql += sql2;
-		}
-		
-		if(startDate != null) {
-			sql += walkDate;
-		}
-		//System.out.println(sql);
-		try {
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endRow = startRow+pi.getBoardLimit()-1;
-			
-			//System.out.println(startRow);
-			//System.out.println(endRow);
-			//System.out.println(pi.getBoardLimit());
-			
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			if(startDate == null) {
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			}
-			if(startDate != null) {
-				pstmt.setString(2, startDate);
-				pstmt.setString(3, endDate);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
-			}
-			
-			//System.out.println(startRow);
-			//System.out.println(endrow);
-			//System.out.println(loginUser.getUserNo());
-			//System.out.println(startDate);
-			//System.out.println(endDate);
-
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				WalkRecords wr = new WalkRecords();
-				wr.setWalkNo(rset.getInt("WALK_NO"));
-				wr.setWalkDate(rset.getString("WALK_DATE"));
-				wr.setWalkTitle(rset.getString("WALK_TITLE"));
-				wr.setFileNo(rset.getString("PATH"));
-				wr.setRowNum(rset.getInt("IND"));
-				
-				walkList.add(wr);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return walkList;
+	public ArrayList<WalkRecords> selectWalkList(SqlSession sqlSession, PageInfo pi, User loginUser) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectWalkList", loginUser, rowBounds);
 	}
 	
 	
-	public int insertWalk(Connection conn, WalkRecords wr) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertWalk");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, wr.getWalkContent());
-			pstmt.setString(2, wr.getWalkTitle());
-			pstmt.setInt(3, wr.getPetNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		//System.out.println(wr);
-		return result;
+	public int insertWalk(SqlSession sqlSession, WalkRecords wr) {
+		return sqlSession.insert("mypageMapper.insertWalk", wr);
 	}
-	public int insertWalkImg(Connection conn, PetFile pf) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		
-		// sql 재활용(이미지 1개 업로드)
-		String sql = prop.getProperty("insertPetImg");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, pf.getOriginalName());
-			pstmt.setString(2, pf.getUploadName());
-			pstmt.setString(3, pf.getFilePath());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
+	public int insertWalkImg(SqlSession sqlSession, PetFile pf) {
+		return sqlSession.insert("mypageMapper.insertPetImg", pf);
 	}
-	public WalkRecords selectWalkContent(Connection conn, int walkNo) {
-		WalkRecords wr = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectWalkContent");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1,  walkNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				wr = new WalkRecords();
-				wr.setWalkNo(rset.getInt("WALK_NO"));
-				wr.setWalkDate(rset.getString("WALK_DATE"));
-				wr.setWalkContent(rset.getString("WALK_CONTENT"));
-				wr.setWalkTitle(rset.getString("WALK_TITLE"));
-				wr.setPetNo(rset.getInt("PET_NO"));
-			}	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return wr;
+	public WalkRecords selectWalkContent(SqlSession sqlSession, int walkNo) {
+		return sqlSession.selectOne("mypageMapper.selectWalkContent", walkNo);
 	}
-	public PetFile selectWalkFile(Connection conn, int walkNo) {
-		PetFile pf = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectWalkFile");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, walkNo);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				pf = new PetFile();
-				pf.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
-				pf.setOriginalName(rset.getString("ORIGINAL_NAME"));
-				pf.setUploadName(rset.getString("UPLOAD_NAME"));
-				pf.setFilePath(rset.getString("FILE_PATH"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return pf;
+	public PetFile selectWalkFile(SqlSession sqlSession, int walkNo) {
+		return sqlSession.selectOne("mypageMapper.selectWalkFile", walkNo);
 	}
-	public int updateWalkImg(Connection conn, PetFile pf) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		// sql 재활용
-		String sql = prop.getProperty("updatePetImg");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, pf.getOriginalName());
-			pstmt.setString(2, pf.getUploadName());
-			pstmt.setString(3, pf.getFilePath());
-			pstmt.setInt(4, pf.getFileNo());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int updateWalkImg(SqlSession sqlSession, PetFile pf) {
+		return sqlSession.update("mypageMapper.updatePetImg", pf);
 	}
-	public int updateWalk(Connection conn, WalkRecords wr) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateWalk");
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, wr.getWalkContent());
-			pstmt.setString(2, wr.getWalkTitle());
-			pstmt.setInt(3, wr.getPetNo());
-			pstmt.setInt(4, wr.getWalkNo());
-			
-			result=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int updateWalk(SqlSession sqlSession, WalkRecords wr) {
+		return sqlSession.update("mypageMapper.updateWalk", wr);
 	}
-	public WalkRecords selectWalkMain(Connection conn, User loginUser) {
-		WalkRecords wr = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectWalkMain");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				wr = new WalkRecords();
-				wr.setWalkContent(rset.getString("WALK_CONTENT"));
-				wr.setWalkTitle(rset.getString("WALK_TITLE"));
-				wr.setFileNo(rset.getString("PATH"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return wr;
-		
+	public WalkRecords selectWalkMain(SqlSession sqlSession, User loginUser) {
+		return sqlSession.selectOne("mypageMapper.selectWalkMain", loginUser);
 	}
-	public int deleteWalk(Connection conn, int walkkNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteWalk");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, walkkNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int deleteWalk(SqlSession sqlSession, int walkkNo) {
+		return sqlSession.delete("mypageMapper.deleteWalk", walkkNo);
 	}
-	public String selectBoardCount(Connection conn, User loginUser) {
+	public String selectBoardCount(SqlSession sqlSession, int userNo) {
 		String bcount = "작성된 게시글이 없습니다";
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectBoardCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				bcount = rset.getString("COUNT(BOARD_NO)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return bcount;
+		return sqlSession.selectOne("mypageMapper.selectBoardCount", userNo);
 	}
-	public String selectBoardDate(Connection conn, User loginUser) {
+	public String selectBoardDate(SqlSession sqlSession, int userNo) {
 		String lastDate = "작성된 게시글이 없습니다.";
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectBoardDate");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUser.getUserNo());
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				lastDate = rset.getString("LASTDATE");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return lastDate;
+		return sqlSession.selectOne("mypageMapper.selectBoardDate", userNo);
 	}
-	public ArrayList<Suggestion> selectSugList(Connection conn, PageInfo pi) {
-		ArrayList<Suggestion> sugList = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectSugList");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-			int endrow = startRow+pi.getBoardLimit()-1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endrow);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Suggestion sug = new Suggestion();
-				sug.setInd(rset.getInt("IND"));
-				sug.setSugNo(rset.getInt("SUG_NO"));
-				sug.setSugTitle(rset.getString("SUG_TITLE"));
-				sug.setSugContent(rset.getString("SUG_CONTENT"));
-				sug.setSugDate(rset.getString("SUG_DATE"));
-				sug.setUserNo(rset.getInt("USER_NO"));
-				sug.setUserEmail(rset.getString("USER_EMAIL"));
-				
-				sugList.add(sug);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return sugList;
+	public ArrayList<Suggestion> selectSugList(SqlSession sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectSugList", null, rowBounds);
 	}
-	public int selectSugListCount(Connection conn) {
-		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectSugListCount");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return listCount;
+	public int selectSugListCount(SqlSession sqlSession) {
+		return sqlSession.selectOne("mypageMapper.selectSugListCount");
 	}
-	public Suggestion selectSugContent(Connection conn, int sugNo) {
-		Suggestion sug = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectSugContent");
-		try {
-			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1,  sugNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				sug = new Suggestion();
-				sug.setSugNo(rset.getInt("SUG_NO"));
-				sug.setSugTitle(rset.getString("SUG_TITLE"));
-				sug.setSugContent(rset.getString("SUG_CONTENT"));
-				sug.setSugDate(rset.getString("SUG_DATE"));
-				sug.setUserEmail(rset.getString("USER_EMAIL"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return sug;
+	public Suggestion selectSugContent(SqlSession sqlSession, int sugNo) {
+		return sqlSession.selectOne("mypageMapper.selectSugListCount", sugNo);
 	}
-	public ArrayList<PetFile> selectSugFile(Connection conn, int sugNo) {
-		ArrayList<PetFile> file = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectSugFile");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, sugNo);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				PetFile pf = new PetFile();
-				pf.setFileNo(rset.getInt("FILE_MYPAGE_NO"));
-				pf.setRefBno(rset.getInt("SUG_NO"));
-				pf.setOriginalName(rset.getString("ORIGINAL_NAME"));
-				pf.setUploadName(rset.getString("UPLOAD_NAME"));
-				pf.setFilePath(rset.getString("FILE_PATH"));
-				file.add(pf);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return file;
+	public ArrayList<PetFile> selectSugFile(SqlSession sqlSession, int sugNo) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectSugFile", sugNo);
 	}
-	public int deleteSug(Connection conn, int sugNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("deleteSug");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, sugNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
+	public int deleteSug(SqlSession sqlSession, int sugNo) {
+		return sqlSession.delete("mypageMapper.deleteSug", sugNo);
 	}
-	public int checkPetName(Connection conn, String petName, int userNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("checkPetName");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setString(2, petName);
-			
-			rset = pstmt.executeQuery();
-			if(rset.next() || petName.equals("")) {
-				// 이미존재할때, 생성불가능
-				result = 0;
-			}else {
-				// 존재하지 않을때, 생성가능
-				result = 1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
+	public int checkPetName(SqlSession sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("mypageMapper.checkPetName", map);
 	}
+	/*
 	public int updateGradeR1(Connection conn, User loginUser) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -1038,10 +238,16 @@ public class PetDao {
 		}
 		return result;
 	}
-	public ArrayList<HosRecords> selectDayList(SqlSession sqlSession, HashMap<String, String> map,
+	*/
+	public ArrayList<HosRecords> selecthosDayList(SqlSession sqlSession, HashMap<String, String> map,
 			RowBounds rowBounds) {
 		
-		return (ArrayList)sqlSession.selectList("mypageMapper.selectDayList", map, rowBounds);
+		return (ArrayList)sqlSession.selectList("mypageMapper.selecthosDayList", map, rowBounds);
+	}
+
+	public ArrayList<WalkRecords> selectWalkDayList(SqlSession sqlSession, HashMap<String, String> map,
+			RowBounds rowBounds) {
+		return (ArrayList)sqlSession.selectList("mypageMapper.selectWalkDayList", map, rowBounds);
 	}
 	
 	/*public int petImgDelete(Connection conn, int petFileNo) {

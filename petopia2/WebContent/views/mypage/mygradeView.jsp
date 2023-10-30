@@ -199,13 +199,13 @@
             <div class="point">
                 <div class="cricle cricle-margin">
                 <div class="petImg">
-                <form action="<%=contextPath%>/userProfil.my" method="post" enctype="multipart/form-data">
+                <form action="/petopia/userProfil.my" method="post" enctype="multipart/form-data">
                     
                     <div id="style-user">
                         <div style="width: 300px;" id="file-area">
                         	<c:choose>
 			                	<c:when test="${userInfo.fileMypageNo eq '/'}">
-			                		<img src="resources\images\profil.png" alt="기본프로필" width="200px" height="200px" id="titleImg">
+			                		<img src="./resources/images/profil.png" alt="기본프로필" width="200px" height="200px" id="titleImg">
 			                	</c:when>
 			                	
 			                	<c:otherwise>

@@ -1,13 +1,14 @@
 package petopia.com.kh.jsp.user.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petopia.com.kh.jsp.user.model.service.UserService;
+import petopia.com.kh.jsp.user.model.service.UserServiceImpl;
 
 /**
  * Servlet implementation class AjaxCheckEmailController
@@ -32,7 +33,7 @@ public class AjaxCheckEmailController extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		
-		int userNo = new UserService().checkUserEmail(email);
+		int userNo = new UserServiceImpl().checkUserEmail(email);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		if(userNo!=0) {
