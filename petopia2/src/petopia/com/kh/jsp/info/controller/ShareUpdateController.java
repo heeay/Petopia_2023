@@ -37,7 +37,10 @@ public class ShareUpdateController extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
+    	// mapper에서 fileNo를 SEQ_FILE_NO.CURRVAL로 하면 unique 제약조건에 위배된다고 나옴 => 현재까지 파일 테이블에 등록된 파일넘버 중 가장 큰 값을 조회
+    	int fileNo = new InfoServiceImpl().selectFileNo();
+    	
+    	request.setCharacterEncoding("UTF-8");
         
         if(ServletFileUpload.isMultipartContent(request)) {
             
@@ -82,6 +85,7 @@ public class ShareUpdateController extends HttpServlet {
                     infoFile.setUploadName(multiRequest.getFilesystemName(key)); // 파일 수정명
                     infoFile.setFilePath("resources/info_upfiles"); // 파일을 올릴 경로
                     infoFile.setRefBno(infoNo); // 현재 게시글 번호를 파일의 참조번호에 담음
+                    infoFile.setFileNo(++fileNo); // 가져온 파일번호에서 +1한 번호부터 차례로 파일 INSERT
                     
                     // 파일 레벨을 지정하는 조건문
                     if(i == 1) {

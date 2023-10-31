@@ -318,7 +318,7 @@
 		  	   	)
 		 VALUES 
 		 	    (
-		 	    SEQ_FILE_NO.NEXTVAL,
+		 	    #{ file.fileNo },
 		 	    #{ file.refBno },
 		 	    #{ file.originalName },
 		 	    #{ file.uploadName },
